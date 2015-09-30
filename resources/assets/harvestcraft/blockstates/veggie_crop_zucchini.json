@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "harvestcraft:veggie_crop_zucchini_0"
+    }, 
+    "age=1": {
+      "model": "harvestcraft:veggie_crop_zucchini_1"
+    }, 
+    "age=2": {
+      "model": "harvestcraft:veggie_crop_zucchini_2"
+    }, 
+    "age=3": {
+      "model": "harvestcraft:veggie_crop_zucchini_3"
+    }
+  }
+}

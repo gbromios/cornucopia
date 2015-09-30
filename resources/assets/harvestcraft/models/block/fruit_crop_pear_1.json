@@ -1,0 +1,6 @@
+{
+    "parent": "harvestcraft:block/fruit_crop",
+    "textures": {
+        "crop": "harvestcraft:blocks/fruit_crop_pear_1"
+    }
+}

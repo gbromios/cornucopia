@@ -1,0 +1,16 @@
+[
+{
+  "modid": "harvestcraft",
+  "name": "HarvestCraft",
+  "description": "Harvestcraft-like Functionality for 1.8",
+  "version": "0.1",
+  "mcversion": "1.8.0",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["gbromios"],
+  "credits": "pams harvestcraft",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

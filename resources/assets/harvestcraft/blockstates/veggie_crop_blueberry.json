@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "harvestcraft:veggie_crop_blueberry_0"
+    }, 
+    "age=1": {
+      "model": "harvestcraft:veggie_crop_blueberry_1"
+    }, 
+    "age=2": {
+      "model": "harvestcraft:veggie_crop_blueberry_2"
+    }, 
+    "age=3": {
+      "model": "harvestcraft:veggie_crop_blueberry_3"
+    }
+  }
+}

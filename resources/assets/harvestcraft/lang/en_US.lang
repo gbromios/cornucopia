@@ -1,0 +1,10 @@
+itemGroup.hc_blocks=HarvestCraft Blocks
+
+item.test_item.name=Fish Thing
+item.raw_candleberry.name=Fresh Candle Berry
+item.raw_blackberry.name=Fresh Blackberry
+item.raw_blueberry.name=Fresh Blueberry
+item.raw_strawberry.name=Fresh Strawberry
+item.raw_raspberry.name=Fresh Raspberry
+
+tile.garden_grass.name=Grass Garden

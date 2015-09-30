@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "age=0": { "model": "harvestcraft:fruit_sapling_almond" },
+        "age=1": { "model": "harvestcraft:fruit_sapling_almond" }
+    }
+}
+

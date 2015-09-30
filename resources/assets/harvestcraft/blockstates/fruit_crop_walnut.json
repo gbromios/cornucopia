@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "harvestcraft:fruit_crop_walnut_0"
+    }, 
+    "age=1": {
+      "model": "harvestcraft:fruit_crop_walnut_1"
+    }, 
+    "age=2": {
+      "model": "harvestcraft:fruit_crop_walnut_2"
+    }
+  }
+}
