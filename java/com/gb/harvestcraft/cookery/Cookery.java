@@ -7,6 +7,7 @@ import com.gb.harvestcraft.veggie.Veggies;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -39,6 +40,14 @@ public class Cookery {
 	}
 	
 	private static void registerIngredients(){
+		mirepoix_part
+			.add(Veggies.onion.raw)
+			.add(Veggies.celery.raw)
+			.add(Veggies.leek.raw)
+			.add(Veggies.scallion.raw)
+			.add(Veggies.bellpepper.raw)
+			.add(Veggies.garlic.raw)
+			.add(Items.carrot);
 	}
 	
 	private static void registerRecipes(){
