@@ -30,7 +30,6 @@ import com.gb.harvestcraft.cookery.Ingredient;
 public class RecipeDish implements IRecipe {
 	
 	private final ItemStack result;
-	private final ItemCookWare ItemCookWare;
 	private final ArrayList<ItemStack> items;
 	private final ArrayList<Ingredient> ingredients;
 
@@ -43,34 +42,22 @@ public class RecipeDish implements IRecipe {
         this.items = new ArrayList<ItemStack>();
         this.ingredients = new ArrayList<Ingredient>();
         
-        int i;
-        // optional first argument: ItemCookWare
-        if (recipe[0] instanceof ItemCookWare){
-        	this.ItemCookWare = (ItemCookWare)recipe[0];
-        	i = 1;
-        } else {
-        	this.ItemCookWare = null;
-        	i = 0;
-        }
-        
-        while (i < recipe.length) {
-        	// itemstack/item/block: don't imagine these will be used much, but here they are if they do. maybe even get crazy and support String => OreDict??
-        	if (recipe[i] instanceof ItemStack) {
-        		items.add((ItemStack)recipe[i++]);
+        for (Object i : recipe) {
+        	if (i instanceof ItemStack) {
+        		items.add((ItemStack)i);
         	}
-        	else if (recipe[i] instanceof Item) {
-        		items.add(new ItemStack((Item)recipe[i++]));
+        	else if (i instanceof Item) {
+        		items.add(new ItemStack((Item)i));
         	}
-        	else if (recipe[i] instanceof Block) {
-        		items.add(new ItemStack((Block)recipe[i++]));
+        	else if (i instanceof Block) {
+        		items.add(new ItemStack((Block)i));
         	}
-        	// the ingredients: Ingredient, [count=1, [mustBeUnique=true]]
-        	else if (recipe[i] instanceof Ingredient){
-        		ingredients.add((Ingredient)recipe[i++]);
+        	else if (i instanceof Ingredient){
+        		ingredients.add((Ingredient)i);
         	}
             else
             {
-                String message = "Invalid shapeless ore recipe: ";
+                String message = "Invalid Dish Recipe: ";
                 for (Object a :  recipe)
                 {
                     message += a + ", ";
@@ -115,7 +102,7 @@ public class RecipeDish implements IRecipe {
                     }
                 }
                 // one input item can satisfy multiple ingredients!!! be careful hahahaha
-                // but can only satisfy the requirement for an specific ingredient once!
+                // but each can only satisfy the requirement for an specific ingredient once
                 ArrayList<Ingredient> counted_as = new ArrayList<Ingredient>();
                 for (Ingredient req : ingredients_required)
                 {
