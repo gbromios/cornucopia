@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemSeedVeggie extends Item implements IPlantable{
 	private BlockCropVeggie crop;
@@ -27,6 +28,14 @@ public class ItemSeedVeggie extends Item implements IPlantable{
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(HarvestCraft.tabSeedVeg);
 		GameRegistry.registerItem(this, this.name);
+		OreDictionary.registerOre(
+				"food" + Character.toUpperCase(name.charAt(0)) + name.substring(1),
+				this
+			);
+		OreDictionary.registerOre(
+				"crop" + Character.toUpperCase(name.charAt(0)) + name.substring(1),
+				this
+			);
 	}
 	
 	public void setCrop(BlockCropVeggie crop){
