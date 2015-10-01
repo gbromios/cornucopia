@@ -15,11 +15,12 @@ public class Ingredient {
 		this.items = new ArrayList<ItemStack>(); 
 	}
 	
-	public void add(ItemStack i){
+	public Ingredient add(ItemStack i){
 		this.items.add(i);
+		return this;
 	}
-	public void add(Item i){
-		this.add(new ItemStack(i));
+	public Ingredient add(Item i){
+		return this.add(new ItemStack(i));
 	}
 	
 	public boolean matches(ItemStack i){
