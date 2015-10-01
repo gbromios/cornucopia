@@ -17,12 +17,16 @@ public class Cookery {
 	public static ItemCookWare juicer;
 	
 	public static Ingredient mirepoix_part;
+	public static Ingredient sweet_berry;
+	public static Ingredient citrus;
 	//endregion
 	
 	public static void preInit(){
 		juicer = new ItemCookWare("juicer");
 		
 		mirepoix_part = new Ingredient("mirepoix_part");
+		sweet_berry = new Ingredient("sweet_berry");
+		citrus = new Ingredient("citrus");
 	};
 	
 	public static void init(){
@@ -48,6 +52,20 @@ public class Cookery {
 			.add(Veggies.bellpepper.raw)
 			.add(Veggies.garlic.raw)
 			.add(Items.carrot);
+		
+		sweet_berry
+			.add(Veggies.blueberry.raw)
+			.add(Veggies.blackberry.raw)
+			.add(Veggies.raspberry.raw)
+			.add(Veggies.strawberry.raw)
+			.add(Veggies.cranberry.raw);
+			
+		citrus
+			.add(Fruits.lemon.raw)
+			.add(Fruits.lime.raw)
+			.add(Fruits.grapefruit.raw)
+			.add(Fruits.orange.raw);
+		
 	}
 	
 	private static void registerRecipes(){
