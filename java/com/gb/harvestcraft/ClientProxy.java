@@ -1,5 +1,6 @@
 package com.gb.harvestcraft;
 
+import com.gb.harvestcraft.cookery.Cookery;
 import com.gb.harvestcraft.fruit.Fruits;
 import com.gb.harvestcraft.garden.Gardens;
 import com.gb.harvestcraft.veggie.Veggies;
@@ -25,6 +26,7 @@ public class ClientProxy extends ServerProxy {
 		Veggies.init();
 		Fruits.init();
     	Gardens.init();
+    	Cookery.init();
     }
 
 	@Override

@@ -1,5 +1,6 @@
 package com.gb.harvestcraft;
 
+import com.gb.harvestcraft.cookery.Cookery;
 import com.gb.harvestcraft.fruit.Fruits;
 import com.gb.harvestcraft.garden.Gardens;
 import com.gb.harvestcraft.veggie.Veggies;
@@ -17,11 +18,13 @@ public class ServerProxy {
     	Veggies.preInit();
     	Fruits.preInit();
     	Gardens.preInit(); // depends on veggies atm but could hook em up up later in theory
+    	Cookery.preInit();
     	
     	
     }
 
     public void init(FMLInitializationEvent e) {
+    	Cookery.init();
     }
 
     public void postInit(FMLPostInitializationEvent e) {
