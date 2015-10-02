@@ -26,7 +26,7 @@ public class HarvestCraft
    
     //region creative tabs
     
-    public static final CreativeTabs tabBlock = new CreativeTabs("hc_garden"){
+    public static final CreativeTabs tabGarden = new CreativeTabs("hc_garden"){
 		@Override
 		public Item getTabIconItem() {
 			return Item.getItemFromBlock(Gardens.berry);

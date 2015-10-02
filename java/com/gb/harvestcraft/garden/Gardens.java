@@ -37,9 +37,103 @@ public final class Gardens {
 
 
 	public static void preInit(){
-		berry = new BlockGarden("garden_berry", EnumPlantType.Plains, new BiomeGenBase[]{})
-				.addVeggie(Veggies.blueberry);
-				/*
+		berry = new BlockGarden("berry", EnumPlantType.Plains)
+				.addVeggie(Veggies.blueberry)
+				.addVeggie(Veggies.blackberry)
+				.addVeggie(Veggies.blueberry)
+				.addVeggie(Veggies.candleberry)
+				.addVeggie(Veggies.raspberry)
+				.addVeggie(Veggies.strawberry)
+				;
+
+		gourd = new BlockGarden("gourd", EnumPlantType.Plains)
+				.addVeggie(Veggies.cantaloupe)
+				.addVeggie(Veggies.cucumber)
+				.addVeggie(Veggies.wintersquash)
+				.addVeggie(Veggies.zucchini)
+				;
+
+		grass = new BlockGarden("grass", EnumPlantType.Plains)
+				.addVeggie(Veggies.asparagus)
+				.addVeggie(Veggies.barley)
+				.addVeggie(Veggies.oats)
+				.addVeggie(Veggies.rye)
+				.addVeggie(Veggies.corn)
+				.addVeggie(Veggies.bambooshoot)
+				;
+
+		ground = new BlockGarden("ground", EnumPlantType.Plains)
+				.addVeggie(Veggies.beet)
+				.addVeggie(Veggies.onion)
+				.addVeggie(Veggies.parsnip)
+				.addVeggie(Veggies.peanut)
+				.addVeggie(Veggies.radish)
+				.addVeggie(Veggies.rutabaga)
+				.addVeggie(Veggies.sweetpotato)
+				.addVeggie(Veggies.turnip)
+				.addVeggie(Veggies.rhubarb)
+				;
+
+		herb = new BlockGarden("herb", EnumPlantType.Plains)
+				.addVeggie(Veggies.celery)
+				.addVeggie(Veggies.garlic)
+				.addVeggie(Veggies.ginger)
+				.addVeggie(Veggies.spiceleaf)
+				.addVeggie(Veggies.tea)
+				.addVeggie(Veggies.coffee)
+				.addVeggie(Veggies.mustard)
+				;
+
+		leafy = new BlockGarden("leafy", EnumPlantType.Plains)
+				.addVeggie(Veggies.broccoli)
+				.addVeggie(Veggies.cauliflower)
+				.addVeggie(Veggies.leek)
+				.addVeggie(Veggies.lettuce)
+				.addVeggie(Veggies.scallion)
+				.addVeggie(Veggies.artichoke)
+				.addVeggie(Veggies.brusselsprout)
+				.addVeggie(Veggies.cabbage)
+				.addVeggie(Veggies.spinach)
+				;
+
+		stalk = new BlockGarden("stalk", EnumPlantType.Plains)
+				.addVeggie(Veggies.bean)
+				.addVeggie(Veggies.soybean)
+				.addVeggie(Veggies.bellpepper)
+				.addVeggie(Veggies.chilipepper)
+				.addVeggie(Veggies.eggplant)
+				.addVeggie(Veggies.okra)
+				.addVeggie(Veggies.peas)
+				.addVeggie(Veggies.tomato)
+				;
+
+		textile = new BlockGarden("textile", EnumPlantType.Plains)
+				.addVeggie(Veggies.cotton)
+				;
+
+		tropical = new BlockGarden("tropical", EnumPlantType.Plains)
+				.addVeggie(Veggies.pineapple)
+				.addVeggie(Veggies.grape)
+				.addVeggie(Veggies.kiwi)
+				;
+
+
+		desert = new BlockGarden("desert", EnumPlantType.Desert)
+				.addVeggie(Veggies.cactusfruit)
+				;
+
+		mushroom = new BlockGarden("mushroom", EnumPlantType.Cave)
+				.addVeggie(Veggies.whitemushroom)
+				;
+
+		water = new BlockGarden("water", EnumPlantType.Water)
+				.addVeggie(Veggies.cranberry)
+				.addVeggie(Veggies.rice)
+				.addVeggie(Veggies.seaweed)
+				;
+
+
+		/*
 				.addVeggie(Veggies.get("blackberry"))
 				.addVeggie(Veggies.get("blueberry"))
 				.addVeggie(Veggies.get("candleberry"))
@@ -132,24 +226,24 @@ public final class Gardens {
 				.addVeggie(Veggies.get("rice"))
 				.addVeggie(Veggies.get("seaweed"))
 				;
-	*/
+		 */
 	}
 
 
 
 	public static void init(){
 		registerRenderer(berry);
-//		registerRenderer(garden_gourd);
-//		registerRenderer(garden_grass);
-//		registerRenderer(garden_ground);
-//		registerRenderer(garden_herb);
-//		registerRenderer(garden_leafy);
-//		registerRenderer(garden_stalk);
-//		registerRenderer(garden_textile);
-//		registerRenderer(garden_tropical);
-//		registerRenderer(garden_desert);
-//		registerRenderer(garden_mushroom);
-//		registerRenderer(garden_water);
+		//		registerRenderer(garden_gourd);
+		//		registerRenderer(garden_grass);
+		//		registerRenderer(garden_ground);
+		//		registerRenderer(garden_herb);
+		//		registerRenderer(garden_leafy);
+		//		registerRenderer(garden_stalk);
+		//		registerRenderer(garden_textile);
+		//		registerRenderer(garden_tropical);
+		//		registerRenderer(garden_desert);
+		//		registerRenderer(garden_mushroom);
+		//		registerRenderer(garden_water);
 
 	}
 
