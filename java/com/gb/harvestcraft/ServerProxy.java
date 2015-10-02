@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 
 public class ServerProxy {
@@ -22,6 +23,8 @@ public class ServerProxy {
     }
 
     public void init(FMLInitializationEvent e) {
+    	// TODO: take this ugly shit out and hook into BoP~!
+    	GameRegistry.registerWorldGenerator(new DummyGen(), 9999);
     }
 
     public void postInit(FMLPostInitializationEvent e) {

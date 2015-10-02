@@ -29,22 +29,18 @@ public class BlockGarden
 	{	
 		private EnumPlantType plantType;
 		private ArrayList<Item> drops;
+		public final String name;
 	
-	public BlockGarden(String name, EnumPlantType plantType, BiomeGenBase[] biomes){
+	public BlockGarden(String name, EnumPlantType plantType){
 		super();
+		this.name = "garden_" + name; 
 		this.setTickRandomly(true);
-		this.setUnlocalizedName(name);
-		this.setCreativeTab(HarvestCraft.tabBlock);
+		this.setUnlocalizedName(this.name);
+		this.setCreativeTab(HarvestCraft.tabGarden);
 		this.plantType = plantType;
 		this.drops = new ArrayList<Item>();
  
-		GameRegistry.registerBlock(this, name);
-		//GameRegistry.registerWorldGenerator(new GardenGenerator(this), 20);
-		
-		// fuck the biome dictionary. once BOP is done, just come back here and use them shits for real. or don't whatever
-		for (BiomeGenBase b : biomes) {
-			b.addFlower(this.getDefaultState(), 1); // small chance to appear as a flower in this biome 
-		}	
+		GameRegistry.registerBlock(this, this.name);
 	}
 	
 	public BlockGarden addDrop(Item item){
