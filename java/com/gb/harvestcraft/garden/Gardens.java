@@ -22,6 +22,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 public final class Gardens {
 
 	// garden block static fields
+	public static BlockGarden allium;
 	public static BlockGarden berry;
 	public static BlockGarden gourd;
 	public static BlockGarden grass;
@@ -37,6 +38,14 @@ public final class Gardens {
 
 
 	public static void preInit(){
+		allium = new BlockGarden("allium", EnumPlantType.Plains)
+				.addVeggie(Veggies.onion)
+				.addVeggie(Veggies.garlic)
+				.addVeggie(Veggies.parsnip)
+				.addVeggie(Veggies.scallion)
+				.addVeggie(Veggies.leek)
+				;
+
 		berry = new BlockGarden("berry", EnumPlantType.Plains)
 				.addVeggie(Veggies.blueberry)
 				.addVeggie(Veggies.blackberry)
@@ -48,9 +57,11 @@ public final class Gardens {
 
 		gourd = new BlockGarden("gourd", EnumPlantType.Plains)
 				.addVeggie(Veggies.cantaloupe)
-				.addVeggie(Veggies.cucumber)
 				.addVeggie(Veggies.wintersquash)
 				.addVeggie(Veggies.zucchini)
+				.addVeggie(Veggies.bean)
+				.addVeggie(Veggies.peanut)
+				.addVeggie(Veggies.sweetpotato)
 				;
 
 		grass = new BlockGarden("grass", EnumPlantType.Plains)
@@ -59,23 +70,20 @@ public final class Gardens {
 				.addVeggie(Veggies.oats)
 				.addVeggie(Veggies.rye)
 				.addVeggie(Veggies.corn)
-				.addVeggie(Veggies.bambooshoot)
 				;
 
+		// clearly over represented...
 		ground = new BlockGarden("ground", EnumPlantType.Plains)
+				.addVeggie(Veggies.bean)
+				.addVeggie(Veggies.brusselsprout)
+				.addVeggie(Veggies.cabbage)
 				.addVeggie(Veggies.beet)
-				.addVeggie(Veggies.onion)
-				.addVeggie(Veggies.parsnip)
-				.addVeggie(Veggies.peanut)
 				.addVeggie(Veggies.radish)
 				.addVeggie(Veggies.rutabaga)
-				.addVeggie(Veggies.sweetpotato)
 				.addVeggie(Veggies.turnip)
-				.addVeggie(Veggies.rhubarb)
 				;
 
 		herb = new BlockGarden("herb", EnumPlantType.Plains)
-				.addVeggie(Veggies.celery)
 				.addVeggie(Veggies.garlic)
 				.addVeggie(Veggies.ginger)
 				.addVeggie(Veggies.spiceleaf)
@@ -87,24 +95,23 @@ public final class Gardens {
 		leafy = new BlockGarden("leafy", EnumPlantType.Plains)
 				.addVeggie(Veggies.broccoli)
 				.addVeggie(Veggies.cauliflower)
-				.addVeggie(Veggies.leek)
 				.addVeggie(Veggies.lettuce)
-				.addVeggie(Veggies.scallion)
 				.addVeggie(Veggies.artichoke)
-				.addVeggie(Veggies.brusselsprout)
-				.addVeggie(Veggies.cabbage)
 				.addVeggie(Veggies.spinach)
+				.addVeggie(Veggies.cucumber)
+				.addVeggie(Veggies.celery)
+				.addVeggie(Veggies.rhubarb)
 				;
 
 		stalk = new BlockGarden("stalk", EnumPlantType.Plains)
 				.addVeggie(Veggies.bean)
 				.addVeggie(Veggies.soybean)
 				.addVeggie(Veggies.bellpepper)
-				.addVeggie(Veggies.chilipepper)
 				.addVeggie(Veggies.eggplant)
 				.addVeggie(Veggies.okra)
 				.addVeggie(Veggies.peas)
 				.addVeggie(Veggies.tomato)
+				.addVeggie(Veggies.chilipepper)
 				;
 
 		textile = new BlockGarden("textile", EnumPlantType.Plains)
@@ -115,8 +122,9 @@ public final class Gardens {
 				.addVeggie(Veggies.pineapple)
 				.addVeggie(Veggies.grape)
 				.addVeggie(Veggies.kiwi)
+				.addVeggie(Veggies.bambooshoot)
+				.addVeggie(Veggies.chilipepper)
 				;
-
 
 		desert = new BlockGarden("desert", EnumPlantType.Desert)
 				.addVeggie(Veggies.cactusfruit)
@@ -233,23 +241,23 @@ public final class Gardens {
 
 	public static void init(){
 		registerRenderer(berry);
-		//		registerRenderer(garden_gourd);
-		//		registerRenderer(garden_grass);
-		//		registerRenderer(garden_ground);
-		//		registerRenderer(garden_herb);
-		//		registerRenderer(garden_leafy);
-		//		registerRenderer(garden_stalk);
-		//		registerRenderer(garden_textile);
-		//		registerRenderer(garden_tropical);
-		//		registerRenderer(garden_desert);
-		//		registerRenderer(garden_mushroom);
-		//		registerRenderer(garden_water);
+		registerRenderer(gourd);
+		registerRenderer(grass);
+		registerRenderer(ground);
+		registerRenderer(herb);
+		registerRenderer(leafy);
+		registerRenderer(stalk);
+		registerRenderer(textile);
+		registerRenderer(tropical);
+		registerRenderer(desert);
+		registerRenderer(mushroom);
+		registerRenderer(water);
 
 	}
 
-	private static void registerRenderer(Block b){
+	private static void registerRenderer(BlockGarden b){
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(Item.getItemFromBlock(b), 0, new ModelResourceLocation(HarvestCraft.MODID + ':' + b.getUnlocalizedName().substring(5), "inventory"));
+		.register(Item.getItemFromBlock(b), 0, new ModelResourceLocation(HarvestCraft.MODID + ':' + b.name, "inventory"));
 	}
 
 

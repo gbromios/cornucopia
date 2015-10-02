@@ -33,7 +33,7 @@ public class BlockGarden
 	
 	public BlockGarden(String name, EnumPlantType plantType){
 		super();
-		this.name = "garden_" + 
+		this.name = "garden_" + name; 
 		this.setTickRandomly(true);
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(HarvestCraft.tabGarden);
