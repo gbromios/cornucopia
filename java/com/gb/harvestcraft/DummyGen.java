@@ -391,7 +391,7 @@ public class DummyGen implements IWorldGenerator {
 
 	private void genFruit(Random random, World world, int x, int z, BiomeGenBase biome) {
 		// if it dont get veggies, it dont get fruit neiether do desests or rivers
-		if (never_biomes.contains(biome) || biome.equals(BiomeGenBase.desert) || biome.equals(BiomeGenBase.river)) {
+		if (never_biomes.contains(biome) || taiga_biomes.contains(biome) || biome.equals(BiomeGenBase.desert) || biome.equals(BiomeGenBase.river)) {
 			//System.out.format("   NEVER IN %s!\n", biome.biomeName);
 			return; 
 		}
@@ -411,15 +411,7 @@ public class DummyGen implements IWorldGenerator {
 		if (mountain_biomes.contains(biome)) {
 			if (random.nextInt(3) == 0){
 				System.out.format(" ! FRU MOUNTAINE @ %s %s !\n", biome.biomeName, pos);
-				world.setBlockState(pos, mountain_gardens.getRandom(random).getDefaultState());
-			}
-			return; 
-		}
-
-		if (taiga_biomes.contains(biome)) {
-			if (random.nextInt(8) == 0){
-				System.out.format(" ! FRU TIGERS! @ %s %s USA #1 !\n", biome.biomeName, pos);
-				world.setBlockState(pos, taiga_gardens.getRandom(random).getDefaultState());
+				world.setBlockState(pos, mountain_fruits.getRandom(random).getDefaultState());
 			}
 			return; 
 		}
@@ -427,18 +419,18 @@ public class DummyGen implements IWorldGenerator {
 		if (arid_biomes.contains(biome)) {
 			if (random.nextInt(2) == 0){
 				System.out.format(" ! FRU ARID  @ %s %s!\n", biome.biomeName, pos);
-				world.setBlockState(pos, arid_gardens.getRandom(random).getDefaultState());
+				world.setBlockState(pos, arid_fruits.getRandom(random).getDefaultState());
 			}
 			return; 
 		}
 
 		// at this point, the unchecked biomes are lush enough for a small chance to
-		// grow river gardens? :O
+		// grow river fruits? :O
 
 		if (forest_biomes.contains(biome)) {
 			if (random.nextInt(5) == 0){
 				System.out.format(" ! FRU FORAST @ %s %s !\n", biome.biomeName, pos);
-				world.setBlockState(pos, forest_gardens.getRandom(random).getDefaultState());
+				world.setBlockState(pos, forest_fruits.getRandom(random).getDefaultState());
 			}
 			return; 
 		}
@@ -446,7 +438,7 @@ public class DummyGen implements IWorldGenerator {
 		if (lush_biomes.contains(biome)) {
 			if (random.nextInt(5) == 0){
 				System.out.format(" ! FRU JUNFRU @ %s %s !\n", biome.biomeName, pos);
-				world.setBlockState(pos, lush_gardens.getRandom(random).getDefaultState());
+				world.setBlockState(pos, lush_fruits.getRandom(random).getDefaultState());
 			}
 			return; 
 		}
@@ -454,14 +446,14 @@ public class DummyGen implements IWorldGenerator {
 		if (BiomeGenBase.plains == biome){
 			if (random.nextInt(4) == 0){
 				System.out.format(" ! FRU PLAINS @ %s %s !\n", biome.biomeName, pos);
-				world.setBlockState(pos, plains_gardens.getRandom(random).getDefaultState());
+				world.setBlockState(pos, plains_fruits.getRandom(random).getDefaultState());
 			}
 			return;			
 		}
 		if (BiomeGenBase.swampland == biome){
 			if (random.nextInt(5) == 0){
 				System.out.format(" ! FRU SKWUMP @ %s %s !\n", biome.biomeName, pos);
-				world.setBlockState(pos, plains_gardens.getRandom(random).getDefaultState());
+				world.setBlockState(pos, plains_fruits.getRandom(random).getDefaultState());
 			}
 			return;			
 		}
