@@ -1,20 +1,16 @@
 package com.gb.harvestcraft;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 
+import com.gb.harvestcraft.fruit.Fruits;
+import com.gb.harvestcraft.fruit.block.BlockLeafFruit;
 import com.gb.harvestcraft.garden.Gardens;
 import com.gb.harvestcraft.garden.block.BlockGarden;
-import com.gb.harvestcraft.veggie.Veggies;
 import com.gb.util.WeightedArray;
-import static com.gb.util.WeightedArray.Choice;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSand;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -40,6 +36,13 @@ public class DummyGen implements IWorldGenerator {
 	private final WeightedArray<BlockGarden> lush_gardens;
 	private final WeightedArray<BlockGarden> plains_gardens;
 	private final WeightedArray<BlockGarden> swamp_gardens;
+
+	private final WeightedArray<BlockLeafFruit> forest_fruits;
+	private final WeightedArray<BlockLeafFruit> mountain_fruits;
+	private final WeightedArray<BlockLeafFruit> arid_fruits;
+	private final WeightedArray<BlockLeafFruit> lush_fruits;
+	private final WeightedArray<BlockLeafFruit> plains_fruits;
+	private final WeightedArray<BlockLeafFruit> swamp_fruits;
 
 
 	public DummyGen(){
@@ -106,44 +109,115 @@ public class DummyGen implements IWorldGenerator {
 				;
 
 		forest_gardens = new WeightedArray<BlockGarden>()
-			.add(Gardens.berry, 25)
-			.add(Gardens.stalk, 10)
-			.add(Gardens.allium, 10)
-			.add(Gardens.ground, 10)
+				.add(Gardens.berry, 25)
+				.add(Gardens.stalk, 10)
+				.add(Gardens.allium, 10)
+				.add(Gardens.ground, 10)
 
-		;
+				;
 		mountain_gardens = new WeightedArray<BlockGarden>()
-			.add(Gardens.allium, 20)
-			.add(Gardens.berry, 20)
-			.add(Gardens.gourd, 5)
-			.add(Gardens.grass, 5)
-		;
+				.add(Gardens.allium, 20)
+				.add(Gardens.berry, 20)
+				.add(Gardens.gourd, 5)
+				.add(Gardens.grass, 5)
+				;
 		arid_gardens = new WeightedArray<BlockGarden>()
-			.add(Gardens.grass, 40)
-			.add(Gardens.ground, 40)
-			.add(Gardens.stalk, 20)
+				.add(Gardens.grass, 40)
+				.add(Gardens.ground, 40)
+				.add(Gardens.stalk, 20)
 
-		;
+				;
 		lush_gardens = new WeightedArray<BlockGarden>()
-			.add(Gardens.berry, 20)
-			.add(Gardens.tropical, 40)
-			.add(Gardens.leafy, 20)
-			.add(Gardens.stalk, 20)
-			.add(Gardens.herb, 20)
+				.add(Gardens.berry, 20)
+				.add(Gardens.tropical, 40)
+				.add(Gardens.leafy, 20)
+				.add(Gardens.stalk, 20)
+				.add(Gardens.herb, 20)
 
-		;
+				;
 		plains_gardens = new WeightedArray<BlockGarden>()
-			.add(Gardens.grass, 40)
-			.add(Gardens.leafy, 15)
-			.add(Gardens.textile, 10)
-			.add(Gardens.gourd, 10)
-		;
+				.add(Gardens.grass, 40)
+				.add(Gardens.leafy, 15)
+				.add(Gardens.textile, 10)
+				.add(Gardens.gourd, 10)
+				;
 		swamp_gardens = new WeightedArray<BlockGarden>()
-			.add(Gardens.leafy, 30)
-			.add(Gardens.herb, 30)
-			.add(Gardens.stalk, 30)
-			.add(Gardens.tropical, 10)
-		;
+				.add(Gardens.leafy, 30)
+				.add(Gardens.herb, 30)
+				.add(Gardens.stalk, 30)
+				.add(Gardens.tropical, 10)
+				;
+
+
+		//.add(Fruits.nutmeg.leaf, 10)
+		//.add(Fruits.cinnamon.leaf, 10)
+		forest_fruits = new WeightedArray<BlockLeafFruit>()
+				.add(Fruits.almond.leaf, 10)
+				.add(Fruits.cherry.leaf, 10)
+				.add(Fruits.peach.leaf, 10)
+				.add(Fruits.pear.leaf, 10)
+				.add(Fruits.persimmon.leaf, 10)
+				.add(Fruits.walnut.leaf, 10)
+				.add(Fruits.pecan.leaf, 10)
+				;
+
+		mountain_fruits = new WeightedArray<BlockLeafFruit>()
+				.add(Fruits.candlenut.leaf, 10)
+				.add(Fruits.cherry.leaf, 10)
+				.add(Fruits.chestnut.leaf, 10)
+				.add(Fruits.persimmon.leaf, 10)
+				;
+
+		arid_fruits = new WeightedArray<BlockLeafFruit>()
+				.add(Fruits.apricot.leaf, 10)
+				.add(Fruits.avocado.leaf, 10)
+				.add(Fruits.date.leaf, 10)
+				.add(Fruits.fig.leaf, 10)
+				.add(Fruits.persimmon.leaf, 10)
+				.add(Fruits.peppercorn.leaf, 10)
+				;
+
+		lush_fruits = new WeightedArray<BlockLeafFruit>()
+				.add(Fruits.fig.leaf, 10)
+				.add(Fruits.cashew.leaf, 10)
+				.add(Fruits.coconut.leaf, 10)
+				.add(Fruits.dragonfruit.leaf, 10)
+				.add(Fruits.durian.leaf, 10)
+				.add(Fruits.banana.leaf, 10)
+				.add(Fruits.grapefruit.leaf, 10)
+				.add(Fruits.lemon.leaf, 10)
+				.add(Fruits.lime.leaf, 10)
+				.add(Fruits.mango.leaf, 10)
+				.add(Fruits.orange.leaf, 10)
+				.add(Fruits.papaya.leaf, 10)
+				.add(Fruits.peppercorn.leaf, 10)
+				.add(Fruits.starfruit.leaf, 10)
+				.add(Fruits.vanillabean.leaf, 10)
+				;
+
+		plains_fruits = new WeightedArray<BlockLeafFruit>()
+				.add(Fruits.fig.leaf, 10)
+				.add(Fruits.olive.leaf, 10)
+				.add(Fruits.pear.leaf, 10)
+				.add(Fruits.plum.leaf, 10)
+
+				;
+
+		swamp_fruits = new WeightedArray<BlockLeafFruit>()
+				.add(Fruits.peach.leaf, 10)
+				.add(Fruits.plum.leaf, 10)
+				.add(Fruits.pomegranate.leaf, 10)
+				.add(Fruits.pistachio.leaf, 10)
+				.add(Fruits.walnut.leaf, 10)
+				.add(Fruits.pecan.leaf, 10)
+				;
+
+
+		//endregion
+
+
+		//region // map fruits to biomes
+
 
 
 		//endregion
@@ -158,27 +232,45 @@ public class DummyGen implements IWorldGenerator {
 		// like, if i was guaranteed never to want to change world gen, this implementation will probably be ffine
 		// I'll implement it nicely when BoP rises from the ashes~!
 
+		// update: actually this works okay i might just map it to bop biomes huehue
+
 		// 1/16 chance to gen a garden
-		
+
 		// its uncoditional right now to test generation logic. should try once per chunk
-		//if (random.nextInt(15) > 0) {
-			this.genGarden(
-					random,
-					world,
-					(chunkX * 16) + random.nextInt(15),
-					(chunkZ * 16) + random.nextInt(15), 
-					world.getBiomeGenForCoords(new BlockPos((chunkX * 16) + 7, 0, (chunkZ * 16) + 7)));
-		//}
+		//if (random.nextInt(15) > 0) {}
+		this.genGarden(
+				random,
+				world,
+				(chunkX * 16) + random.nextInt(15),
+				(chunkZ * 16) + random.nextInt(15), 
+				world.getBiomeGenForCoords(new BlockPos((chunkX * 16) + 7, 0, (chunkZ * 16) + 7))
+				);
+
 
 		// same for fruit but since leaves are rarer, so shall be the fruits
-		if (random.nextInt(15) > 0) {
-			this.genFruit(
-					random,
-					world,
-					(chunkX * 16) + random.nextInt(15),
-					(chunkZ * 16) + random.nextInt(15), 
-					world.getBiomeGenForCoords(new BlockPos((chunkX * 16) + 7, 0, (chunkZ * 16) + 7)));
-		}				
+		// currently always for testing purposes
+		//if (random.nextInt(15) > 0) {
+		this.genFruit(
+				random,
+				world,
+				(chunkX * 16) + random.nextInt(15),
+				(chunkZ * 16) + random.nextInt(15), 
+				world.getBiomeGenForCoords(new BlockPos((chunkX * 16) + 7, 0, (chunkZ * 16) + 7))
+				);
+
+	}
+
+	private BlockPos findLowestBranch(World world, int x, int z){
+		BlockPos pos;
+		int y = 128;
+		while (y-- > 42){
+			pos = new BlockPos(x, y, z);
+			if (world.isAirBlock(pos.down()) && world.getBlockState(pos).getBlock().isLeaves(world, pos)) {
+				System.out.format(" <><> fruit can grow! @@@ %s\n", pos);
+				return pos;
+			}
+		}
+		return null;		
 	}
 
 	private BlockPos findLowestAir(World world, int x, int z){
@@ -194,13 +286,17 @@ public class DummyGen implements IWorldGenerator {
 				}
 				return pos;
 			}
-
-
 		}
 		return null;
 	}
 
 	private void genGarden(Random random, World world, int x, int z, BiomeGenBase biome){
+		// some biomes just don't get veggies >:C
+		if (never_biomes.contains(biome)) {
+			//System.out.format("   NEVER IN %s!\n", biome.biomeName);
+			return; 
+		}
+
 		BlockPos pos = findLowestAir(world, x, z);
 		if (pos == null){
 			System.out.format(" ? no air at %d, %d???\n", x, z);
@@ -215,12 +311,6 @@ public class DummyGen implements IWorldGenerator {
 
 		Block soil = world.getBlockState(pos.down()).getBlock();
 		//System.out.format(" ~ trying genGarden in %s @ %s:\n", biome.biomeName, pos);
-
-		// some biomes just don't get veggies >:C
-		if (never_biomes.contains(biome)) {
-			//System.out.format("   NEVER IN %s!\n", biome.biomeName);
-			return; 
-		}
 
 		// deserts have an even lower chance to grow 
 		if (biome.equals(BiomeGenBase.desert)) {
@@ -297,16 +387,84 @@ public class DummyGen implements IWorldGenerator {
 			}
 			return;			
 		}
-
-
-		//world.getBlockState(pos).getBlock() == Blocks.water
-
 	}
 
 	private void genFruit(Random random, World world, int x, int z, BiomeGenBase biome) {
-		BlockPos pos = null;
+		// if it dont get veggies, it dont get fruit neiether do desests or rivers
+		if (never_biomes.contains(biome) || biome.equals(BiomeGenBase.desert) || biome.equals(BiomeGenBase.river)) {
+			//System.out.format("   NEVER IN %s!\n", biome.biomeName);
+			return; 
+		}
+
+		BlockPos pos = findLowestBranch(world, x, z);
+		if (pos == null){
+			return;
+		}
+
+
+		if (pos.getY() < 40){
+			System.out.format("   cannot :( - '%d' < 40~ 2 deep 4 me\n", pos.getY());
+			return; 
+		}
+
 		//System.out.format(" ~ trying genFruit in %s @ %s:\n", biome.biomeName, pos);
-		//if (pos.getY() < 40){ return; }
+		if (mountain_biomes.contains(biome)) {
+			if (random.nextInt(3) == 0){
+				System.out.format(" ! FRU MOUNTAINE @ %s %s !\n", biome.biomeName, pos);
+				world.setBlockState(pos, mountain_gardens.getRandom(random).getDefaultState());
+			}
+			return; 
+		}
+
+		if (taiga_biomes.contains(biome)) {
+			if (random.nextInt(8) == 0){
+				System.out.format(" ! FRU TIGERS! @ %s %s USA #1 !\n", biome.biomeName, pos);
+				world.setBlockState(pos, taiga_gardens.getRandom(random).getDefaultState());
+			}
+			return; 
+		}
+
+		if (arid_biomes.contains(biome)) {
+			if (random.nextInt(2) == 0){
+				System.out.format(" ! FRU ARID  @ %s %s!\n", biome.biomeName, pos);
+				world.setBlockState(pos, arid_gardens.getRandom(random).getDefaultState());
+			}
+			return; 
+		}
+
+		// at this point, the unchecked biomes are lush enough for a small chance to
+		// grow river gardens? :O
+
+		if (forest_biomes.contains(biome)) {
+			if (random.nextInt(5) == 0){
+				System.out.format(" ! FRU FORAST @ %s %s !\n", biome.biomeName, pos);
+				world.setBlockState(pos, forest_gardens.getRandom(random).getDefaultState());
+			}
+			return; 
+		}
+
+		if (lush_biomes.contains(biome)) {
+			if (random.nextInt(5) == 0){
+				System.out.format(" ! FRU JUNFRU @ %s %s !\n", biome.biomeName, pos);
+				world.setBlockState(pos, lush_gardens.getRandom(random).getDefaultState());
+			}
+			return; 
+		}
+
+		if (BiomeGenBase.plains == biome){
+			if (random.nextInt(4) == 0){
+				System.out.format(" ! FRU PLAINS @ %s %s !\n", biome.biomeName, pos);
+				world.setBlockState(pos, plains_gardens.getRandom(random).getDefaultState());
+			}
+			return;			
+		}
+		if (BiomeGenBase.swampland == biome){
+			if (random.nextInt(5) == 0){
+				System.out.format(" ! FRU SKWUMP @ %s %s !\n", biome.biomeName, pos);
+				world.setBlockState(pos, plains_gardens.getRandom(random).getDefaultState());
+			}
+			return;			
+		}
 
 	}
 
