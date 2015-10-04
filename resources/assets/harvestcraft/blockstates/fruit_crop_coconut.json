@@ -1,13 +1,29 @@
 {
   "variants": {
-    "age=0": {
+    "age=0,drop_sapling=true": {
       "model": "harvestcraft:fruit_crop_coconut_0"
-    }, 
-    "age=1": {
+    },
+    "age=1,drop_sapling=true": {
       "model": "harvestcraft:fruit_crop_coconut_1"
-    }, 
-    "age=2": {
+    },
+    "age=2,drop_sapling=true": {
+      "model": "harvestcraft:fruit_crop_coconut_1"
+    },
+    "age=3,drop_sapling=true": {
+      "model": "harvestcraft:fruit_crop_coconut_2"
+    },
+    "age=0,drop_sapling=false": {
+      "model": "harvestcraft:fruit_crop_coconut_0"
+    },
+    "age=1,drop_sapling=false": {
+      "model": "harvestcraft:fruit_crop_coconut_1"
+    },
+    "age=2,drop_sapling=false": {
+      "model": "harvestcraft:fruit_crop_coconut_1"
+    },
+    "age=3,drop_sapling=false": {
       "model": "harvestcraft:fruit_crop_coconut_2"
     }
   }
 }
+
