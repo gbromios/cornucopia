@@ -43,7 +43,7 @@ public class DummyGen implements IWorldGenerator {
 	private final WeightedArray<BlockLeafFruit> plains_fruits;
 	private final WeightedArray<BlockLeafFruit> swamp_fruits;
 
-
+	 
 	public DummyGen(){
 		//region // map biomes to categories
 		// no fruits or veggies should spawn here
@@ -382,42 +382,42 @@ public class DummyGen implements IWorldGenerator {
 		if (mountain_biomes.contains(biome)) {
 			if (random.nextInt(3) == 0){
 
-				world.setBlockState(pos, mountain_fruits.getRandom(random).getDefaultState());
+				world.setBlockState(pos, mountain_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
 			}
 			return; 
 		}
 
 		if (arid_biomes.contains(biome)) {
 			if (random.nextInt(2) == 0){
-				world.setBlockState(pos, arid_fruits.getRandom(random).getDefaultState());
+				world.setBlockState(pos, arid_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
 			}
 			return; 
 		}
 
 		if (forest_biomes.contains(biome)) {
 			if (random.nextInt(5) == 0){
-				world.setBlockState(pos, forest_fruits.getRandom(random).getDefaultState());
+				world.setBlockState(pos, forest_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
 			}
 			return; 
 		}
 
 		if (lush_biomes.contains(biome)) {
 			if (random.nextInt(5) == 0){
-				world.setBlockState(pos, lush_fruits.getRandom(random).getDefaultState());
+				world.setBlockState(pos, lush_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
 			}
 			return; 
 		}
 
 		if (BiomeGenBase.plains == biome){
 			if (random.nextInt(4) == 0){
-				world.setBlockState(pos, plains_fruits.getRandom(random).getDefaultState());
+				world.setBlockState(pos, plains_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
 			}
 			return;			
 		}
 		
 		if (BiomeGenBase.swampland == biome){
 			if (random.nextInt(5) == 0){
-				world.setBlockState(pos, plains_fruits.getRandom(random).getDefaultState());
+				world.setBlockState(pos, plains_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
 			}
 			return;			
 		}
