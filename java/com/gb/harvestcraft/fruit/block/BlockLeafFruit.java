@@ -33,7 +33,7 @@ public class BlockLeafFruit extends BlockLeaves {
 		this.name = "fruit_leaf_" + name;
 		this.setGraphicsLevel(true); // FUCK IT
 		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(HarvestCraft.tabSaplingFruit);
+		this.setCreativeTab(HarvestCraft.tabLeafFruit);
 		this.setDefaultState(
 				this.blockState.getBaseState()
 				.withProperty(CHECK_DECAY, Boolean.valueOf(true))

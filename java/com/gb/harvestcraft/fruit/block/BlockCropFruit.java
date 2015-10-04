@@ -30,7 +30,7 @@ public class BlockCropFruit extends BlockBush implements IGrowable{
 		super();
 		this.name = "fruit_crop_" + name;
 		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(HarvestCraft.tabSaplingFruit);
+		this.setCreativeTab(HarvestCraft.tabCropFruit);
 		
         this.setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 0.95F, 0.7F);
 		
