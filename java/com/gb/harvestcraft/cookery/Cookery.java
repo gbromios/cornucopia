@@ -1,6 +1,7 @@
 package com.gb.harvestcraft.cookery;
 
 import com.gb.harvestcraft.HarvestCraft;
+import com.gb.harvestcraft.cookery.block.BlockCookingTable;
 import com.gb.harvestcraft.cookery.item.ItemCookWare;
 import com.gb.harvestcraft.fruit.Fruits;
 import com.gb.harvestcraft.veggie.Veggies;
@@ -16,17 +17,21 @@ public class Cookery {
 	//region yawn static fields;
 	public static ItemCookWare juicer;
 	
+	public static BlockCookingTable table;
+	
 	public static Ingredient mirepoix_part;
 	public static Ingredient sweet_berry;
 	public static Ingredient citrus;
 	//endregion
-	
+
 	public static void preInit(){
 		juicer = new ItemCookWare("juicer");
 		
 		mirepoix_part = new Ingredient("mirepoix_part");
 		sweet_berry = new Ingredient("sweet_berry");
 		citrus = new Ingredient("citrus");
+		
+		table = new BlockCookingTable("generic");
 	};
 	
 	public static void init(){
