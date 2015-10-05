@@ -2,6 +2,7 @@ package com.gb.harvestcraft.cookery;
 
 import com.gb.harvestcraft.HarvestCraft;
 import com.gb.harvestcraft.cookery.block.BlockCookingTable;
+import com.gb.harvestcraft.cookery.crafting.CookingGuiHandler;
 import com.gb.harvestcraft.cookery.item.ItemCookWare;
 import com.gb.harvestcraft.fruit.Fruits;
 import com.gb.harvestcraft.veggie.Veggies;
@@ -11,6 +12,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Cookery {	
@@ -35,6 +37,10 @@ public class Cookery {
 	};
 	
 	public static void init(){
+		// mah cooking guis
+		// will eventually either have to move this guy up to HarvestCraft at large
+		// or break things into sub-mods (preferred)
+		NetworkRegistry.INSTANCE.registerGuiHandler(HarvestCraft.instance, new CookingGuiHandler());
 		cookwareModels();
 		registerIngredients();
 		registerRecipes(); // < may move this to post-init
