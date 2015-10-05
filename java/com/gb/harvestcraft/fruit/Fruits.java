@@ -69,7 +69,7 @@ public class Fruits {
 		return createFruit(name,
 				new ItemRawFruit(name),
 				new BlockSaplingFruit(name),
-				new BlockLeafFruit(name),
+				new BlockLeafFruit(name, BlockPlanks.EnumType.OAK),
 				new BlockCropFruit(name),
 				Blocks.log.getDefaultState()
 				);
