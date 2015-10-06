@@ -3,6 +3,8 @@ package com.gb.harvestcraft.cookery;
 import com.gb.harvestcraft.HarvestCraft;
 import com.gb.harvestcraft.cookery.block.BlockCookingTable;
 import com.gb.harvestcraft.cookery.crafting.CookingGuiHandler;
+import com.gb.harvestcraft.cookery.crafting.Dish;
+import com.gb.harvestcraft.cookery.crafting.DishRegistry;
 import com.gb.harvestcraft.cookery.crafting.Ingredient;
 import com.gb.harvestcraft.cookery.item.ItemCookWare;
 import com.gb.harvestcraft.fruit.Fruits;
@@ -82,6 +84,7 @@ public class Cookery {
 	
 	private static void registerRecipes(){
 		GameRegistry.addShapelessRecipe(new ItemStack(Fruits.fig.raw), juicer, Veggies.broccoli.raw);
+		DishRegistry.add(new Dish(new ItemStack(Fruits.fig.raw), juicer, Veggies.broccoli.raw));
 	}
 	
 }
