@@ -3,6 +3,8 @@ package com.gb.harvestcraft.cookery;
 import com.gb.harvestcraft.HarvestCraft;
 import com.gb.harvestcraft.cookery.block.BlockCookingTable;
 import com.gb.harvestcraft.cookery.crafting.CookingGuiHandler;
+import com.gb.harvestcraft.cookery.recipe.Dish;
+import com.gb.harvestcraft.cookery.recipe.Ingredient;
 import com.gb.harvestcraft.cookery.item.ItemCookWare;
 import com.gb.harvestcraft.fruit.Fruits;
 import com.gb.harvestcraft.veggie.Veggies;

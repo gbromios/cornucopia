@@ -1,4 +1,4 @@
-package com.gb.harvestcraft.cookery;
+package com.gb.harvestcraft.cookery.recipe;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,7 +19,6 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gb.harvestcraft.cookery.item.ItemCookWare;
-import com.gb.harvestcraft.cookery.Ingredient;
 
 /*
  * copied a lot from ShapelessOreRecipe here. it does what I want but not close enough to extend.
@@ -27,16 +26,16 @@ import com.gb.harvestcraft.cookery.Ingredient;
  * 
  * */
 
-public class RecipeDish implements IRecipe {
+public class Dish implements IRecipe {
 	
 	private final ItemStack result;
 	private final ArrayList<ItemStack> items;
 	private final ArrayList<Ingredient> ingredients;
 
-    public RecipeDish(Block result, Object... recipe){ this(new ItemStack(result), recipe); }
-    public RecipeDish(Item  result, Object... recipe){ this(new ItemStack(result), recipe); }
+    public Dish(Block result, Object... recipe){ this(new ItemStack(result), recipe); }
+    public Dish(Item  result, Object... recipe){ this(new ItemStack(result), recipe); }
 
-    public RecipeDish(ItemStack result, Object... recipe)
+    public Dish(ItemStack result, Object... recipe)
     {
         this.result = result.copy();
         this.items = new ArrayList<ItemStack>();

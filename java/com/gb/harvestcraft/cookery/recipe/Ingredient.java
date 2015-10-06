@@ -1,4 +1,4 @@
-package com.gb.harvestcraft.cookery;
+package com.gb.harvestcraft.cookery.recipe;
 
 import java.util.ArrayList;
 
