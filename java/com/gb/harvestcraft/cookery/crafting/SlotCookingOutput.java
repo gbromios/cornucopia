@@ -14,11 +14,13 @@ public class SlotCookingOutput extends Slot {
     /** The player that is using the GUI where this slot resides. */
     private final EntityPlayer player;
     /** The number of items that have been crafted so far. Gets passed to ItemStack.onCrafting before being reset. */
+    private final DishRegistry dishRegistry;
 
-	public SlotCookingOutput(EntityPlayer player, InventoryCrafting craftingInventory, IInventory inv, int slotIndex, int x, int y) {
+	public SlotCookingOutput(EntityPlayer player, InventoryCrafting craftingInventory, IInventory inv, int slotIndex, int x, int y, DishRegistry dishRegistry) {
 		super(inv, slotIndex, x, y);
 		this.player = player;
 		this.craftMatrix = craftingInventory;
+		this.dishRegistry = dishRegistry;
 	}
 
 	// can't put anything in the output slot
@@ -29,7 +31,7 @@ public class SlotCookingOutput extends Slot {
         net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(playerIn, stack, craftMatrix);
         this.onCrafting(stack);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(playerIn);
-        ItemStack[] aitemstack = DishRegistry.getChangedInput(this.craftMatrix, playerIn.worldObj);
+        ItemStack[] aitemstack = this.dishRegistry.getChangedInput(this.craftMatrix, playerIn.worldObj);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
 
         for (int i = 0; i < aitemstack.length; ++i)

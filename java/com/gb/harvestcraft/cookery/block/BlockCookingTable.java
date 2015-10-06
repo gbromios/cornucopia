@@ -35,7 +35,7 @@ public class BlockCookingTable extends Block{
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float x, float y, float z)
 	{
 		if (!world.isRemote) {
-			player.openGui(HarvestCraft.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(HarvestCraft.instance, this.getIdFromBlock(this), world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 

@@ -17,8 +17,8 @@ public class GuiCookingTable extends GuiContainer {
 	// copies GuiCrafting -- change later
 	private ResourceLocation textures = new ResourceLocation("textures/gui/container/crafting_table.png");
 		
-	public GuiCookingTable(World world, InventoryPlayer player_inventory, BlockPos pos) {
-		super(new ContainerCookingTable(player_inventory, world, pos));
+	public GuiCookingTable(World world, InventoryPlayer player_inventory, BlockPos pos, DishRegistry dishRegistry) {
+		super(new ContainerCookingTable(player_inventory, world, pos, dishRegistry));
 	}
 	
 	@Override

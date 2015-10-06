@@ -1,20 +1,36 @@
 package com.gb.harvestcraft.cookery.crafting;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
+import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
 public class DishRegistry {
-	private static final ArrayList<Dish> dishes = new ArrayList<>();
+	private final static HashMap<Integer, DishRegistry> block_map = new HashMap<>();
+	private final ArrayList<Dish> dishes;
 	
-	public static void add(Dish dish){
+	public static DishRegistry get(int i){
+		return block_map.get(i);
+	}
+	
+	public static DishRegistry get(Block b){
+		return block_map.get(Block.getIdFromBlock(b));
+	}
+	
+	public DishRegistry(Block b){
+		dishes = new ArrayList<>();
+		block_map.put(Block.getIdFromBlock(b), this);
+	}
+	
+	public void add(Dish dish){
 		dishes.add(dish);
 	}
 	
-	public static ItemStack findMatchingDish(InventoryCrafting cooking_input, World worldIn)
+	public ItemStack findMatchingDish(InventoryCrafting cooking_input, World worldIn)
 	    {
 	        Iterator iterator = dishes.iterator();
 	        Dish d;
@@ -33,7 +49,7 @@ public class DishRegistry {
 	        return d.getCraftingResult(cooking_input);
 	}
 	
-    public static ItemStack[] getChangedInput(InventoryCrafting cooking_input, World worldIn)
+    public ItemStack[] getChangedInput(InventoryCrafting cooking_input, World worldIn)
     {
         Iterator iterator = dishes.iterator();
 

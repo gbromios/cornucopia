@@ -83,7 +83,9 @@ public class Cookery {
 	}
 	
 	private static void registerRecipes(){
-		DishRegistry.add(new Dish(new ItemStack(Fruits.fig.raw), juicer, sweet_berry));
+		new DishRegistry(table)
+			.add(new Dish(new ItemStack(Fruits.fig.raw), juicer, sweet_berry))
+			;
 	}
 	
 }

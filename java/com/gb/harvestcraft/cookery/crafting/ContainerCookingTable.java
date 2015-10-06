@@ -21,14 +21,16 @@ import net.minecraft.world.World;
 public class ContainerCookingTable extends Container {
 	private final World world; // these are the same as the super class but they're private so i can't override anything :I
 	private final BlockPos pos;
+	private final DishRegistry dishRegistry;
 	public final InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
 	public final IInventory craftResult = new InventoryCraftResult();
 
-	public ContainerCookingTable(InventoryPlayer playerInventory, World world, BlockPos pos) {
+	public ContainerCookingTable(InventoryPlayer playerInventory, World world, BlockPos pos, DishRegistry dishRegistry) {
 		this.world = world;
 		this.pos = pos;
+		this.dishRegistry = dishRegistry;
 
-		this.addSlotToContainer(new SlotCookingOutput(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
+		this.addSlotToContainer(new SlotCookingOutput(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35, dishRegistry));
 		
 		//region// placing all the slots. 
 		int i;
@@ -75,7 +77,7 @@ public class ContainerCookingTable extends Container {
 	public void onCraftMatrixChanged(IInventory inventoryIn)
 	{
 		// TODO this is where the functionality will be changed from vanilla crafting table
-		this.craftResult.setInventorySlotContents(0,  DishRegistry.findMatchingDish(this.craftMatrix, this.world));
+		this.craftResult.setInventorySlotContents(0,  this.dishRegistry.findMatchingDish(this.craftMatrix, this.world));
 	}
 
 	
