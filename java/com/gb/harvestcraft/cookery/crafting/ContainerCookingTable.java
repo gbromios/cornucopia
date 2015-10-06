@@ -66,7 +66,7 @@ public class ContainerCookingTable extends Container {
 	{
 		// vanilla method has block hard coded.
 		return 
-				this.world.getBlockState(this.pos).getBlock() == Cookery.table
+				!this.world.isAirBlock(this.pos) // more ideally, we'd just check that it's the actual block; this should be almost as good as far as "block is still there" is concerned
 				&& playerIn.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D
 				;
 
