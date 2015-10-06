@@ -21,26 +21,19 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockWaterBasin extends Block{
 	public final String name;
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    //public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     
 	public BlockWaterBasin(){
 		super(Material.rock);
 		this.name = "cookery_water_basin";
 		this.setCreativeTab(HarvestCraft.tabCookeryBlock);
 		this.setUnlocalizedName(this.name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-		// might want to use facing at some point. can you say "faucet~?"
 		//this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(0.5F);
 		
 		GameRegistry.registerBlock(this, this.name);
 		
 	}
-    @Override
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-            return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
-    }
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
@@ -85,6 +78,12 @@ public class BlockWaterBasin extends Block{
 
 		return true;
 	}
+	
+    /*@Override
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    {
+            return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+    }    
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
@@ -107,5 +106,5 @@ public class BlockWaterBasin extends Block{
     protected BlockState createBlockState()
     {
         return new BlockState(this, new IProperty[] {FACING});
-    }
+    }*/
 }
