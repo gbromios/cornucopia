@@ -5,8 +5,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockCuttingBoard extends BlockCookingTable {
-	
-	
     public BlockCuttingBoard() {
 		super("cutting_board");
 	}

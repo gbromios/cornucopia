@@ -2,6 +2,7 @@ package com.gb.harvestcraft.cookery;
 
 import com.gb.harvestcraft.HarvestCraft;
 import com.gb.harvestcraft.cookery.block.BlockCuttingBoard;
+import com.gb.harvestcraft.cookery.block.BlockWaterBasin;
 import com.gb.harvestcraft.cookery.crafting.CookingGuiHandler;
 import com.gb.harvestcraft.cookery.crafting.Dish;
 import com.gb.harvestcraft.cookery.crafting.DishRegistry;
@@ -22,6 +23,7 @@ public class Cookery {
 	public static ItemCookWare juicer;
 
 	public static BlockCuttingBoard cutting_board;
+	public static BlockWaterBasin water_barrel;
 
 	public static Ingredient mirepoix_part;
 	public static Ingredient sweet_berry;
@@ -37,6 +39,7 @@ public class Cookery {
 		citrus = new Ingredient("citrus");
 
 		cutting_board = new BlockCuttingBoard();
+		water_barrel = new BlockWaterBasin();
 	};
 
 	public static void init(){
@@ -60,6 +63,12 @@ public class Cookery {
 				Item.getItemFromBlock(cutting_board),
 				0,
 				new ModelResourceLocation(String.format("%s:%s", HarvestCraft.MODID, cutting_board.name), "inventory") 
+				);
+
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
+				Item.getItemFromBlock(water_barrel),
+				0,
+				new ModelResourceLocation(String.format("%s:%s", HarvestCraft.MODID, water_barrel.name), "inventory") 
 				);
 
 	}
