@@ -8,12 +8,14 @@ import com.gb.harvestcraft.garden.block.BlockGarden;
 import com.gb.harvestcraft.veggie.item.ItemRawVeggie;
 import com.gb.harvestcraft.veggie.item.ItemSeedVeggie;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
@@ -54,6 +56,14 @@ public class BlockCropVeggie extends BlockBush implements IGrowable
 		this.dropSeed = seedVeg;
 		this.dropVeg = rawVeg;
 	}
+	
+	@Override
+    public boolean canBlockStay(World world, BlockPos pos, IBlockState state)
+    {
+		// possibility there may be veggies subclasses that use a different
+		// "soil" block in the future, but i think we just need farmland.
+		return world.getBlockState(pos.down()).getBlock() == Blocks.farmland;
+    }
 
 
 	@Override
