@@ -1,5 +1,7 @@
 package com.gb.harvestcraft.cookery.item;
 
+import com.gb.harvestcraft.HarvestCraft;
+
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -11,6 +13,7 @@ public class ItemCookWare extends Item{
 		this.setUnlocalizedName(this.name);
 		this.setMaxStackSize(1);
 		this.setContainerItem(this);
+		this.setCreativeTab(HarvestCraft.tabCookeryBlock);
 		GameRegistry.registerItem(this, this.name);
 	}
 	
