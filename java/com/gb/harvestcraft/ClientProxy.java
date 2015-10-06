@@ -26,7 +26,6 @@ public class ClientProxy extends ServerProxy {
 		Veggies.init();
 		Fruits.init();
     	Gardens.init();
-    	Cookery.init();
     }
 
 	@Override
