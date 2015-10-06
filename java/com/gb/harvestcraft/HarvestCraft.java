@@ -2,6 +2,7 @@ package com.gb.harvestcraft;
 
 import java.util.ArrayList;
 
+import com.gb.harvestcraft.cookery.Cookery;
 import com.gb.harvestcraft.fruit.Fruits;
 import com.gb.harvestcraft.garden.Gardens;
 import com.gb.harvestcraft.veggie.Veggies;
@@ -81,7 +82,7 @@ public class HarvestCraft
     public static final CreativeTabs tabCookeryBlock = new CreativeTabs("hc_cookeryblock"){
 		@Override
 		public Item getTabIconItem() {
-			return Item.getItemFromBlock(Fruits.peach.leaf); // TODO: obviously update this once the blocks are in
+			return Item.getItemFromBlock(Cookery.cutting_board);
 		}
     };
     

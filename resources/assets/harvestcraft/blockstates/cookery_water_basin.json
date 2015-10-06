@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=east": { "model": "harvestcraft:cookery_water_basin", y: 90 },
+        "facing=south": { "model": "harvestcraft:cookery_water_basin", "y": 180  },
+        "facing=west": { "model": "harvestcraft:cookery_water_basin", "y": 270 },
+        "facing=north": { "model": "harvestcraft:cookery_water_basin", "y": 0 }
+    }
+}
