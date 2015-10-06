@@ -12,9 +12,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-
-
-// return new ContainerWorkbench(playerInventory, this.world, this.position);
 @SideOnly(Side.CLIENT)
 public class GuiCookingTable extends GuiContainer {
 	// copies GuiCrafting -- change later

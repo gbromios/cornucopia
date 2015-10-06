@@ -81,8 +81,8 @@ public class Dish implements IRecipe {
     @Override
     public boolean matches(InventoryCrafting crafting, World world)
     {
-        ArrayList<ItemStack> items_required = new ArrayList<ItemStack>(this.items);
-        ArrayList<Ingredient> ingredients_required = new ArrayList<Ingredient>(this.ingredients);
+        ArrayList<ItemStack> items_required = new ArrayList<>(this.items);
+        ArrayList<Ingredient> ingredients_required = new ArrayList<>(this.ingredients);
        
         for (int x = 0; x < crafting.getSizeInventory(); x++)
         {
@@ -102,18 +102,19 @@ public class Dish implements IRecipe {
                 }
                 // one input item can satisfy multiple ingredients!!! be careful hahahaha
                 // but each can only satisfy the requirement for an specific ingredient once
-                ArrayList<Ingredient> counted_as = new ArrayList<Ingredient>();
+                ArrayList<Ingredient> counted_as = new ArrayList<>();
                 for (Ingredient req : ingredients_required)
                 {
-                    if (!counted_as.contains(req) && req.matches((slot)))
+                    if (!counted_as.contains(req) && req.matches((slot.getItem())))
                     {
                     	satisfied_requirement = true;
                     	counted_as.add(req);
-                        ingredients_required.remove(req);
+                        //ingredients_required.remove(req);
                     }
                 }
                 
                 if (!satisfied_requirement) { return false; }
+                ingredients_required.removeAll(counted_as);
             }
         }
 

@@ -83,8 +83,7 @@ public class Cookery {
 	}
 	
 	private static void registerRecipes(){
-		GameRegistry.addShapelessRecipe(new ItemStack(Fruits.fig.raw), juicer, Veggies.broccoli.raw);
-		DishRegistry.add(new Dish(new ItemStack(Fruits.fig.raw), juicer, Veggies.broccoli.raw));
+		DishRegistry.add(new Dish(new ItemStack(Fruits.fig.raw), juicer, sweet_berry));
 	}
 	
 }
