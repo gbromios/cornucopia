@@ -3,8 +3,6 @@ package com.gb.util;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.gb.harvestcraft.garden.block.BlockGarden;
-
 public class WeightedArray<T> {
 	private ArrayList<Choice<T>> choices = new ArrayList<Choice<T>>(); 
 	private int totalWeight = 0;
