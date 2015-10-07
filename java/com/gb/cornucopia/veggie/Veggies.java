@@ -2,7 +2,7 @@ package com.gb.cornucopia.veggie;
 
 import java.util.HashMap;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.veggie.block.BlockCropTallVeggie;
 import com.gb.cornucopia.veggie.block.BlockCropVeggie;
 import com.gb.cornucopia.veggie.item.ItemRawVeggie;
@@ -15,32 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Veggies {
-	/* every Veggie needs:
-	 * 
-	 *   1.  Veggies.vegMap.put("[name]", new Veggie("[name]"); - instantiation in Veggies.init() (subject to change, this could be done dynamically from config data...)
-	 *   
-	 *   2.  public static Veggie [name]; - a static field definition in Veggies (subject to change, would like to use a hashmap instead)
-	 *   
-	 *   3.  Veggies.[name] = Veggies.get("name"); - assign the instance to the aforementioned field. Stupid, yes, but I'm hedging my bets here. easily removed if I confirm it's plausible.
-	 *   
-	 *   4.  assets.harvestcraft.textures.items.raw_[name].png - texture for raw veggie item
-	 *    
-	 *   5.  assets.harvestcraft.models.item.raw_[name].json - model for raw veggie item
-	 *   
-	 *   6.  assets.harvestcraft.textures.items.seed_[name].png - model for this veggie's seed item
-	 *   
-	 *   7.  assets.harvestcraft.models.item.seed_[name].json - model for this veggie's seed item
-	 *   
-	 *   8.  assets.harvestcraft.blockstates.crop_[name].json - blocksstate definition specify all 4 crop block models for
-	 *   
-	 *   9.  assets.harvestcraft.models.block.crop_[name]_[0..3].json - model for each crop block variant
-	 *   
-	 *   10. assets.harvestcraft.models.item.crop_[name].json - model for cropBlock's item. this is only here so the (fully grown) crops can be selected in creative mode.
-	 *   
-	 *   11. assets.harvestcraft.textures.blocks._crop_[name]_[0..3].png- 4 texture file for each stage of crop growth 
-	 *      
-	 * */
-
 	//region public fields
 	public static Veggie artichoke;
 	public static Veggie asparagus;
@@ -214,17 +188,17 @@ public class Veggies {
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 					v.raw,
 					0,
-					new ModelResourceLocation(String.format("%s:%s", HarvestCraft.MODID, v.raw.name), "inventory") 
+					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, v.raw.name), "inventory") 
 				);
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 					v.seed,
 					0,
-					new ModelResourceLocation(String.format("%s:%s", HarvestCraft.MODID, v.seed.name), "inventory")
+					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, v.seed.name), "inventory")
 				);
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 					Item.getItemFromBlock(v.crop),
 					0,
-					new ModelResourceLocation(String.format("%s:%s", HarvestCraft.MODID, v.crop.name), "inventory")
+					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, v.crop.name), "inventory")
 				);
 		}
 	}

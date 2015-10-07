@@ -1,6 +1,6 @@
 package com.gb.cornucopia.cookery;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.cookery.block.BlockCuttingBoard;
 import com.gb.cornucopia.cookery.block.BlockWaterBasin;
 import com.gb.cornucopia.cookery.crafting.CookingGuiHandler;
@@ -44,9 +44,9 @@ public class Cookery {
 
 	public static void init(){
 		// mah cooking guis
-		// will eventually either have to move this guy up to HarvestCraft at large
+		// will eventually either have to move this guy up to CornuCopia at large
 		// or break things into sub-mods (preferred)
-		NetworkRegistry.INSTANCE.registerGuiHandler(HarvestCraft.instance, new CookingGuiHandler());
+		NetworkRegistry.INSTANCE.registerGuiHandler(CornuCopia.instance, new CookingGuiHandler());
 		cookwareModels();
 		registerIngredients();
 		registerRecipes(); // < may move this to post-init
@@ -56,19 +56,19 @@ public class Cookery {
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 				juicer,
 				0,
-				new ModelResourceLocation(String.format("%s:%s", HarvestCraft.MODID, juicer.name), "inventory") 
+				new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, juicer.name), "inventory") 
 				);
 
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 				Item.getItemFromBlock(cutting_board),
 				0,
-				new ModelResourceLocation(String.format("%s:%s", HarvestCraft.MODID, cutting_board.name), "inventory") 
+				new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, cutting_board.name), "inventory") 
 				);
 
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 				Item.getItemFromBlock(water_barrel),
 				0,
-				new ModelResourceLocation(String.format("%s:%s", HarvestCraft.MODID, water_barrel.name), "inventory") 
+				new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, water_barrel.name), "inventory") 
 				);
 
 	}

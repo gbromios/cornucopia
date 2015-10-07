@@ -1,6 +1,6 @@
 package com.gb.cornucopia.veggie.block;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -23,7 +23,6 @@ public class BlockStalkTallVeggie extends BlockBush{
 		super(Material.plants);
 		this.name = "veggie_stalk_" + name;
 		this.crop = crop;
-		//this.setCreativeTab(HarvestCraft.tabCropVeg);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
 		
 		GameRegistry.registerBlock(this, this.name);

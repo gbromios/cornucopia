@@ -3,7 +3,7 @@ package com.gb.cornucopia.fruit.block;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.fruit.item.ItemRawFruit;
 
 import net.minecraft.block.Block;
@@ -33,7 +33,7 @@ public class BlockCropFruit extends BlockBush implements IGrowable{
 		super();
 		this.name = "fruit_crop_" + name;
 		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(HarvestCraft.tabCropFruit);
+		this.setCreativeTab(CornuCopia.tabCropFruit);
         	this.setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 0.95F, 0.7F);
 		GameRegistry.registerBlock(this, this.name);
 	}

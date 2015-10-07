@@ -3,7 +3,7 @@ package com.gb.cornucopia.veggie.block;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.garden.block.BlockGarden;
 import com.gb.cornucopia.veggie.item.ItemRawVeggie;
 import com.gb.cornucopia.veggie.item.ItemSeedVeggie;
@@ -40,7 +40,7 @@ public class BlockCropVeggie extends BlockBush implements IGrowable
 		super();
 		this.name = "veggie_crop_" + name;
 		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(HarvestCraft.tabCropVeg);
+		this.setCreativeTab(CornuCopia.tabCropVeg);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
 		this.setHardness(0.0F);
 		this.setStepSound(soundTypeGrass);

@@ -2,7 +2,7 @@ package com.gb.cornucopia.fruit.block;
 
 import java.util.Random;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 import com.jcraft.jorbis.Block;
 
 import net.minecraft.block.BlockBush;
@@ -34,7 +34,7 @@ public class BlockSaplingFruit extends BlockBush implements IPlantable, IGrowabl
 		super();
 		this.name = "fruit_sapling_" + name;	
 		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(HarvestCraft.tabSaplingFruit);
+		this.setCreativeTab(CornuCopia.tabSaplingFruit);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
 		GameRegistry.registerBlock(this, this.name);
 	}

@@ -1,6 +1,6 @@
 package com.gb.cornucopia.fruit.item;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 
 import net.minecraft.item.ItemFood;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -14,7 +14,7 @@ public class ItemRawFruit extends ItemFood{
 		this.name = "fruit_raw_" + name;
 		
 		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(HarvestCraft.tabRawFruit);
+		this.setCreativeTab(CornuCopia.tabRawFruit);
 		GameRegistry.registerItem(this, this.name);
 		OreDictionary.registerOre(
 				"food" + Character.toUpperCase(name.charAt(0)) + name.substring(1),

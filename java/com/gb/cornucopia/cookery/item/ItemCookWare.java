@@ -1,6 +1,6 @@
 package com.gb.cornucopia.cookery.item;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -13,7 +13,7 @@ public class ItemCookWare extends Item{
 		this.setUnlocalizedName(this.name);
 		this.setMaxStackSize(1);
 		this.setContainerItem(this);
-		this.setCreativeTab(HarvestCraft.tabCookeryBlock);
+		this.setCreativeTab(CornuCopia.tabCookeryBlock);
 		GameRegistry.registerItem(this, this.name);
 	}
 	

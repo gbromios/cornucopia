@@ -1,6 +1,6 @@
 package com.gb.cornucopia.veggie.item;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.veggie.block.BlockCropVeggie;
 
 import net.minecraft.block.Block;
@@ -26,7 +26,7 @@ public class ItemSeedVeggie extends Item implements IPlantable{
 		super();
 		this.name = "veggie_seed_" + name;
 		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(HarvestCraft.tabSeedVeg);
+		this.setCreativeTab(CornuCopia.tabSeedVeg);
 		GameRegistry.registerItem(this, this.name);
 		OreDictionary.registerOre(
 				"food" + Character.toUpperCase(name.charAt(0)) + name.substring(1),

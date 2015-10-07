@@ -1,6 +1,6 @@
 package com.gb.cornucopia.cookery.block;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.cookery.Cookery;
 
 import net.minecraft.block.Block;
@@ -33,7 +33,7 @@ public class BlockCookingTable extends Block{
 	public BlockCookingTable(String name){
 		super(Material.wood);
 		this.name = "cookery_" + name;
-		this.setCreativeTab(HarvestCraft.tabCookeryBlock);
+		this.setCreativeTab(CornuCopia.tabCookeryBlock);
 		this.setUnlocalizedName(this.name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(0.4F);
@@ -51,7 +51,7 @@ public class BlockCookingTable extends Block{
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float x, float y, float z)
 	{
 		if (!world.isRemote) {
-			player.openGui(HarvestCraft.instance, this.getIdFromBlock(this), world, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(CornuCopia.instance, this.getIdFromBlock(this), world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 

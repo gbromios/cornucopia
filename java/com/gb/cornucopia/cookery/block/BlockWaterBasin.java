@@ -1,6 +1,6 @@
 package com.gb.cornucopia.cookery.block;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -26,7 +26,7 @@ public class BlockWaterBasin extends Block{
 	public BlockWaterBasin(){
 		super(Material.rock);
 		this.name = "cookery_water_basin";
-		this.setCreativeTab(HarvestCraft.tabCookeryBlock);
+		this.setCreativeTab(CornuCopia.tabCookeryBlock);
 		this.setUnlocalizedName(this.name);
 		//this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(0.5F);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.garden.Gardens;
 import com.gb.cornucopia.veggie.Veggie;
 
@@ -36,7 +36,7 @@ public class BlockGarden
 		this.name = "garden_" + name; 
 		this.setTickRandomly(true);
 		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(HarvestCraft.tabGarden);
+		this.setCreativeTab(CornuCopia.tabGarden);
 		this.plantType = plantType;
 		this.drops = new ArrayList<Item>();
  

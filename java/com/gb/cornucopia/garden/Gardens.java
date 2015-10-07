@@ -7,7 +7,7 @@ import static net.minecraftforge.common.BiomeDictionary.Type;
 
 import java.util.Arrays;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.garden.block.BlockGarden;
 import com.gb.cornucopia.veggie.Veggies;
 
@@ -257,7 +257,7 @@ public final class Gardens {
 
 	private static void registerRenderer(BlockGarden b){
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(Item.getItemFromBlock(b), 0, new ModelResourceLocation(HarvestCraft.MODID + ':' + b.name, "inventory"));
+		.register(Item.getItemFromBlock(b), 0, new ModelResourceLocation(CornuCopia.MODID + ':' + b.name, "inventory"));
 	}
 
 

@@ -2,7 +2,7 @@ package com.gb.cornucopia.fruit;
 
 import java.util.HashMap;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.fruit.block.BlockCropFruit;
 import com.gb.cornucopia.fruit.block.BlockLeafFruit;
 import com.gb.cornucopia.fruit.block.BlockSaplingFruit;
@@ -122,13 +122,13 @@ public class Fruits {
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 					f.raw,
 					0,
-					new ModelResourceLocation(String.format("%s:%s", HarvestCraft.MODID, f.raw.name), "inventory") 
+					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, f.raw.name), "inventory") 
 				);
 
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 					Item.getItemFromBlock(f.sapling),
 					0,
-					new ModelResourceLocation(String.format("%s:%s", HarvestCraft.MODID, f.sapling.name), "inventory")
+					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, f.sapling.name), "inventory")
 				);
 			
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
@@ -140,7 +140,7 @@ public class Fruits {
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 					Item.getItemFromBlock(f.crop),
 					0,
-					new ModelResourceLocation(String.format("%s:%s", HarvestCraft.MODID, f.crop.name), "inventory")
+					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, f.crop.name), "inventory")
 				);
 			
 		}

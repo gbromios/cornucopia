@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.gb.cornucopia.HarvestCraft;
+import com.gb.cornucopia.CornuCopia;
 import com.google.common.base.Predicate;
 
 import net.minecraft.block.BlockLeaves;
@@ -40,7 +40,7 @@ public class BlockLeafFruit extends BlockLeaves {
 		this.woodType = wood;
 		this.setGraphicsLevel(true); // FUCK IT
 		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(HarvestCraft.tabLeafFruit);
+		this.setCreativeTab(CornuCopia.tabLeafFruit);
 		this.setDefaultState(
 				this.blockState.getBaseState()
 				.withProperty(CHECK_DECAY, Boolean.valueOf(true))
