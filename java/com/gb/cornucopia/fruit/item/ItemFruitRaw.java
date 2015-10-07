@@ -1,4 +1,4 @@
-package com.gb.cornucopia.veggie.item;
+package com.gb.cornucopia.fruit.item;
 
 import com.gb.cornucopia.CornuCopia;
 
@@ -6,16 +6,15 @@ import net.minecraft.item.ItemFood;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ItemRawVeggie extends ItemFood{
-	public final String name; 
+public class ItemFruitRaw extends ItemFood{
+	public final String name;
 	
-	public ItemRawVeggie(String name) {
-		// raw veggies: not very filling, also not enjoyed by doggies
+	public ItemFruitRaw(String name) {
 		super(1, 0.3F, false);
-		this.name = "veggie_" + name + "_raw";
+		this.name = "fruit_" + name + "_raw";
 		
 		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(CornuCopia.tabRawVeg);
+		this.setCreativeTab(CornuCopia.tabRawFruit);
 		GameRegistry.registerItem(this, this.name);
 		OreDictionary.registerOre(
 				"food" + Character.toUpperCase(name.charAt(0)) + name.substring(1),

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.fruit.item.ItemRawFruit;
+import com.gb.cornucopia.fruit.item.ItemFruitRaw;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -21,15 +21,15 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockCropFruit extends BlockBush implements IGrowable{
+public class BlockFruitCrop extends BlockBush implements IGrowable{
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 	public static final PropertyBool DROP_SAPLING = PropertyBool.create("drop_sapling");
 	public final String name;
-	private BlockLeafFruit leaf; // so we know where it's okay to chill.
-	private ItemRawFruit raw;
-	private BlockSaplingFruit sapling;
+	private BlockFruitLeaf leaf; // so we know where it's okay to chill.
+	private ItemFruitRaw raw;
+	private BlockFruitSapling sapling;
 
-	public BlockCropFruit(String name){
+	public BlockFruitCrop(String name){
 		super();
 		this.name = "fruit_" + name + "_crop";
 		this.setUnlocalizedName(this.name);
@@ -38,10 +38,10 @@ public class BlockCropFruit extends BlockBush implements IGrowable{
 		GameRegistry.registerBlock(this, this.name);
 	}
 
-	public void setLeaf(BlockLeafFruit leaf){
+	public void setLeaf(BlockFruitLeaf leaf){
 		this.leaf = leaf;
 	}
-	public void setDrops(ItemRawFruit raw, BlockSaplingFruit sapling){
+	public void setDrops(ItemFruitRaw raw, BlockFruitSapling sapling){
 		this.raw = raw;
 		this.sapling = sapling;
 	}

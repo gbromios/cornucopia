@@ -1,7 +1,7 @@
 package com.gb.cornucopia.veggie.item;
 
 import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.veggie.block.BlockCropVeggie;
+import com.gb.cornucopia.veggie.block.BlockVeggieCrop;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -18,11 +18,11 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ItemSeedVeggie extends Item implements IPlantable{
-	private BlockCropVeggie crop;
+public class ItemVeggieSeed extends Item implements IPlantable{
+	private BlockVeggieCrop crop;
 	public final String name; 
 	
-	public ItemSeedVeggie(String name){
+	public ItemVeggieSeed(String name){
 		super();
 		this.name = "veggie_" + name + "_seed";
 		this.setUnlocalizedName(this.name);
@@ -38,7 +38,7 @@ public class ItemSeedVeggie extends Item implements IPlantable{
 			);
 	}
 	
-	public void setCrop(BlockCropVeggie crop){
+	public void setCrop(BlockVeggieCrop crop){
 		this.crop = crop;
 	}
 	

@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Random;
 
 import com.gb.cornucopia.fruit.Fruits;
-import com.gb.cornucopia.fruit.block.BlockLeafFruit;
-import com.gb.cornucopia.veggie.block.BlockWildVeggie;
+import com.gb.cornucopia.fruit.block.BlockFruitLeaf;
+import com.gb.cornucopia.veggie.block.BlockVeggieWild;
 import com.gb.util.WeightedArray;
 
 import net.minecraft.block.Block;
@@ -27,20 +27,20 @@ public class DummyGen implements IWorldGenerator {
 	private final HashSet<BiomeGenBase> arid_biomes;
 	private final HashSet<BiomeGenBase> lush_biomes;
 
-	private final WeightedArray<BlockWildVeggie> taiga_gardens;
-	private final WeightedArray<BlockWildVeggie> forest_gardens;
-	private final WeightedArray<BlockWildVeggie> mountain_gardens;
-	private final WeightedArray<BlockWildVeggie> arid_gardens;
-	private final WeightedArray<BlockWildVeggie> lush_gardens;
-	private final WeightedArray<BlockWildVeggie> plains_gardens;
-	private final WeightedArray<BlockWildVeggie> swamp_gardens;
+	private final WeightedArray<BlockVeggieWild> taiga_gardens;
+	private final WeightedArray<BlockVeggieWild> forest_gardens;
+	private final WeightedArray<BlockVeggieWild> mountain_gardens;
+	private final WeightedArray<BlockVeggieWild> arid_gardens;
+	private final WeightedArray<BlockVeggieWild> lush_gardens;
+	private final WeightedArray<BlockVeggieWild> plains_gardens;
+	private final WeightedArray<BlockVeggieWild> swamp_gardens;
 
-	private final WeightedArray<BlockLeafFruit> forest_fruits;
-	private final WeightedArray<BlockLeafFruit> mountain_fruits;
-	private final WeightedArray<BlockLeafFruit> arid_fruits;
-	private final WeightedArray<BlockLeafFruit> lush_fruits;
-	private final WeightedArray<BlockLeafFruit> plains_fruits;
-	private final WeightedArray<BlockLeafFruit> swamp_fruits;
+	private final WeightedArray<BlockFruitLeaf> forest_fruits;
+	private final WeightedArray<BlockFruitLeaf> mountain_fruits;
+	private final WeightedArray<BlockFruitLeaf> arid_fruits;
+	private final WeightedArray<BlockFruitLeaf> lush_fruits;
+	private final WeightedArray<BlockFruitLeaf> plains_fruits;
+	private final WeightedArray<BlockFruitLeaf> swamp_fruits;
 
 	 
 	public DummyGen(){
@@ -99,19 +99,19 @@ public class DummyGen implements IWorldGenerator {
 		//endregion
 
 		// region // map gardens to biomes
-		taiga_gardens = new WeightedArray<BlockWildVeggie>()
+		taiga_gardens = new WeightedArray<BlockVeggieWild>()
 				;
-		forest_gardens = new WeightedArray<BlockWildVeggie>()
+		forest_gardens = new WeightedArray<BlockVeggieWild>()
 				;
-		mountain_gardens = new WeightedArray<BlockWildVeggie>()
+		mountain_gardens = new WeightedArray<BlockVeggieWild>()
 				;
-		arid_gardens = new WeightedArray<BlockWildVeggie>()
+		arid_gardens = new WeightedArray<BlockVeggieWild>()
 				;
-		lush_gardens = new WeightedArray<BlockWildVeggie>()
+		lush_gardens = new WeightedArray<BlockVeggieWild>()
 				;
-		plains_gardens = new WeightedArray<BlockWildVeggie>()
+		plains_gardens = new WeightedArray<BlockVeggieWild>()
 				;
-		swamp_gardens = new WeightedArray<BlockWildVeggie>()
+		swamp_gardens = new WeightedArray<BlockVeggieWild>()
 				;
 
 
@@ -121,22 +121,22 @@ public class DummyGen implements IWorldGenerator {
 
 		//.add(Fruits.nutmeg.leaf, 10)
 		//.add(Fruits.cinnamon.leaf, 10)
-		forest_fruits = new WeightedArray<BlockLeafFruit>()
+		forest_fruits = new WeightedArray<BlockFruitLeaf>()
 				;
 
-		mountain_fruits = new WeightedArray<BlockLeafFruit>()
+		mountain_fruits = new WeightedArray<BlockFruitLeaf>()
 				;
 
-		arid_fruits = new WeightedArray<BlockLeafFruit>()
+		arid_fruits = new WeightedArray<BlockFruitLeaf>()
 				;
 
-		lush_fruits = new WeightedArray<BlockLeafFruit>()
+		lush_fruits = new WeightedArray<BlockFruitLeaf>()
 				;
 
-		plains_fruits = new WeightedArray<BlockLeafFruit>()
+		plains_fruits = new WeightedArray<BlockFruitLeaf>()
 				;
 
-		swamp_fruits = new WeightedArray<BlockLeafFruit>()
+		swamp_fruits = new WeightedArray<BlockFruitLeaf>()
 				;
 
 		//endregion
@@ -306,42 +306,42 @@ public class DummyGen implements IWorldGenerator {
 		if (mountain_biomes.contains(biome)) {
 			if (random.nextInt(3) == 0){
 
-				world.setBlockState(pos, mountain_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
+				world.setBlockState(pos, mountain_fruits.getRandom(random).getDefaultState().withProperty(BlockFruitLeaf.SAPLING_GENERATOR, true));
 			}
 			return; 
 		}
 
 		if (arid_biomes.contains(biome)) {
 			if (random.nextInt(2) == 0){
-				world.setBlockState(pos, arid_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
+				world.setBlockState(pos, arid_fruits.getRandom(random).getDefaultState().withProperty(BlockFruitLeaf.SAPLING_GENERATOR, true));
 			}
 			return; 
 		}
 
 		if (forest_biomes.contains(biome)) {
 			if (random.nextInt(5) == 0){
-				world.setBlockState(pos, forest_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
+				world.setBlockState(pos, forest_fruits.getRandom(random).getDefaultState().withProperty(BlockFruitLeaf.SAPLING_GENERATOR, true));
 			}
 			return; 
 		}
 
 		if (lush_biomes.contains(biome)) {
 			if (random.nextInt(5) == 0){
-				world.setBlockState(pos, lush_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
+				world.setBlockState(pos, lush_fruits.getRandom(random).getDefaultState().withProperty(BlockFruitLeaf.SAPLING_GENERATOR, true));
 			}
 			return; 
 		}
 
 		if (BiomeGenBase.plains == biome){
 			if (random.nextInt(4) == 0){
-				world.setBlockState(pos, plains_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
+				world.setBlockState(pos, plains_fruits.getRandom(random).getDefaultState().withProperty(BlockFruitLeaf.SAPLING_GENERATOR, true));
 			}
 			return;			
 		}
 		
 		if (BiomeGenBase.swampland == biome){
 			if (random.nextInt(5) == 0){
-				world.setBlockState(pos, plains_fruits.getRandom(random).getDefaultState().withProperty(BlockLeafFruit.SAPLING_GENERATOR, true));
+				world.setBlockState(pos, plains_fruits.getRandom(random).getDefaultState().withProperty(BlockFruitLeaf.SAPLING_GENERATOR, true));
 			}
 			return;			
 		}

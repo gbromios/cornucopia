@@ -1,21 +1,21 @@
 package com.gb.cornucopia.fruit;
 
-import com.gb.cornucopia.fruit.block.BlockCropFruit;
-import com.gb.cornucopia.fruit.block.BlockLeafFruit;
-import com.gb.cornucopia.fruit.block.BlockSaplingFruit;
-import com.gb.cornucopia.fruit.item.ItemRawFruit;
+import com.gb.cornucopia.fruit.block.BlockFruitCrop;
+import com.gb.cornucopia.fruit.block.BlockFruitLeaf;
+import com.gb.cornucopia.fruit.block.BlockFruitSapling;
+import com.gb.cornucopia.fruit.item.ItemFruitRaw;
 
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
 public class Fruit {
-	public final ItemRawFruit raw;
-	public final BlockSaplingFruit sapling;
-	public final BlockLeafFruit leaf;
-	public final BlockCropFruit crop;
+	public final ItemFruitRaw raw;
+	public final BlockFruitSapling sapling;
+	public final BlockFruitLeaf leaf;
+	public final BlockFruitCrop crop;
 		
-	public Fruit(ItemRawFruit raw, BlockSaplingFruit sapling, BlockLeafFruit leaf, BlockCropFruit crop, IBlockState wood){
+	public Fruit(ItemFruitRaw raw, BlockFruitSapling sapling, BlockFruitLeaf leaf, BlockFruitCrop crop, IBlockState wood){
 		this.raw = raw;
 		this.sapling = sapling;
 		this.leaf = leaf;

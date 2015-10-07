@@ -3,11 +3,11 @@ package com.gb.cornucopia.veggie;
 import java.util.HashMap;
 
 import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.veggie.block.BlockCropTallVeggie;
-import com.gb.cornucopia.veggie.block.BlockCropVeggie;
-import com.gb.cornucopia.veggie.block.BlockWildVeggie;
-import com.gb.cornucopia.veggie.item.ItemRawVeggie;
-import com.gb.cornucopia.veggie.item.ItemSeedVeggie;
+import com.gb.cornucopia.veggie.block.BlockVeggieCropTall;
+import com.gb.cornucopia.veggie.block.BlockVeggieCrop;
+import com.gb.cornucopia.veggie.block.BlockVeggieWild;
+import com.gb.cornucopia.veggie.item.ItemVeggieRaw;
+import com.gb.cornucopia.veggie.item.ItemVeggieSeed;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -27,24 +27,24 @@ public class Veggies {
 
 	public static Veggie createTallVeggie(String name){
 		return createVeggie(name,
-				new ItemRawVeggie(name),
-				new ItemSeedVeggie(name),
-				new BlockCropTallVeggie(name),
-				new BlockWildVeggie(name, EnumPlantType.Plains)
+				new ItemVeggieRaw(name),
+				new ItemVeggieSeed(name),
+				new BlockVeggieCropTall(name),
+				new BlockVeggieWild(name, EnumPlantType.Plains)
 				);
 		
 	}
 		
 	public static Veggie createVeggie(String name){
 		return createVeggie(name,
-				new ItemRawVeggie(name),
-				new ItemSeedVeggie(name),
-				new BlockCropVeggie(name),
-				new BlockWildVeggie(name, EnumPlantType.Plains)
+				new ItemVeggieRaw(name),
+				new ItemVeggieSeed(name),
+				new BlockVeggieCrop(name),
+				new BlockVeggieWild(name, EnumPlantType.Plains)
 				);
 	}
 	
-	public static Veggie createVeggie(String name, ItemRawVeggie raw,  ItemSeedVeggie seed, BlockCropVeggie crop, BlockWildVeggie wild){
+	public static Veggie createVeggie(String name, ItemVeggieRaw raw,  ItemVeggieSeed seed, BlockVeggieCrop crop, BlockVeggieWild wild){
 		// take fresh instances and save them in static fields
 		Veggie vs = new Veggie(raw, seed, crop, wild);
 		vegMap.put(name, vs);

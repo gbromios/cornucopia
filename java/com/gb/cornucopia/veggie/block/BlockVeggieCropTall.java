@@ -7,19 +7,19 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockCropTallVeggie extends BlockCropVeggie {
-	public final BlockStalkTallVeggie stalk;
+public class BlockVeggieCropTall extends BlockVeggieCrop {
+	public final BlockVeggieStalk stalk;
 	public final boolean blocking;
 	
 	
-	public BlockCropTallVeggie(String name) {
+	public BlockVeggieCropTall(String name) {
 		this(name, false);
 	}
 	
-	public BlockCropTallVeggie(String name, boolean blocking) {
+	public BlockVeggieCropTall(String name, boolean blocking) {
 		super(name);
 		this.blocking = blocking;
-		stalk = new BlockStalkTallVeggie(name, this);
+		stalk = new BlockVeggieStalk(name, this);
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class BlockCropTallVeggie extends BlockCropVeggie {
 			// stalk's age is veggie's age - 4
 			// for growing taller than one, will probably want to shift this to onNeighborChange
 			world.setBlockState(pos.down(), this.stalk.getDefaultState().withProperty(
-					BlockStalkTallVeggie.AGE, (Integer)new_state.getValue(AGE) - 4
+					BlockVeggieStalk.AGE, (Integer)new_state.getValue(AGE) - 4
 					));
 			return;
 		}

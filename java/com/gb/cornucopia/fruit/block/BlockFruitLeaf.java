@@ -25,12 +25,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import scala.Console;
 
-public class BlockLeafFruit extends BlockLeaves {
+public class BlockFruitLeaf extends BlockLeaves {
 	public final String name;
-	private BlockCropFruit crop;
+	private BlockFruitCrop crop;
 	public static final PropertyBool SAPLING_GENERATOR = PropertyBool.create("sapling_generator");
 
-	public BlockLeafFruit(String name, BlockPlanks.EnumType wood){
+	public BlockFruitLeaf(String name, BlockPlanks.EnumType wood){
 		super();
 		this.name = "fruit_" + name + "_leaf";
 		this.setGraphicsLevel(true); // FUCK IT
@@ -55,7 +55,7 @@ public class BlockLeafFruit extends BlockLeaves {
 
 	}
 
-	public void setGrows(BlockCropFruit crop){
+	public void setGrows(BlockFruitCrop crop){
 		this.crop = crop;
 	}
 
@@ -79,7 +79,7 @@ public class BlockLeafFruit extends BlockLeaves {
 			}
 		}
 		// TODO: when growing a new fruit, the leaves have a tiny chance to become a sapling generator
-		world.setBlockState(pos.down(), this.crop.getDefaultState().withProperty(BlockCropFruit.DROP_SAPLING, state.getValue(SAPLING_GENERATOR)));
+		world.setBlockState(pos.down(), this.crop.getDefaultState().withProperty(BlockFruitCrop.DROP_SAPLING, state.getValue(SAPLING_GENERATOR)));
 
 	}
 

@@ -3,10 +3,10 @@ package com.gb.cornucopia.fruit;
 import java.util.HashMap;
 
 import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.fruit.block.BlockCropFruit;
-import com.gb.cornucopia.fruit.block.BlockLeafFruit;
-import com.gb.cornucopia.fruit.block.BlockSaplingFruit;
-import com.gb.cornucopia.fruit.item.ItemRawFruit;
+import com.gb.cornucopia.fruit.block.BlockFruitCrop;
+import com.gb.cornucopia.fruit.block.BlockFruitLeaf;
+import com.gb.cornucopia.fruit.block.BlockFruitSapling;
+import com.gb.cornucopia.fruit.item.ItemFruitRaw;
 
 import net.minecraft.block.BlockNewLog;
 import net.minecraft.block.BlockPlanks;
@@ -25,7 +25,7 @@ public class Fruits {
 	public static Fruit peach;
 	//endregion
 	
-	public static Fruit createFruit(String name, ItemRawFruit raw, BlockSaplingFruit sapling, BlockLeafFruit leaf, BlockCropFruit crop, IBlockState wood){
+	public static Fruit createFruit(String name, ItemFruitRaw raw, BlockFruitSapling sapling, BlockFruitLeaf leaf, BlockFruitCrop crop, IBlockState wood){
 		// take fresh instances and save them in static fields
 		Fruit fs = new Fruit(raw, sapling, leaf, crop, wood);
 		fruitMap.put(name, fs);
@@ -35,10 +35,10 @@ public class Fruits {
 	
 	public static Fruit createFruit(String name){
 		return createFruit(name,
-				new ItemRawFruit(name),
-				new BlockSaplingFruit(name),
-				new BlockLeafFruit(name, BlockPlanks.EnumType.OAK),
-				new BlockCropFruit(name),
+				new ItemFruitRaw(name),
+				new BlockFruitSapling(name),
+				new BlockFruitLeaf(name, BlockPlanks.EnumType.OAK),
+				new BlockFruitCrop(name),
 				Blocks.log.getDefaultState()
 				);
 	}

@@ -6,7 +6,7 @@ import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.veggie.Veggie;
-import com.gb.cornucopia.veggie.item.ItemRawVeggie;
+import com.gb.cornucopia.veggie.item.ItemVeggieRaw;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.state.IBlockState;
@@ -23,15 +23,15 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockWildVeggie
+public class BlockVeggieWild
 	extends BlockBush
 	implements IPlantable
 	{	
 		private EnumPlantType plantType;
 		public final String name;
-		private ItemRawVeggie raw;
+		private ItemVeggieRaw raw;
 	
-	public BlockWildVeggie(String name, EnumPlantType plantType){
+	public BlockVeggieWild(String name, EnumPlantType plantType){
 		super();
 		this.name = "veggie_" + name + "_wild"; 
 		this.setTickRandomly(true);
@@ -42,7 +42,7 @@ public class BlockWildVeggie
 		GameRegistry.registerBlock(this, this.name);
 	}
 	
-	public void setDrop(ItemRawVeggie raw){
+	public void setDrop(ItemVeggieRaw raw){
 		this.raw = raw;
 	}
 	

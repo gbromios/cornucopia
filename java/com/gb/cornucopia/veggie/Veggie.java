@@ -2,10 +2,10 @@ package com.gb.cornucopia.veggie;
 
 import java.util.HashMap;
 
-import com.gb.cornucopia.veggie.block.BlockCropVeggie;
-import com.gb.cornucopia.veggie.block.BlockWildVeggie;
-import com.gb.cornucopia.veggie.item.ItemRawVeggie;
-import com.gb.cornucopia.veggie.item.ItemSeedVeggie;
+import com.gb.cornucopia.veggie.block.BlockVeggieCrop;
+import com.gb.cornucopia.veggie.block.BlockVeggieWild;
+import com.gb.cornucopia.veggie.item.ItemVeggieRaw;
+import com.gb.cornucopia.veggie.item.ItemVeggieSeed;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -16,12 +16,12 @@ public class Veggie {
 /*	public void setGarden(BlockGarden garden){
 		this.cropVeg.setGarden(garden);
 	}*/
-	public final ItemRawVeggie raw;
-	public final ItemSeedVeggie seed;
-	public final BlockCropVeggie crop;
-	public final BlockWildVeggie wild;
+	public final ItemVeggieRaw raw;
+	public final ItemVeggieSeed seed;
+	public final BlockVeggieCrop crop;
+	public final BlockVeggieWild wild;
 	
-	public Veggie(ItemRawVeggie raw, ItemSeedVeggie seed, BlockCropVeggie crop, BlockWildVeggie wild){
+	public Veggie(ItemVeggieRaw raw, ItemVeggieSeed seed, BlockVeggieCrop crop, BlockVeggieWild wild){
 		this.raw = raw;
 		this.seed = seed;
 		this.crop = crop;

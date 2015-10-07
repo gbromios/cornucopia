@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.veggie.item.ItemRawVeggie;
-import com.gb.cornucopia.veggie.item.ItemSeedVeggie;
+import com.gb.cornucopia.veggie.item.ItemVeggieRaw;
+import com.gb.cornucopia.veggie.item.ItemVeggieSeed;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -25,17 +25,17 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockCropVeggie extends BlockBush implements IGrowable
+public class BlockVeggieCrop extends BlockBush implements IGrowable
 {
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
 
-	private ItemSeedVeggie seed;
-	private ItemRawVeggie raw;
-	private BlockWildVeggie wild;
+	private ItemVeggieSeed seed;
+	private ItemVeggieRaw raw;
+	private BlockVeggieWild wild;
 	
 	public final String name;
 
-	public BlockCropVeggie(String name){
+	public BlockVeggieCrop(String name){
 		super();
 		this.name = "veggie_" + name + "_crop";
 		this.setUnlocalizedName(this.name);
@@ -47,7 +47,7 @@ public class BlockCropVeggie extends BlockBush implements IGrowable
 		GameRegistry.registerBlock(this, this.name);
 	}
 
-	public void setDrops(ItemRawVeggie raw, ItemSeedVeggie seed, BlockWildVeggie wild) {
+	public void setDrops(ItemVeggieRaw raw, ItemVeggieSeed seed, BlockVeggieWild wild) {
 		this.seed = seed;
 		this.raw = raw;
 		this.wild = wild;

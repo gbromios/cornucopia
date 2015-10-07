@@ -14,12 +14,12 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockStalkTallVeggie extends BlockBush{
+public class BlockVeggieStalk extends BlockBush{
 	public final String name;
-	public final BlockCropTallVeggie crop;
+	public final BlockVeggieCropTall crop;
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 
-	public BlockStalkTallVeggie(String name, BlockCropTallVeggie crop) {
+	public BlockVeggieStalk(String name, BlockVeggieCropTall crop) {
 		super(Material.plants);
 		this.name = "veggie_" + name + "_stalk";
 		this.crop = crop;

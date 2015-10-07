@@ -23,14 +23,14 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockSaplingFruit extends BlockBush implements IPlantable, IGrowable{
+public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowable{
 	
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 1);
 	public final String name;
 	private IBlockState wood;
 	private IBlockState leaf;
 	
-	public BlockSaplingFruit(String name){
+	public BlockFruitSapling(String name){
 		super();
 		this.name = "fruit_" + name + "_sapling";	
 		this.setUnlocalizedName(this.name);
