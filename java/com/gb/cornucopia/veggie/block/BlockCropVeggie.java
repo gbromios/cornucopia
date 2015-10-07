@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockCropVeggie extends BlockBush implements IGrowable
 {
-	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
+	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
 
 	private ItemSeedVeggie dropSeed;
 	private ItemRawVeggie dropVeg;
@@ -95,7 +95,7 @@ public class BlockCropVeggie extends BlockBush implements IGrowable
 		// TODO: make drops better. this works for now
 		java.util.List<ItemStack> ret = new ArrayList<ItemStack>();
 		
-		if ((Integer)state.getValue(AGE) == 3){
+		if ((Integer)state.getValue(AGE) == 7){
 			// after three grows, veggie is ready to harvest
 			ret.add(new ItemStack(this.dropVeg));
 			
@@ -121,7 +121,7 @@ public class BlockCropVeggie extends BlockBush implements IGrowable
 	@Override
 	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient) {
 		if (world.getLightFromNeighbors(pos.up()) < 9 ){ return false; }
-		return ((Integer)state.getValue(AGE)).intValue() < 3; 
+		return ((Integer)state.getValue(AGE)).intValue() < 7; 
 	}
 
 	@Override
@@ -133,7 +133,7 @@ public class BlockCropVeggie extends BlockBush implements IGrowable
 					pos,
 					state.withProperty(
 							AGE,
-							Integer.valueOf(java.lang.Math.min(((Integer)state.getValue(AGE)) + 1, 3))
+							Integer.valueOf(java.lang.Math.min(((Integer)state.getValue(AGE)) + 1, 7))
 							),
 					2
 					);
