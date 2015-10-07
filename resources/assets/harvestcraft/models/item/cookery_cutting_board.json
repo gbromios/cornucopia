@@ -1,5 +1,5 @@
  {
-    "parent": "harvestcraft:block/cookery_cutting_board",
+    "parent": "cornucopia:block/cookery_cutting_board",
     "display": {
         "thirdperson": {
             "rotation": [ -90, 0, 0 ],

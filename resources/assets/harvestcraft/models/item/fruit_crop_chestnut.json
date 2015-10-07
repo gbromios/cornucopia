@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"harvestcraft:blocks/fruit_crop_chestnut_2"
+        "layer0":"cornucopia:blocks/fruit_crop_chestnut_2"
     },
     "display": {
         "thirdperson": {

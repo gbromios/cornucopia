@@ -1,7 +1,7 @@
 {
     "parent": "block/crop",
     "textures": {
-	"crop": "harvestcraft:blocks/veggie_crop_scallion_0"
+	"crop": "cornucopia:blocks/veggie_crop_scallion_0"
     }
 }
 		

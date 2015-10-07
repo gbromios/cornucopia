@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"harvestcraft:items/veggie_raw_edibleroot"
+        "layer0":"cornucopia:items/veggie_raw_edibleroot"
     },
     "display": {
         "thirdperson": {

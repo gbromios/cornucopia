@@ -2,6 +2,6 @@
 {
     "parent": "block/cross",
     "textures": {
-        "cross": "harvestcraft:blocks/garden_stalk"
+        "cross": "cornucopia:blocks/garden_stalk"
     }
 }

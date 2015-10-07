@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "harvestcraft:garden_tropical" }
+        "normal": { "model": "cornucopia:garden_tropical" }
     }
 }

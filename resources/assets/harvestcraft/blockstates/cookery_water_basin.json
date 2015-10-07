@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "harvestcraft:cookery_water_basin" }
+        "normal": { "model": "cornucopia:cookery_water_basin" }
     }
 }

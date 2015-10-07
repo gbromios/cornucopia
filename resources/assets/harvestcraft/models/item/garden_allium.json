@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"harvestcraft:blocks/garden_allium"
+        "layer0":"cornucopia:blocks/garden_allium"
     },
     "display": {
         "thirdperson": {

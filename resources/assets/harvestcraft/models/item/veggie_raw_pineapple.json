@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"harvestcraft:items/veggie_raw_pineapple"
+        "layer0":"cornucopia:items/veggie_raw_pineapple"
     },
     "display": {
         "thirdperson": {

@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"harvestcraft:blocks/veggie_crop_cactusfruit_3"
+        "layer0":"cornucopia:blocks/veggie_crop_cactusfruit_3"
     },
     "display": {
         "thirdperson": {

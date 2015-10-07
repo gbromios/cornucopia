@@ -1,7 +1,7 @@
 {
     "variants": {
-        "age=0": { "model": "harvestcraft:fruit_sapling_walnut" },
-        "age=1": { "model": "harvestcraft:fruit_sapling_walnut" }
+        "age=0": { "model": "cornucopia:fruit_sapling_walnut" },
+        "age=1": { "model": "cornucopia:fruit_sapling_walnut" }
     }
 }
 

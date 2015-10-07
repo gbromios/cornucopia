@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"harvestcraft:blocks/garden_mushroom"
+        "layer0":"cornucopia:blocks/garden_mushroom"
     },
     "display": {
         "thirdperson": {

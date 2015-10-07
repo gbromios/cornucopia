@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"harvestcraft:items/veggie_seed_peanut"
+        "layer0":"cornucopia:items/veggie_seed_peanut"
     },
     "display": {
         "thirdperson": {

@@ -1,16 +1,16 @@
 {
   "variants": {
     "age=0": {
-      "model": "harvestcraft:veggie_crop_edibleroot_0"
+      "model": "cornucopia:veggie_crop_edibleroot_0"
     }, 
     "age=1": {
-      "model": "harvestcraft:veggie_crop_edibleroot_1"
+      "model": "cornucopia:veggie_crop_edibleroot_1"
     }, 
     "age=2": {
-      "model": "harvestcraft:veggie_crop_edibleroot_2"
+      "model": "cornucopia:veggie_crop_edibleroot_2"
     }, 
     "age=3": {
-      "model": "harvestcraft:veggie_crop_edibleroot_3"
+      "model": "cornucopia:veggie_crop_edibleroot_3"
     }
   }
 }

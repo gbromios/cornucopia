@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"harvestcraft:items/cookware_juicer"
+        "layer0":"cornucopia:items/cookware_juicer"
     },
     "display": {
         "thirdperson": {

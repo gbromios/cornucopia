@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"harvestcraft:items/fruit_raw_starfruit"
+        "layer0":"cornucopia:items/fruit_raw_starfruit"
     },
     "display": {
         "thirdperson": {

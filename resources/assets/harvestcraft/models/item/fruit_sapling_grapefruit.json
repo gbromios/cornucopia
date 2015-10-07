@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "harvestcraft:blocks/fruit_sapling_grapefruit"
+        "layer0": "cornucopia:blocks/fruit_sapling_grapefruit"
     },
     "display": {
         "thirdperson": {

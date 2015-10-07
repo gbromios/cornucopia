@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"harvestcraft:items/veggie_seed_sweetpotato"
+        "layer0":"cornucopia:items/veggie_seed_sweetpotato"
     },
     "display": {
         "thirdperson": {

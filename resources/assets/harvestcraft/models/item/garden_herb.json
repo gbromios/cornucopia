@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"harvestcraft:blocks/garden_herb"
+        "layer0":"cornucopia:blocks/garden_herb"
     },
     "display": {
         "thirdperson": {

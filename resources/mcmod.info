@@ -1,14 +1,14 @@
 [
 {
-  "modid": "harvestcraft",
-  "name": "HarvestCraft",
-  "description": "Harvestcraft-like Functionality for 1.8",
-  "version": "0.1",
+  "modid": "cornucopia",
+  "name": "CornuCopia",
+  "description": "enhanced food mechanics"
+  "version": "0.2",
   "mcversion": "1.8.0",
   "url": "",
   "updateUrl": "",
   "authorList": ["gbromios"],
-  "credits": "pams harvestcraft",
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
