@@ -21,7 +21,7 @@ public class BlockStalkTallVeggie extends BlockBush{
 
 	public BlockStalkTallVeggie(String name, BlockCropTallVeggie crop) {
 		super(Material.plants);
-		this.name = "veggie/stalk/" + name;
+		this.name = "veggie_" + name + "_stalk";
 		this.crop = crop;
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
 		

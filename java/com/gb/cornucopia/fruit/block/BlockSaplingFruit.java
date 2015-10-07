@@ -32,7 +32,7 @@ public class BlockSaplingFruit extends BlockBush implements IPlantable, IGrowabl
 	
 	public BlockSaplingFruit(String name){
 		super();
-		this.name = "fruit/sapling/" + name;	
+		this.name = "fruit_" + name + "_sapling";	
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabSaplingFruit);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));

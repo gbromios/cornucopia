@@ -27,17 +27,12 @@ import scala.Console;
 
 public class BlockLeafFruit extends BlockLeaves {
 	public final String name;
-	private BlockPlanks.EnumType woodType;
 	private BlockCropFruit crop;
 	public static final PropertyBool SAPLING_GENERATOR = PropertyBool.create("sapling_generator");
-	
-	// NO IDEA HOW THIS WORKS, COPIED IT FROM BLOCKNEWLEAF
-	public static final PropertyEnum VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class);
 
 	public BlockLeafFruit(String name, BlockPlanks.EnumType wood){
 		super();
-		this.name = "fruit/leaf/" + name;
-		this.woodType = wood;
+		this.name = "fruit_" + name + "_leaf";
 		this.setGraphicsLevel(true); // FUCK IT
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabLeafFruit);
@@ -45,8 +40,7 @@ public class BlockLeafFruit extends BlockLeaves {
 				this.blockState.getBaseState()
 				.withProperty(CHECK_DECAY, Boolean.valueOf(true))
 				.withProperty(DECAYABLE, Boolean.valueOf(true))
-				.withProperty(SAPLING_GENERATOR, Boolean.valueOf(false)) // other leaves use the first two bits as VARIANT, but I just set it per BlockLeafFruit instance
-				.withProperty(VARIANT, this.woodType)
+				.withProperty(SAPLING_GENERATOR, Boolean.valueOf(false)) // other leaves use the first two bits as VARIANT
 				);
 		GameRegistry.registerBlock(this, this.name);
 
@@ -54,7 +48,7 @@ public class BlockLeafFruit extends BlockLeaves {
 
 	@Override
 	public EnumType getWoodType(int meta) {
-		return woodType;
+		return EnumType.OAK; // no idea what this is used for. it's dumb.
 	}
 
 	public void makeSaplings(World world, BlockPos pos){
@@ -75,17 +69,15 @@ public class BlockLeafFruit extends BlockLeaves {
 		// fruits spawn in open air below a leaf only
 		if (!world.isAirBlock(pos.down())){ return; }
 
-		// watch for crowding! no more will grow once 4 are in a 5 x 5 x 3
+		// watch for crowding
 		int max_neighbors = 3;
-		for(int x = -2; x <= 3; x++){
-			for(int y = -2; y <= 1; y++){
-				for(int z = -2; z <= 3; z++){
-					if ((world.getBlockState(pos.add(x,y,z)).getBlock() == this.crop)&& --max_neighbors == 0)
-					{return;}
+		for(int x = -2; x <= 2; x++){
+			for(int z = -2; z <= 2; z++){
+				if ((world.getBlockState(pos.add(x,0,z)).getBlock() == this.crop) && --max_neighbors == 0){
+					return;
 				}
 			}
 		}
-		
 		// TODO: when growing a new fruit, the leaves have a tiny chance to become a sapling generator
 		world.setBlockState(pos.down(), this.crop.getDefaultState().withProperty(BlockCropFruit.DROP_SAPLING, state.getValue(SAPLING_GENERATOR)));
 
@@ -97,7 +89,6 @@ public class BlockLeafFruit extends BlockLeaves {
 	public IBlockState getStateFromMeta(int meta)
 	{
 		return this.getDefaultState()
-				.withProperty(VARIANT, this.getWoodType(420)) // wood type is set by constructor, meta got nothing to do w/ it
 				.withProperty(SAPLING_GENERATOR, (meta & 2) == 2)
 				.withProperty(DECAYABLE, (meta & 4) == 0)
 				.withProperty(CHECK_DECAY, (meta & 8) == 8)
@@ -116,7 +107,7 @@ public class BlockLeafFruit extends BlockLeaves {
 
 	protected BlockState createBlockState()
 	{
-		return new BlockState(this, new IProperty[] {CHECK_DECAY, DECAYABLE, SAPLING_GENERATOR, VARIANT});
+		return new BlockState(this, new IProperty[] {CHECK_DECAY, DECAYABLE, SAPLING_GENERATOR});
 	}
 
 

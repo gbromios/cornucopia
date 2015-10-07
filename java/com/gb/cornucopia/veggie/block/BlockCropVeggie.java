@@ -37,7 +37,7 @@ public class BlockCropVeggie extends BlockBush implements IGrowable
 
 	public BlockCropVeggie(String name){
 		super();
-		this.name = "veggie/crop/" + name;
+		this.name = "veggie_" + name + "_crop";
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabCropVeg);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));

@@ -33,7 +33,7 @@ public class BlockWildVeggie
 	
 	public BlockWildVeggie(String name, EnumPlantType plantType){
 		super();
-		this.name = "veggie/wild/" + name; 
+		this.name = "veggie_" + name + "_wild"; 
 		this.setTickRandomly(true);
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabWildVeg);

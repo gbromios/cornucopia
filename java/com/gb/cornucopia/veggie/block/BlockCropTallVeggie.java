@@ -27,12 +27,16 @@ public class BlockCropTallVeggie extends BlockCropVeggie {
 	{
 		return super.canBlockStay(world, pos, state) || world.getBlockState(pos.down()).getBlock() == this.stalk;
 	}
-
 	
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
 		super.grow(world, rand, pos, state);
 		IBlockState new_state = world.getBlockState(pos); // get our updated state
+		
+		// make sure the the block is still there after growing.
+		if (new_state.getBlock() != this){
+			return;
+		}
 
 		// if the veggie is on top of a stalk, then dont do anything different.
 		// TODO: if you want to make taller veggies, here's where you'd do `if ( this.stalk.height() >= MAX_HEIGHT  )`

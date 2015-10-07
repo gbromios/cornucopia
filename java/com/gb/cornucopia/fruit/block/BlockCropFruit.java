@@ -31,7 +31,7 @@ public class BlockCropFruit extends BlockBush implements IGrowable{
 
 	public BlockCropFruit(String name){
 		super();
-		this.name = "fruit/crop/" + name;
+		this.name = "fruit_" + name + "_crop";
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabCropFruit);
         	this.setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 0.95F, 0.7F);

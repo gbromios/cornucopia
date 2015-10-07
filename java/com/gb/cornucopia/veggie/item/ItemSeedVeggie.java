@@ -24,7 +24,7 @@ public class ItemSeedVeggie extends Item implements IPlantable{
 	
 	public ItemSeedVeggie(String name){
 		super();
-		this.name = "veggie_seed_" + name;
+		this.name = "veggie_" + name + "_seed";
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabSeedVeg);
 		GameRegistry.registerItem(this, this.name);
