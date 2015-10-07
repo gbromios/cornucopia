@@ -36,7 +36,7 @@ public class BlockLeafFruit extends BlockLeaves {
 
 	public BlockLeafFruit(String name, BlockPlanks.EnumType wood){
 		super();
-		this.name = "fruit_leaf_" + name;
+		this.name = "fruit/leaf/" + name;
 		this.woodType = wood;
 		this.setGraphicsLevel(true); // FUCK IT
 		this.setUnlocalizedName(this.name);

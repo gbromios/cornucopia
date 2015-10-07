@@ -29,7 +29,7 @@ public class Veggie {
 		
 		// hook up what needs hookin up
 		seed.setCrop(crop);
-		crop.setDrops(raw, seed);
+		crop.setDrops(raw, seed, wild);
 	}
 
 }

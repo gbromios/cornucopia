@@ -11,7 +11,7 @@ public class ItemRawFruit extends ItemFood{
 	
 	public ItemRawFruit(String name) {
 		super(1, 0.3F, false);
-		this.name = "fruit_raw_" + name;
+		this.name = "fruit/raw/" + name;
 		
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabRawFruit);

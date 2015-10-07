@@ -1,0 +1,16 @@
+{
+  "variants": {
+        "age=0": {
+          "model": "cornucopia:veggie/stalk/corn_0"
+        },
+        "age=1": {
+          "model": "cornucopia:veggie/stalk/corn_1"
+        },
+        "age=2": {
+          "model": "cornucopia:veggie/stalk/corn_2"
+        },
+        "age=3": {
+          "model": "cornucopia:veggie/stalk/corn_3"
+        }
+    }
+}

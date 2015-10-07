@@ -37,23 +37,26 @@ public class BlockCropTallVeggie extends BlockCropVeggie {
 		// if the veggie is on top of a stalk, then dont do anything different.
 		// TODO: if you want to make taller veggies, here's where you'd do `if ( this.stalk.height() >= MAX_HEIGHT  )`
 		if (world.getBlockState(pos.down()).getBlock() == this.stalk){
-			if ((Integer)state.getValue(AGE) == 2  && (Integer)new_state.getValue(AGE) == 3){
-				// if we grew to age = 3, age the stalk below
-				world.setBlockState(pos.down(), this.stalk.getDefaultState().withProperty(BlockStalkTallVeggie.AGE, 1));
-			} 
+			//if ((Integer)state.getValue(AGE) < (Integer)new_state.getValue(AGE)){
+			//world.setBlockState(pos.down(), this.stalk.getDefaultState().withProperty(BlockStalkTallVeggie.AGE, 1));
+			
+			// stalk's age is veggie's age - 4
+			// for growing taller than one, will probably want to shift this to onNeighborChange
+			world.setBlockState(pos.down(), this.stalk.getDefaultState().withProperty(
+					BlockStalkTallVeggie.AGE, (Integer)new_state.getValue(AGE) - 4
+					));
 			return;
 		}
 		
-		// for a crop on the ground, hitting age 2  
-		if ((Integer)new_state.getValue(AGE) == 2){
+		// for a crop on the ground, hitting age 4 (i.e. the get taller age)  
+		if ((Integer)new_state.getValue(AGE) == 4){
 			if (world.isAirBlock(pos.up())) {
-				// turn the block into a stalk and make the air above into a veggie of age = 1
-				world.setBlockState(pos.up(), state.withProperty(AGE, 1));
+				world.setBlockState(pos.up(), new_state);
 				world.setBlockState(pos, this.stalk.getDefaultState());
 			}
-			// if the block above is not air, roll this veggie back to age = 1 >:C
+			// if the block above is not air, roll this veggie back to its starting age >:C
 			else {
-				world.setBlockState(pos, state.withProperty(AGE, 1));
+				world.setBlockState(pos, state);
 			}
 		} 
 	}

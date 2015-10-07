@@ -17,11 +17,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockStalkTallVeggie extends BlockBush{
 	public final String name;
 	public final BlockCropTallVeggie crop;
-	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 1);
+	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 
 	public BlockStalkTallVeggie(String name, BlockCropTallVeggie crop) {
 		super(Material.plants);
-		this.name = "veggie_stalk_" + name;
+		this.name = "veggie/stalk/" + name;
 		this.crop = crop;
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
 		
