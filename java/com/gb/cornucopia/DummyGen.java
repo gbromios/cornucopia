@@ -6,8 +6,7 @@ import java.util.Random;
 
 import com.gb.cornucopia.fruit.Fruits;
 import com.gb.cornucopia.fruit.block.BlockLeafFruit;
-import com.gb.cornucopia.garden.Gardens;
-import com.gb.cornucopia.garden.block.BlockGarden;
+import com.gb.cornucopia.veggie.block.BlockWildVeggie;
 import com.gb.util.WeightedArray;
 
 import net.minecraft.block.Block;
@@ -28,13 +27,13 @@ public class DummyGen implements IWorldGenerator {
 	private final HashSet<BiomeGenBase> arid_biomes;
 	private final HashSet<BiomeGenBase> lush_biomes;
 
-	private final WeightedArray<BlockGarden> taiga_gardens;
-	private final WeightedArray<BlockGarden> forest_gardens;
-	private final WeightedArray<BlockGarden> mountain_gardens;
-	private final WeightedArray<BlockGarden> arid_gardens;
-	private final WeightedArray<BlockGarden> lush_gardens;
-	private final WeightedArray<BlockGarden> plains_gardens;
-	private final WeightedArray<BlockGarden> swamp_gardens;
+	private final WeightedArray<BlockWildVeggie> taiga_gardens;
+	private final WeightedArray<BlockWildVeggie> forest_gardens;
+	private final WeightedArray<BlockWildVeggie> mountain_gardens;
+	private final WeightedArray<BlockWildVeggie> arid_gardens;
+	private final WeightedArray<BlockWildVeggie> lush_gardens;
+	private final WeightedArray<BlockWildVeggie> plains_gardens;
+	private final WeightedArray<BlockWildVeggie> swamp_gardens;
 
 	private final WeightedArray<BlockLeafFruit> forest_fruits;
 	private final WeightedArray<BlockLeafFruit> mountain_fruits;
@@ -100,50 +99,19 @@ public class DummyGen implements IWorldGenerator {
 		//endregion
 
 		// region // map gardens to biomes
-		taiga_gardens = new WeightedArray<BlockGarden>()
-				.add(Gardens.allium, 30)
-				.add(Gardens.ground, 20)
-				.add(Gardens.herb, 10)
+		taiga_gardens = new WeightedArray<BlockWildVeggie>()
 				;
-
-		forest_gardens = new WeightedArray<BlockGarden>()
-				.add(Gardens.berry, 25)
-				.add(Gardens.stalk, 10)
-				.add(Gardens.allium, 10)
-				.add(Gardens.ground, 10)
-
+		forest_gardens = new WeightedArray<BlockWildVeggie>()
 				;
-		mountain_gardens = new WeightedArray<BlockGarden>()
-				.add(Gardens.allium, 20)
-				.add(Gardens.berry, 20)
-				.add(Gardens.gourd, 5)
-				.add(Gardens.grass, 5)
+		mountain_gardens = new WeightedArray<BlockWildVeggie>()
 				;
-		arid_gardens = new WeightedArray<BlockGarden>()
-				.add(Gardens.grass, 40)
-				.add(Gardens.ground, 40)
-				.add(Gardens.stalk, 20)
-
+		arid_gardens = new WeightedArray<BlockWildVeggie>()
 				;
-		lush_gardens = new WeightedArray<BlockGarden>()
-				.add(Gardens.berry, 20)
-				.add(Gardens.tropical, 40)
-				.add(Gardens.leafy, 20)
-				.add(Gardens.stalk, 20)
-				.add(Gardens.herb, 20)
-
+		lush_gardens = new WeightedArray<BlockWildVeggie>()
 				;
-		plains_gardens = new WeightedArray<BlockGarden>()
-				.add(Gardens.grass, 40)
-				.add(Gardens.leafy, 15)
-				.add(Gardens.textile, 10)
-				.add(Gardens.gourd, 10)
+		plains_gardens = new WeightedArray<BlockWildVeggie>()
 				;
-		swamp_gardens = new WeightedArray<BlockGarden>()
-				.add(Gardens.leafy, 30)
-				.add(Gardens.herb, 30)
-				.add(Gardens.stalk, 30)
-				.add(Gardens.tropical, 10)
+		swamp_gardens = new WeightedArray<BlockWildVeggie>()
 				;
 
 
@@ -154,66 +122,21 @@ public class DummyGen implements IWorldGenerator {
 		//.add(Fruits.nutmeg.leaf, 10)
 		//.add(Fruits.cinnamon.leaf, 10)
 		forest_fruits = new WeightedArray<BlockLeafFruit>()
-				.add(Fruits.almond.leaf, 10)
-				.add(Fruits.cherry.leaf, 10)
-				.add(Fruits.peach.leaf, 10)
-				.add(Fruits.pear.leaf, 10)
-				.add(Fruits.persimmon.leaf, 10)
-				.add(Fruits.walnut.leaf, 10)
-				.add(Fruits.pecan.leaf, 10)
 				;
 
 		mountain_fruits = new WeightedArray<BlockLeafFruit>()
-				.add(Fruits.candlenut.leaf, 10)
-				.add(Fruits.cherry.leaf, 10)
-				.add(Fruits.chestnut.leaf, 10)
-				.add(Fruits.persimmon.leaf, 10)
 				;
 
 		arid_fruits = new WeightedArray<BlockLeafFruit>()
-				.add(Fruits.apricot.leaf, 10)
-				.add(Fruits.avocado.leaf, 10)
-				.add(Fruits.date.leaf, 10)
-				.add(Fruits.fig.leaf, 10)
-				.add(Fruits.persimmon.leaf, 10)
-				.add(Fruits.peppercorn.leaf, 10)
-				.add(Fruits.nutmeg.leaf, 10)
 				;
 
 		lush_fruits = new WeightedArray<BlockLeafFruit>()
-				.add(Fruits.fig.leaf, 10)
-				.add(Fruits.cashew.leaf, 10)
-				.add(Fruits.coconut.leaf, 10)
-				.add(Fruits.dragonfruit.leaf, 10)
-				.add(Fruits.durian.leaf, 10)
-				.add(Fruits.banana.leaf, 10)
-				.add(Fruits.grapefruit.leaf, 10)
-				.add(Fruits.lemon.leaf, 10)
-				.add(Fruits.lime.leaf, 10)
-				.add(Fruits.mango.leaf, 10)
-				.add(Fruits.orange.leaf, 10)
-				.add(Fruits.papaya.leaf, 10)
-				.add(Fruits.peppercorn.leaf, 10)
-				.add(Fruits.starfruit.leaf, 10)
-				.add(Fruits.vanillabean.leaf, 10)
 				;
 
 		plains_fruits = new WeightedArray<BlockLeafFruit>()
-				.add(Fruits.fig.leaf, 10)
-				.add(Fruits.olive.leaf, 10)
-				.add(Fruits.pear.leaf, 10)
-				.add(Fruits.plum.leaf, 10)
-				.add(Fruits.nutmeg.leaf, 10)
 				;
 
 		swamp_fruits = new WeightedArray<BlockLeafFruit>()
-				.add(Fruits.peach.leaf, 10)
-				.add(Fruits.plum.leaf, 10)
-				.add(Fruits.pomegranate.leaf, 10)
-				.add(Fruits.pistachio.leaf, 10)
-				.add(Fruits.walnut.leaf, 10)
-				.add(Fruits.pecan.leaf, 10)
-				.add(Fruits.nutmeg.leaf, 10)
 				;
 
 		//endregion
@@ -228,8 +151,9 @@ public class DummyGen implements IWorldGenerator {
 		// like, if i was guaranteed never to want to change world gen, this implementation will probably be ffine
 		// I'll implement it nicely when BoP rises from the ashes~!
 
-		// update: actually this works okay i might just map it to bop biomes huehue
-
+		// going to break this feature for a while, no worries
+		return;
+		/*
 		// 1/16 chance to gen a garden
 
 		// its uncoditional right now to test generation logic. should try once per chunk
@@ -252,7 +176,7 @@ public class DummyGen implements IWorldGenerator {
 					(chunkZ * 16) + random.nextInt(15), 
 					world.getBiomeGenForCoords(new BlockPos((chunkX * 16) + 7, 0, (chunkZ * 16) + 7))
 					);
-		}
+		}*/
 	}
 
 	private BlockPos findLowestBranch(World world, int x, int z){
@@ -299,7 +223,7 @@ public class DummyGen implements IWorldGenerator {
 		if (biome.equals(BiomeGenBase.desert)) {
 			if (random.nextInt(3) == 0 && soil == Blocks.sand){
 
-				world.setBlockState(pos, Gardens.desert.getDefaultState());
+				//world.setBlockState(pos, desert.getDefaultState());
 			}
 			return; 
 		}
@@ -308,7 +232,7 @@ public class DummyGen implements IWorldGenerator {
 		if (biome.equals(BiomeGenBase.river)) {
 			if (random.nextInt(7) == 0){
 
-				world.setBlockState(pos, Gardens.water.getDefaultState());
+				//world.setBlockState(pos, water.getDefaultState());
 			}
 			return;
 		}

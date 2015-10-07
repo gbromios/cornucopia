@@ -1,12 +1,12 @@
-package com.gb.cornucopia.garden.block;
+package com.gb.cornucopia.veggie.block;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.garden.Gardens;
 import com.gb.cornucopia.veggie.Veggie;
+import com.gb.cornucopia.veggie.item.ItemRawVeggie;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.state.IBlockState;
@@ -23,38 +23,27 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockGarden
+public class BlockWildVeggie
 	extends BlockBush
 	implements IPlantable
 	{	
 		private EnumPlantType plantType;
-		private ArrayList<Item> drops;
 		public final String name;
+		private ItemRawVeggie raw;
 	
-	public BlockGarden(String name, EnumPlantType plantType){
+	public BlockWildVeggie(String name, EnumPlantType plantType){
 		super();
 		this.name = "garden_" + name; 
 		this.setTickRandomly(true);
 		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(CornuCopia.tabGarden);
+		this.setCreativeTab(CornuCopia.tabWildVeg);
 		this.plantType = plantType;
-		this.drops = new ArrayList<Item>();
  
 		GameRegistry.registerBlock(this, this.name);
 	}
 	
-	public BlockGarden addDrop(Item item){
-		this.drops.add(item);
-		return this;
-	}
-	public BlockGarden addVeggie(Veggie veg){
-		// TODO: depending on config, drop either vegetables or seeds
-		this.addDrop(veg.raw);
-		
-		// register the garden so full grown crops have a chance to drop it
-		veg.crop.setGarden(this);
-		
-		return this;
+	public void setDrop(ItemRawVeggie raw){
+		this.raw = raw;
 	}
 	
 	@Override
@@ -73,29 +62,14 @@ public class BlockGarden
     	if (RANDOM.nextInt(150) == 0){
     		drop_stacks.add(new ItemStack(this));
     	}
-    	
-    	// if no drops are configured, just stop now :C
-        if (this.drops.isEmpty()){
-        	return drop_stacks;
-        }
-        
         // default 1/4 chance 5 times.
         for (int i = 0; i < 5; i++){
         	if (RANDOM.nextInt(3) == 0) { 
-        		drop_stacks.add(getRandomDrop());
+        		drop_stacks.add(new ItemStack(this.raw));
         	}
         }
-       
-        // always give at least one food. TODO: configurable???
-        if (drop_stacks.isEmpty()) {
-        	drop_stacks.add(getRandomDrop());
-        }
-       
+
         return drop_stacks;
-    }
-    
-    private ItemStack getRandomDrop() { // will IndexOutOfBoundsException if there's no drops 
-    	return new ItemStack(this.drops.get(RANDOM.nextInt(this.drops.size())));
     }
     
     @Override

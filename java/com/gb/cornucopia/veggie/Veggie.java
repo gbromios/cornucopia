@@ -2,8 +2,8 @@ package com.gb.cornucopia.veggie;
 
 import java.util.HashMap;
 
-import com.gb.cornucopia.garden.block.BlockGarden;
 import com.gb.cornucopia.veggie.block.BlockCropVeggie;
+import com.gb.cornucopia.veggie.block.BlockWildVeggie;
 import com.gb.cornucopia.veggie.item.ItemRawVeggie;
 import com.gb.cornucopia.veggie.item.ItemSeedVeggie;
 
@@ -19,11 +19,13 @@ public class Veggie {
 	public final ItemRawVeggie raw;
 	public final ItemSeedVeggie seed;
 	public final BlockCropVeggie crop;
+	public final BlockWildVeggie wild;
 	
-	public Veggie(ItemRawVeggie raw, ItemSeedVeggie seed, BlockCropVeggie crop){
+	public Veggie(ItemRawVeggie raw, ItemSeedVeggie seed, BlockCropVeggie crop, BlockWildVeggie wild){
 		this.raw = raw;
 		this.seed = seed;
 		this.crop = crop;
+		this.wild = wild;
 		
 		// hook up what needs hookin up
 		seed.setCrop(crop);

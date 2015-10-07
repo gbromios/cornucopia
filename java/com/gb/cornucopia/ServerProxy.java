@@ -2,7 +2,6 @@ package com.gb.cornucopia;
 
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.fruit.Fruits;
-import com.gb.cornucopia.garden.Gardens;
 import com.gb.cornucopia.veggie.Veggies;
 
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -18,7 +17,6 @@ public class ServerProxy {
     public void preInit(FMLPreInitializationEvent e) {
     	Veggies.preInit();
     	Fruits.preInit();
-    	Gardens.preInit(); // depends on veggies atm but could hook em up up later in theory
     	Cookery.preInit();
     	
     	

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.garden.block.BlockGarden;
 import com.gb.cornucopia.veggie.item.ItemRawVeggie;
 import com.gb.cornucopia.veggie.item.ItemSeedVeggie;
 
@@ -30,9 +29,9 @@ public class BlockCropVeggie extends BlockBush implements IGrowable
 {
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
 
-	private ItemSeedVeggie dropSeed;
-	private ItemRawVeggie dropVeg;
-	private BlockGarden garden;
+	private ItemSeedVeggie seed;
+	private ItemRawVeggie raw;
+	private BlockWildVeggie wild;
 	
 	public final String name;
 
@@ -48,13 +47,10 @@ public class BlockCropVeggie extends BlockBush implements IGrowable
 		GameRegistry.registerBlock(this, this.name);
 	}
 
-	public void setGarden(BlockGarden garden) {
-		this.garden = garden;
-	}
-
-	public void setDrops(ItemRawVeggie rawVeg, ItemSeedVeggie seedVeg) {
-		this.dropSeed = seedVeg;
-		this.dropVeg = rawVeg;
+	public void setDrops(ItemRawVeggie raw, ItemSeedVeggie seed, BlockWildVeggie wild) {
+		this.seed = seed;
+		this.raw = raw;
+		this.wild = wild;
 	}
 	
 	@Override
@@ -97,15 +93,15 @@ public class BlockCropVeggie extends BlockBush implements IGrowable
 		
 		if ((Integer)state.getValue(AGE) == 7){
 			// after three grows, veggie is ready to harvest
-			ret.add(new ItemStack(this.dropVeg));
+			ret.add(new ItemStack(this.raw));
 			
-			if (this.garden != null && RANDOM.nextInt(500) == 0){
-				// very tiny chance to drop the garden that originates this veggie
-				ret.add(new ItemStack(this.garden));
+			if (RANDOM.nextInt(500) == 0){
+				// very tiny chance to drop the wild veggie...!4
+				ret.add(new ItemStack(this.wild));
 			}
 		}
 		else {
-			ret.add(new ItemStack(this.dropSeed));
+			ret.add(new ItemStack(this.seed));
 		}
 		
 		return ret;

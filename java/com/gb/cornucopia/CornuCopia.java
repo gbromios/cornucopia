@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.fruit.Fruits;
-import com.gb.cornucopia.garden.Gardens;
 import com.gb.cornucopia.veggie.Veggies;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -31,10 +30,10 @@ public class CornuCopia
    
     //region creative tabs
     
-    public static final CreativeTabs tabGarden = new CreativeTabs("hc_garden"){
+    public static final CreativeTabs tabWildVeg = new CreativeTabs("hc_wildveg"){
 		@Override
 		public Item getTabIconItem() {
-			return Item.getItemFromBlock(Gardens.berry);
+			return Item.getItemFromBlock(Veggies.blueberry.crop); // placeholder 
 		}
     };
     public static final CreativeTabs tabRawVeg = new CreativeTabs("hc_rawveg"){

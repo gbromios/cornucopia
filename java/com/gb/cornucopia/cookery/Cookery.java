@@ -34,10 +34,6 @@ public class Cookery {
 	public static void preInit(){
 		juicer = new ItemCookWare("juicer");
 
-		mirepoix_part = new Ingredient("mirepoix_part");
-		sweet_berry = new Ingredient("sweet_berry");
-		citrus = new Ingredient("citrus");
-
 		cutting_board = new BlockCuttingBoard();
 		water_barrel = new BlockWaterBasin();
 	};
@@ -48,8 +44,6 @@ public class Cookery {
 		// or break things into sub-mods (preferred)
 		NetworkRegistry.INSTANCE.registerGuiHandler(CornuCopia.instance, new CookingGuiHandler());
 		cookwareModels();
-		registerIngredients();
-		registerRecipes(); // < may move this to post-init
 	}
 
 	private static void cookwareModels(){
@@ -74,34 +68,9 @@ public class Cookery {
 	}
 
 	private static void registerIngredients(){
-		mirepoix_part
-		.add(Veggies.onion.raw)
-		.add(Veggies.celery.raw)
-		.add(Veggies.leek.raw)
-		.add(Veggies.scallion.raw)
-		.add(Veggies.bellpepper.raw)
-		.add(Veggies.garlic.raw)
-		.add(Items.carrot);
-
-		sweet_berry
-		.add(Veggies.blueberry.raw)
-		.add(Veggies.blackberry.raw)
-		.add(Veggies.raspberry.raw)
-		.add(Veggies.strawberry.raw)
-		.add(Veggies.cranberry.raw);
-
-		citrus
-		.add(Fruits.lemon.raw)
-		.add(Fruits.lime.raw)
-		.add(Fruits.grapefruit.raw)
-		.add(Fruits.orange.raw);
-
 	}
 
 	private static void registerRecipes(){
-		new DishRegistry(cutting_board)
-		.add(new Dish(new ItemStack(Fruits.fig.raw), juicer, sweet_berry))
-		;
 	}
 
 }
