@@ -3,6 +3,7 @@ package com.gb.harvestcraft.veggie;
 import java.util.HashMap;
 
 import com.gb.harvestcraft.HarvestCraft;
+import com.gb.harvestcraft.veggie.block.BlockCropTallVeggie;
 import com.gb.harvestcraft.veggie.block.BlockCropVeggie;
 import com.gb.harvestcraft.veggie.item.ItemRawVeggie;
 import com.gb.harvestcraft.veggie.item.ItemSeedVeggie;
@@ -106,20 +107,29 @@ public class Veggies {
 	
 	protected static final HashMap<String, Veggie> vegMap = new HashMap<String, Veggie>();
 
-	public static Veggie createVeggie(String name, ItemRawVeggie iRaw,  ItemSeedVeggie iSeed, BlockCropVeggie bCrop){
-		// take fresh instances and save them in static fields
-		Veggie vs = new Veggie(iRaw, iSeed, bCrop);
-		vegMap.put(name, vs);
-		return vs;
-
+	public static Veggie createTallVeggie(String name){
+		return createVeggie(name,
+				new ItemRawVeggie(name),
+				new ItemSeedVeggie(name),
+				new BlockCropTallVeggie(name)
+				);
+		
 	}
-	
+		
 	public static Veggie createVeggie(String name){
 		return createVeggie(name,
 				new ItemRawVeggie(name),
 				new ItemSeedVeggie(name),
 				new BlockCropVeggie(name)
 				);
+	}
+	
+	public static Veggie createVeggie(String name, ItemRawVeggie iRaw,  ItemSeedVeggie iSeed, BlockCropVeggie bCrop){
+		// take fresh instances and save them in static fields
+		Veggie vs = new Veggie(iRaw, iSeed, bCrop);
+		vegMap.put(name, vs);
+		return vs;
+
 	}
 
 	public static void preInit(){
@@ -143,7 +153,7 @@ public class Veggies {
 		celery = createVeggie("celery");
 		chilipepper = createVeggie("chilipepper");
 		coffee = createVeggie("coffee");
-		corn = createVeggie("corn");
+		corn = createTallVeggie("corn");
 		cotton = createVeggie("cotton");
 		cranberry = createVeggie("cranberry");
 		cucumber = createVeggie("cucumber");
