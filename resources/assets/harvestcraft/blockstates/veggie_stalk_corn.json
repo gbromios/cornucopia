@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "harvestcraft:veggie_stalk_corn_0"
+    }, 
+    "age=1": {
+      "model": "harvestcraft:veggie_stalk_corn_1"
+    }
+  }
+}
