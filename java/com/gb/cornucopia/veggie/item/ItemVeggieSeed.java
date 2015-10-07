@@ -43,18 +43,18 @@ public class ItemVeggieSeed extends Item implements IPlantable{
 	}
 	
 	@Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
 		
 		// may elect to put biome restrictions here?
 		
-        if (side != EnumFacing.UP || !playerIn.canPlayerEdit(pos.offset(side), side, stack))
+        if (side != EnumFacing.UP || !player.canPlayerEdit(pos.offset(side), side, stack))
         {
             return false;
         }
-        else if (worldIn.getBlockState(pos).getBlock().canSustainPlant(worldIn, pos, EnumFacing.UP, this) && worldIn.isAirBlock(pos.up()))
+        else if (world.getBlockState(pos).getBlock().canSustainPlant(world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up()))
         {
-            worldIn.setBlockState(pos.up(), this.crop.getDefaultState());
+            world.setBlockState(pos.up(), this.crop.getDefaultState());
             --stack.stackSize;
             return true;
         }

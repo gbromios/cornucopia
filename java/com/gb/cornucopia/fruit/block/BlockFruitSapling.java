@@ -44,18 +44,18 @@ public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowabl
 		this.leaf = leaf;
 	}
 	
-	public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand){
+	public void generateTree(World world, BlockPos pos, IBlockState state, Random rand){
 		for (int x=-1; x<=1; x++){
 			for (int z=-1; z<=1; z++){
-				worldIn.setBlockState(pos.add(x, 2, z), this.leaf);
+				world.setBlockState(pos.add(x, 2, z), this.leaf);
 				if (z == 0 || x == 0 || rand.nextInt(3) != 0)
 				{
-					worldIn.setBlockState(pos.add(x, 3, z), this.leaf);
+					world.setBlockState(pos.add(x, 3, z), this.leaf);
 				}
 			}			
 		}
 		for (int y=0; y < 3; y++) {
-			worldIn.setBlockState(pos.add(0, y, 0), this.wood);
+			world.setBlockState(pos.add(0, y, 0), this.wood);
 		}
 	}
 	
@@ -109,11 +109,11 @@ public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowabl
 	}
 
 	@Override
-	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
 		System.out.format("eyyy lmaey %d\n", (Integer)state.getValue(AGE));
 			switch ((Integer)state.getValue(AGE)){
 				case 0:
-					worldIn.setBlockState(
+					world.setBlockState(
 							pos,
 							state.withProperty(
 									AGE,
@@ -124,7 +124,7 @@ public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowabl
 					break;
 				case 1:
 						System.out.println("boosh");
-						this.generateTree(worldIn, pos, state, rand);
+						this.generateTree(world, pos, state, rand);
 					break;
 			}
 	}

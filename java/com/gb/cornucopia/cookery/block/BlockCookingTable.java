@@ -42,7 +42,7 @@ public class BlockCookingTable extends Block{
 	}
 	    
     @Override
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
             return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
@@ -57,20 +57,20 @@ public class BlockCookingTable extends Block{
 
 	}
 	@Override
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock)
     {
-        if (!this.canBlockStay(worldIn, pos))
+        if (!this.canBlockStay(world, pos))
         {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
-            worldIn.setBlockToAir(pos);
+            this.dropBlockAsItem(world, pos, state, 0);
+            world.setBlockToAir(pos);
         }
 
-        super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
+        super.onNeighborBlockChange(world, pos, state, neighborBlock);
     }
 	
-    protected boolean canBlockStay(World worldIn, BlockPos pos)
+    protected boolean canBlockStay(World world, BlockPos pos)
     {
-        return worldIn.isSideSolid(pos.down(), EnumFacing.UP, true);
+        return world.isSideSolid(pos.down(), EnumFacing.UP, true);
     }
     
     @Override

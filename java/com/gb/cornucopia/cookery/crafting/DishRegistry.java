@@ -30,7 +30,7 @@ public class DishRegistry {
 		dishes.add(dish);
 	}
 	
-	public ItemStack findMatchingDish(InventoryCrafting cooking_input, World worldIn)
+	public ItemStack findMatchingDish(InventoryCrafting cooking_input, World world)
 	    {
 	        Iterator iterator = dishes.iterator();
 	        Dish d;
@@ -44,12 +44,12 @@ public class DishRegistry {
 
 	            d = (Dish) iterator.next();
 	        }
-	        while (!d.matches(cooking_input, worldIn));
+	        while (!d.matches(cooking_input, world));
 
 	        return d.getCraftingResult(cooking_input);
 	}
 	
-    public ItemStack[] getChangedInput(InventoryCrafting cooking_input, World worldIn)
+    public ItemStack[] getChangedInput(InventoryCrafting cooking_input, World world)
     {
         Iterator iterator = dishes.iterator();
 
@@ -57,7 +57,7 @@ public class DishRegistry {
         {
             Dish d = (Dish) iterator.next();
 
-            if (d.matches(cooking_input, worldIn))
+            if (d.matches(cooking_input, world))
             {
                 return d.getRemainingItems(cooking_input);
             }

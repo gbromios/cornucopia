@@ -52,7 +52,7 @@ public class BlockVeggieWild
 	@Override
 	public IBlockState getPlant(IBlockAccess world, BlockPos pos) { return this.getDefaultState(); }	
 
-    public boolean isReplaceable(World worldIn, BlockPos pos) { return false; }
+    public boolean isReplaceable(World world, BlockPos pos) { return false; }
 
     @Override
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
@@ -73,16 +73,16 @@ public class BlockVeggieWild
     }
     
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
     {
     	// TODO: add configurable option to disable garden block drops
-    	this.spawnAsEntity(worldIn, pos, new ItemStack(this));
-    	worldIn.setBlockToAir(pos);
+    	this.spawnAsEntity(world, pos, new ItemStack(this));
+    	world.setBlockToAir(pos);
         return false;
     }
 	
     @Override
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand){
+    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand){
     	// TODO: add config setting to disable garden spread and option to control the rate:
     	// if (!config.garden_spread_enabled || RANDOM.next_int(config.garden_spread_rate) != 0) return;
     	
@@ -95,7 +95,7 @@ public class BlockVeggieWild
         	for (int y = -search_radius; y <= search_radius; y++){
             	for (int z = -search_radius; z <= search_radius; z++){
             		// TODO: add option to count garden types separately?
-            		if (worldIn.getBlockState(pos.add(x, y, z)).getBlock() == this){
+            		if (world.getBlockState(pos.add(x, y, z)).getBlock() == this){
             			if (--max_gardens == 0) return;
             		}
             	}	
@@ -109,12 +109,12 @@ public class BlockVeggieWild
 				);
     	
     	if (
-    			worldIn.isAirBlock(grow_at) && 
-    			worldIn.getBlockState(grow_at.down()).getBlock().canSustainPlant(worldIn, grow_at.down(), EnumFacing.UP, this)
+    			world.isAirBlock(grow_at) && 
+    			world.getBlockState(grow_at.down()).getBlock().canSustainPlant(world, grow_at.down(), EnumFacing.UP, this)
     			
     		){
-    			//worldIn.setBlockState(grow_at, new BlockState(this), 0);
-    			worldIn.setBlockState(grow_at, this.getDefaultState());
+    			//world.setBlockState(grow_at, new BlockState(this), 0);
+    			world.setBlockState(grow_at, this.getDefaultState());
     	} 
 
     }

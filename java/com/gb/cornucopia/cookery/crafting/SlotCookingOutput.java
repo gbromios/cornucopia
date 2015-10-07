@@ -26,12 +26,12 @@ public class SlotCookingOutput extends Slot {
 	// can't put anything in the output slot
 	public boolean isItemValid(ItemStack stack) { return false; }
 	
-    public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack)
+    public void onPickupFromSlot(EntityPlayer player, ItemStack stack)
     {
-        net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(playerIn, stack, craftMatrix);
+        net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(player, stack, craftMatrix);
         this.onCrafting(stack);
-        net.minecraftforge.common.ForgeHooks.setCraftingPlayer(playerIn);
-        ItemStack[] aitemstack = this.dishRegistry.getChangedInput(this.craftMatrix, playerIn.worldObj);
+        net.minecraftforge.common.ForgeHooks.setCraftingPlayer(player);
+        ItemStack[] aitemstack = this.dishRegistry.getChangedInput(this.craftMatrix, player.worldObj);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
 
         for (int i = 0; i < aitemstack.length; ++i)

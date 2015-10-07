@@ -25,12 +25,12 @@ public class ContainerCookingTable extends Container {
 	public final InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
 	public final IInventory craftResult = new InventoryCraftResult();
 
-	public ContainerCookingTable(InventoryPlayer playerInventory, World world, BlockPos pos, DishRegistry dishRegistry) {
+	public ContainerCookingTable(InventoryPlayer playerventory, World world, BlockPos pos, DishRegistry dishRegistry) {
 		this.world = world;
 		this.pos = pos;
 		this.dishRegistry = dishRegistry;
 
-		this.addSlotToContainer(new SlotCookingOutput(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35, dishRegistry));
+		this.addSlotToContainer(new SlotCookingOutput(playerventory.player, this.craftMatrix, this.craftResult, 0, 124, 35, dishRegistry));
 		
 		//region// placing all the slots. 
 		int i;
@@ -48,13 +48,13 @@ public class ContainerCookingTable extends Container {
 		{
 			for (j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlotToContainer(new Slot(playerventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (i = 0; i < 9; ++i)
 		{
-			this.addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
+			this.addSlotToContainer(new Slot(playerventory, i, 8 + i * 18, 142));
 		}
 		// endregion
 		
@@ -62,12 +62,12 @@ public class ContainerCookingTable extends Container {
 
 	}
 
-	public boolean canInteractWith(EntityPlayer playerIn)
+	public boolean canInteractWith(EntityPlayer player)
 	{
 		// vanilla method has block hard coded.
 		return 
 				!this.world.isAirBlock(this.pos) // more ideally, we'd just check that it's the actual block; this should be almost as good as far as "block is still there" is concerned
-				&& playerIn.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D
+				&& player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D
 				;
 
 	}
@@ -81,9 +81,9 @@ public class ContainerCookingTable extends Container {
 	}
 
 	
-	public void onContainerClosed(EntityPlayer playerIn)
+	public void onContainerClosed(EntityPlayer player)
 	{
-		super.onContainerClosed(playerIn);
+		super.onContainerClosed(player);
 
 		if (!this.world.isRemote)
 		{
@@ -93,13 +93,13 @@ public class ContainerCookingTable extends Container {
 
 				if (itemstack != null)
 				{
-					playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
+					player.dropPlayerItemWithRandomChoice(itemstack, false);
 				}
 			}
 		}
 	}
 
-	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
+	public ItemStack transferStackInSlot(EntityPlayer player, int index)
 	{
 		ItemStack itemstack = null;
 		Slot slot = (Slot)this.inventorySlots.get(index);
@@ -151,7 +151,7 @@ public class ContainerCookingTable extends Container {
 				return null;
 			}
 
-			slot.onPickupFromSlot(playerIn, itemstack1);
+			slot.onPickupFromSlot(player, itemstack1);
 		}
 
 		return itemstack;
