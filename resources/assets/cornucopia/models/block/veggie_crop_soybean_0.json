@@ -1,8 +1,0 @@
-{
-    "parent": "block/crop",
-    "textures": {
-	"crop": "cornucopia:blocks/veggie_crop_soybean_0"
-    }
-}
-		
-		
