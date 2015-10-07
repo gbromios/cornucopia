@@ -22,39 +22,7 @@ public class Fruits {
 	protected static final HashMap<String, Fruit> fruitMap = new HashMap<String, Fruit>();
 
 	//region all the fruits
-	public static Fruit almond;
-	public static Fruit apricot;
-	public static Fruit avocado;
-	public static Fruit banana;
-	public static Fruit candlenut;
-	public static Fruit cashew;
-	public static Fruit cherry;
-	public static Fruit chestnut;
-	public static Fruit cinnamon;
-	public static Fruit coconut;
-	public static Fruit date;
-	public static Fruit dragonfruit;
-	public static Fruit durian;
-	public static Fruit fig;
-	public static Fruit grapefruit;
-	public static Fruit lemon;
-	public static Fruit lime;
-	public static Fruit mango;
-	public static Fruit nutmeg;
-	public static Fruit olive;
-	public static Fruit orange;
-	public static Fruit papaya;
 	public static Fruit peach;
-	public static Fruit pear;
-	public static Fruit pecan;
-	public static Fruit peppercorn;
-	public static Fruit persimmon;
-	public static Fruit pistachio;
-	public static Fruit plum;
-	public static Fruit pomegranate;
-	public static Fruit starfruit;
-	public static Fruit vanillabean;
-	public static Fruit walnut;
 	//endregion
 	
 	public static Fruit createFruit(String name, ItemRawFruit raw, BlockSaplingFruit sapling, BlockLeafFruit leaf, BlockCropFruit crop, IBlockState wood){
@@ -77,39 +45,9 @@ public class Fruits {
 
 	public static void preInit(){
 		//region instantiate Fruit objects
-		almond = createFruit("almond");
-		apricot = createFruit("apricot");
-		avocado = createFruit("avocado");
-		banana = createFruit("banana");
-		candlenut = createFruit("candlenut");
-		cashew = createFruit("cashew");
-		cherry = createFruit("cherry");
-		chestnut = createFruit("chestnut");
-		cinnamon = createFruit("cinnamon");
-		coconut = createFruit("coconut");
-		date = createFruit("date");
-		dragonfruit = createFruit("dragonfruit");
-		durian = createFruit("durian");
-		fig = createFruit("fig");
-		grapefruit = createFruit("grapefruit");
-		lemon = createFruit("lemon");
-		lime = createFruit("lime");
-		mango = createFruit("mango");
-		nutmeg = createFruit("nutmeg");
-		olive = createFruit("olive");
-		orange = createFruit("orange");
-		papaya = createFruit("papaya");
+
 		peach = createFruit("peach");
-		pear = createFruit("pear");
-		pecan = createFruit("pecan");
-		peppercorn = createFruit("peppercorn");
-		persimmon = createFruit("persimmon");
-		pistachio = createFruit("pistachio");
-		plum = createFruit("plum");
-		pomegranate = createFruit("pomegranate");
-		starfruit = createFruit("starfruit");
-		vanillabean = createFruit("vanillabean");
-		walnut = createFruit("walnut");
+
 		//endregion
 	}
 	
