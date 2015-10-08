@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Veggies {
 	//region public fields
+	public static Veggie artichoke;
 	public static Veggie blueberry;
 	public static Veggie corn;
 
@@ -53,9 +54,11 @@ public class Veggies {
 	}
 
 	public static void preInit(){
-		// populate veggie instances one by one. guess this is as good a place as any to define this crap :I
+		artichoke = createVeggie("artichoke");
 		blueberry = createVeggie("blueberry");
 		corn = createTallVeggie("corn");
+
+
 	}
 
 	public static void init(){
