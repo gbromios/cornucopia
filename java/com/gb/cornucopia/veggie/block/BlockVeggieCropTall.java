@@ -15,9 +15,10 @@ public class BlockVeggieCropTall extends BlockVeggieCrop {
 	public BlockVeggieCropTall(String name) {
 		this(name, false);
 	}
+
 	
 	public BlockVeggieCropTall(String name, boolean blocking) {
-		super(name);
+		super(name, 7);
 		this.blocking = blocking;
 		stalk = new BlockVeggieStalk(name, this);
 	}
