@@ -35,12 +35,16 @@ public class Veggies {
 				);
 		
 	}
-		
+	
 	public static Veggie createVeggie(String name){
+		return createVeggie(name, 3);
+	}
+		
+	public static Veggie createVeggie(String name, int max_age){
 		return createVeggie(name,
 				new ItemVeggieRaw(name),
 				new ItemVeggieSeed(name),
-				new BlockVeggieCrop(name),
+				new BlockVeggieCrop(name, max_age),
 				new BlockVeggieWild(name, EnumPlantType.Plains)
 				);
 	}
@@ -89,6 +93,11 @@ public class Veggies {
 				);
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 					Item.getItemFromBlock(v.crop),
+					0,
+					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, v.crop.name), "inventory")
+				);
+			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
+					Item.getItemFromBlock(v.wild),
 					0,
 					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, v.crop.name), "inventory")
 				);
