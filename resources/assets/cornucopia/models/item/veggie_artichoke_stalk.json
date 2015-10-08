@@ -37,6 +37,6 @@
   }, 
   "parent": "builtin/generated", 
   "textures": {
-    "layer0": "cornucopia:blocks/veggie_asparagus_crop_3"
+    "layer0": "cornucopia:blocks/veggie_artichoke_stalk_3"
   }
 }

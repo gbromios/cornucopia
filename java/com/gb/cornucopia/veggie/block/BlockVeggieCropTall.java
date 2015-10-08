@@ -18,7 +18,7 @@ public class BlockVeggieCropTall extends BlockVeggieCrop {
 
 	
 	public BlockVeggieCropTall(String name, boolean blocking) {
-		super(name, 7);
+		super(name);
 		this.blocking = blocking;
 		stalk = new BlockVeggieStalk(name, this);
 	}
@@ -42,9 +42,6 @@ public class BlockVeggieCropTall extends BlockVeggieCrop {
 		// if the veggie is on top of a stalk, then dont do anything different.
 		// TODO: if you want to make taller veggies, here's where you'd do `if ( this.stalk.height() >= MAX_HEIGHT  )`
 		if (world.getBlockState(pos.down()).getBlock() == this.stalk){
-			//if ((Integer)state.getValue(AGE) < (Integer)new_state.getValue(AGE)){
-			//world.setBlockState(pos.down(), this.stalk.getDefaultState().withProperty(BlockStalkTallVeggie.AGE, 1));
-			
 			// stalk's age is veggie's age - 4
 			// for growing taller than one, will probably want to shift this to onNeighborChange
 			world.setBlockState(pos.down(), this.stalk.getDefaultState().withProperty(

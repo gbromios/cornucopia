@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 @Mod(modid = CornuCopia.MODID, version = CornuCopia.VERSION)
 public class CornuCopia
 {
+	public static final String NAME = "CornuCopia";
     public static final String MODID = "cornucopia";
     public static final String VERSION = "1.0";
     
@@ -29,29 +30,28 @@ public class CornuCopia
     public static CornuCopia instance;
    
     //region creative tabs
-    
-    public static final CreativeTabs tabWildVeg = new CreativeTabs("hc_wildveg"){
-		@Override
-		public Item getTabIconItem() {
-			return Item.getItemFromBlock(Veggies.blueberry.crop); // placeholder 
-		}
-    };
     public static final CreativeTabs tabRawVeg = new CreativeTabs("hc_rawveg"){
 		@Override
 		public Item getTabIconItem() {
-			return Veggies.blueberry.raw;
-		}
-    };
-    public static final CreativeTabs tabSeedVeg = new CreativeTabs("hc_seedveg"){
-		@Override
-		public Item getTabIconItem() {
-			return Veggies.blueberry.seed;
+			return Veggies.asparagus.raw;
 		}
     };
     public static final CreativeTabs tabCropVeg = new CreativeTabs("hc_cropveg"){
 		@Override
 		public Item getTabIconItem() {
-			return Item.getItemFromBlock(Veggies.blueberry.crop);
+			return Item.getItemFromBlock(Veggies.asparagus.crop);
+		}
+    };
+    public static final CreativeTabs tabSeedVeg = new CreativeTabs("hc_seedveg"){
+		@Override
+		public Item getTabIconItem() {
+			return Veggies.asparagus.seed;
+		}
+    };
+    public static final CreativeTabs tabWildVeg = new CreativeTabs("hc_wildveg"){
+		@Override
+		public Item getTabIconItem() {
+			return Item.getItemFromBlock(Veggies.asparagus.wild);
 		}
     };
     public static final CreativeTabs tabRawFruit = new CreativeTabs("hc_rawfruit"){

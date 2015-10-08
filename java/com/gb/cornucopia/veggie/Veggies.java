@@ -23,9 +23,9 @@ public class Veggies {
 	public static Veggie barley;
 	public static Veggie blueberry;
 	public static Veggie corn;
-
 	
-	// endregion	
+	// endregion
+	
 	protected static final HashMap<String, Veggie> vegMap = new HashMap<String, Veggie>();
 
 	public static Veggie createTallVeggie(String name){
@@ -35,18 +35,13 @@ public class Veggies {
 				new BlockVeggieCropTall(name),
 				new BlockVeggieWild(name, EnumPlantType.Plains)
 				);
-		
 	}
-	
+		
 	public static Veggie createVeggie(String name){
-		return createVeggie(name, 3);
-	}
-		
-	public static Veggie createVeggie(String name, int max_age){
 		return createVeggie(name,
 				new ItemVeggieRaw(name),
 				new ItemVeggieSeed(name),
-				new BlockVeggieCrop(name, max_age),
+				new BlockVeggieCrop(name),
 				new BlockVeggieWild(name, EnumPlantType.Plains)
 				);
 	}
@@ -62,8 +57,8 @@ public class Veggies {
 	public static void preInit(){
 		artichoke = createVeggie("artichoke");
 		asparagus = createVeggie("asparagus");
-		barley = createVeggie("barley", 7);
-		blueberry = createVeggie("blueberry");
+		barley = createVeggie("barley");
+		//blueberry = createVeggie("blueberry");
 		corn = createTallVeggie("corn");
 
 

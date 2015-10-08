@@ -37,6 +37,6 @@
   }, 
   "parent": "builtin/generated", 
   "textures": {
-    "layer0": "cornucopia:blocks/veggie_barley_crop_7"
+    "layer0": "cornucopia:blocks/veggie_barley_wild"
   }
 }

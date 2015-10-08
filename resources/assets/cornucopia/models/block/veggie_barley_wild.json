@@ -1,6 +1,6 @@
 {
   "parent": "block/cross", 
   "textures": {
-    "cross": "cornucopia:blocks/veggie_barley_crop_7"
+    "cross": "cornucopia:blocks/veggie_barley_wild"
   }
 }

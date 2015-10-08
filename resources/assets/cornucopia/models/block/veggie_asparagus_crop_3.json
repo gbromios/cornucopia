@@ -1,6 +1,6 @@
 {
   "parent": "block/crop", 
   "textures": {
-    "crop": "cornucopia:blocks/veggie_asparagus_crop_3"
+    "crop": "cornucopia:blocks/veggie_asparagus_crop_1"
   }
 }
