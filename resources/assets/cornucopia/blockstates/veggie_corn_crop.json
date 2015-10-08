@@ -1,12 +1,28 @@
 {
   "variants": {
-    "check_decay=true,decayable=true,sapling_generator=true,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=true,decayable=true,sapling_generator=false,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=true,decayable=false,sapling_generator=true,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=true,decayable=false,sapling_generator=false,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=false,decayable=true,sapling_generator=true,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=false,decayable=true,sapling_generator=false,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=false,decayable=false,sapling_generator=true,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=false,decayable=false,sapling_generator=false,variant=oak" : { "model" : "oak_leaves" }
+        "age=0": {
+          "model": "cornucopia:veggie_corn_crop_0"
+        },
+        "age=1": {
+          "model": "cornucopia:veggie_corn_crop_1"
+        },
+        "age=2": {
+          "model": "cornucopia:veggie_corn_crop_2"
+        },
+        "age=3": {
+          "model": "cornucopia:veggie_corn_crop_3"
+        },
+        "age=4": {
+          "model": "cornucopia:veggie_corn_crop_4"
+        },
+        "age=5": {
+          "model": "cornucopia:veggie_corn_crop_5"
+        },
+        "age=6": {
+          "model": "cornucopia:veggie_corn_crop_6"
+        },
+        "age=7": {
+          "model": "cornucopia:veggie_corn_crop_7"
+       }
     }
 }
