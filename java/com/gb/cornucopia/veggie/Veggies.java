@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class Veggies {
 	//region public fields
 	public static Veggie artichoke;
+	public static Veggie asparagus;
 	public static Veggie blueberry;
 	public static Veggie corn;
 
@@ -59,6 +60,7 @@ public class Veggies {
 
 	public static void preInit(){
 		artichoke = createVeggie("artichoke");
+		asparagus = createVeggie("asparagus");
 		blueberry = createVeggie("blueberry");
 		corn = createTallVeggie("corn");
 
