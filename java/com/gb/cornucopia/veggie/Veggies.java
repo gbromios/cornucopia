@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Veggies {
 	//region public fields
+	public static Veggie artichoke;
 	public static Veggie blueberry;
 	public static Veggie corn;
 
@@ -34,12 +35,16 @@ public class Veggies {
 				);
 		
 	}
-		
+	
 	public static Veggie createVeggie(String name){
+		return createVeggie(name, 3);
+	}
+		
+	public static Veggie createVeggie(String name, int max_age){
 		return createVeggie(name,
 				new ItemVeggieRaw(name),
 				new ItemVeggieSeed(name),
-				new BlockVeggieCrop(name),
+				new BlockVeggieCrop(name, max_age),
 				new BlockVeggieWild(name, EnumPlantType.Plains)
 				);
 	}
@@ -53,9 +58,11 @@ public class Veggies {
 	}
 
 	public static void preInit(){
-		// populate veggie instances one by one. guess this is as good a place as any to define this crap :I
+		artichoke = createVeggie("artichoke");
 		blueberry = createVeggie("blueberry");
 		corn = createTallVeggie("corn");
+
+
 	}
 
 	public static void init(){
@@ -86,6 +93,11 @@ public class Veggies {
 				);
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 					Item.getItemFromBlock(v.crop),
+					0,
+					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, v.crop.name), "inventory")
+				);
+			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
+					Item.getItemFromBlock(v.wild),
 					0,
 					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, v.crop.name), "inventory")
 				);

@@ -1,6 +1,6 @@
 {
-    "parent": "block/crop",
-    "textures": {
-	"crop": "cornucopia:blocks/veggie_corn_stalk_0"
-    }
+  "parent": "block/crop", 
+  "textures": {
+    "crop": "cornucopia:blocks/veggie_corn_stalk_0"
+  }
 }
