@@ -20,6 +20,7 @@ public class Veggies {
 	//region public fields
 	public static Veggie artichoke;
 	public static Veggie asparagus;
+	public static Veggie barley;
 	public static Veggie blueberry;
 	public static Veggie corn;
 
@@ -61,6 +62,7 @@ public class Veggies {
 	public static void preInit(){
 		artichoke = createVeggie("artichoke");
 		asparagus = createVeggie("asparagus");
+		barley = createVeggie("barley", 7);
 		blueberry = createVeggie("blueberry");
 		corn = createTallVeggie("corn");
 
