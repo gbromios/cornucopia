@@ -1,12 +1,28 @@
 {
   "variants": {
-    "check_decay=true,decayable=true,sapling_generator=true,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=true,decayable=true,sapling_generator=false,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=true,decayable=false,sapling_generator=true,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=true,decayable=false,sapling_generator=false,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=false,decayable=true,sapling_generator=true,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=false,decayable=true,sapling_generator=false,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=false,decayable=false,sapling_generator=true,variant=oak" : { "model" : "oak_leaves" },
-    "check_decay=false,decayable=false,sapling_generator=false,variant=oak" : { "model" : "oak_leaves" }
+    "check_decay=false,decayable=false,sapling_generator=false": {
+      "model": "oak_leaves"
+    }, 
+    "check_decay=false,decayable=false,sapling_generator=true": {
+      "model": "oak_leaves"
+    }, 
+    "check_decay=false,decayable=true,sapling_generator=false": {
+      "model": "oak_leaves"
+    }, 
+    "check_decay=false,decayable=true,sapling_generator=true": {
+      "model": "oak_leaves"
+    }, 
+    "check_decay=true,decayable=false,sapling_generator=false": {
+      "model": "oak_leaves"
+    }, 
+    "check_decay=true,decayable=false,sapling_generator=true": {
+      "model": "oak_leaves"
+    }, 
+    "check_decay=true,decayable=true,sapling_generator=false": {
+      "model": "oak_leaves"
+    }, 
+    "check_decay=true,decayable=true,sapling_generator=true": {
+      "model": "oak_leaves"
     }
+  }
 }
