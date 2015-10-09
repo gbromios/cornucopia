@@ -14,15 +14,27 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class Bees {
 	public static ItemBee bee;
 	public static ItemQueenBee queen;
+	
+	public static Item honeycomb;
+	public static Item waxcomb;
+	
+	
 	public static BlockHive hive;
 	public static BlockApiary apiary;
 	
 	public static void preInit(){
 		bee = new ItemBee("worker");
 		queen = new ItemQueenBee("queen");
+		
+		// genericass items for now, worry aobut real classes later
+		honeycomb = new Item().setUnlocalizedName("bee_honeycomb").setCreativeTab(CornuCopia.tabBees);
+		waxcomb = new Item().setUnlocalizedName("bee_waxcomb").setCreativeTab(CornuCopia.tabBees);
+		GameRegistry.registerItem(honeycomb, "bee_honeycomb");
+		GameRegistry.registerItem(waxcomb, "bee_waxcomb");
+		
+		
 		hive = new BlockHive();
 		apiary = new BlockApiary();
-		
 		
 
 
@@ -40,6 +52,16 @@ public class Bees {
 				new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, "bee_queen"), "inventory") 
 			);
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
+				honeycomb,
+				0,
+				new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, "bee_honeycomb"), "inventory") 
+			);
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
+				waxcomb,
+				0,
+				new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, "bee_waxcomb"), "inventory") 
+			);
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 				Item.getItemFromBlock(hive),
 				0,
 				new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, "bee_hive"), "inventory") 
@@ -47,7 +69,7 @@ public class Bees {
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
 				Item.getItemFromBlock(apiary),
 				0,
-				new ModelResourceLocation(String.format("minecraft:oak_planks", "bee_hive"), "inventory") // placeholder 
+				new ModelResourceLocation("minecraft:oak_planks", "inventory") 
 			);
 	}
 }

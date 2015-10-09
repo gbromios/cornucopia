@@ -21,7 +21,7 @@ public class GuiApiary extends GuiContainer {
 	private ResourceLocation textures = new ResourceLocation("cornucopia:textures/gui/container/bee_apiary.png");
 	public GuiApiary(World world, InventoryPlayer player_inventory, BlockPos pos) {
 		// will this crash if the wrong kind of tile entity is there? probably lol
-		super(new ContainerApiary(player_inventory, (IInventory)world.getTileEntity(pos)));
+		super(new ContainerApiary(player_inventory, (IInventory)world.getTileEntity(pos), world, pos));
 		// find out for sure!!
 		if (!(world.getTileEntity(pos) instanceof TileEntityApiary)){
 			throw new RuntimeException(String.format("somehow GuiApiary is getting a %s at %s ???", world.getTileEntity(pos), pos));

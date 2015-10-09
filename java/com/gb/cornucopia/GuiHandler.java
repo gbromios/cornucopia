@@ -34,7 +34,7 @@ public class GuiHandler implements IGuiHandler {
 		}
 		else if (o instanceof BlockApiary){
 			// same here but no run time exception (code 2 messy huehue). if it's gonna happen, it should happen on the client even harder
-			return new ContainerApiary(player.inventory, (IInventory)world.getTileEntity(new BlockPos(x, y ,z)));
+			return new ContainerApiary(player.inventory, (IInventory)world.getTileEntity(new BlockPos(x, y ,z)), world, new BlockPos(x, y ,z));
 		}
 		else {
 			throw new RuntimeException("no gui: idk how to server container for this");

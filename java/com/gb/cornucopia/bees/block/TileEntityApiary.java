@@ -3,6 +3,7 @@ package com.gb.cornucopia.bees.block;
 import java.util.Arrays;
 import java.util.Random;
 
+import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.bees.crafting.ContainerApiary;
 
 import net.minecraft.block.Block;
@@ -301,12 +302,13 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		// afaict this doesn't do shit???
 		return false;
 	}
 
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player)
     {
-        return new ContainerApiary(playerInventory, this);
+        return new ContainerApiary(playerInventory, this, this.worldObj, this.pos);
     }
 	
 	@Override

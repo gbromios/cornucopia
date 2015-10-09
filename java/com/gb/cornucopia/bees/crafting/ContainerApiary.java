@@ -14,22 +14,25 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ContainerApiary extends Container {
-		public ContainerApiary(InventoryPlayer playerInventory, IInventory apiaryInventory) {
-		// not sure if i am supposed to use the player or something?
-			
-			
-		this.addSlotToContainer(new Slot(apiaryInventory, 0, 34, 21)); // queen
-		this.addSlotToContainer(new Slot(apiaryInventory, 1, 34, 47)); // workers
+	private final World world; // mojang
+	private final BlockPos pos;
+	
+	public ContainerApiary(InventoryPlayer playerInventory, IInventory apiaryInventory, World world, BlockPos pos) {
+		this.world = world;
+		this.pos = pos;
 		
+		this.addSlotToContainer(new SlotApiary(apiaryInventory, 0, 33, 20, 0)); // queen
+		this.addSlotToContainer(new SlotApiary(apiaryInventory, 1, 33, 46, 1)); // workers
+
 		// seven honeycomb slots
-		this.addSlotToContainer(new Slot(apiaryInventory, 2, 78,  21)); 
-		this.addSlotToContainer(new Slot(apiaryInventory, 3, 101, 10));
-		this.addSlotToContainer(new Slot(apiaryInventory, 4, 124, 21));
-		this.addSlotToContainer(new Slot(apiaryInventory, 5, 78,  43));
-		this.addSlotToContainer(new Slot(apiaryInventory, 6, 101, 32));
-		this.addSlotToContainer(new Slot(apiaryInventory, 7, 124, 43));
-		this.addSlotToContainer(new Slot(apiaryInventory, 8, 101, 54));
-		
+		this.addSlotToContainer(new SlotApiary(apiaryInventory, 2,  78, 21, 2)); 
+		this.addSlotToContainer(new SlotApiary(apiaryInventory, 3, 101, 10, 2));
+		this.addSlotToContainer(new SlotApiary(apiaryInventory, 4, 124, 21, 2));
+		this.addSlotToContainer(new SlotApiary(apiaryInventory, 5,  78, 43, 2));
+		this.addSlotToContainer(new SlotApiary(apiaryInventory, 6, 101, 32, 2));
+		this.addSlotToContainer(new SlotApiary(apiaryInventory, 7, 124, 43, 2));
+		this.addSlotToContainer(new SlotApiary(apiaryInventory, 8, 101, 54, 2));
+
 		// the player
 		for (int i = 0; i < 3; ++i)
 		{
@@ -45,9 +48,16 @@ public class ContainerApiary extends Container {
 		}
 
 	}
+
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
-		return true;
+	public boolean canInteractWith(EntityPlayer player)
+	{
+		// pls
+		return 
+				!this.world.isAirBlock(this.pos)
+				&& player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D
+				;
+
 	}
 
 }
