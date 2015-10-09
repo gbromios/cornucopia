@@ -3,12 +3,17 @@ package com.gb.cornucopia.bees.block;
 import java.util.Arrays;
 import java.util.Random;
 
+import com.gb.cornucopia.bees.crafting.ContainerApiary;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -213,6 +218,12 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 	public int getSizeInventory() {	return 9; }
 
 	@Override
+	public int getInventoryStackLimit() {return 64;}
+	
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer player) {	return true; } // TODO: distance check
+	
+	@Override
 	public ItemStack getStackInSlot(int index) {
 		// 0 - queen
 		// 1 - workers
@@ -272,7 +283,7 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
      */
     public void setInventorySlotContents(int index, ItemStack stack)
     {
-        this.chestContents[index] = stack;
+        this.contents[index] = stack;
 
         if (stack != null && stack.stackSize > this.getInventoryStackLimit())
         {
@@ -281,45 +292,30 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 
         this.markDirty();
     }
-	@Override
-	public int getInventoryStackLimit() {
-
-		return 0;
-	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
-
-		return false;
-	}
+	public void openInventory(EntityPlayer player) {}
 
 	@Override
-	public void openInventory(EntityPlayer player) {
-
-		
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player) {
-
-		
-	}
+	public void closeInventory(EntityPlayer player) {}
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-
 		return false;
 	}
 
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
+    {
+        return new ContainerApiary(playerInventory, this);
+    }
+	
 	@Override
 	public int getField(int id) {
-
 		return 0;
 	}
 
 	@Override
 	public void setField(int id, int value) {
-
 		
 	}
 
@@ -331,10 +327,10 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 
 	@Override
 	public void clear() {
-
-		
+        for (int i = 0; i < this.contents.length; ++i)
+        {
+            this.contents[i] = null;
+        }
 	}
-
-
 
 }

@@ -14,44 +14,35 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ContainerApiary extends Container {
-	private final World world;
-	private final BlockPos pos;
-	public final InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
-	public final IInventory craftResult = new InventoryCraftResult();
-
-	public ContainerApiary(InventoryPlayer playerventory, World world, BlockPos pos) {
-		this.world = world;
-		this.pos = pos;
-
-		//this.addSlotToContainer(new SlotCookingOutput(playerventory.player, this.craftMatrix, this.craftResult, 0, 124, 35, dishRegistry));
+		public ContainerApiary(InventoryPlayer playerInventory, IInventory apiaryInventory) {
+		// not sure if i am supposed to use the player or something?
+			
+			
+		this.addSlotToContainer(new Slot(apiaryInventory, 0, 34, 21)); // queen
+		this.addSlotToContainer(new Slot(apiaryInventory, 1, 34, 47)); // workers
 		
-		//region// placing all the slots. 
-		int i;
-		int j;
-
-		for (i = 0; i < 3; ++i)
+		// seven honeycomb slots
+		this.addSlotToContainer(new Slot(apiaryInventory, 2, 78,  21)); 
+		this.addSlotToContainer(new Slot(apiaryInventory, 3, 101, 10));
+		this.addSlotToContainer(new Slot(apiaryInventory, 4, 124, 21));
+		this.addSlotToContainer(new Slot(apiaryInventory, 5, 78,  43));
+		this.addSlotToContainer(new Slot(apiaryInventory, 6, 101, 32));
+		this.addSlotToContainer(new Slot(apiaryInventory, 7, 124, 43));
+		this.addSlotToContainer(new Slot(apiaryInventory, 8, 101, 54));
+		
+		// the player
+		for (int i = 0; i < 3; ++i)
 		{
-			for (j = 0; j < 3; ++j)
+			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(this.craftMatrix, j + i * 3, 30 + j * 18, 17 + i * 18));
+				this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
-		for (i = 0; i < 3; ++i)
+		for (int i = 0; i < 9; ++i)
 		{
-			for (j = 0; j < 9; ++j)
-			{
-				this.addSlotToContainer(new Slot(playerventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-			}
+			this.addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
 		}
-
-		for (i = 0; i < 9; ++i)
-		{
-			this.addSlotToContainer(new Slot(playerventory, i, 8 + i * 18, 142));
-		}
-		// endregion
-		
-		this.onCraftMatrixChanged(this.craftMatrix);
 
 	}
 	@Override

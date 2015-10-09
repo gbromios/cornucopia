@@ -12,6 +12,7 @@ import com.gb.cornucopia.cookery.crafting.GuiCookingTable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerWorkbench;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -32,12 +33,12 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerCookingTable(player.inventory, world, new BlockPos(x, y ,z), (DishRegistry)o);
 		}
 		else if (o instanceof BlockApiary){
-			return new ContainerApiary(player.inventory, world, new BlockPos(x, y ,z));
+			// same here but no run time exception (code 2 messy huehue). if it's gonna happen, it should happen on the client even harder
+			return new ContainerApiary(player.inventory, (IInventory)world.getTileEntity(new BlockPos(x, y ,z)));
 		}
 		else {
-			throw new RuntimeException("idk how to handle server gui for this");
+			throw new RuntimeException("no gui: idk how to server container for this");
 		}
-		
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiApiary(world, player.inventory, new BlockPos(x, y ,z));
 		}
 		else {
-			throw new RuntimeException("idk how to handle client gui for this");
+			throw new RuntimeException("no gui: idk how client container/gui for this");
 		}
 	}
 }
