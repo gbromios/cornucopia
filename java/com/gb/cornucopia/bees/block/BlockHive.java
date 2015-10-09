@@ -21,6 +21,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockHive extends Block{
 	public BlockHive()
@@ -28,6 +29,8 @@ public class BlockHive extends Block{
 		super(Material.gourd);
 		this.setBlockBounds(0.2F, 0, 0.2F, 0.8F, 1, 0.8F);
 		this.setCreativeTab(CornuCopia.tabBees);
+		this.setUnlocalizedName("bee_hive");
+		GameRegistry.registerBlock(this, "bee_hive");
 	}
 	
 	

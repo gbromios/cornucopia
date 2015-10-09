@@ -10,26 +10,28 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 
 public class ServerProxy {
 
-    public void preInit(FMLPreInitializationEvent e) {
-    	Veggies.preInit();
-    	Fruits.preInit();
-    	Bees.preInit();
-    	Cookery.preInit();
-    	
-    	
-    }
+	public void preInit(FMLPreInitializationEvent e) {
+		Veggies.preInit();
+		Fruits.preInit();
+		Bees.preInit();
+		Cookery.preInit();
 
-    public void init(FMLInitializationEvent e) {
-    	// TODO: take this ugly shit out and hook into BoP~!
-    	GameRegistry.registerWorldGenerator(new DummyGen(), 9999);
-    	Cookery.init();
-    }
 
-    public void postInit(FMLPostInitializationEvent e) {
-    }
+	}
+
+	public void init(FMLInitializationEvent e) {
+		// TODO: take this ugly shit out and hook into BoP~!
+		GameRegistry.registerWorldGenerator(new DummyGen(), 9999);
+		Cookery.init();
+		NetworkRegistry.INSTANCE.registerGuiHandler(CornuCopia.instance, new GuiHandler());
+	}
+
+	public void postInit(FMLPostInitializationEvent e) {
+	}
 }

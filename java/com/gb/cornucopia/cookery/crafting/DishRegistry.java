@@ -3,27 +3,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.gb.cornucopia.GuiHandler;
+
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class DishRegistry {
-	private final static HashMap<Integer, DishRegistry> block_map = new HashMap<>();
 	private final ArrayList<Dish> dishes;
-	
-	public static DishRegistry get(int i){
-		return block_map.get(i);
-	}
-	
-	public static DishRegistry get(Block b){
-		return block_map.get(Block.getIdFromBlock(b));
-	}
 	
 	public DishRegistry(Block b){
 		dishes = new ArrayList<>();
-		block_map.put(Block.getIdFromBlock(b), this);
+		GuiHandler.register(b, this);
+		
 	}
 	
 	public void add(Dish dish){
