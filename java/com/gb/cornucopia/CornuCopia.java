@@ -2,6 +2,7 @@ package com.gb.cornucopia;
 
 import java.util.ArrayList;
 
+import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.fruit.Fruits;
 import com.gb.cornucopia.veggie.Veggies;
@@ -30,6 +31,12 @@ public class CornuCopia
     public static CornuCopia instance;
    
     //region creative tabs
+    public static final CreativeTabs tabBees = new CreativeTabs("hc_bees"){
+		@Override
+		public Item getTabIconItem() {
+			return Bees.queen;
+		}    	
+    };
     public static final CreativeTabs tabRawVeg = new CreativeTabs("hc_rawveg"){
 		@Override
 		public Item getTabIconItem() {
