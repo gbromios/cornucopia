@@ -2,6 +2,7 @@ package com.gb.cornucopia.bees.crafting;
 
 import com.gb.cornucopia.bees.Bees;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -15,10 +16,15 @@ public class SlotApiary extends Slot{
 	
 	public boolean isItemValid(ItemStack stack) {
 		switch(this.iType){
-		case 0: return stack.getItem() == Bees.queen;
-		case 1: return stack.getItem() == Bees.bee;
-		default: return false;
+		case 0: 
+			return stack.getItem() == Bees.queen;
+		case 1: 
+			return stack.getItem() == Bees.bee;			
+		default: 
+			return false;
 		}
 		 
 	}
+	
+
 }
