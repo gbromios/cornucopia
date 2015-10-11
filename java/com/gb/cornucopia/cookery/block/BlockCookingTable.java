@@ -27,6 +27,16 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockCookingTable extends Block{
 	public final String name;
+	
+	public boolean isOpaqueCube()
+    {
+        return false;
+    }
+    
+    public boolean isFullCube()
+    {
+        return false;
+    }
 
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	

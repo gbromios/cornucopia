@@ -1,9 +1,9 @@
 package com.gb.cornucopia.cookery;
 
+import com.gb.cornucopia.GuiHandler;
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.cookery.block.BlockCuttingBoard;
 import com.gb.cornucopia.cookery.block.BlockWaterBasin;
-import com.gb.cornucopia.cookery.crafting.CookingGuiHandler;
 import com.gb.cornucopia.cookery.crafting.Dish;
 import com.gb.cornucopia.cookery.crafting.DishRegistry;
 import com.gb.cornucopia.cookery.crafting.Ingredient;
@@ -39,11 +39,8 @@ public class Cookery {
 	};
 
 	public static void init(){
-		// mah cooking guis
-		// will eventually either have to move this guy up to CornuCopia at large
-		// or break things into sub-mods (preferred)
-		NetworkRegistry.INSTANCE.registerGuiHandler(CornuCopia.instance, new CookingGuiHandler());
 		cookwareModels();
+		new DishRegistry(cutting_board);
 	}
 
 	private static void cookwareModels(){
@@ -70,7 +67,7 @@ public class Cookery {
 	private static void registerIngredients(){
 	}
 
-	private static void registerRecipes(){
+	private static void registerRecipes(){	
 	}
 
 }

@@ -8,16 +8,6 @@ public class BlockCuttingBoard extends BlockCookingTable {
     public BlockCuttingBoard() {
 		super("cutting_board");
 	}
-
-	public boolean isOpaqueCube()
-    {
-        return false;
-    }
-    
-    public boolean isFullCube()
-    {
-        return false;
-    }
     
     public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos){
 
