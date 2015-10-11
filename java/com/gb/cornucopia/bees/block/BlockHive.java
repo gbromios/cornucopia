@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.bees.Bees;
 
 import net.minecraft.block.Block;
@@ -31,6 +32,7 @@ public class BlockHive extends Block{
 		this.setCreativeTab(CornuCopia.tabBees);
 		this.setUnlocalizedName("bee_hive");
 		GameRegistry.registerBlock(this, "bee_hive");
+		InvModel.add(this, "bee_hive");
 	}
 	
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.fruit.item.ItemFruitRaw;
 
 import net.minecraft.block.Block;
@@ -36,6 +37,7 @@ public class BlockFruitCrop extends BlockBush implements IGrowable{
 		this.setCreativeTab(CornuCopia.tabCropFruit);
         	this.setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 0.95F, 0.7F);
 		GameRegistry.registerBlock(this, this.name);
+		InvModel.add(this, this.name);
 	}
 
 	public void setLeaf(BlockFruitLeaf leaf){

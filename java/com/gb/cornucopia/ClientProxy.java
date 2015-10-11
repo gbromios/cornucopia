@@ -13,7 +13,8 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ClientProxy extends ServerProxy {
-
+	
+	
 	@Override
     public void preInit(FMLPreInitializationEvent e) {
     	super.preInit(e);
@@ -31,6 +32,6 @@ public class ClientProxy extends ServerProxy {
 	@Override
     public void postInit(FMLPostInitializationEvent e) {
     	super.postInit(e);
-    	ModelRenderer m;
+    	InvModel.register();
     }
 }

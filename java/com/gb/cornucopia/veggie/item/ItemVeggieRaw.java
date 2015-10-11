@@ -1,6 +1,7 @@
 package com.gb.cornucopia.veggie.item;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 
 import net.minecraft.item.ItemFood;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -17,14 +18,7 @@ public class ItemVeggieRaw extends ItemFood{
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabRawVeg);
 		GameRegistry.registerItem(this, this.name);
-		OreDictionary.registerOre(
-				"food" + Character.toUpperCase(name.charAt(0)) + name.substring(1),
-				this
-			);
-		OreDictionary.registerOre(
-				"crop" + Character.toUpperCase(name.charAt(0)) + name.substring(1),
-				this
-			);
+		InvModel.add(this, this.name);
 	}
 
 }

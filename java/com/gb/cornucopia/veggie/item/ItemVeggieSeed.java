@@ -28,14 +28,7 @@ public class ItemVeggieSeed extends Item implements IPlantable{
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabSeedVeg);
 		GameRegistry.registerItem(this, this.name);
-		OreDictionary.registerOre(
-				"food" + Character.toUpperCase(name.charAt(0)) + name.substring(1),
-				this
-			);
-		OreDictionary.registerOre(
-				"crop" + Character.toUpperCase(name.charAt(0)) + name.substring(1),
-				this
-			);
+
 	}
 	
 	public void setCrop(BlockVeggieCrop crop){

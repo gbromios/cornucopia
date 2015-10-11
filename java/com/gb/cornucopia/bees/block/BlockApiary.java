@@ -2,6 +2,7 @@ package com.gb.cornucopia.bees.block;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.GuiHandler;
+import com.gb.cornucopia.InvModel;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -26,6 +27,7 @@ public class BlockApiary extends Block implements  ITileEntityProvider{
 		GameRegistry.registerBlock(this, "bee_apiary");
 		GameRegistry.registerTileEntity(TileEntityApiary.class, "bee_apiary_entity");
 		GuiHandler.register(this, this);
+		InvModel.add(this, "bee_apiary");
 	}
 
 	@Override

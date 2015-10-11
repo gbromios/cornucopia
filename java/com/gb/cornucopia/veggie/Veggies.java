@@ -65,7 +65,6 @@ public class Veggies {
 	}
 
 	public static void init(){
-		createModels();
 		addRawToSeedRecipes();
 	}
 
@@ -77,31 +76,4 @@ public class Veggies {
 			
 		}
 	}
-
-	private static void createModels(){
-		for (Veggie v : vegMap.values()) {
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-					v.raw,
-					0,
-					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, v.raw.name), "inventory") 
-				);
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-					v.seed,
-					0,
-					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, v.seed.name), "inventory")
-				);
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-					Item.getItemFromBlock(v.crop),
-					0,
-					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, v.crop.name), "inventory")
-				);
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-					Item.getItemFromBlock(v.wild),
-					0,
-					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, v.crop.name), "inventory")
-				);
-		}
-	}
-
-
 }

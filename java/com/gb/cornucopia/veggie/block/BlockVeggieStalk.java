@@ -1,6 +1,7 @@
 package com.gb.cornucopia.veggie.block;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -26,6 +27,7 @@ public class BlockVeggieStalk extends BlockBush{
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
 		
 		GameRegistry.registerBlock(this, this.name);
+		InvModel.add(this, this.name);
 	}
 
 	/* probably not going to bother implementing plants that grow higher than 2, but it wouldnt be hard :3

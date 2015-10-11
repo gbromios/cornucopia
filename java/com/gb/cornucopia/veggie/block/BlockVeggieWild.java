@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.veggie.Veggie;
 import com.gb.cornucopia.veggie.item.ItemVeggieRaw;
 
@@ -40,6 +41,7 @@ public class BlockVeggieWild
 		this.plantType = plantType;
  
 		GameRegistry.registerBlock(this, this.name);
+		InvModel.add(this, this.name);
 	}
 	
 	public void setDrop(ItemVeggieRaw raw){

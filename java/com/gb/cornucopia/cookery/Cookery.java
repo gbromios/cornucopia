@@ -1,6 +1,7 @@
 package com.gb.cornucopia.cookery;
 
 import com.gb.cornucopia.GuiHandler;
+import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.cookery.block.BlockCuttingBoard;
 import com.gb.cornucopia.cookery.block.BlockWaterBasin;
@@ -33,35 +34,16 @@ public class Cookery {
 
 	public static void preInit(){
 		juicer = new ItemCookWare("juicer");
-
 		cutting_board = new BlockCuttingBoard();
 		water_barrel = new BlockWaterBasin();
+		
+		InvModel.add(juicer, juicer.name);
+		InvModel.add(cutting_board, cutting_board.name);
+		InvModel.add(water_barrel, water_barrel.name);
 	};
 
 	public static void init(){
-		cookwareModels();
 		new DishRegistry(cutting_board);
-	}
-
-	private static void cookwareModels(){
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-				juicer,
-				0,
-				new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, juicer.name), "inventory") 
-				);
-
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-				Item.getItemFromBlock(cutting_board),
-				0,
-				new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, cutting_board.name), "inventory") 
-				);
-
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-				Item.getItemFromBlock(water_barrel),
-				0,
-				new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, water_barrel.name), "inventory") 
-				);
-
 	}
 
 	private static void registerIngredients(){

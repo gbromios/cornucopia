@@ -52,36 +52,6 @@ public class Fruits {
 	}
 	
 	public static void init(){
-		createModels();
-	}
-
-	private static void createModels(){
-		for (Fruit f : fruitMap.values()) {
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-					f.raw,
-					0,
-					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, f.raw.name), "inventory") 
-				);
-
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-					Item.getItemFromBlock(f.sapling),
-					0,
-					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, f.sapling.name), "inventory")
-				);
-			
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-					Item.getItemFromBlock(f.leaf),
-					0,
-					new ModelResourceLocation("minecraft:oak_leaves", "inventory")
-				);
-			
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-					Item.getItemFromBlock(f.crop),
-					0,
-					new ModelResourceLocation(String.format("%s:%s", CornuCopia.MODID, f.crop.name), "inventory")
-				);
-			
-		}
 	}
 
 

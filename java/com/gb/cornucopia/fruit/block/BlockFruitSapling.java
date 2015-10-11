@@ -3,6 +3,7 @@ package com.gb.cornucopia.fruit.block;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 import com.jcraft.jorbis.Block;
 
 import net.minecraft.block.BlockBush;
@@ -37,6 +38,7 @@ public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowabl
 		this.setCreativeTab(CornuCopia.tabSaplingFruit);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
 		GameRegistry.registerBlock(this, this.name);
+		InvModel.add(this, this.name);
 	}
 	
 	public void setTreeStates(IBlockState wood, IBlockState leaf){

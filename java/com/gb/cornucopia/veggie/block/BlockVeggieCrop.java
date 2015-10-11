@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.veggie.item.ItemVeggieRaw;
 import com.gb.cornucopia.veggie.item.ItemVeggieSeed;
 
@@ -45,6 +46,7 @@ public class BlockVeggieCrop extends BlockBush implements IGrowable
 		this.setStepSound(soundTypeGrass);
 		
 		GameRegistry.registerBlock(this, this.name);
+		InvModel.add(this, this.name);
 	}
 
 	public void setDrops(ItemVeggieRaw raw, ItemVeggieSeed seed) {

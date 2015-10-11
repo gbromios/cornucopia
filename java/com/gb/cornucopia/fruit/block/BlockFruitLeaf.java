@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 import com.google.common.base.Predicate;
 
 import net.minecraft.block.BlockLeaves;
@@ -42,8 +43,9 @@ public class BlockFruitLeaf extends BlockLeaves {
 				.withProperty(DECAYABLE, Boolean.valueOf(true))
 				.withProperty(SAPLING_GENERATOR, Boolean.valueOf(false)) // other leaves use the first two bits as VARIANT
 				);
+		
 		GameRegistry.registerBlock(this, this.name);
-
+		InvModel.add(this, "oak_leaves", "minecraft");
 	}
 
 	@Override

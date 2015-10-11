@@ -1,6 +1,7 @@
 package com.gb.cornucopia.bees.item;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -12,5 +13,6 @@ public class ItemBee extends Item{
 		this.setCreativeTab(CornuCopia.tabBees);
 		this.setUnlocalizedName(this.name);
 		GameRegistry.registerItem(this, this.name);
+		InvModel.add(this, this.name);
 	}
 }
