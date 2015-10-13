@@ -1,6 +1,7 @@
 package com.gb.cornucopia.cookery.block;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.cookery.Cookery;
 
 import net.minecraft.block.Block;
@@ -49,6 +50,7 @@ public class BlockCookingTable extends Block{
 		this.setHardness(0.4F);
 		
 		GameRegistry.registerBlock(this, this.name);
+		InvModel.add(this, this.name);
 	}
 	    
     @Override

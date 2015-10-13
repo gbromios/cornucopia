@@ -4,6 +4,8 @@ import com.gb.cornucopia.GuiHandler;
 import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.cookery.block.BlockCuttingBoard;
+import com.gb.cornucopia.cookery.block.BlockStove;
+import com.gb.cornucopia.cookery.block.BlockStoveTop;
 import com.gb.cornucopia.cookery.block.BlockWaterBasin;
 import com.gb.cornucopia.cookery.crafting.Dish;
 import com.gb.cornucopia.cookery.crafting.DishRegistry;
@@ -20,26 +22,28 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class Cookery {	
-	//region yawn static fields;
+	//region yawn static fields
 	public static ItemCookWare juicer;
 
 	public static BlockCuttingBoard cutting_board;
-	public static BlockWaterBasin water_barrel;
+	public static BlockWaterBasin water_basin;
+	public static BlockStove stove;
+	public static BlockStoveTop stovetop;
 
 	public static Ingredient mirepoix_part;
 	public static Ingredient sweet_berry;
 	public static Ingredient citrus;
 	//endregion
 
-
 	public static void preInit(){
 		juicer = new ItemCookWare("juicer");
 		cutting_board = new BlockCuttingBoard();
-		water_barrel = new BlockWaterBasin();
+		water_basin = new BlockWaterBasin();
+		stove = new BlockStove();
+		stovetop = new BlockStoveTop();
 		
 		InvModel.add(juicer, juicer.name);
-		InvModel.add(cutting_board, cutting_board.name);
-		InvModel.add(water_barrel, water_barrel.name);
+
 	};
 
 	public static void init(){

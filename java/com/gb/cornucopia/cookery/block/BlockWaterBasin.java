@@ -1,6 +1,7 @@
 package com.gb.cornucopia.cookery.block;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -32,6 +33,7 @@ public class BlockWaterBasin extends Block{
 		this.setHardness(0.5F);
 		this.setBlockBounds(0, 0, 0, 1, 1, 1);
 		GameRegistry.registerBlock(this, this.name);
+		InvModel.add(this, this.name);
 		
 	}
 	
@@ -89,7 +91,7 @@ public class BlockWaterBasin extends Block{
 
 		return true;
 	}
-	
+	// region decided against facing for basins for the time being
     /*@Override
     public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
@@ -118,4 +120,5 @@ public class BlockWaterBasin extends Block{
     {
         return new BlockState(this, new IProperty[] {FACING});
     }*/
+	//endregion
 }

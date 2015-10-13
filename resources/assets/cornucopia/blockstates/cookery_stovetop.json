@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "ns=true": { "model": "cornucopia:cookery_stovetop" },
+        "ns=false": { "model": "cornucopia:cookery_stovetop", "y": 90 }
+    }
+}
