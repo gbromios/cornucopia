@@ -56,10 +56,10 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 
 		// time to actually do the tick!
 		this.ticks = 0;
-		System.out.format("\n   ===   TICKING!   ===\n");
+		//System.out.format("\n   ===   TICKING!   ===\n");
 
 		// no bees???? nothing I can do
-		if (this.contents[1] == null){ System.out.format("0 bees. all done!\n"); return; }
+		if (this.contents[1] == null){ return; }
 
 		if (!this.feedBees()) {return;}
 
@@ -80,13 +80,13 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 		int fs = Math.min(this.flower_score, 32);
 		if (fs == 0) {return;} // need at least one flower!
 		int grow_chance = (this.beeCount() + fs) / (1 + (this.getNeighboringApiaries() * 2));
-		System.out.format(" @ produce bee gifts (%d / 128)\n ~ ( %d bees + %d flowers ) / (%d neighbors * 2)\n", grow_chance, this.beeCount(), fs, this.getNeighboringApiaries());
+		//System.out.format(" @ produce bee gifts (%d / 128)\n ~ ( %d bees + %d flowers ) / (%d neighbors * 2)\n", grow_chance, this.beeCount(), fs, this.getNeighboringApiaries());
 		if (RANDOM.nextInt(128) < grow_chance){
 			// look for empties first:
 			for (int i=2; i<9; i++){
 				if (this.contents[i] == null) {
 					this.contents[i] = (new ItemStack(Bees.waxcomb));
-					System.out.format("    make a wax\n");
+					//System.out.format("    make a wax\n");
 					return;
 				}
 			}
@@ -95,7 +95,7 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 			for (int i=2; i<9; i++){
 				if (this.contents[i].getItem() == Bees.waxcomb) {
 					this.contents[i].setItem(Bees.honeycomb);
-					System.out.format("    make a honey comb\n");
+					//System.out.format("    make a honey comb\n");
 					return;
 				}
 			}
@@ -104,7 +104,7 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 			// if there's a queen in the queen slot and slot 6 is not already jelly
 			// AND you've got a royal flower AAAND you're really lucky...
 			if (this.hasQueen() && this.contents[6].getItem() != Bees.royal_jelly && this.nearRoyalBloom() && RANDOM.nextInt(64) == 0) {									
-				System.out.format("    u jelly?\n");					
+				//System.out.format("    u jelly?\n");					
 				// this comes at a heavy price though. it uses up most of the honey, and the bee population will suffer
 				for (int i : new int[]{2,3,4,5,7,8}) { // outer comb slots
 					// 1/4 chance that wax will be left bee-hind 
@@ -121,7 +121,6 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 				return;
 			}
 		}
-		System.out.format("    (no bee gifts)\n");
 	}
 
 	private int getNeighboringApiaries() {
@@ -152,13 +151,11 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 			}
 		}
 
-		System.out.format(" !!! BEEPOP: %d beehs have food :%s\n", bc, food);
-
 		ItemStack workers = this.contents[1];
 
 		if (food < 0){
 			workers.stackSize += food;
-			System.out.format("   bees died :(\n");
+			//System.out.format("   bees died :(\n");
 			if (workers.stackSize < 1){
 				this.contents[1] = null; // technically bees can't die out like this... but ya never know so BEE safe~!
 			}
@@ -167,7 +164,7 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 		// with a queen and an excess of honeycomb, theres a chance to spawn some new bees, based on the amount of excess food and the number of nearby apiaries
 		// 1 out of ( (7-amount of food) * (number of apiaries within 5 blocks) )
 		else if (food > 0 && this.hasQueen() && RANDOM.nextInt((8 - food) * (1 + this.getNeighboringApiaries())) == 0){
-			System.out.format("   bees grew! :)\n");
+			//System.out.format("   bees grew! :)\n");
 			workers.stackSize = Math.min(workers.stackSize + 1, workers.getMaxStackSize()); 
 		}
 		return true;
@@ -339,9 +336,6 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 				this.contents[i] = null;
 			}
 		}
-
-		System.out.format(" :: %s :: %s, %s, %s\n\n", this.pos, beeCount, hasQueen, combSlots);
-
 	}
 
 	@Override
