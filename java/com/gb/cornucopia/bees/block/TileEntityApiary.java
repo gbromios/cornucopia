@@ -190,7 +190,7 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 			if (this.flower_score > 48){ return; }
 			this.worldObj.setBlockState(fpos, this.flower_survey.get(RANDOM.nextInt(this.flower_survey.size())), 0);
 			this.worldObj.markBlockForUpdate(fpos);
-			
+
 		}
 
 		// royal flower!
@@ -274,8 +274,8 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 		writeToNBT(nbtTagCompound);
 		int metadata = getBlockMetadata();
 		return new S35PacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
-		
-		
+
+
 	}
 
 	@Override
@@ -354,7 +354,9 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 	public int getInventoryStackLimit() {return 64;}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {	return true; } // TODO: distance check
+	public boolean isUseableByPlayer(EntityPlayer player) {	
+		return player.getDistanceSq(this.pos) < 6;
+	}
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
@@ -369,31 +371,15 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 		if (this.contents[index] != null)
 		{
 			ItemStack itemstack;
-
-			if (this.contents[index].stackSize <= count)
-			{				
-				itemstack = this.contents[index];
-				this.contents[index] = null;
-				this.markDirty();				
-				return itemstack;
-			}
-			else
+			itemstack = this.contents[index].splitStack(Math.min(count, this.contents[index].stackSize));
+			if (this.contents[index].stackSize == 0)
 			{
-				itemstack = this.contents[index].splitStack(count);
-
-				if (this.contents[index].stackSize == 0)
-				{
-					this.contents[index] = null;
-				}
-
-				this.markDirty();
-				return itemstack;
+				this.contents[index] = null;
 			}
+			this.markDirty();
+			return itemstack;
 		}
-		else
-		{
-			return null;
-		}
+		return null;
 	}
 
 	@Override

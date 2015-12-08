@@ -6,6 +6,8 @@ import java.util.Iterator;
 import com.gb.cornucopia.GuiHandler;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.BlockState;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -13,19 +15,28 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class DishRegistry {
+	private static final HashMap<Integer, DishRegistry> dishRegistryRegistry = new HashMap<>(); 
 	private final ArrayList<Dish> dishes;
 	
-	public DishRegistry(Block b){
+	// this could never go wrong lol
+	public static DishRegistry byID(Integer id){
+		return dishRegistryRegistry.get(id);
+	}
+	
+	public DishRegistry(Integer id){
 		dishes = new ArrayList<>();
-		GuiHandler.register(b, this);
-		
+		assert (!dishRegistryRegistry.containsKey(id)); // one-to-one mapping of ID to DishRegistry. this could get delicate >__>, hence the assert 
+		dishRegistryRegistry.put(id, this);
+		// BTW: zero will be cutting board, 1-7 are stovetop blocks. don't plan on implementing TOO many more...
+		// but if I do, just implement IMakesDishes and account for the offset in guiID 
 	}
 	
-	public void add(Dish dish){
+	public DishRegistry add(Dish dish){
 		dishes.add(dish);
+		return this;
 	}
 	
-	public ItemStack findMatchingDish(InventoryCrafting cooking_input, World world)
+	public ItemStack findMatchingDish(IInventory cooking_input, World world, int minI, int maxI)
 	    {
 	        Iterator iterator = dishes.iterator();
 	        Dish d;
@@ -41,7 +52,8 @@ public class DishRegistry {
 	        }
 	        while (!d.matches(cooking_input, world));
 
-	        return d.getCraftingResult(cooking_input);
+	        //return d.getCraftingResult(cooking_input);
+	        return null;
 	}
 	
     public ItemStack[] getChangedInput(InventoryCrafting cooking_input, World world)

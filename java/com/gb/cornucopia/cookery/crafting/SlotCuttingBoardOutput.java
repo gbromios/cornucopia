@@ -8,7 +8,7 @@ import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 
-public class SlotCookingOutput extends Slot {
+public class SlotCuttingBoardOutput extends Slot {
     /** The craft matrix inventory linked to this result slot. */
     private final InventoryCrafting craftMatrix;
     /** The player that is using the GUI where this slot resides. */
@@ -16,7 +16,7 @@ public class SlotCookingOutput extends Slot {
     /** The number of items that have been crafted so far. Gets passed to ItemStack.onCrafting before being reset. */
     private final DishRegistry dishRegistry;
 
-	public SlotCookingOutput(EntityPlayer player, InventoryCrafting craftingInventory, IInventory inv, int slotIndex, int x, int y, DishRegistry dishRegistry) {
+	public SlotCuttingBoardOutput(EntityPlayer player, InventoryCrafting craftingInventory, IInventory inv, int slotIndex, int x, int y, DishRegistry dishRegistry) {
 		super(inv, slotIndex, x, y);
 		this.player = player;
 		this.craftMatrix = craftingInventory;

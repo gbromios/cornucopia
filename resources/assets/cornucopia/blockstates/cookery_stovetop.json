@@ -1,6 +1,14 @@
 {
     "variants": {
-        "ns=true": { "model": "cornucopia:cookery_stovetop" },
-        "ns=false": { "model": "cornucopia:cookery_stovetop", "y": 90 }
+        "ns=true,vessel=none": { "model": "cornucopia:cookery_stovetop" },
+        "ns=false,vessel=none": { "model": "cornucopia:cookery_stovetop", "y": 90 },
+        "ns=true,vessel=pot": { "model": "cornucopia:cookery_stovetop_pot" },
+        "ns=false,vessel=pot": { "model": "cornucopia:cookery_stovetop_pot", "y": 90 },
+        "ns=true,vessel=pan": { "model": "cornucopia:cookery_stovetop_pan" },
+        "ns=false,vessel=pan": { "model": "cornucopia:cookery_stovetop_pan", "y": 90 },
+        "ns=true,vessel=skillet": { "model": "cornucopia:cookery_stovetop_skillet" },
+        "ns=false,vessel=skillet": { "model": "cornucopia:cookery_stovetop_skillet", "y": 90 },
+        "ns=true,vessel=kettle": { "model": "cornucopia:cookery_stovetop_kettle" },
+        "ns=false,vessel=kettle": { "model": "cornucopia:cookery_stovetop_kettle", "y": 90 }        
     }
 }

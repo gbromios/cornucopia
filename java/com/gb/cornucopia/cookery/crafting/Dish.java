@@ -11,6 +11,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.gb.cornucopia.cookery.item.ItemCookWare;
 
 import net.minecraft.block.Block;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,7 +27,7 @@ import net.minecraftforge.oredict.OreDictionary;
  * 
  * */
 
-public class Dish implements IRecipe {
+public class Dish {
 	
 	private final ItemStack result;
 	private final ArrayList<ItemStack> items;
@@ -68,18 +69,15 @@ public class Dish implements IRecipe {
     	// TODO: possibly ensure that no ambiguous recipes are being created?
 }
 
-    @Override
-    public int getRecipeSize(){ return 9; } // wonder what this gets used for. Possibly determines if a table is required?
-
-    @Override
+    //@Override
     public ItemStack getRecipeOutput(){ return result; }
 
-    @Override
+    //@Override
     public ItemStack getCraftingResult(InventoryCrafting i){ return result.copy(); }
 
     @SuppressWarnings("unchecked")
-    @Override
-    public boolean matches(InventoryCrafting crafting, World world)
+    //@Override
+    public boolean matches(IInventory crafting, World world)
     {
         ArrayList<ItemStack> items_required = new ArrayList<>(this.items);
         ArrayList<Ingredient> ingredients_required = new ArrayList<>(this.ingredients);
@@ -129,7 +127,6 @@ public class Dish implements IRecipe {
     	throw new RuntimeException("just curious wtf asshole method could be calling this shit. WTF are interfaces even for??????");
     }
 
-    @Override
     public ItemStack[] getRemainingItems(InventoryCrafting inv)
     {
         return ForgeHooks.defaultRecipeGetRemainingItems(inv);

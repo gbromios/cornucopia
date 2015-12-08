@@ -30,7 +30,7 @@ public class ContainerCookingTable extends Container {
 		this.pos = pos;
 		this.dishRegistry = dishRegistry;
 
-		this.addSlotToContainer(new SlotCookingOutput(playerventory.player, this.craftMatrix, this.craftResult, 0, 124, 35, dishRegistry));
+		this.addSlotToContainer(new SlotCuttingBoardOutput(playerventory.player, this.craftMatrix, this.craftResult, 0, 124, 35, dishRegistry));
 		
 		//region// placing all the slots. 
 		int i;
@@ -77,7 +77,7 @@ public class ContainerCookingTable extends Container {
 	public void onCraftMatrixChanged(IInventory inventoryIn)
 	{
 		// TODO this is where the functionality will be changed from vanilla crafting table
-		this.craftResult.setInventorySlotContents(0, this.dishRegistry.findMatchingDish(this.craftMatrix, this.world));
+		//this.craftResult.setInventorySlotContents(0, this.dishRegistry.findMatchingDish(this.craftMatrix, this.world));
 	}
 
 	

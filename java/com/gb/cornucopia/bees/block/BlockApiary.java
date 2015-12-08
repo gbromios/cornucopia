@@ -1,16 +1,13 @@
 package com.gb.cornucopia.bees.block;
 
 import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.GuiHandler;
 import com.gb.cornucopia.InvModel;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -26,7 +23,6 @@ public class BlockApiary extends Block implements  ITileEntityProvider{
 		this.setUnlocalizedName("bee_apiary");
 		GameRegistry.registerBlock(this, "bee_apiary");
 		GameRegistry.registerTileEntity(TileEntityApiary.class, "bee_apiary_entity");
-		GuiHandler.register(this, this);
 		InvModel.add(this, "bee_apiary");
 	}
 

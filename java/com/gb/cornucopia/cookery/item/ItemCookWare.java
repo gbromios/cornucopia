@@ -2,21 +2,28 @@ package com.gb.cornucopia.cookery.item;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
+import com.gb.cornucopia.cookery.block.Vessel;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemCookWare extends Item{
 	public final String name;
-	public ItemCookWare(String name){
+	public ItemCookWare(String name) {
 		super();
-		this.name = "cookware_" + name;
+		this.name = "cookery_" + name;
 		this.setUnlocalizedName(this.name);
 		this.setMaxStackSize(1);
 		this.setContainerItem(this);
 		this.setCreativeTab(CornuCopia.tabCookeryBlock);
 		GameRegistry.registerItem(this, this.name);
 		InvModel.add(this, this.name);
+	}
+	
+	public ItemCookWare(String name, Vessel v){
+		// optionally, associate cookware with a stovetop vessel
+		this(name);
+		Vessel.register(v, this);
 	}
 	
 }

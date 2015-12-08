@@ -1,6 +1,6 @@
 package com.gb.cornucopia.bees.crafting;
 
-import com.gb.cornucopia.cookery.crafting.SlotCookingOutput;
+import com.gb.cornucopia.cookery.crafting.SlotCuttingBoardOutput;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -14,13 +14,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ContainerApiary extends Container {
-	private final World world; // mojang
-	private final BlockPos pos;
-	
-	public ContainerApiary(InventoryPlayer playerInventory, IInventory apiaryInventory, World world, BlockPos pos) {
-		this.world = world;
-		this.pos = pos;
-		
+	public ContainerApiary(InventoryPlayer playerInventory, IInventory apiaryInventory, World world, BlockPos pos) {		
 		this.addSlotToContainer(new SlotApiary(apiaryInventory, 0, 33, 20, 0)); // queen
 		this.addSlotToContainer(new SlotApiary(apiaryInventory, 1, 33, 46, 1)); // workers
 
@@ -88,12 +82,7 @@ public class ContainerApiary extends Container {
 	@Override
 	public boolean canInteractWith(EntityPlayer player)
 	{
-		// pls
-		return 
-				!this.world.isAirBlock(this.pos)
-				&& player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D
-				;
-
+		return true;
 	}
 
 }
