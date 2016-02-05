@@ -27,7 +27,7 @@ public class ServerProxy {
 
 	public void init(FMLInitializationEvent e) {
 		// TODO: take this ugly shit out and hook into BoP~!
-		GameRegistry.registerWorldGenerator(new DummyGen(), 9999);
+		//GameRegistry.registerWorldGenerator(new DummyGen(), 9999);
 		Cookery.init();
 		NetworkRegistry.INSTANCE.registerGuiHandler(CornuCopia.instance, new GuiHandler());
 	}

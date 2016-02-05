@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -26,7 +27,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockStove extends Block{
 	public final String name;
 	// facing enum takes 3 bits. I NEED THOSE BITS.
-	public static final PropertyEnum FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.Plane.HORIZONTAL);
+	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool ON = PropertyBool.create("on");
 
 	public BlockStove()
@@ -53,7 +54,8 @@ public class BlockStove extends Block{
 
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		return world.getBlockState(pos.up()).getBlock().onBlockActivated(world, pos.up(), state, playerIn, side, hitX, hitY, hitZ);
+		final IBlockState upState = world.getBlockState(pos.up()); 
+		return Cookery.stovetop.onBlockActivated(world, pos.up(), upState, playerIn, side, hitX, hitY, hitZ);
 	}
 
 	@Override
@@ -70,7 +72,7 @@ public class BlockStove extends Block{
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
 		world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(ON, false), 2);
-		world.setBlockState(pos.up(), Cookery.stovetop.getDefaultState().withProperty(Cookery.stovetop.FACING, (placer.getHorizontalFacing().getHorizontalIndex() == 0 || placer.getHorizontalFacing().getHorizontalIndex() == 2)));
+		world.setBlockState(pos.up(), Cookery.stovetop.getDefaultState().withProperty(Cookery.stovetop.FACING, placer.getHorizontalFacing().getOpposite()));
 	}
 
 	public void breakBlock(World world, BlockPos pos, IBlockState state)

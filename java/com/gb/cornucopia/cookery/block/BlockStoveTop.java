@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
+import com.gb.cornucopia.bees.block.TileEntityApiary;
 import com.gb.cornucopia.cookery.Cookery;
 
 import net.minecraft.block.Block;
@@ -41,7 +42,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockStoveTop extends Block implements ITileEntityProvider{
 	public final String name;
 
-	public static final PropertyBool FACING = PropertyBool.create("facing"); // calculated using stove block below
+	// public static final PropertyFacing FACING = PropertyBool.create("facing"); // calculated using stove block below
+	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyEnum VESSEL = PropertyEnum.create("vessel", Vessel.class);
 
 	public BlockStoveTop()
@@ -50,8 +52,9 @@ public class BlockStoveTop extends Block implements ITileEntityProvider{
 		this.name = "cookery_stovetop";
 		this.setUnlocalizedName(this.name);
 		this.setHardness(0.5F);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, true).withProperty(VESSEL, Vessel.NONE));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(VESSEL, Vessel.NONE));
 		GameRegistry.registerBlock(this, this.name);
+		GameRegistry.registerTileEntity(TileEntityStove.class, "cookery_stovetop_entity");
 	}
 
 	@Override
@@ -72,11 +75,14 @@ public class BlockStoveTop extends Block implements ITileEntityProvider{
 
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos){
-		if ((boolean)(world.getBlockState(pos).getValue(FACING))) {
-			this.setBlockBounds(0.25F, 0F, 0.1875F, 0.75F, 0.0625F, 0.8125F);    		
+		//final EnumFacing f = (EnumFacing)world.getBlockState(pos).getValue(FACING);
+		final EnumFacing f = (EnumFacing)world.getBlockState(pos.down()).getValue(FACING);
+		System.out.println(f);
+		if ( f == EnumFacing.NORTH || f == EnumFacing.SOUTH ) {
+			this.setBlockBounds(0.25F, 0F, 0.1875F, 0.75F, 0.0625F, 0.8125F);
 		}
 		else {
-			this.setBlockBounds(0.1875F, 0F, 0.25F, 0.8125F, 0.0625F, 0.75F);
+			this.setBlockBounds(0.1875F, 0F, 0.25F, 0.8125F, 0.0625F, 0.75F);			
 		}    	
 	}
 

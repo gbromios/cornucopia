@@ -2,7 +2,7 @@
 {
   "modid": "cornucopia",
   "name": "CornuCopia",
-  "description": "enhanced food mechanics"
+  "description": "enhanced food mechanics",
   "version": "0.2",
   "mcversion": "1.8.0",
   "url": "",

@@ -8,9 +8,9 @@ import net.minecraft.util.IStringSerializable;
 public enum Vessel implements IStringSerializable {
 	NONE("none", 0),
 	POT("pot", 1),
-	PAN("pan", 2),
-	SKILLET("skillet", 3),
-	KETTLE("kettle", 4),
+	//PAN("pan", 2),
+	//SKILLET("skillet", 3),
+	//KETTLE("kettle", 4),
 	//E("E", 5),
 	//F("F", 6),
 	//G("G", 7); // max 7!
@@ -25,7 +25,7 @@ public enum Vessel implements IStringSerializable {
 		// mappings must be one-to-one
 		assert (!itemMap.containsValue(i));
 		assert (!itemMap.containsKey(v));
-		assert (v != NONE); // none means no item
+		assert (v != NONE); // none is the enum value representing "no item in use", so don't let its register this.
 		itemMap.put(i, v);
 		vesselMap.put(v, i);
 	}

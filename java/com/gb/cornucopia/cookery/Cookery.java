@@ -53,9 +53,9 @@ public class Cookery {
 		juicer = new ItemCookWare("juicer");
 		
 		pot = new ItemCookWare("pot", Vessel.POT);
-		pan = new ItemCookWare("pan", Vessel.PAN);
-		skillet = new ItemCookWare("skillet", Vessel.SKILLET);
-		kettle = new ItemCookWare("kettle", Vessel.KETTLE);
+		//pan = new ItemCookWare("pan", Vessel.PAN);
+		//skillet = new ItemCookWare("skillet", Vessel.SKILLET);
+		//kettle = new ItemCookWare("kettle", Vessel.KETTLE);
 		
 		cutting_board = new BlockCuttingBoard();
 		water_basin = new BlockWaterBasin();
@@ -67,13 +67,13 @@ public class Cookery {
 	// recipes galore~! i probably will add some here for testing but it'll get more complex later :D
 	public static void init(){
 		new DishRegistry(cutting_board.GUI_ID);
-		new DishRegistry(Vessel.POT.meta);
-		new DishRegistry(Vessel.PAN.meta);
-		new DishRegistry(Vessel.SKILLET.meta);
-		new DishRegistry(Vessel.KETTLE.meta);
+		//new DishRegistry(Vessel.POT.meta);
+		//new DishRegistry(Vessel.PAN.meta);
+		//new DishRegistry(Vessel.SKILLET.meta);
+		//new DishRegistry(Vessel.KETTLE.meta);
 		
 		// breading aint easy
-		removeVanillaRecipe(new ItemStack(Items.bread));
+		// removeVanillaRecipe(new ItemStack(Items.bread));
 	}
 	
 	private static void removeVanillaRecipe(ItemStack remove){

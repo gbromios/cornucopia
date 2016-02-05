@@ -11,6 +11,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
@@ -177,7 +178,7 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player)
 	{
-		return new ContainerStove(playerInventory, (IInventory)this);
+		return new ContainerStove(playerInventory, (IInventory)this, DishRegistry.byID(1));
 	}
 	
 	public DishRegistry getDishes(){
@@ -213,6 +214,19 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) { return true; }
+	
+	@Override
+	public void writeToNBT(NBTTagCompound parentNBTTagCompound)
+	{
+		super.writeToNBT(parentNBTTagCompound); // The super call is required to save the tiles location
+	}
+
+	// This is where you load the data that you saved in writeToNBT
+	@Override
+	public void readFromNBT(NBTTagCompound parentNBTTagCompound)
+	{
+		super.readFromNBT(parentNBTTagCompound); // The super call is required to load the tiles location
+	}
 
 
 }

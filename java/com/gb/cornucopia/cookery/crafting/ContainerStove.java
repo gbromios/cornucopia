@@ -12,7 +12,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ContainerStove extends Container{
-	public ContainerStove(InventoryPlayer playerInventory, IInventory stoveInventory) {
+	public ContainerStove(InventoryPlayer playerInventory, IInventory stoveInventory, DishRegistry d) {
 		// fuel
 		this.addSlotToContainer(new Slot(stoveInventory, 0, 33, 20));
 		// crafting grid

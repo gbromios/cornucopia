@@ -1,14 +1,12 @@
 {
     "variants": {
-        "ns=true,vessel=none": { "model": "cornucopia:cookery_stovetop" },
-        "ns=false,vessel=none": { "model": "cornucopia:cookery_stovetop", "y": 90 },
-        "ns=true,vessel=pot": { "model": "cornucopia:cookery_stovetop_pot" },
-        "ns=false,vessel=pot": { "model": "cornucopia:cookery_stovetop_pot", "y": 90 },
-        "ns=true,vessel=pan": { "model": "cornucopia:cookery_stovetop_pan" },
-        "ns=false,vessel=pan": { "model": "cornucopia:cookery_stovetop_pan", "y": 90 },
-        "ns=true,vessel=skillet": { "model": "cornucopia:cookery_stovetop_skillet" },
-        "ns=false,vessel=skillet": { "model": "cornucopia:cookery_stovetop_skillet", "y": 90 },
-        "ns=true,vessel=kettle": { "model": "cornucopia:cookery_stovetop_kettle" },
-        "ns=false,vessel=kettle": { "model": "cornucopia:cookery_stovetop_kettle", "y": 90 }        
+        "facing=north,vessel=none": { "model": "cornucopia:cookery_stovetop" },
+        "facing=west,vessel=none" : { "model": "cornucopia:cookery_stovetop", "y": 90 },
+        "facing=south,vessel=none": { "model": "cornucopia:cookery_stovetop", "y": 180 },
+        "facing=east,vessel=none": { "model": "cornucopia:cookery_stovetop", "y": 270 },
+        "facing=north,vessel=pot": { "model": "cornucopia:cookery_stovetop_pot" },
+        "facing=west,vessel=pot" : { "model": "cornucopia:cookery_stovetop_pot", "y": 90 },
+        "facing=south,vessel=pot": { "model": "cornucopia:cookery_stovetop_pot", "y": 180 },
+        "facing=east,vessel=pot": { "model": "cornucopia:cookery_stovetop_pot", "y": 270 }
     }
 }
