@@ -28,6 +28,7 @@ public class Bees {
 	public static Item waxcomb;
 	public static Item royal_jelly;
 	public static Item tiny_crown;
+	public static Item honey_raw;
 	public static Block royal_bloom;
 	
 	public static void preInit(){
@@ -56,6 +57,10 @@ public class Bees {
 		royal_bloom = new BlockBush(){}.setUnlocalizedName("bee_royal_bloom").setCreativeTab(CornuCopia.tabBees);
 		GameRegistry.registerBlock(royal_bloom, "bee_royal_bloom");
 		InvModel.add(royal_bloom, "bee_royal_bloom");
+		
+		honey_raw = new Item().setUnlocalizedName("bee_honey_raw").setCreativeTab(CornuCopia.tabBees);
+		GameRegistry.registerItem(honey_raw, "bee_honey_raw");
+		InvModel.add(honey_raw, "bee_honey_raw");
 	}
 	
 	public static void init(){

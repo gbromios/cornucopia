@@ -25,6 +25,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockPresserTop extends Block {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL); // TODO get this from the meta above
 	public static final PropertyInteger PROGRESS = PropertyInteger.create("progress", 0, 7);
+	private static final String TileEntityPresser = null;
 	public final String name = "cookery_pressertop";
 
 	public BlockPresserTop()
@@ -55,6 +56,10 @@ public class BlockPresserTop extends Block {
 		final Integer progress = (Integer)state.getValue(PROGRESS);
 		if (progress == 7) {
 			return false;
+		}
+		if (progress == 6) {
+			// nice!
+			((TileEntityPresser)world.getTileEntity(pos.down())).press();
 		}
 		world.setBlockState(pos, state.withProperty(PROGRESS, progress + 1));
 		world.markBlockForUpdate(pos.down());

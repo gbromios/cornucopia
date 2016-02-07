@@ -11,9 +11,11 @@ import com.gb.cornucopia.cookery.block.BlockStoveTop;
 import com.gb.cornucopia.cookery.block.TileEntityStove;
 import com.gb.cornucopia.cookery.block.Vessel;
 import com.gb.cornucopia.cookery.crafting.ContainerCookingTable;
+import com.gb.cornucopia.cookery.crafting.ContainerPresser;
 import com.gb.cornucopia.cookery.crafting.ContainerStove;
 import com.gb.cornucopia.cookery.crafting.DishRegistry;
 import com.gb.cornucopia.cookery.crafting.GuiCookingTable;
+import com.gb.cornucopia.cookery.crafting.GuiPresser;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockState;
@@ -36,6 +38,9 @@ public class GuiHandler implements IGuiHandler {
 			final TileEntityStove stoveEntity = (TileEntityStove)world.getTileEntity(new BlockPos(x, y ,z));
 			return new ContainerStove(player.inventory, (IInventory)stoveEntity, DishRegistry.byID(ID));
 		}
+		else if (block == Cookery.presser){
+			return new ContainerPresser(player.inventory, (IInventory)world.getTileEntity(new BlockPos(x, y ,z)));
+		}
 		else if (block == Bees.apiary){
 			return new ContainerApiary(player.inventory, (IInventory)world.getTileEntity(new BlockPos(x, y ,z)), world, new BlockPos(x, y ,z));
 		}
@@ -52,6 +57,9 @@ public class GuiHandler implements IGuiHandler {
 		}
 		else if (block == Cookery.stovetop){
 			return new GuiCookingTable(world, player.inventory, new BlockPos(x,y,z), DishRegistry.byID(ID));
+		}
+		else if (block == Cookery.presser){
+			return new GuiPresser(world, player.inventory, new BlockPos(x, y ,z));
 		}
 		else if (block == Bees.apiary){
 			return new GuiApiary(world, player.inventory, new BlockPos(x, y ,z));
