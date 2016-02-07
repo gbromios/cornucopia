@@ -25,13 +25,14 @@ public class GuiApiary extends GuiContainer {
 		// find out for sure!!
 		if (!(world.getTileEntity(pos) instanceof TileEntityApiary)){
 			throw new RuntimeException(String.format("somehow GuiApiary is getting a %s at %s ???", world.getTileEntity(pos), pos));
-		}		
+		}
+
 	}
 	
 	@Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRendererObj.drawString(I18n.format("container.crafting", new Object[0]), 28, 6, 4210752);
+        this.fontRendererObj.drawString("Hive", 20, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
 

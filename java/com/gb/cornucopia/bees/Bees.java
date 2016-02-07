@@ -67,6 +67,6 @@ public class Bees {
 		// i think these can go here?
 		GameRegistry.addShapedRecipe(new ItemStack(apiary), "BSB", "BSB", "BSB", 'B', Blocks.planks, 'S', Blocks.wooden_slab);
 		GameRegistry.addShapedRecipe(new ItemStack(tiny_crown), "RRR", "GGG", 'R', Items.redstone, 'G', Items.gold_ingot);
-		GameRegistry.addShapedRecipe(new ItemStack(queen), " C ", " B ", "RRR", 'C', tiny_crown, 'B', bee, 'R', royal_jelly);
+		GameRegistry.addShapedRecipe(new ItemStack(queen), "HCH", "HBH", "RRR", 'C', tiny_crown, 'B', bee, 'R', royal_jelly, 'H', honey_raw);
 	}
 }

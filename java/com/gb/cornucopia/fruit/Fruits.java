@@ -22,6 +22,9 @@ public class Fruits {
 	protected static final HashMap<String, Fruit> fruitMap = new HashMap<String, Fruit>();
 
 	//region all the fruits
+	public static Fruit almond;
+	public static Fruit cherry;
+	public static Fruit lemon;
 	public static Fruit peach;
 	//endregion
 	
@@ -45,9 +48,10 @@ public class Fruits {
 
 	public static void preInit(){
 		//region instantiate Fruit objects
-
+		almond = createFruit("almond");
+		cherry = createFruit("cherry");
+		lemon = createFruit("lemon");
 		peach = createFruit("peach");
-
 		//endregion
 	}
 	

@@ -186,8 +186,8 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 		// pick a random block near the apiary. TODO: figure out a way to make them grow closer more often
 		BlockPos fpos = this.pos.add(RANDOM.nextInt(15) - 7, 0, RANDOM.nextInt(15) - 7);
 		if ((this.worldObj.isAirBlock(fpos) || this.worldObj.getBlockState(fpos).getBlock() == Blocks.tallgrass) && this.worldObj.getBlockState(fpos.down()).getBlock() == Blocks.grass && RANDOM.nextInt(80) < this.beeCount()){
-			// stop growing if there are 48 flowers in the vicinity
-			if (this.flower_score > 48){ return; }
+			// stop growing if there are 48 flowers in the vicinity (don't grow at all if there's no flowwers :()
+			if (this.flower_score > 48 || this.flower_survey.size() < 1 ){ return; }
 			this.worldObj.setBlockState(fpos, this.flower_survey.get(RANDOM.nextInt(this.flower_survey.size())), 0);
 			this.worldObj.markBlockForUpdate(fpos);
 

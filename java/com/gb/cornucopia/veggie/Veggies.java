@@ -21,8 +21,18 @@ public class Veggies {
 	public static Veggie artichoke;
 	public static Veggie asparagus;
 	public static Veggie barley;
+	public static Veggie beet;
+	public static Veggie blackberry;
 	public static Veggie blueberry;
+	public static Veggie cabbage;
 	public static Veggie corn;
+	public static Veggie lettuce;
+	public static Veggie onion;
+	public static Veggie pineapple;
+	public static Veggie raspberry;
+	public static Veggie strawberry;
+	public static Veggie tomato;
+	public static Veggie turnip;
 	
 	// endregion
 	
@@ -58,10 +68,18 @@ public class Veggies {
 		artichoke = createVeggie("artichoke");
 		asparagus = createVeggie("asparagus");
 		barley = createVeggie("barley");
-		//blueberry = createVeggie("blueberry");
+		beet = createVeggie("beet");
+		blueberry = createVeggie("blueberry");
+		blackberry = createVeggie("blackberry");
+		cabbage = createVeggie("cabbage");
 		corn = createTallVeggie("corn");
-
-
+		lettuce = createVeggie("lettuce");
+		onion = createVeggie("onion");
+		pineapple = createVeggie("pineapple");
+		raspberry = createVeggie("raspberry");
+		strawberry = createVeggie("strawberry");
+		tomato = createVeggie("tomato");
+		turnip = createVeggie("turnip");
 	}
 
 	public static void init(){

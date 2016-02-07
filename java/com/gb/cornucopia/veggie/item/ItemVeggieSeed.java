@@ -1,6 +1,7 @@
 package com.gb.cornucopia.veggie.item;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.veggie.block.BlockVeggieCrop;
 
 import net.minecraft.block.Block;
@@ -28,6 +29,7 @@ public class ItemVeggieSeed extends Item implements IPlantable{
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabSeedVeg);
 		GameRegistry.registerItem(this, this.name);
+		InvModel.add(this, this.name);
 
 	}
 	
