@@ -7,6 +7,10 @@
         "facing=north,vessel=pot": { "model": "cornucopia:cookery_stovetop_pot" },
         "facing=west,vessel=pot" : { "model": "cornucopia:cookery_stovetop_pot", "y": 90 },
         "facing=south,vessel=pot": { "model": "cornucopia:cookery_stovetop_pot", "y": 180 },
-        "facing=east,vessel=pot": { "model": "cornucopia:cookery_stovetop_pot", "y": 270 }
+        "facing=east,vessel=pot": { "model": "cornucopia:cookery_stovetop_pot", "y": 270 },
+        "facing=north,vessel=pan": { "model": "cornucopia:cookery_stovetop_pan" },
+        "facing=west,vessel=pan" : { "model": "cornucopia:cookery_stovetop_pan", "y": 90 },
+        "facing=south,vessel=pan": { "model": "cornucopia:cookery_stovetop_pan", "y": 180 },
+        "facing=east,vessel=pan": { "model": "cornucopia:cookery_stovetop_pan", "y": 270 }
     }
 }

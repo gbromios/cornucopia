@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.cookery.block.BlockCuttingBoard;
+import com.gb.cornucopia.cookery.block.BlockPresser;
+import com.gb.cornucopia.cookery.block.BlockPresserTop;
 import com.gb.cornucopia.cookery.block.BlockStove;
 import com.gb.cornucopia.cookery.block.BlockStoveTop;
 import com.gb.cornucopia.cookery.block.BlockWaterBasin;
@@ -43,6 +45,8 @@ public class Cookery {
 	public static BlockWaterBasin water_basin;
 	public static BlockStove stove;
 	public static BlockStoveTop stovetop;
+	public static BlockPresser presser;
+	public static BlockPresserTop pressertop;
 
 	public static Ingredient mirepoix_part;
 	public static Ingredient sweet_berry;
@@ -61,6 +65,9 @@ public class Cookery {
 		water_basin = new BlockWaterBasin();
 		stove = new BlockStove();
 		stovetop = new BlockStoveTop();
+		
+		presser = new BlockPresser();
+		pressertop = new BlockPresserTop();
 
 	};
 

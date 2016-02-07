@@ -1,0 +1,37 @@
+{
+    "variants": {
+    "facing=east,progress=0" : { "model": "cornucopia:cookery_presser_0", "y": 0 },
+    "facing=north,progress=0": { "model": "cornucopia:cookery_presser_0", "y": 90   },
+    "facing=west,progress=0" : { "model": "cornucopia:cookery_presser_0", "y": 180  },
+    "facing=south,progress=0": { "model": "cornucopia:cookery_presser_0", "y": 270 },
+    "facing=east,progress=1" : { "model": "cornucopia:cookery_presser_1", "y": 0 },
+    "facing=north,progress=1": { "model": "cornucopia:cookery_presser_1", "y": 90   },
+    "facing=west,progress=1" : { "model": "cornucopia:cookery_presser_1", "y": 180  },
+    "facing=south,progress=1": { "model": "cornucopia:cookery_presser_1", "y": 270 },
+    "facing=east,progress=2" : { "model": "cornucopia:cookery_presser_2", "y": 0 },
+    "facing=north,progress=2": { "model": "cornucopia:cookery_presser_2", "y": 90   },
+    "facing=west,progress=2" : { "model": "cornucopia:cookery_presser_2", "y": 180  },
+    "facing=south,progress=2": { "model": "cornucopia:cookery_presser_2", "y": 270 },
+    "facing=east,progress=3" : { "model": "cornucopia:cookery_presser_3", "y": 0 },
+    "facing=north,progress=3": { "model": "cornucopia:cookery_presser_3", "y": 90   },
+    "facing=west,progress=3" : { "model": "cornucopia:cookery_presser_3", "y": 180  },
+    "facing=south,progress=3": { "model": "cornucopia:cookery_presser_3", "y": 270 },
+    "facing=east,progress=4" : { "model": "cornucopia:cookery_presser_4", "y": 0 },
+    "facing=north,progress=4": { "model": "cornucopia:cookery_presser_4", "y": 90   },
+    "facing=west,progress=4" : { "model": "cornucopia:cookery_presser_4", "y": 180  },
+    "facing=south,progress=4": { "model": "cornucopia:cookery_presser_4", "y": 270 },
+    "facing=east,progress=5" : { "model": "cornucopia:cookery_presser_5", "y": 0 },
+    "facing=north,progress=5": { "model": "cornucopia:cookery_presser_5", "y": 90   },
+    "facing=west,progress=5" : { "model": "cornucopia:cookery_presser_5", "y": 180  },
+    "facing=south,progress=5": { "model": "cornucopia:cookery_presser_5", "y": 270 },
+    "facing=east,progress=6" : { "model": "cornucopia:cookery_presser_6", "y": 0 },
+    "facing=north,progress=6": { "model": "cornucopia:cookery_presser_6", "y": 90   },
+    "facing=west,progress=6" : { "model": "cornucopia:cookery_presser_6", "y": 180  },
+    "facing=south,progress=6": { "model": "cornucopia:cookery_presser_6", "y": 270 },
+    "facing=east,progress=7" : { "model": "cornucopia:cookery_presser_7", "y": 0 },
+    "facing=north,progress=7": { "model": "cornucopia:cookery_presser_7", "y": 90   },
+    "facing=west,progress=7" : { "model": "cornucopia:cookery_presser_7", "y": 180  },
+    "facing=south,progress=7": { "model": "cornucopia:cookery_presser_7", "y": 270 }
+
+    }
+}
