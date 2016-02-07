@@ -1,5 +1,6 @@
 package com.gb.cornucopia.cookery.block;
 
+import java.util.List;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
@@ -36,6 +37,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import scala.Console;
 
 // inventory 
 
@@ -48,10 +50,11 @@ public class BlockStoveTop extends Block implements ITileEntityProvider{
 
 	public BlockStoveTop()
 	{
-		super(Material.iron);
+		super(Material.plants);
 		this.name = "cookery_stovetop";
 		this.setUnlocalizedName(this.name);
 		this.setHardness(0.5F);
+		
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(VESSEL, Vessel.NONE));
 		GameRegistry.registerBlock(this, this.name);
 		GameRegistry.registerTileEntity(TileEntityStove.class, "cookery_stovetop_entity");
@@ -76,8 +79,10 @@ public class BlockStoveTop extends Block implements ITileEntityProvider{
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos){
 		//final EnumFacing f = (EnumFacing)world.getBlockState(pos).getValue(FACING);
-		final EnumFacing f = (EnumFacing)world.getBlockState(pos.down()).getValue(FACING);
-		System.out.println(f);
+		final IBlockState state = world.getBlockState(pos.down());
+		if (state.getBlock() != Cookery.stove) { return; }
+		
+		final EnumFacing f = (EnumFacing)state.getValue(FACING);
 		if ( f == EnumFacing.NORTH || f == EnumFacing.SOUTH ) {
 			this.setBlockBounds(0.25F, 0F, 0.1875F, 0.75F, 0.0625F, 0.8125F);
 		}
@@ -119,24 +124,9 @@ public class BlockStoveTop extends Block implements ITileEntityProvider{
 		return ((Vessel)state.getValue(VESSEL)).meta;
 	}
 
-	public void dropItemAt(World world, BlockPos pos, Vessel v) {
-		if (v == Vessel.NONE){ return; }
-		world.spawnEntityInWorld(
-				new EntityItem(
-						world,
-						pos.getX() + 0.5D,
-						pos.getY() + 1.125D,
-						pos.getZ() + 0.5D,
-						new ItemStack(v.getItem())
-						)
-				)
-		; 
-	}
-
 	@Override
 	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock){
 		if (world.getBlockState(pos.down()).getBlock() != Cookery.stove){
-			dropItemAt(world, pos, (Vessel)state.getValue(VESSEL));
 			world.setBlockToAir(pos);
 		}
 	}
@@ -144,36 +134,54 @@ public class BlockStoveTop extends Block implements ITileEntityProvider{
 	@Override
 	public void onBlockDestroyedByPlayer(World world, BlockPos pos, IBlockState state)
 	{
-		// "breaking" the stovetop reverts it to an empty grate and drops the associated item.
-		// to get rid of it the stove below needs to be broken.
-		dropItemAt(world, pos, (Vessel)state.getValue(VESSEL));
+		Vessel v = (Vessel)state.getValue(VESSEL);
+		if (v.getItem() != null) {
+			System.out.println(v.getItem().getUnlocalizedName());
+		}
+		
 		world.setBlockState(pos, state.withProperty(VESSEL, Vessel.NONE));
+
 	}
-	
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		//final IBlockState state = world.getBlockState(pos.down());
+		Vessel v = (Vessel)state.getValue(VESSEL);
+		System.out.println(v.getName());
+		System.out.println(v.getItem());
+		
+		List<ItemStack> drop_stacks = new java.util.ArrayList<ItemStack>();
+		if (v != Vessel.NONE) {
+			
+			drop_stacks.add(new ItemStack(v.getItem()));	
+		}
+		return drop_stacks;
+
+	}
+
 	// destroy/hit effects: don't show the particles please
-    @SideOnly(Side.CLIENT)
-    public boolean addDestroyEffects(World world, BlockPos pos, net.minecraft.client.particle.EffectRenderer effectRenderer)
-    {
-        return true;
-    }
-    @SideOnly(Side.CLIENT)
-    public boolean addHitEffects(World worldObj, MovingObjectPosition target, net.minecraft.client.particle.EffectRenderer effectRenderer)
-    {
-        return true;
-    }
+	@SideOnly(Side.CLIENT)
+	public boolean addDestroyEffects(World world, BlockPos pos, net.minecraft.client.particle.EffectRenderer effectRenderer)
+	{
+		return true;
+	}
+	@SideOnly(Side.CLIENT)
+	public boolean addHitEffects(World worldObj, MovingObjectPosition target, net.minecraft.client.particle.EffectRenderer effectRenderer)
+	{
+		return true;
+	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta)
 	{
 		return this.getDefaultState().withProperty(VESSEL, Vessel.values()[meta & 7]);
 	}
-	
+
 	@Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
-    {
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
 		// derive facing from stove block below
-        return state.withProperty(FACING, world.getBlockState(pos.down()).getValue(FACING));
-    }
+		return state.withProperty(FACING, world.getBlockState(pos.down()).getValue(FACING));
+	}
 
 	@Override
 	public int getMetaFromState(IBlockState state)

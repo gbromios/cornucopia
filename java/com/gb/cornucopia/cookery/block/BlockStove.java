@@ -1,5 +1,7 @@
 package com.gb.cornucopia.cookery.block;
 
+import java.util.List;
+
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.cookery.Cookery;
@@ -94,5 +96,7 @@ public class BlockStove extends Block{
 	{
 		return new BlockState(this, new IProperty[] {ON, FACING});
 	}
+	
+
 
 }

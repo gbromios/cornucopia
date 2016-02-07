@@ -8,7 +8,7 @@ import net.minecraft.util.IStringSerializable;
 public enum Vessel implements IStringSerializable {
 	NONE("none", 0),
 	POT("pot", 1),
-	//PAN("pan", 2),
+	PAN("pan", 2),
 	//SKILLET("skillet", 3),
 	//KETTLE("kettle", 4),
 	//E("E", 5),
