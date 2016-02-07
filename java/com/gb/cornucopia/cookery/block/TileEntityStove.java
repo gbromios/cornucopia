@@ -181,7 +181,7 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player)
 	{
-		return new ContainerStove(playerInventory, (IInventory)this, DishRegistry.byID(1));
+		return new ContainerStove(playerInventory, (IInventory)this);
 	}
 	
 	public DishRegistry getDishes(){

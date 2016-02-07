@@ -12,22 +12,29 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ContainerStove extends Container{
-    public ContainerStove(InventoryPlayer playerInventory, IInventory stoveInventory, DishRegistry d) {
+    public ContainerStove(InventoryPlayer playerInventory, IInventory stoveInventory) {
         // fuel
-        this.addSlotToContainer(new Slot(stoveInventory, 0, 33, 20));
+        this.addSlotToContainer(new Slot(stoveInventory, 0, 70, 46));
         // crafting grid
-        this.addSlotToContainer(new Slot(stoveInventory, 1,  78, 21)); 
-        this.addSlotToContainer(new Slot(stoveInventory, 2, 101, 21));
-        this.addSlotToContainer(new Slot(stoveInventory, 3, 124, 21));
-        this.addSlotToContainer(new Slot(stoveInventory, 4,  78, 43));
-        this.addSlotToContainer(new Slot(stoveInventory, 5, 101, 43));
-        this.addSlotToContainer(new Slot(stoveInventory, 6, 124, 43));
-        this.addSlotToContainer(new Slot(stoveInventory, 7,  78, 65));
-        this.addSlotToContainer(new Slot(stoveInventory, 8, 101, 56));
-        this.addSlotToContainer(new Slot(stoveInventory, 9,  33, 46)); 
+        
+        for (int i = 0; i<3; i++) {
+        	for(int j = 0; j<2; j++) {
+        		this.addSlotToContainer(new Slot(stoveInventory, 1 + (i + j * 3),  52 + i * 18, 10 + j * 18));
+        	} 	
+        }
+        
+        /*this.addSlotToContainer(new Slot(stoveInventory, 1,  40, 21)); 
+        this.addSlotToContainer(new Slot(stoveInventory, 2, 65, 21));
+        this.addSlotToContainer(new Slot(stoveInventory, 3, 90, 21));
+        this.addSlotToContainer(new Slot(stoveInventory, 4,  40, 43));
+        this.addSlotToContainer(new Slot(stoveInventory, 5, 65, 43));
+        this.addSlotToContainer(new Slot(stoveInventory, 6, 90, 43));
+        this.addSlotToContainer(new Slot(stoveInventory, 7,  40, 65));
+        this.addSlotToContainer(new Slot(stoveInventory, 8, 65, 65));
+        this.addSlotToContainer(new Slot(stoveInventory, 9,  90, 65));*/ 
         
         // output
-        this.addSlotToContainer(new SlotStoveOutput(playerInventory.player, stoveInventory, 10, 101, 54, d));
+        this.addSlotToContainer(new SlotStoveOutput(playerInventory.player, stoveInventory, 10, 130, 19));
 
         // the player
         for (int i = 0; i < 3; ++i)
@@ -55,14 +62,14 @@ public class ContainerStove extends Container{
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (index < 11 && index >= 0)
+            if (index < 8)
             {
                 if (!this.mergeItemStack(itemstack1, 9, this.inventorySlots.size(), true))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 0, 11, false))
+            else if (!this.mergeItemStack(itemstack1, 0, 9, false))
             {
                 return null;
             }

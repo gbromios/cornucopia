@@ -37,7 +37,7 @@ public class GuiHandler implements IGuiHandler {
 		}
 		else if (block == Cookery.stovetop){
 			final TileEntityStove stoveEntity = (TileEntityStove)world.getTileEntity(new BlockPos(x, y ,z));
-			return new ContainerStove(player.inventory, (IInventory)stoveEntity, DishRegistry.byID(ID));
+			return new ContainerStove(player.inventory, stoveEntity);
 		}
 		else if (block == Cookery.presser){
 			return new ContainerPresser(player.inventory, (IInventory)world.getTileEntity(new BlockPos(x, y ,z)));
@@ -57,7 +57,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiCuttingBoard(world, player.inventory, new BlockPos(x,y,z));
 		}
 		else if (block == Cookery.stovetop){
-			return new GuiStove(world, player.inventory, new BlockPos(x,y,z), DishRegistry.byID(ID));
+			final TileEntityStove stoveEntity = (TileEntityStove)world.getTileEntity(new BlockPos(x, y ,z));
+			return new GuiStove(player.inventory, stoveEntity);
 		}
 		else if (block == Cookery.presser){
 			return new GuiPresser(world, player.inventory, new BlockPos(x, y ,z));

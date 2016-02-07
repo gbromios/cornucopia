@@ -55,6 +55,7 @@ public class Cookery {
 	public static Ingredient citrus;
 	
 	public static Item delicious_food; // test recipe result
+	public static Item delicious_treat; // test recipe result
 	//endregion
 
 	public static void preInit(){
@@ -77,14 +78,23 @@ public class Cookery {
 		GameRegistry.registerItem(delicious_food, "delicious_corn_salad");
 		InvModel.add(delicious_food, "delicious_corn_salad");
 		
+		delicious_treat = new Item().setUnlocalizedName("almond_cone").setCreativeTab(CornuCopia.tabBees);
+		GameRegistry.registerItem(delicious_treat, "almond_cone");
+		InvModel.add(delicious_treat, "almond_cone");
+		
 
 	};
 
 	// recipes galore~! i probably will add some here for testing but it'll get more complex later :D
 	public static void init(){
-		new DishRegistry(0).add(new Dish(delicious_food, Veggies.corn.raw, Bees.bee, juicer));
-		new DishRegistry(Vessel.POT.meta);
-		new DishRegistry(Vessel.PAN.meta);
+		new DishRegistry(0)
+			.add(new Dish(delicious_food, Veggies.corn.raw, Bees.bee, juicer))
+		;
+		new DishRegistry(Vessel.POT.meta)
+			.add(new Dish(delicious_treat, Fruits.almond.raw, Items.sugar, Items.sugar));
+		;
+		new DishRegistry(Vessel.PAN.meta)
+		;
 		//new DishRegistry(Vessel.SKILLET.meta);
 		//new DishRegistry(Vessel.KETTLE.meta);
 		
