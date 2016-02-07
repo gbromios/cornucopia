@@ -22,6 +22,7 @@ import com.gb.cornucopia.fruit.Fruits;
 import com.gb.cornucopia.veggie.Veggies;
 import com.google.common.collect.Lists;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Items;
@@ -56,7 +57,10 @@ public class Cookery {
 	
 	public static Item delicious_food; // test recipe result
 	public static Item delicious_treat; // test recipe result
+	private static Item delicious_halloween_snack; // ibid
 	//endregion
+
+	
 
 	public static void preInit(){
 		juicer = new ItemCookWare("juicer");
@@ -82,6 +86,10 @@ public class Cookery {
 		GameRegistry.registerItem(delicious_treat, "almond_cone");
 		InvModel.add(delicious_treat, "almond_cone");
 		
+		delicious_halloween_snack = new Item().setUnlocalizedName("halloween_treat").setCreativeTab(CornuCopia.tabBees);
+		GameRegistry.registerItem(delicious_halloween_snack, "halloween_treat");
+		InvModel.add(delicious_halloween_snack, "halloween_treat");
+		
 
 	};
 
@@ -91,9 +99,10 @@ public class Cookery {
 			.add(new Dish(delicious_food, Veggies.corn.raw, Bees.bee, juicer))
 		;
 		new DishRegistry(Vessel.POT.meta)
-			.add(new Dish(delicious_treat, Fruits.almond.raw, Items.sugar, Items.sugar));
+			.add(new Dish(delicious_treat, Fruits.almond.raw, Items.sugar, Items.sugar, Bees.honey_raw));
 		;
 		new DishRegistry(Vessel.PAN.meta)
+			.add(new Dish(delicious_halloween_snack, Veggies.corn.seed, Items.melon, Items.apple))
 		;
 		//new DishRegistry(Vessel.SKILLET.meta);
 		//new DishRegistry(Vessel.KETTLE.meta);

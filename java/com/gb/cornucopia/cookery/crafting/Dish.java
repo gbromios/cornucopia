@@ -75,14 +75,18 @@ public class Dish {
     //@Override
     public ItemStack getCraftingResult(InventoryCrafting i){ return result.copy(); }
 
-    @SuppressWarnings("unchecked")
-    //@Override
+    //@SuppressWarnings("unchecked")
     public boolean matches(IInventory crafting, World world)
     {
+    	return this.matches(crafting, world, 0, crafting.getSizeInventory());
+    }
+
+    //@SuppressWarnings("unchecked")
+    public boolean matches(IInventory crafting, World world, int min, int max){
         ArrayList<ItemStack> items_required = new ArrayList<>(this.items);
         ArrayList<Ingredient> ingredients_required = new ArrayList<>(this.ingredients);
        
-        for (int x = 0; x < crafting.getSizeInventory(); x++)
+        for (int x = min; x <= max; x++)
         {
             ItemStack slot = crafting.getStackInSlot(x);
 

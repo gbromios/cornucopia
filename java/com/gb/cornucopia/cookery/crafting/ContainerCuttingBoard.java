@@ -77,7 +77,7 @@ public class ContainerCuttingBoard extends Container {
 	public void onCraftMatrixChanged(IInventory inventoryIn)
 	{
 		// TODO this is where the functionality will be changed from vanilla crafting table
-		this.craftResult.setInventorySlotContents(0, this.dishRegistry.findMatchingDish(this.craftMatrix, this.world, 0, 8));
+		this.craftResult.setInventorySlotContents(0, this.dishRegistry.findMatchingDish(this.craftMatrix, this.world));
 	}
 
 	

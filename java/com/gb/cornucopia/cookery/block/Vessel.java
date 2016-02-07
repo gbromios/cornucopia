@@ -2,6 +2,8 @@ package com.gb.cornucopia.cookery.block;
 
 import java.util.HashMap;
 
+import com.gb.cornucopia.cookery.crafting.DishRegistry;
+
 import net.minecraft.item.Item;
 import net.minecraft.util.IStringSerializable;
 
@@ -45,6 +47,10 @@ public enum Vessel implements IStringSerializable {
 	
 	public Item getItem(){
 		return toItem(this);
+	}
+	
+	public DishRegistry getDishes(){
+		return DishRegistry.byID(this.meta);
 	}
 	
 	private Vessel(String name, int meta){

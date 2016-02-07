@@ -39,7 +39,7 @@ public class BlockStove extends Block{
 		this.setUnlocalizedName(this.name);
 		this.setHardness(1.5F);
 		this.setCreativeTab(CornuCopia.tabCookeryBlock);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(ON, true).withProperty(FACING, EnumFacing.NORTH));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(ON, false).withProperty(FACING, EnumFacing.NORTH));
 		GameRegistry.registerBlock(this, this.name);
 		InvModel.add(this, this.name);
 	}
@@ -90,6 +90,17 @@ public class BlockStove extends Block{
 	public int getMetaFromState(IBlockState state)
 	{
 		return ((boolean)state.getValue(ON) ? 8 : 0) | ((EnumFacing)state.getValue(FACING)).getHorizontalIndex();
+	}
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		try {			
+			return state.withProperty(ON, ((TileEntityStove)world.getTileEntity(pos.up())).isBurning());
+		} catch (Exception e) {
+			System.err.println(e);
+			System.err.println((TileEntityStove)world.getTileEntity(pos));
+			return state.withProperty(ON, true);
+		}
 	}
 
 	protected BlockState createBlockState()
