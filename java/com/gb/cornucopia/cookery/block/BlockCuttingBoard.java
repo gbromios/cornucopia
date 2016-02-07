@@ -19,7 +19,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockCuttingBoard extends Block {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-	public static final Integer GUI_ID = 0; // lucky duck!
 	public final String name;
     public BlockCuttingBoard() {
 		super(Material.wood);
@@ -37,7 +36,7 @@ public class BlockCuttingBoard extends Block {
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float x, float y, float z)
 	{
 		if (!world.isRemote) {
-			player.openGui(CornuCopia.instance, GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(CornuCopia.instance, 420, world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 

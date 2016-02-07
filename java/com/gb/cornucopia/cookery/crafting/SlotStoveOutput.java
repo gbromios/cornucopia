@@ -17,12 +17,14 @@ public class SlotStoveOutput extends Slot {
     private final EntityPlayer player;
     private final TileEntityStove stove;
     private int stackSize;
+	private DishRegistry dish_registry;
 
-    public SlotStoveOutput(EntityPlayer player, IInventory stove, int slotIndex, int xPosition, int yPosition)
+    public SlotStoveOutput(EntityPlayer player, IInventory stove, int slotIndex, int xPosition, int yPosition, DishRegistry d)
     {
         super(stove, slotIndex, xPosition, yPosition);
         this.stove = (TileEntityStove)stove;
         this.player = player; // so we know where to spawn any potential XP Orbs
+        this.dish_registry = d;
     }
 
     /**

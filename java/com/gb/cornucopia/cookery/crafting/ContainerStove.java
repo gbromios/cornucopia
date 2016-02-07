@@ -27,7 +27,7 @@ public class ContainerStove extends Container{
         this.addSlotToContainer(new Slot(stoveInventory, 9,  33, 46)); 
         
         // output
-        this.addSlotToContainer(new SlotStoveOutput(playerInventory.player, stoveInventory, 10, 101, 54));
+        this.addSlotToContainer(new SlotStoveOutput(playerInventory.player, stoveInventory, 10, 101, 54, d));
 
         // the player
         for (int i = 0; i < 3; ++i)
@@ -44,11 +44,40 @@ public class ContainerStove extends Container{
         }       
     }
     
-    @Override
+	@Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
-        // for now you'll have to transfer items the hard way
-        return null;
+        ItemStack itemstack = null;
+        Slot slot = (Slot)this.inventorySlots.get(index);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (index < 11 && index >= 0)
+            {
+                if (!this.mergeItemStack(itemstack1, 9, this.inventorySlots.size(), true))
+                {
+                    return null;
+                }
+            }
+            else if (!this.mergeItemStack(itemstack1, 0, 11, false))
+            {
+                return null;
+            }
+
+            if (itemstack1.stackSize == 0)
+            {
+                slot.putStack((ItemStack)null);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
+
+        return itemstack;
     }
 
     

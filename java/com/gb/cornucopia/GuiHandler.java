@@ -10,12 +10,13 @@ import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.block.BlockStoveTop;
 import com.gb.cornucopia.cookery.block.TileEntityStove;
 import com.gb.cornucopia.cookery.block.Vessel;
-import com.gb.cornucopia.cookery.crafting.ContainerCookingTable;
+import com.gb.cornucopia.cookery.crafting.ContainerCuttingBoard;
 import com.gb.cornucopia.cookery.crafting.ContainerPresser;
 import com.gb.cornucopia.cookery.crafting.ContainerStove;
 import com.gb.cornucopia.cookery.crafting.DishRegistry;
-import com.gb.cornucopia.cookery.crafting.GuiCookingTable;
+import com.gb.cornucopia.cookery.crafting.GuiCuttingBoard;
 import com.gb.cornucopia.cookery.crafting.GuiPresser;
+import com.gb.cornucopia.cookery.crafting.GuiStove;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockState;
@@ -31,8 +32,8 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		final Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-		if (ID == 0) { // cutting board
-			return new ContainerCookingTable(player.inventory, world, new BlockPos(x, y ,z), DishRegistry.byID(ID));
+		if (block == Cookery.cutting_board) { // cutting board
+			return new ContainerCuttingBoard(player.inventory, world, new BlockPos(x, y ,z));
 		}
 		else if (block == Cookery.stovetop){
 			final TileEntityStove stoveEntity = (TileEntityStove)world.getTileEntity(new BlockPos(x, y ,z));
@@ -52,11 +53,11 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock(); 
-		if (ID == 0) { // cutting board
-			return new GuiCookingTable(world, player.inventory, new BlockPos(x,y,z), DishRegistry.byID(ID));
+		if (block == Cookery.cutting_board) { // cutting board
+			return new GuiCuttingBoard(world, player.inventory, new BlockPos(x,y,z));
 		}
 		else if (block == Cookery.stovetop){
-			return new GuiCookingTable(world, player.inventory, new BlockPos(x,y,z), DishRegistry.byID(ID));
+			return new GuiStove(world, player.inventory, new BlockPos(x,y,z), DishRegistry.byID(ID));
 		}
 		else if (block == Cookery.presser){
 			return new GuiPresser(world, player.inventory, new BlockPos(x, y ,z));

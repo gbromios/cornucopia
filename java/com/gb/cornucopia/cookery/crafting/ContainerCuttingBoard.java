@@ -18,19 +18,19 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 
-public class ContainerCookingTable extends Container {
+public class ContainerCuttingBoard extends Container {
 	private final World world; // these are the same as the super class but they're private so i can't override anything :I
 	private final BlockPos pos;
-	private final DishRegistry dishRegistry;
 	public final InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
 	public final IInventory craftResult = new InventoryCraftResult();
+	private final DishRegistry dishRegistry;
 
-	public ContainerCookingTable(InventoryPlayer playerventory, World world, BlockPos pos, DishRegistry dishRegistry) {
+	public ContainerCuttingBoard(InventoryPlayer playerventory, World world, BlockPos pos) {
 		this.world = world;
 		this.pos = pos;
-		this.dishRegistry = dishRegistry;
+		this.dishRegistry = DishRegistry.byID(0);
 
-		this.addSlotToContainer(new SlotCuttingBoardOutput(playerventory.player, this.craftMatrix, this.craftResult, 0, 124, 35, dishRegistry));
+		this.addSlotToContainer(new SlotCuttingBoardOutput(playerventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
 		
 		//region// placing all the slots. 
 		int i;
@@ -77,7 +77,7 @@ public class ContainerCookingTable extends Container {
 	public void onCraftMatrixChanged(IInventory inventoryIn)
 	{
 		// TODO this is where the functionality will be changed from vanilla crafting table
-		//this.craftResult.setInventorySlotContents(0, this.dishRegistry.findMatchingDish(this.craftMatrix, this.world));
+		this.craftResult.setInventorySlotContents(0, this.dishRegistry.findMatchingDish(this.craftMatrix, this.world, 0, 8));
 	}
 
 	

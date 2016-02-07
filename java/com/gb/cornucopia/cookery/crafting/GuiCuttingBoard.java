@@ -13,12 +13,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiCookingTable extends GuiContainer {
+public class GuiCuttingBoard extends GuiContainer {
 	// copies GuiCrafting -- change later
 	private ResourceLocation textures = new ResourceLocation("textures/gui/container/crafting_table.png");
 		
-	public GuiCookingTable(World world, InventoryPlayer player_inventory, BlockPos pos, DishRegistry dishRegistry) {
-		super(new ContainerCookingTable(player_inventory, world, pos, dishRegistry));
+	public GuiCuttingBoard(World world, InventoryPlayer player_inventory, BlockPos pos) {
+		super(new ContainerCuttingBoard(player_inventory, world, pos));
 	}
 	
 	@Override

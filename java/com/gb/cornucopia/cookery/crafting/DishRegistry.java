@@ -52,8 +52,7 @@ public class DishRegistry {
 	        }
 	        while (!d.matches(cooking_input, world));
 
-	        //return d.getCraftingResult(cooking_input);
-	        return null;
+	        return d.getCraftingResult((InventoryCrafting)cooking_input);
 	}
 	
     public ItemStack[] getChangedInput(InventoryCrafting cooking_input, World world)

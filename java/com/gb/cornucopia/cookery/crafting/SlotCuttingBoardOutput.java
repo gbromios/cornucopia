@@ -16,11 +16,11 @@ public class SlotCuttingBoardOutput extends Slot {
     /** The number of items that have been crafted so far. Gets passed to ItemStack.onCrafting before being reset. */
     private final DishRegistry dishRegistry;
 
-	public SlotCuttingBoardOutput(EntityPlayer player, InventoryCrafting craftingInventory, IInventory inv, int slotIndex, int x, int y, DishRegistry dishRegistry) {
+	public SlotCuttingBoardOutput(EntityPlayer player, InventoryCrafting craftingInventory, IInventory inv, int slotIndex, int x, int y) {
 		super(inv, slotIndex, x, y);
 		this.player = player;
 		this.craftMatrix = craftingInventory;
-		this.dishRegistry = dishRegistry;
+		this.dishRegistry = DishRegistry.byID(0);
 	}
 
 	// can't put anything in the output slot

@@ -2,6 +2,7 @@ package com.gb.cornucopia.cookery;
 
 import com.gb.cornucopia.GuiHandler;
 import com.gb.cornucopia.InvModel;
+import com.gb.cornucopia.bees.Bees;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Cookery {	
 	//region yawn static fields
@@ -51,6 +53,8 @@ public class Cookery {
 	public static Ingredient mirepoix_part;
 	public static Ingredient sweet_berry;
 	public static Ingredient citrus;
+	
+	public static Item delicious_food; // test recipe result
 	//endregion
 
 	public static void preInit(){
@@ -68,12 +72,17 @@ public class Cookery {
 		
 		presser = new BlockPresser();
 		pressertop = new BlockPresserTop();
+		
+		delicious_food = new Item().setUnlocalizedName("delicious_corn_salad").setCreativeTab(CornuCopia.tabBees);
+		GameRegistry.registerItem(delicious_food, "delicious_corn_salad");
+		InvModel.add(delicious_food, "delicious_corn_salad");
+		
 
 	};
 
 	// recipes galore~! i probably will add some here for testing but it'll get more complex later :D
 	public static void init(){
-		new DishRegistry(cutting_board.GUI_ID);
+		new DishRegistry(0).add(new Dish(delicious_food, Veggies.corn.raw, Bees.bee, juicer));
 		new DishRegistry(Vessel.POT.meta);
 		new DishRegistry(Vessel.PAN.meta);
 		//new DishRegistry(Vessel.SKILLET.meta);
