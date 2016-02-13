@@ -20,6 +20,10 @@ gradle/
 gradlew
 gradlew.bat
 
+# vim
+*~
+*.swp
+
 # other
 eclipse
 run

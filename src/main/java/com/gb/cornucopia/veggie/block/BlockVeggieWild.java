@@ -80,14 +80,14 @@ implements IPlantable
 
 		// TODO: add config options to control density of wild veggies, 
 		final int search_radius = 4;
-		int max_wild veggies = 5; 
+		int max_wild_veggies = 5; 
 
 		for (int x = -search_radius; x <= search_radius; x++){
 			for (int y = -search_radius; y <= search_radius; y++){
 				for (int z = -search_radius; z <= search_radius; z++){
 					// TODO: add option to count wild veggies types separately?
 					if (world.getBlockState(pos.add(x, y, z)).getBlock() == this){
-						if (--max_wild veggies == 0) return;
+						if (--max_wild_veggies == 0) return;
 					}
 				}	
 			}    		

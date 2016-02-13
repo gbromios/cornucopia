@@ -68,9 +68,14 @@ public class BlockPresserTop extends Block {
 
 	@Override
 	public void setBlockBoundsBasedOnState(final IBlockAccess world, final BlockPos pos){
-		//final IBlockState state = world.getBlockState(pos.down());
+		final IBlockState state = world.getBlockState(pos);
 		//if (state.getBlock() != Cookery.presser) { return; }
-		this.setBlockBounds(0.25F, 0F, 0.25F, 0.75F, 0.125F, 0.75F);
+		final float yMin = 0F;
+		final float yMax = 0.8125F - ( 0.125F * (Integer)(state.getValue(PROGRESS)) / 2 );
+		System.out.format("%d -> %f\n", state.getValue(PROGRESS), yMax);
+		this.setBlockBounds(
+				0.25F, yMin, 0.25F,
+				0.75F, yMax, 0.75F);
 	}
 	
 	@Override
