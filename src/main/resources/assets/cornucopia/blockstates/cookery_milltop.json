@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "progress=0": { "model": "cornucopia:cookery_milltop" },
+        "progress=1": { "model": "cornucopia:cookery_milltop", "y": 90 },
+        "progress=2" : { "model": "cornucopia:cookery_milltop", "y": 180 },
+        "progress=3" : { "model": "cornucopia:cookery_milltop", "y": 270 }
+    }
+}

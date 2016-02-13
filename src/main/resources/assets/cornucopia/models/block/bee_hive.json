@@ -1,0 +1,63 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "0": "cornucopia:blocks/hive_side",
+        "1": "cornucopia:blocks/hive_bottom",
+        "2": "cornucopia:blocks/hive_top",
+        "particle": "cornucopia:blocks/hive_side"
+    },
+    "elements": [
+        {
+            "name": "hive_bot",
+            "from": [ 3.0, 0.0, 3.0 ], 
+            "to": [ 13.0, 4.0, 13.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 3.0, 12.0, 13.0, 16.0 ] },
+                "east": { "texture": "#0", "uv": [ 3.0, 12.0, 13.0, 16.0 ] },
+                "south": { "texture": "#0", "uv": [ 3.0, 12.0, 13.0, 16.0 ] },
+                "west": { "texture": "#0", "uv": [ 3.0, 12.0, 13.0, 16.0 ] },
+                "up": { "texture": "#-1", "uv": [ 3.0, 3.0, 13.0, 13.0 ] },
+                "down": { "texture": "#1", "uv": [ 3.0, 3.0, 13.0, 13.0 ] }
+            }
+        },
+        {
+            "name": "hive_mid",
+            "from": [ 2.0, 4.0, 2.0 ], 
+            "to": [ 14.0, 8.0, 14.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 2.0, 8.0, 14.0, 12.0 ] },
+                "east": { "texture": "#0", "uv": [ 2.0, 8.0, 14.0, 12.0 ] },
+                "south": { "texture": "#0", "uv": [ 2.0, 8.0, 14.0, 12.0 ] },
+                "west": { "texture": "#0", "uv": [ 2.0, 8.0, 14.0, 12.0 ] },
+                "up": { "texture": "#-1", "uv": [ 0.0, 0.0, 12.0, 12.0 ] },
+                "down": { "texture": "#1", "uv": [ 2.0, 2.0, 14.0, 14.0 ] }
+            }
+        },
+        {
+            "name": "hive_mid_upper",
+            "from": [ 1.0, 8.0, 1.0 ], 
+            "to": [ 15.0, 12.0, 15.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 1.0, 4.0, 15.0, 8.0 ] },
+                "east": { "texture": "#0", "uv": [ 1.0, 4.0, 15.0, 8.0 ] },
+                "south": { "texture": "#0", "uv": [ 1.0, 4.0, 15.0, 8.0 ] },
+                "west": { "texture": "#0", "uv": [ 1.0, 4.0, 15.0, 8.0 ] },
+                "up": { "texture": "#2", "uv": [ 1.0, 1.0, 15.0, 15.0 ] },
+                "down": { "texture": "#1", "uv": [ 1.0, 1.0, 15.0, 15.0 ] }
+            }
+        },
+        {
+            "name": "hive_top",
+            "from": [ 2.0, 12.0, 2.0 ], 
+            "to": [ 14.0, 16.0, 14.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 2.0, 0.0, 14.0, 4.0 ] },
+                "east": { "texture": "#0", "uv": [ 2.0, 0.0, 14.0, 4.0 ] },
+                "south": { "texture": "#0", "uv": [ 2.0, 0.0, 14.0, 4.0 ] },
+                "west": { "texture": "#0", "uv": [ 2.0, 0.0, 14.0, 4.0 ] },
+                "up": { "texture": "#2", "uv": [ 2.0, 2.0, 14.0, 14.0 ] },
+                "down": { "texture": "#-1", "uv": [ 3.0, 2.0, 15.0, 14.0 ] }
+            }
+        }
+    ]
+}

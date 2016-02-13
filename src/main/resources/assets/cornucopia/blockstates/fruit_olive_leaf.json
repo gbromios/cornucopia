@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "check_decay=false,decayable=false,sapling_generator=false": {
+      "model": "acacia_leaves"
+    }, 
+    "check_decay=false,decayable=false,sapling_generator=true": {
+      "model": "acacia_leaves"
+    }, 
+    "check_decay=false,decayable=true,sapling_generator=false": {
+      "model": "acacia_leaves"
+    }, 
+    "check_decay=false,decayable=true,sapling_generator=true": {
+      "model": "acacia_leaves"
+    }, 
+    "check_decay=true,decayable=false,sapling_generator=false": {
+      "model": "acacia_leaves"
+    }, 
+    "check_decay=true,decayable=false,sapling_generator=true": {
+      "model": "acacia_leaves"
+    }, 
+    "check_decay=true,decayable=true,sapling_generator=false": {
+      "model": "acacia_leaves"
+    }, 
+    "check_decay=true,decayable=true,sapling_generator=true": {
+      "model": "acacia_leaves"
+    }
+  }
+}

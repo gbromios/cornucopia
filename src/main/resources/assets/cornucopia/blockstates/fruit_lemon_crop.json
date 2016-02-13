@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0,drop_sapling=false": {
+      "model": "cornucopia:fruit_lemon_crop_0"
+    }, 
+    "age=0,drop_sapling=true": {
+      "model": "cornucopia:fruit_lemon_crop_0"
+    }, 
+    "age=1,drop_sapling=false": {
+      "model": "cornucopia:fruit_lemon_crop_1"
+    }, 
+    "age=1,drop_sapling=true": {
+      "model": "cornucopia:fruit_lemon_crop_1"
+    }, 
+    "age=2,drop_sapling=false": {
+      "model": "cornucopia:fruit_lemon_crop_2"
+    }, 
+    "age=2,drop_sapling=true": {
+      "model": "cornucopia:fruit_lemon_crop_2"
+    }, 
+    "age=3,drop_sapling=false": {
+      "model": "cornucopia:fruit_lemon_crop_3"
+    }, 
+    "age=3,drop_sapling=true": {
+      "model": "cornucopia:fruit_lemon_crop_3"
+    }
+  }
+}

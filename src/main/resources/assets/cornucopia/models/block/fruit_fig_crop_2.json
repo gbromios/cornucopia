@@ -1,0 +1,6 @@
+{
+  "parent": "cornucopia:block/fruit_crop", 
+  "textures": {
+    "crop": "cornucopia:blocks/fruit_fig_crop_2"
+  }
+}

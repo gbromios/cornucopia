@@ -1,0 +1,16 @@
+[
+{
+  "modid": "cornucopia",
+  "name": "CornuCopia",
+  "description": "enhanced food mechanics",
+  "version": "1.0.3",
+  "mcversion": "1.8.0",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["gbromios"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "acacia_sapling"
+    }, 
+    "age=1": {
+      "model": "acacia_sapling"
+    }
+  }
+}

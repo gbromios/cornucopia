@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "dark_oak_sapling"
+    }, 
+    "age=1": {
+      "model": "dark_oak_sapling"
+    }
+  }
+}

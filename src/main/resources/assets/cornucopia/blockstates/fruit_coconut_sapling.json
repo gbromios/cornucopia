@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "jungle_sapling"
+    }, 
+    "age=1": {
+      "model": "jungle_sapling"
+    }
+  }
+}
