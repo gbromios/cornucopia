@@ -1,10 +1,5 @@
 package com.gb.cornucopia.fruit;
 
-import com.gb.cornucopia.fruit.block.BlockFruitCrop;
-import com.gb.cornucopia.fruit.block.BlockFruitLeaf;
-import com.gb.cornucopia.fruit.block.BlockFruitSapling;
-import com.gb.cornucopia.fruit.item.ItemFruitRaw;
-
 import net.minecraft.block.BlockPlanks;
 
 public class Fruit {

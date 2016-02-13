@@ -1,18 +1,18 @@
 package com.gb.cornucopia;
 
 import com.gb.cornucopia.bees.Bees;
-import com.gb.cornucopia.bees.crafting.ContainerApiary;
-import com.gb.cornucopia.bees.crafting.GuiApiary;
+import com.gb.cornucopia.bees.ContainerApiary;
+import com.gb.cornucopia.bees.GuiApiary;
 import com.gb.cornucopia.cookery.Cookery;
-import com.gb.cornucopia.cookery.block.TileEntityStove;
-import com.gb.cornucopia.cookery.crafting.ContainerCuttingBoard;
-import com.gb.cornucopia.cookery.crafting.ContainerMill;
-import com.gb.cornucopia.cookery.crafting.ContainerPresser;
-import com.gb.cornucopia.cookery.crafting.ContainerStove;
-import com.gb.cornucopia.cookery.crafting.GuiCuttingBoard;
-import com.gb.cornucopia.cookery.crafting.GuiMill;
-import com.gb.cornucopia.cookery.crafting.GuiPresser;
-import com.gb.cornucopia.cookery.crafting.GuiStove;
+import com.gb.cornucopia.cookery.cuttingboard.ContainerCuttingBoard;
+import com.gb.cornucopia.cookery.cuttingboard.GuiCuttingBoard;
+import com.gb.cornucopia.cookery.mill.ContainerMill;
+import com.gb.cornucopia.cookery.mill.GuiMill;
+import com.gb.cornucopia.cookery.presser.ContainerPresser;
+import com.gb.cornucopia.cookery.presser.GuiPresser;
+import com.gb.cornucopia.cookery.stove.ContainerStove;
+import com.gb.cornucopia.cookery.stove.GuiStove;
+import com.gb.cornucopia.cookery.stove.TileEntityStove;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

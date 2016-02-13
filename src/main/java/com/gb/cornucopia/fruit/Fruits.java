@@ -3,10 +3,6 @@ package com.gb.cornucopia.fruit;
 import java.util.HashMap;
 
 import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.fruit.block.BlockFruitCrop;
-import com.gb.cornucopia.fruit.block.BlockFruitLeaf;
-import com.gb.cornucopia.fruit.block.BlockFruitSapling;
-import com.gb.cornucopia.fruit.item.ItemFruitRaw;
 
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.init.Items;

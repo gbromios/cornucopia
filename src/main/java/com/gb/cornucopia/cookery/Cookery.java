@@ -1,15 +1,12 @@
 package com.gb.cornucopia.cookery;
 
-import com.gb.cornucopia.cookery.block.BlockCuttingBoard;
-import com.gb.cornucopia.cookery.block.BlockMill;
-import com.gb.cornucopia.cookery.block.BlockMillTop;
-import com.gb.cornucopia.cookery.block.BlockPresser;
-import com.gb.cornucopia.cookery.block.BlockPresserTop;
-import com.gb.cornucopia.cookery.block.BlockStove;
-import com.gb.cornucopia.cookery.block.BlockStoveTop;
-import com.gb.cornucopia.cookery.block.BlockWaterBasin;
-import com.gb.cornucopia.cookery.block.Vessel;
-import com.gb.cornucopia.cookery.item.ItemCookWare;
+import com.gb.cornucopia.cookery.cuttingboard.BlockCuttingBoard;
+import com.gb.cornucopia.cookery.mill.BlockMill;
+import com.gb.cornucopia.cookery.mill.BlockMillTop;
+import com.gb.cornucopia.cookery.presser.BlockPresser;
+import com.gb.cornucopia.cookery.presser.BlockPresserTop;
+import com.gb.cornucopia.cookery.stove.BlockStove;
+import com.gb.cornucopia.cookery.stove.BlockStoveTop;
 import com.gb.cornucopia.cuisine.Ingredient;
 
 import net.minecraft.init.Blocks;

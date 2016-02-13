@@ -3,8 +3,8 @@ package com.gb.cornucopia.cuisine;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gb.cornucopia.cookery.block.Vessel;
-import com.gb.cornucopia.cookery.crafting.ContainerCuttingBoard;
+import com.gb.cornucopia.cookery.Vessel;
+import com.gb.cornucopia.cookery.cuttingboard.ContainerCuttingBoard;
 import com.gb.cornucopia.fruit.Fruits;
 import com.gb.cornucopia.veggie.Veggies;
 import com.google.common.collect.Lists;

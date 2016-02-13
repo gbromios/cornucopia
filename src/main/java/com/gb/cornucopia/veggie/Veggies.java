@@ -3,11 +3,6 @@ package com.gb.cornucopia.veggie;
 import java.util.HashMap;
 
 import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.veggie.block.BlockVeggieCrop;
-import com.gb.cornucopia.veggie.block.BlockVeggieCropTall;
-import com.gb.cornucopia.veggie.block.BlockVeggieWild;
-import com.gb.cornucopia.veggie.item.ItemVeggieRaw;
-import com.gb.cornucopia.veggie.item.ItemVeggieSeed;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

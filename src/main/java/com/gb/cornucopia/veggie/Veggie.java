@@ -1,10 +1,5 @@
 package com.gb.cornucopia.veggie;
 
-import com.gb.cornucopia.veggie.block.BlockVeggieCrop;
-import com.gb.cornucopia.veggie.block.BlockVeggieWild;
-import com.gb.cornucopia.veggie.item.ItemVeggieRaw;
-import com.gb.cornucopia.veggie.item.ItemVeggieSeed;
-
 public class Veggie {
 	public final ItemVeggieRaw raw;
 	public final ItemVeggieSeed seed;
