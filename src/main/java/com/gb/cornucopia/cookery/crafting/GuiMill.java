@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiMill extends GuiContainer {
 	// copies GuiCrafting -- change later
-	private ResourceLocation textures = new ResourceLocation("cornucopia:textures/gui/container/cookery_presser.png");
+	private ResourceLocation textures = new ResourceLocation("cornucopia:textures/gui/container/cookery_mill.png");
 
 	public GuiMill(final World world, final InventoryPlayer player, final BlockPos pos) {
 		// will this crash if the wrong kind of tile entity is there? probably lol

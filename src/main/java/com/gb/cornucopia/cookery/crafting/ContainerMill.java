@@ -9,15 +9,15 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerMill extends Container{
 	public ContainerMill(final InventoryPlayer playerInventory, final IInventory millInventory) {
-		this.addSlotToContainer(new SlotMill(millInventory, 0, 62, 20, true));
-		this.addSlotToContainer(new SlotMill(millInventory, 1, 80, 20, true));
-		this.addSlotToContainer(new SlotMill(millInventory, 2, 98, 20, true));
-		this.addSlotToContainer(new SlotMill(millInventory, 3, 62, 45, false)); 
-		this.addSlotToContainer(new SlotMill(millInventory, 4, 80, 45, false));
-		this.addSlotToContainer(new SlotMill(millInventory, 5, 98, 45, false));
-		this.addSlotToContainer(new SlotMill(millInventory, 6, 62, 60, false)); 
-		this.addSlotToContainer(new SlotMill(millInventory, 7, 80, 60, false));
-		this.addSlotToContainer(new SlotMill(millInventory, 8, 98, 60, false));
+		this.addSlotToContainer(new SlotMill(millInventory, 0, 62, 11, true));
+		this.addSlotToContainer(new SlotMill(millInventory, 1, 80, 11, true));
+		this.addSlotToContainer(new SlotMill(millInventory, 2, 98, 11, true));
+		this.addSlotToContainer(new SlotMill(millInventory, 3, 62, 37, false)); 
+		this.addSlotToContainer(new SlotMill(millInventory, 4, 80, 37, false));
+		this.addSlotToContainer(new SlotMill(millInventory, 5, 98, 37, false));
+		this.addSlotToContainer(new SlotMill(millInventory, 6, 62, 56, false)); 
+		this.addSlotToContainer(new SlotMill(millInventory, 7, 80, 56, false));
+		this.addSlotToContainer(new SlotMill(millInventory, 8, 98, 56, false));
 
 		// the player
 		for (int i = 0; i < 3; ++i)
