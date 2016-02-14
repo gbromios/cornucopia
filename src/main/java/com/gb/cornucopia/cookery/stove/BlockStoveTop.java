@@ -105,9 +105,6 @@ public class BlockStoveTop extends Block{
 	@Override
 	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
 		final Vessel v = (Vessel)state.getValue(VESSEL);
-		System.out.println(v.getName());
-		System.out.println(v.getItem());
-
 		final List<ItemStack> drop_stacks = new java.util.ArrayList<ItemStack>();
 		if (v != Vessel.NONE) {
 			drop_stacks.add(new ItemStack(v.getItem()));	
