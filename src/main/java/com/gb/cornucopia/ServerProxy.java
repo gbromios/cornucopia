@@ -1,6 +1,7 @@
 package com.gb.cornucopia;
 
 import com.gb.cornucopia.bees.Bees;
+import com.gb.cornucopia.brewing.Brewing;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.cuisine.Dishes;
@@ -22,6 +23,7 @@ public class ServerProxy {
 		Bees.preInit();
 		Cookery.preInit();
 		Cuisine.preInit();
+		Brewing.preInit();
 	}
 
 	public void init(final FMLInitializationEvent e) {

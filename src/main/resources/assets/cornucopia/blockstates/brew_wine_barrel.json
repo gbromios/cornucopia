@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "fermented=true": { "model": "cornucopia:brew_barrel" },
+        "fermented=false": { "model": "cornucopia:brew_barrel" }
+    }
+}
