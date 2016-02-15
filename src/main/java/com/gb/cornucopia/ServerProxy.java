@@ -6,7 +6,7 @@ import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.cuisine.Dishes;
 import com.gb.cornucopia.cuisine.Ingredients;
-import com.gb.cornucopia.fruit.Fruits;
+import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggies;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -19,7 +19,7 @@ public class ServerProxy {
 
 	public void preInit(final FMLPreInitializationEvent e) {
 		Veggies.preInit();
-		Fruits.preInit();
+		Fruit.preInit();
 		Bees.preInit();
 		Cookery.preInit();
 		Cuisine.preInit();

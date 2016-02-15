@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.gb.cornucopia.cookery.Vessel;
 import com.gb.cornucopia.cookery.cuttingboard.ContainerCuttingBoard;
-import com.gb.cornucopia.fruit.Fruits;
+import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggies;
 import com.google.common.collect.Lists;
 
@@ -33,7 +33,7 @@ public class Dishes {
 		;
 		
 		pot = new DishRegistry()
-		//.add(new Dish(Cookery.delicious_treat, Fruits.almond.raw, Items.sugar, Items.sugar, Bees.honey_raw));
+		//.add(new Dish(Cookery.delicious_treat, Fruit.almond.raw, Items.sugar, Items.sugar, Bees.honey_raw));
 		;
 		
 		
@@ -44,7 +44,7 @@ public class Dishes {
 		
 		cutting_board = new DishRegistry()
 		.add(new Dish(Items.cooked_beef, Veggies.asparagus.raw, Items.gunpowder))
-		.add(new Dish(Items.glowstone_dust, Fruits.lemon.raw, Veggies.broccoli.raw))
+		.add(new Dish(Items.glowstone_dust, Fruit.lemon.raw, Veggies.broccoli.raw))
 		;
 		//new DishRegistry(Vessel.SKILLET.meta);
 		//new DishRegistry(Vessel.KETTLE.meta);

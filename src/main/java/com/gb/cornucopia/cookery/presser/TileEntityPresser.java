@@ -2,7 +2,7 @@ package com.gb.cornucopia.cookery.presser;
 
 import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cuisine.Cuisine;
-import com.gb.cornucopia.fruit.Fruits;
+import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggies;
 
 import net.minecraft.block.state.IBlockState;
@@ -77,7 +77,7 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 
 	public static boolean canPress(Item i) {
 		return i == Bees.honeycomb
-				|| i == Fruits.olive.raw
+				|| i == Fruit.olive.raw
 				|| i == Veggies.grape.raw
 				;
 	}
@@ -139,7 +139,7 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 		if (i == Bees.honeycomb) {
 			press(Bees.honey_raw, 2, Bees.waxcomb);
 
-		} else if (i == Fruits.olive.raw) {
+		} else if (i == Fruit.olive.raw) {
 			press(Cuisine.oil_olive, 4);
 
 		} else if (i == Veggies.grape.raw) {
