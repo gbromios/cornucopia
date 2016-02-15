@@ -5,18 +5,20 @@ import com.gb.util.WeightedArray;
 import net.minecraft.item.Item;
 
 public class Cuisine {
-	public static ItemCuisine oil_olive;
 
-	
 	// intermediate food items
 	public static ItemCuisine flour;
 	public static ItemCuisine soda;
 	public static ItemCuisine vinegar;	
 	public static ItemCuisine mirepoix;
 	public static ItemCuisine peanut_butter;
-	public static ItemCuisine culture;
+	//public static ItemCuisine culture;
 	public static ItemCuisine mash;
 	
+	
+	// some processed foods
+	public static ItemCuisine oil_olive;
+	public static ItemCuisine grape_juice;
 	
 	// can't do anything special w/ these.... yet!
 	public static ItemCuisine roast_coffee;
@@ -38,13 +40,17 @@ public class Cuisine {
 	
 	public static final WeightedArray<Item> spice_drops = new WeightedArray<>();
 	public static final WeightedArray<Item> herb_drops = new WeightedArray<>();
+
 	
 	// i.e. placeholders
 	private static ItemCuisine _generic(String name){ return new ItemCuisine(name, 0, 0F); }
 		
 	public static void preInit(){		
-		flour = new ItemCuisine("flour", 1, 0.05F);
 		oil_olive = new ItemCuisine("oil_olive", 1, 0.5F);
+		grape_juice = new ItemCuisine("grape_juice", 1, 0.25F);
+		
+		
+		flour = new ItemCuisine("flour", 1, 0.05F);
 		
 		mirepoix = new ItemCuisine("mirepoix", 1, 0.2F);
 		peanut_butter = new ItemCuisine("peanut_butter", 2, 0.5F);

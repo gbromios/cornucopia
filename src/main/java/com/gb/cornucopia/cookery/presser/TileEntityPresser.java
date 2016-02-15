@@ -3,8 +3,10 @@ package com.gb.cornucopia.cookery.presser;
 import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.fruit.Fruits;
+import com.gb.cornucopia.veggie.Veggies;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -66,61 +68,83 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 			this.contents[i] = null;
 		}
 	}
+
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState){
+		//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
+		return (oldState.getBlock() != newState.getBlock());
+
+	}
+
+	public static boolean canPress(Item i) {
+		return i == Bees.honeycomb
+				|| i == Fruits.olive.raw
+				|| i == Veggies.grape.raw
+				;
+	}
 	
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState){
-    	//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
-    	return (oldState.getBlock() != newState.getBlock());
-    	
-    }
-	
+	public boolean canPress(){
+		if (!this.hasWorldObj() || this.worldObj.isRemote){
+			return false;
+		} else if (this.contents[0] == null) {
+			return true; // so players can see how it works without loading it up
+		}
+
+		final Item i = this.contents[0].getItem();
+		return TileEntityPresser.canPress(i);
+	}
+
+	public void press(Item output, int ratio, Item byproduct, int byproduct_ratio){
+		final ItemStack in_stack = this.contents[0]; // already null checked in press()
+		final ItemStack out_stack = this.contents[1] != null ? this.contents[1] : new ItemStack(output, 0);
+
+		final int can_make = Math.min(in_stack.stackSize / ratio, out_stack.getMaxStackSize() - out_stack.stackSize);
+		if ( can_make == 0 ) {
+			// inputs drop out for certain recipes
+			this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj,  this.pos.getX() + .5,  this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
+			this.contents[0] = null;
+			return;
+		} else if (contents[1] == null)  {
+			contents[1] = out_stack; // re assign if we needed a new stack
+		}
+
+		final int ingredients_needed = can_make * ratio;
+
+		if (byproduct != null){
+			this.contents[0] = byproduct != null ? new ItemStack(byproduct, ingredients_needed / byproduct_ratio) : null;
+		} else {
+			this.contents[0] = null;
+		}
+		
+		out_stack.stackSize += can_make;
+		in_stack.stackSize -= ingredients_needed;
+		
+		if (in_stack.stackSize > 0) {
+			this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj,  this.pos.getX() + .5,  this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
+		}
+	}
+
+	public void press(Item output, int ratio, Item byproduct){
+		press(output, ratio, byproduct, 1);
+	}
+
+	public void press(Item output, int ratio){
+		press(output, ratio, null, 1);
+	}
+
 	public void press(){
-		final ItemStack in_stack = this.contents[0];
-		final ItemStack out_stack = this.contents[1];
-		
-		// has to have something in the input
-		if (in_stack == null) { return; }
-		
-		final Item i = in_stack.getItem();
+		if (!this.hasWorldObj() || this.worldObj.isRemote || !this.canPress() || this.contents[0] == null){
+			return;
+		}
+		final Item i = this.contents[0].getItem();
 		if (i == Bees.honeycomb) {
-			//ensure the both stacks are valid for the producing
-			if (out_stack != null && out_stack.getItem() != Bees.honey_raw && out_stack.stackSize >= 64 && in_stack.stackSize >= 2) {
-				return;
-			}
-			
-			// 2 comb makes 1 honey
-			final int ratio = 2;
-			
-			// 1 extra comb might bee lost. OH WELL!
-			final int out_size = out_stack == null ? 0 : out_stack.stackSize;
-			final int can_make = Math.min(in_stack.stackSize / ratio, 64 - out_size);;
-			final int new_out_size = out_size + can_make;
-			
-			this.contents[0] = new ItemStack(Bees.waxcomb, in_stack.stackSize);
-			this.contents[1] = new ItemStack(Bees.honey_raw, new_out_size);
-			
-			
+			press(Bees.honey_raw, 2, Bees.waxcomb);
+
 		} else if (i == Fruits.olive.raw) {
-			// ensure the both stacks are valid for the producing 
-			if (out_stack != null && out_stack.getItem() != Bees.honey_raw && out_stack.stackSize >= 64 && in_stack.stackSize >= 4) {
-				return;
-			}
-			// 4 olives makes 1 oil
-			final int ratio = 4;
-			
-			final int out_size = out_stack == null ? 0 : out_stack.stackSize;
-			final int can_make = Math.min(in_stack.stackSize / ratio, 64 - out_size);
-			final int using = can_make * ratio;
-			final int new_out_size = out_size + can_make;
-			
-			final int leftover = in_stack.stackSize - using;
-			
-			if (leftover > 0) {
-				this.contents[0] = new ItemStack(Fruits.olive.raw, leftover);	
-			} else {
-				this.contents[0] = null;
-			}
-			
-			this.contents[1] = new ItemStack(Cuisine.oil_olive, new_out_size);
+			press(Cuisine.oil_olive, 4);
+
+		} else if (i == Veggies.grape.raw) {
+			press(Cuisine.grape_juice, 8);
+
 		}
 	}
 
@@ -147,16 +171,16 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 			in_stack.writeToNBT(in_tag);
 			parentNBTTagCompound.setTag("in", in_tag);
 		} //else {
-			//parentNBTTagCompound.setTag("in", null);
+		//parentNBTTagCompound.setTag("in", null);
 		//}
-		
+
 		final ItemStack out_stack = this.contents[1];
 		if (out_stack != null && out_stack.getItem() != null) {
 			final NBTTagCompound out_tag = new NBTTagCompound();
 			out_stack.writeToNBT(out_tag);
 			parentNBTTagCompound.setTag("out", out_tag);
 		} //else {
-			//parentNBTTagCompound.setTag("out", null);
+		//parentNBTTagCompound.setTag("out", null);
 		//}
 	}
 
@@ -170,7 +194,7 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 		} else {
 			this.contents[0] = null;
 		}
-		
+
 		final NBTTagCompound out_tag = parentNBTTagCompound.getCompoundTag("out");
 		if (out_tag != null) {
 			this.contents[1] = ItemStack.loadItemStackFromNBT(out_tag);

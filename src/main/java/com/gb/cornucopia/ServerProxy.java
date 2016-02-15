@@ -34,6 +34,7 @@ public class ServerProxy {
 
 	public void postInit(final FMLPostInitializationEvent e) {
 		Cookery.initCrafting(); // crafting for kitchen equipment
+		Brewing.postInit();
 		
 		// very last thing: add ingredients then recipes
 		Ingredients.init();

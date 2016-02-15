@@ -45,6 +45,7 @@ public class BlockStove extends Block  implements ITileEntityProvider{
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ON, false).withProperty(FACING, EnumFacing.NORTH));
 		GameRegistry.registerBlock(this, this.name);
+		GameRegistry.registerTileEntity(TileEntityStove.class, "cookery_stove_entity");
 		InvModel.add(this, this.name);
 	}
 

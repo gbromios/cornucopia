@@ -39,7 +39,6 @@ public class BlockStoveTop extends Block{
 
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(VESSEL, Vessel.NONE));
 		GameRegistry.registerBlock(this, this.name);
-		GameRegistry.registerTileEntity(TileEntityStove.class, "cookery_stovetop_entity");
 	}
 
 	@Override

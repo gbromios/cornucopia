@@ -53,12 +53,14 @@ public class BlockPresserTop extends Block {
 	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer playerIn, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
 	{
 		final Integer progress = (Integer)state.getValue(PROGRESS);
-		if (progress == 7) {
+		final TileEntityPresser presser = (TileEntityPresser)world.getTileEntity(pos.down());
+		
+		if (progress == 7 || !presser.canPress()) {
 			return false;
 		}
 		if (progress == 6) {
 			// trigger the pressing
-			((TileEntityPresser)world.getTileEntity(pos.down())).press();
+			presser.press();
 		}
 		world.setBlockState(pos, state.withProperty(PROGRESS, progress + 1));
 		world.markBlockForUpdate(pos.down());

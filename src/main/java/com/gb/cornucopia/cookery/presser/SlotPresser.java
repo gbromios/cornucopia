@@ -18,6 +18,6 @@ public class SlotPresser extends Slot {
 
 	public boolean isItemValid(final ItemStack stack)
 	{
-		return this.is_input && (stack.getItem() == Bees.honeycomb || stack.getItem() == Fruits.olive.raw);
+		return this.is_input && TileEntityPresser.canPress(stack.getItem());
 	}
 }
