@@ -23,7 +23,7 @@ public class Fruits {
 	public static Fruit coconut;
 	public static Fruit coffee;
 	public static Fruit fig;
-	public static Fruit pommegranite;
+	public static Fruit pomegranate;
 	public static Fruit grapefruit;
 	public static Fruit kiwi;
 	public static Fruit peach;
@@ -71,7 +71,7 @@ public class Fruits {
 		peach = createFruit("peach");
 		pear = createFruit("pear");
 		plum = createFruit("plum",BlockPlanks.EnumType.BIRCH);
-		pommegranite = createFruit("pommegranite", BlockPlanks.EnumType.DARK_OAK);
+		pomegranate = createFruit("pomegranate", BlockPlanks.EnumType.DARK_OAK);
 	}
 
 	public static void init(){
