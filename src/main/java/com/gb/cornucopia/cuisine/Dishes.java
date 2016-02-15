@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.gb.cornucopia.cookery.Vessel;
 import com.gb.cornucopia.cookery.cuttingboard.ContainerCuttingBoard;
-import com.gb.cornucopia.fruit.Fruits;
-import com.gb.cornucopia.veggie.Veggies;
+import com.gb.cornucopia.fruit.Fruit;
+import com.gb.cornucopia.veggie.Veggie;
 import com.google.common.collect.Lists;
 
 
@@ -27,24 +27,24 @@ public class Dishes {
 		// set up ingredients so we can use them in dishes
 		
 		grill = new DishRegistry()
-		//.add(new Dish(Cookery.delicious_food, Veggies.corn.raw, Bees.bee, Cookery.juicer))
+		//.add(new Dish(Cookery.delicious_food, Veggie.corn.raw, Bees.bee, Cookery.juicer))
 		.add(new Dish(Cuisine.mirepoix, Ingredients.mirepoix_part, Ingredients.mirepoix_part, Ingredients.mirepoix_part))
 		.add(new Dish(Items.iron_ingot, Items.blaze_powder, Items.cookie));
 		;
 		
 		pot = new DishRegistry()
-		//.add(new Dish(Cookery.delicious_treat, Fruits.almond.raw, Items.sugar, Items.sugar, Bees.honey_raw));
+		//.add(new Dish(Cookery.delicious_treat, Fruit.almond.raw, Items.sugar, Items.sugar, Bees.honey_raw));
 		;
 		
 		
 		pan = new DishRegistry()
-		//.add(new Dish(Cookery.delicious_halloween_snack, Veggies.corn.seed, Items.melon, Items.apple))
+		//.add(new Dish(Cookery.delicious_halloween_snack, Veggie.corn.seed, Items.melon, Items.apple))
 		.add(new Dish(Cuisine.mirepoix, Ingredients.mirepoix_part, Ingredients.mirepoix_part, Ingredients.mirepoix_part))
 		;
 		
 		cutting_board = new DishRegistry()
-		.add(new Dish(Items.cooked_beef, Veggies.asparagus.raw, Items.gunpowder))
-		.add(new Dish(Items.glowstone_dust, Fruits.lemon.raw, Veggies.broccoli.raw))
+		.add(new Dish(Items.cooked_beef, Veggie.asparagus.raw, Items.gunpowder))
+		.add(new Dish(Items.glowstone_dust, Fruit.lemon.raw, Veggie.broccoli.raw))
 		;
 		//new DishRegistry(Vessel.SKILLET.meta);
 		//new DishRegistry(Vessel.KETTLE.meta);

@@ -1,6 +1,6 @@
 package com.gb.cornucopia.cuisine;
 
-import com.gb.cornucopia.veggie.Veggies;
+import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraft.init.Items;
 
@@ -10,9 +10,9 @@ public class Ingredients {
 	public static void init(){
 		// set up ingredients so we can use them in dishes
 		mirepoix_part
-		.add(Veggies.onion.raw)
-		.add(Veggies.celery.raw)
-		.add(Veggies.bell_pepper.raw)
+		.add(Veggie.onion.raw)
+		.add(Veggie.celery.raw)
+		.add(Veggie.bell_pepper.raw)
 		.add(Items.carrot)
 		;		
 	}

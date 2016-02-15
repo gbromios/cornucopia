@@ -1,5 +1,214 @@
 itemGroup.cc_bees=BEES
-itemGroup.cc_veggies=Veggies
-itemGroup.cc_fruit=Fruit
+itemGroup.cc_veggies=Crops
+itemGroup.cc_fruit=Orchards
 itemGroup.cc_cookery=Kitchen Equipment
 itemGroup.cc_cuisine=Cuisine
+
+tile.cookery_presser.name=Mechanical Press
+tile.cookery_stove.name=Stove
+tile.cookery_mill.name=Mill
+tile.cookery_water_basin.name=Water Basin
+tile.cookery_cutting_board.name=Cutting Board
+item.cookery_pan.name=Pan
+item.cookery_pot.name=Pot
+item.cookery_juicer.name=Juicer
+
+tile.fruit_almond_sapling.name=Almond Tree Sapling
+item.fruit_almond_raw.name=Almonds
+
+tile.fruit_avocado_sapling.name=Avocado Tree Sapling
+item.fruit_avocado_raw.name=Avocado
+
+tile.fruit_banana_sapling.name=Banana Tree Sapling
+item.fruit_banana_raw.name=Bananas
+
+tile.fruit_cherry_sapling.name=Cherry Tree Sapling
+item.fruit_cherry_raw.name=Cherries
+
+tile.fruit_lemon_sapling.name=Lemon Tree Sapling
+item.fruit_lemon_raw.name=Lemon
+
+tile.fruit_lime_sapling.name=Lime Tree Sapling
+item.fruit_lime_raw.name=Lime
+
+tile.fruit_orange_sapling.name=Orange Tree Sapling
+item.fruit_orange_raw.name=Orange
+
+tile.fruit_plum_sapling.name=Plum Tree Sapling
+item.fruit_plum_raw.name=Plum
+
+tile.fruit_olive_sapling.name=Olive Tree Sapling
+item.fruit_olive_raw.name=Raw Olives
+
+tile.fruit_pear_sapling.name=Pear Tree Sapling
+item.fruit_pear_raw.name=Pear
+
+tile.fruit_date_sapling.name=Date Palm Sapling
+item.fruit_date_raw.name=Date
+
+tile.fruit_coconut_sapling.name=Coconut Palm Sapling
+item.fruit_coconut_raw.name=Coconut
+
+tile.fruit_coffee_sapling.name=Coffee Tree
+item.fruit_coffee_raw.name=Fresh Coffee Beans
+
+tile.fruit_fig_sapling.name=Fig Tree Sapling
+item.fruit_fig_raw.name=Fig
+
+tile.fruit_pomegranate_sapling.name=Pomegranate Tree Sapling
+item.fruit_pomegranate_raw.name=Pomegranate
+
+tile.fruit_grapefruit_sapling.name=Grapefruit Tree Sapling
+item.fruit_grapefruit_raw.name=Grapefruit
+
+tile.fruit_kiwi_sapling.name=Kiwi Tree Sapling
+item.fruit_kiwi_raw.name=Kiwi
+
+tile.fruit_peach_sapling.name=Peach Tree Sapling
+item.fruit_peach_raw.name=Peach
+
+
+tile.veggie_artichoke_wild.name=Wild Artichoke
+item.veggie_artichoke_raw.name=Artichoke
+item.veggie_artichoke_seed.name=Artichoke Seeds
+
+tile.veggie_asparagus_wild.name=Wild Asparagus
+item.veggie_asparagus_raw.name=Asparagus
+item.veggie_asparagus_seed.name=Asparagus Seeds
+
+tile.veggie_barley_wild.name=Wild Barley
+item.veggie_barley_raw.name=Barley
+item.veggie_barley_seed.name=Barley Seeds
+
+tile.veggie_beet_wild.name=Wild Beet
+item.veggie_beet_raw.name=Beet
+item.veggie_beet_seed.name=Beet Seeds
+
+tile.veggie_bell_pepper_wild.name=Wild Bell Pepper
+item.veggie_bell_pepper_raw.name=Bell Pepper
+item.veggie_bell_pepper_seed.name=Bell Pepper Seeds
+
+tile.veggie_blackberry_wild.name=Wild Blackberries
+item.veggie_blackberry_raw.name=Blackberries
+item.veggie_blackberry_seed.name=Blackberry Seeds
+
+tile.veggie_blueberry_wild.name=Wild Blueberries
+item.veggie_blueberry_raw.name=Blueberries
+item.veggie_blueberry_seed.name=Blueberry Seeds
+
+tile.veggie_broccoli_wild.name=Wild Broccoli
+item.veggie_broccoli_raw.name=Broccoli
+item.veggie_broccoli_seed.name=Broccoli Seeds
+
+tile.veggie_cabbage_wild.name=Wild Cabbage
+item.veggie_cabbage_raw.name=Cabbage
+item.veggie_cabbage_seed.name=Cabbage Seeds
+
+tile.veggie_celery_wild.name=Wild Celery
+item.veggie_celery_raw.name=Celery
+item.veggie_celery_seed.name=Celery Seeds
+
+tile.veggie_lettuce_wild.name=Wild Lettuce
+item.veggie_lettuce_raw.name=Lettuce
+item.veggie_lettuce_seed.name=Lettuce Seeds
+
+tile.veggie_onion_wild.name=Wild Onion
+item.veggie_onion_raw.name=Onion
+item.veggie_onion_seed.name=Onion Seeds
+
+tile.veggie_pineapple_wild.name=Wild Pineapple
+item.veggie_pineapple_raw.name=Pineapple
+item.veggie_pineapple_seed.name=Pineapple Seeds
+
+tile.veggie_raspberry_wild.name=Wild Raspberries
+item.veggie_raspberry_raw.name=Raspberries
+item.veggie_raspberry_seed.name=Raspberry Seeds
+
+tile.veggie_strawberry_wild.name=Wild Strawberries
+item.veggie_strawberry_raw.name=Strawberries
+item.veggie_strawberry_seed.name=Strawberry Seeds
+
+tile.veggie_tomato_wild.name=Wild Tomato
+item.veggie_tomato_raw.name=Tomato
+item.veggie_tomato_seed.name=Tomato Seeds
+
+tile.veggie_turnip_wild.name=Wild Turnip
+item.veggie_turnip_raw.name=Turnip
+item.veggie_turnip_seed.name=Turnip Seeds
+
+tile.veggie_garlic_wild.name=Wild Garlic
+item.veggie_garlic_raw.name=Garlic Bulb
+item.veggie_garlic_seed.name=Garlic Seeds
+
+tile.veggie_peanut_wild.name=Wild Peanuts
+item.veggie_peanut_raw.name=Raw Peanuts
+item.veggie_peanut_seed.name=Peanut Seeds
+
+tile.veggie_bean_wild.name=Wild Beans
+item.veggie_bean_raw.name=Beans
+item.veggie_bean_seed.name=Bean Seeds
+
+tile.veggie_lentil_wild.name=Wild Lentils
+item.veggie_lentil_raw.name=Lentils
+item.veggie_lentil_seed.name=Lentil Seeds
+
+tile.veggie_pea_wild.name=Wild Peas
+item.veggie_pea_raw.name=Peas
+item.veggie_pea_seed.name=Pea Seeds
+
+tile.veggie_stringbean_wild.name=Wild String Bean
+item.veggie_stringbean_raw.name=String Beans
+item.veggie_stringbean_seed.name=String Bean Seeds
+
+tile.veggie_grape_wild.name=Wild Grapevine
+item.veggie_grape_raw.name=Grapes
+item.veggie_grape_seed.name=Grape Seeds
+
+tile.veggie_spice_wild.name=Wild Spices
+item.veggie_spice_raw.name=Raw Spices
+item.veggie_spice_seed.name=Spice Seeds
+
+tile.veggie_herb_wild.name=Wild Herbs
+item.veggie_herb_raw.name=Raw Herbs
+item.veggie_herb_seed.name=Herb Seeds
+
+tile.veggie_tea_wild.name=Wild Tea
+item.veggie_tea_raw.name=Raw Tea Leaves
+item.veggie_tea_seed.name=Tea Seeds
+
+tile.veggie_soy_wild.name=Wild Soybeans
+item.veggie_soy_raw.name=Soybeans
+item.veggie_soy_seed.name=Soybean Seeds
+
+tile.veggie_cucumber_wild.name=Wild Cucumber
+item.veggie_cucumber_raw.name=Cucumber
+item.veggie_cucumber_seed.name=Cucumber Seeds
+
+tile.veggie_eggplant_wild.name=Wild Eggplant
+item.veggie_eggplant_raw.name=Eggplant
+item.veggie_eggplant_seed.name=Eggplant Seeds
+
+tile.veggie_zucchini_wild.name=Wild Zucchini
+item.veggie_zucchini_raw.name=Zucchini
+item.veggie_zucchini_seed.name=Zucchini Seeds
+
+tile.veggie_corn_wild.name=Wild Cornstalk
+item.veggie_corn_raw.name=Corn
+item.veggie_corn_seed.name=Corn Seeds
+
+tile.veggie_hops_wild.name=Wild Hops
+item.veggie_hops_raw.name=Hops
+item.veggie_hops_seed.name=Hops Seeds
+
+tile.bee_apiary.name=Apiary
+tile.bee_hive.name=Beehive
+tile.bee_royal_bloom.name=Royal Bloom
+
+item.bee_worker.name=Bee
+item.bee_queen.name=Queen Bee
+item.bee_honeycomb.name=Honeycomb
+item.bee_waxcomb.name=Beeswax
+item.bee_royal_jelly.name=Royal Jelly
+item.bee_tiny_crown.name=Tiny Crown
+item.bee_honey_raw.name=Honey
+

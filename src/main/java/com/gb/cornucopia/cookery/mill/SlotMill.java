@@ -1,8 +1,7 @@
 package com.gb.cornucopia.cookery.mill;
 
 import com.gb.cornucopia.bees.Bees;
-import com.gb.cornucopia.fruit.Fruits;
-import com.gb.cornucopia.veggie.Veggies;
+import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -27,10 +26,10 @@ public class SlotMill extends Slot {
 
 		final Item i = stack.getItem();
 		return i == Items.wheat
-				|| i == Veggies.barley.raw
-				|| i == Veggies.peanut.raw
-				|| i == Veggies.spice.raw
-				|| i == Veggies.herb.raw
+				|| i == Veggie.barley.raw
+				|| i == Veggie.peanut.raw
+				|| i == Veggie.spice.raw
+				|| i == Veggie.herb.raw
 				;
 
 	}

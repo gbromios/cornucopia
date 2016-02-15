@@ -1,6 +1,6 @@
 {
   "parent": "cornucopia:block/fruit_crop", 
   "textures": {
-    "crop": "cornucopia:blocks/fruit_pommegranite_crop_2"
+    "crop": "cornucopia:blocks/fruit_pomegranate_crop_3"
   }
 }
