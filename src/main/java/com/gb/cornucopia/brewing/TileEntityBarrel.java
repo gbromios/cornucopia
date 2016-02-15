@@ -75,10 +75,10 @@ public class TileEntityBarrel extends TileEntity implements IUpdatePlayerListBox
 	@Override
 	public void update() {
 		if (this.hasWorldObj() && !this.worldObj.isRemote) {
-			if ( this.ticks++ < 50 ) {
+			if ( this.ticks-- > 0 ) {
 				return; // long timescales so don't need to check every frame.
 			}
-			this.ticks = 0;
+			this.ticks = 100;
 			
 			final IBlockState state = this.worldObj.getBlockState(this.getPos());  
 			final int age = (int)state.getValue(BlockBarrel.AGE); 
