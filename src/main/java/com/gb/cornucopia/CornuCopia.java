@@ -3,7 +3,7 @@ package com.gb.cornucopia;
 import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.fruit.Fruit;
-import com.gb.cornucopia.veggie.Veggies;
+import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -40,7 +40,7 @@ public class CornuCopia
 	public static final CreativeTabs tabVeggies = new CreativeTabs("cc_veggies"){
 		@Override
 		public Item getTabIconItem() {
-			return Veggies.asparagus.raw;
+			return Veggie.asparagus.raw;
 		}
 	};
 	public static final CreativeTabs tabFruit = new CreativeTabs("cc_fruit"){

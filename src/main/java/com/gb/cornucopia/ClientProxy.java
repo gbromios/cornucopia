@@ -2,7 +2,7 @@ package com.gb.cornucopia;
 
 import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.fruit.Fruit;
-import com.gb.cornucopia.veggie.Veggies;
+import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -20,7 +20,7 @@ public class ClientProxy extends ServerProxy {
 	public void init(final FMLInitializationEvent e) {
 		super.init(e);
 
-		Veggies.init();
+		Veggie.init();
 		Fruit.init();
 		Bees.init();
 	}
