@@ -1,5 +1,5 @@
  {
-    "parent": "cornucopia:block/cheese_wheel_aged_0",
+    "parent": "cornucopia:block/cheese_wheel_young",
     "display": {
         "thirdperson": {
             "rotation": [ -90, 0, 0 ],

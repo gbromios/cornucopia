@@ -1,7 +1,7 @@
 {
     "forge_marker": 1,
     "defaults": {
-        "model": "cornucopia:cheese_wheel_aged_0"
+        "model": "cornucopia:cheese_wheel_young"
     },
     "variants": {
         "age": {
