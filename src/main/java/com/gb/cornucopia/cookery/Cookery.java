@@ -1,5 +1,7 @@
 package com.gb.cornucopia.cookery;
 
+import com.gb.cornucopia.InvModel;
+import com.gb.cornucopia.cookery.brewing.BlockBarrel;
 import com.gb.cornucopia.cookery.cuttingboard.BlockCuttingBoard;
 import com.gb.cornucopia.cookery.mill.BlockMill;
 import com.gb.cornucopia.cookery.mill.BlockMillTop;
@@ -7,10 +9,11 @@ import com.gb.cornucopia.cookery.presser.BlockPresser;
 import com.gb.cornucopia.cookery.presser.BlockPresserTop;
 import com.gb.cornucopia.cookery.stove.BlockStove;
 import com.gb.cornucopia.cookery.stove.BlockStoveTop;
-import com.gb.cornucopia.cuisine.Ingredient;
+import com.gb.cornucopia.cuisine.Cuisine;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -31,10 +34,11 @@ public class Cookery {
 	public static BlockPresserTop pressertop;
 	public static BlockMill mill;
 	public static BlockMillTop milltop;
-
-	public static Ingredient mirepoix_part;
-	public static Ingredient sweet_berry;
-	public static Ingredient citrus;
+	
+	public static Item empty_barrel;
+	public static Item barrel_hoop;
+	public static Item barrel_stave;
+	public static BlockBarrel wine_barrel;
 
 	//endregion
 
@@ -59,9 +63,32 @@ public class Cookery {
 		mill = new BlockMill();
 		milltop = new BlockMillTop();
 
-
+		// things to make barrels empty barrels
+		barrel_hoop = new Item().setUnlocalizedName("brew_barrel_hoop");
+		GameRegistry.registerItem(barrel_hoop, "brew_barrel_hoop");
+		InvModel.add(barrel_hoop, "brew_barrel_hoop");
+		
+		barrel_stave = new Item().setUnlocalizedName("brew_barrel_stave");
+		GameRegistry.registerItem(barrel_stave, "brew_barrel_stave");
+		InvModel.add(barrel_stave, "brew_barrel_stave");
+		
+		empty_barrel = new Item().setUnlocalizedName("brew_empty_barrel");
+		GameRegistry.registerItem(empty_barrel, "brew_empty_barrel");
+		InvModel.add(empty_barrel, "brew_empty_barrel");
 	};
-	public static void initCrafting()
+	
+	
+	public static void init() {
+		initCrafting();
+		initBarrels();
+	}
+
+	// finished barrel recipes depend on items that will have been initialized in preInit, so wait until init to create barrels 
+	private static void initBarrels(){
+		wine_barrel = new BlockBarrel("wine", 1, new Item[]{Cuisine.wine}, new Item[]{Cuisine.grape_juice, Cuisine.grape_juice, Cuisine.grape_juice});
+	};
+
+	private static void initCrafting()
 	{	
 		// crafting recipes
 		GameRegistry.addShapedRecipe(new ItemStack(water_basin),
@@ -99,8 +126,8 @@ public class Cookery {
 				'S', Items.stick
 				);
 		GameRegistry.addShapedRecipe(new ItemStack(pan),
-				" II", " II", "S  ", 'I',
-				Items.iron_ingot,
+				" II", " II", "S  ",
+				'I', Items.iron_ingot,
 				'S', Items.stick
 				);
 		GameRegistry.addShapedRecipe(new ItemStack(juicer),
@@ -108,7 +135,22 @@ public class Cookery {
 				'I', Items.iron_ingot,
 				'S', Blocks.stone_slab
 				);
+		GameRegistry.addShapedRecipe(new ItemStack(barrel_hoop),
+				" I ", "I I", " I ",
+				'I', Items.iron_ingot
+				);
+		GameRegistry.addShapedRecipe(new ItemStack(barrel_stave),
+				" W ", " W ", " W ",
+				'W', Blocks.planks
+				);
+		GameRegistry.addShapedRecipe(new ItemStack(empty_barrel),
+				"SHS", "S S", "SHS",
+				'S', barrel_stave,
+				'H', barrel_hoop
+				);
 	}
 
+	public static void postInit() {}
+	
 
 }

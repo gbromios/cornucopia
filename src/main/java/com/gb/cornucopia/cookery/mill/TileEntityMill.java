@@ -1,6 +1,5 @@
 package com.gb.cornucopia.cookery.mill;
 
-import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.veggie.Veggie;
 
@@ -24,7 +23,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-import scala.actors.threadpool.Arrays;
 
 public class TileEntityMill extends TileEntity implements IUpdatePlayerListBox, IInventory  {
 	private final ItemStack[] contents = new ItemStack[9];

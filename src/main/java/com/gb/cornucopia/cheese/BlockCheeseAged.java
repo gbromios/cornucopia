@@ -2,10 +2,8 @@ package com.gb.cornucopia.cheese;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
-import com.gb.cornucopia.brewing.BlockBarrel;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -14,7 +12,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

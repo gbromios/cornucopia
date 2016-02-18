@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
+import com.gb.cornucopia.Settings;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -66,19 +67,17 @@ implements IPlantable
 	@Override
 	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
 	{
-		Block.spawnAsEntity(world, pos, new ItemStack(this));
-		world.setBlockToAir(pos);
+		//Block.spawnAsEntity(world, pos, new ItemStack(this));
+		//world.setBlockToAir(pos);
 		return false;
 	}
 
 	@Override
 	public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random rand){
-		// TODO: add config setting to disable wild veggie spread and option to control the rate:
-		// if (!config.wild_veggie_spread_enabled || RANDOM.next_int(config.wild_veggie_spread_rate) != 0) return;
-
-		// TODO: add config options to control density of wild veggies, 
-		final int search_radius = 4;
-		int max_wild_veggies = 5; 
+		if (!Settings.wild_veggie_spread || RANDOM.nextInt(Settings.wild_veggie_spread_rate) != 0) return;
+		// TODO: add config options to control density of wild veggies? 
+		final int search_radius = 3;
+		int max_wild_veggies = 3; 
 
 		for (int x = -search_radius; x <= search_radius; x++){
 			for (int y = -search_radius; y <= search_radius; y++){
@@ -92,9 +91,9 @@ implements IPlantable
 		}
 		// pick a random block somewhere in the radius and try to grow a new wild veggies there. wont always work.
 		BlockPos grow_at = pos.add(
-				RANDOM.nextInt(9) - search_radius,
+				RANDOM.nextInt(5) - 2,
 				RANDOM.nextInt(2) ,
-				RANDOM.nextInt(9) - search_radius
+				RANDOM.nextInt(5) - 2
 				);
 
 		if (

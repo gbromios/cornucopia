@@ -1,9 +1,7 @@
-package com.gb.cornucopia.bees;
+package com.gb.cornucopia.bees.apiary;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
-import com.gb.cornucopia.cookery.Cookery;
-import com.gb.cornucopia.cookery.presser.TileEntityPresser;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;

@@ -1,4 +1,6 @@
-package com.gb.cornucopia.bees;
+package com.gb.cornucopia.bees.apiary;
+
+import com.gb.cornucopia.bees.Bees;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

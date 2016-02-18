@@ -1,12 +1,18 @@
 package com.gb.cornucopia.veggie;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.fruit.Fruit;
+import com.gb.util.WeightedArray;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
+import static net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -90,15 +96,7 @@ public class Veggie {
 		Items.potato.setCreativeTab(CornuCopia.tabVeggies);
 		Items.wheat.setCreativeTab(CornuCopia.tabVeggies);
 		Items.wheat_seeds.setCreativeTab(CornuCopia.tabVeggies);
-	}
 
-	public static void init(){
-		// add raw veggie => seed recipe for everyone
-		for (Veggie v : vegMap.values()) {
-			// 1 veggie = 2 seeds. 
-			GameRegistry.addShapelessRecipe(new ItemStack(v.seed, 2), v.raw);
-
-		}
 	}
 
 	// instance fields/methods
@@ -117,6 +115,10 @@ public class Veggie {
 		seed.setCrop(crop);
 		crop.setDrops(raw, seed);
 		wild.setDrop(raw, seed);
+		
+		
+		// add raw veggie => seed recipe for everyone
+		GameRegistry.addShapelessRecipe(new ItemStack(seed, 2), raw);
 
 		vegMap.put(name, this);
 	}
@@ -139,4 +141,177 @@ public class Veggie {
 			);
 	}
 
+	public static void init() { }
+	
+	private static final WeightedArray<Veggie> jungleVeggies = new WeightedArray<>();
+	private static final WeightedArray<Veggie> coldVeggies = new WeightedArray<>();
+	private static final WeightedArray<Veggie> forestVeggies = new WeightedArray<>();
+	private static final WeightedArray<Veggie> mountainVeggies = new WeightedArray<>();
+	private static final WeightedArray<Veggie> plainsVeggies = new WeightedArray<>();
+	private static final WeightedArray<Veggie> dryVeggies = new WeightedArray<>();
+
+	public static void postInit() {
+		// map veggies to biomes
+		jungleVeggies
+		.add(bell_pepper, 10)
+		.add(herb, 10)
+		.add(peanut, 10)
+		.add(pineapple, 10)
+		.add(spice, 10)
+		.add(tea, 10)
+		.add(tomato, 10)
+		;
+		
+		coldVeggies
+        .add(barley, 10)
+        .add(beet, 10)
+        .add(cabbage, 10)
+        .add(onion, 10)
+        .add(turnip, 10)
+        .add(garlic, 10)
+        .add(bean, 10)
+        .add(hops, 10)
+		;
+		
+		mountainVeggies
+        .add(barley, 20)
+        .add(blackberry, 10)
+        .add(raspberry, 10)
+        .add(lentil, 20)
+		;
+		
+		
+		forestVeggies
+        .add(artichoke, 10)
+        .add(asparagus, 10)
+        .add(blackberry, 10)
+        .add(blueberry, 10)
+        .add(raspberry, 10)
+        .add(strawberry, 10)
+        .add(herb, 10)
+        .add(garlic, 10)
+        .add(eggplant, 10)
+		;
+		
+		plainsVeggies
+        .add(artichoke, 10)
+        .add(asparagus, 10)
+        .add(barley, 10)
+        .add(beet, 10)
+        .add(broccoli, 10)
+        .add(cabbage, 10)
+        .add(celery, 10)
+        .add(lettuce, 10)
+        .add(onion, 10)
+        .add(bean, 10)
+        .add(pea, 10)
+        .add(stringbean, 10)
+        .add(grape, 10)
+        .add(soy, 10)
+        .add(cucumber, 10)
+        .add(eggplant, 10)
+        .add(zucchini, 10)
+        .add(corn, 10)
+		;
+		
+		dryVeggies
+        .add(onion, 10)
+        .add(garlic, 10)
+        .add(bean, 15)
+        .add(lentil, 10)
+        .add(grape, 10)
+        .add(spice, 15)
+        ;
+	}
+
+	public static Veggie getAny(Random r){
+	    int i = (int) (r.nextInt(vegMap.size()));
+	    for(Veggie v: vegMap.values()) { if (--i < 0) return v; }
+	    throw new RuntimeException();
+	}
+	public static Veggie getForBiome(Random r, BiomeGenBase b){
+		// cold, but only if forest; 1/4 chance
+		if (BiomeDictionary.isBiomeOfType(b, Type.COLD)) {
+			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(4) == 0 ) {
+				return coldVeggies.getRandom(r);
+			}
+			return null;
+			
+		}
+		
+		// next mountains, 1/3 chance
+		if (BiomeDictionary.isBiomeOfType(b, Type.MOUNTAIN)) {
+			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(3) == 0 ) {
+				return mountainVeggies.getRandom(r);
+			}
+			return null;
+		}
+
+		// jungle + swamp; could remove swamp out for something else if desired
+		if (BiomeDictionary.isBiomeOfType(b, Type.WET)) {
+			if (BiomeDictionary.isBiomeOfType(b, Type.SWAMP) && r.nextInt(3) > 0 ) {
+				return null;
+			}
+			return jungleVeggies.getRandom(r);
+		}
+		// regular forest; 50/50 chance
+		if (BiomeDictionary.isBiomeOfType(b, Type.FOREST)) {
+			if (r.nextInt(2) > 0 ) {
+				return forestVeggies.getRandom(r);
+			}
+			return null;
+		}
+
+		if (BiomeDictionary.isBiomeOfType(b, Type.HOT) || BiomeDictionary.isBiomeOfType(b, Type.MESA)) {
+			if (r.nextInt(3) > 0 ) {
+				return dryVeggies.getRandom(r);
+			}
+			return null;
+		}
+
+		if (BiomeDictionary.isBiomeOfType(b, Type.PLAINS)) {
+			return plainsVeggies.getRandom(r);
+		}
+		
+		
+		return null; // no veggies here :(
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

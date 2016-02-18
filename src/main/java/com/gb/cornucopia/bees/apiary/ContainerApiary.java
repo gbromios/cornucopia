@@ -1,4 +1,4 @@
-package com.gb.cornucopia.bees;
+package com.gb.cornucopia.bees.apiary;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

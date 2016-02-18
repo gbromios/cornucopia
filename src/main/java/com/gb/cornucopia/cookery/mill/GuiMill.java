@@ -1,7 +1,5 @@
 package com.gb.cornucopia.cookery.mill;
 
-import com.gb.cornucopia.cookery.presser.TileEntityPresser;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;

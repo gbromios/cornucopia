@@ -1,4 +1,4 @@
-package com.gb.cornucopia.brewing;
+package com.gb.cornucopia.cookery.brewing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,7 @@ import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
-import com.gb.cornucopia.cookery.Vessel;
-import com.gb.cornucopia.cookery.stove.TileEntityStove;
+import com.gb.cornucopia.cookery.Cookery;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
@@ -83,14 +82,14 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 			GameRegistry.addShapedRecipe(new ItemStack(this),
 					" S ", " I ", " B ",
 					'S', Blocks.wooden_slab,
-					'B', Brewing.empty_barrel,
+					'B', Cookery.empty_barrel,
 					'I', inputs[0]
 					);	
 		} else if (inputs.length == 2) {
 			GameRegistry.addShapedRecipe(new ItemStack(this),
 					" S ", "JI ", " B ",
 					'S', Blocks.wooden_slab,
-					'B', Brewing.empty_barrel,
+					'B', Cookery.empty_barrel,
 					'I', inputs[0],
 					'J', inputs[1]
 					);			
@@ -98,7 +97,7 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 			GameRegistry.addShapedRecipe(new ItemStack(this),
 					" S ", "JIK", " B ",
 					'S', Blocks.wooden_slab,
-					'B', Brewing.empty_barrel,
+					'B', Cookery.empty_barrel,
 					'I', inputs[0],
 					'J', inputs[1],
 					'K', inputs[2]
@@ -165,7 +164,7 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 		final List<ItemStack> drops = new ArrayList<>();
 		if ((int)state.getValue(AGE) > 0) {
 			drops.add(new ItemStack(this.drops[(int)state.getValue(AGE) - 1], 4)); // drop 4 for now, might add mechanics for that later
-			drops.add(new ItemStack(Brewing.empty_barrel));
+			drops.add(new ItemStack(Cookery.empty_barrel));
 		}
 		else {
 			drops.add(new ItemStack(this));

@@ -2,7 +2,7 @@ package com.gb.cornucopia.cookery.stove;
 
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.Vessel;
-import com.gb.cornucopia.cuisine.Dish;
+import com.gb.cornucopia.cuisine.dish.Dish;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

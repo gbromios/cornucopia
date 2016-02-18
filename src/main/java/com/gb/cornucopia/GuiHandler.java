@@ -1,8 +1,8 @@
 package com.gb.cornucopia;
 
 import com.gb.cornucopia.bees.Bees;
-import com.gb.cornucopia.bees.ContainerApiary;
-import com.gb.cornucopia.bees.GuiApiary;
+import com.gb.cornucopia.bees.apiary.ContainerApiary;
+import com.gb.cornucopia.bees.apiary.GuiApiary;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.cuttingboard.ContainerCuttingBoard;
 import com.gb.cornucopia.cookery.cuttingboard.GuiCuttingBoard;
@@ -20,8 +20,13 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class GuiHandler implements IGuiHandler {
+	public static void init(CornuCopia instance) {
+		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+	}
+
 	@Override
 	public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
 		final Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();

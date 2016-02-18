@@ -1,8 +1,6 @@
 package com.gb.cornucopia.cookery.cuttingboard;
 
-import com.gb.cornucopia.cuisine.Dish;
-import com.gb.cornucopia.cuisine.DishRegistry;
-import com.gb.cornucopia.cuisine.Dishes;
+import com.gb.cornucopia.cuisine.dish.Dish;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -21,12 +19,10 @@ public class ContainerCuttingBoard extends Container {
 	private final BlockPos pos;
 	public final InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
 	public final IInventory craftResult = new InventoryCraftResult();
-	private final DishRegistry dishRegistry;
 
 	public ContainerCuttingBoard(final InventoryPlayer player, final World world, final BlockPos pos) {
 		this.world = world;
 		this.pos = pos;
-		this.dishRegistry = Dishes.cutting_board;
 		this.addSlotToContainer(new SlotCuttingBoardOutput(player.player, this.craftMatrix, this.craftResult, 0, 124, 35));
 		
 		//region// placing all the slots. 
@@ -74,7 +70,7 @@ public class ContainerCuttingBoard extends Container {
 	public void onCraftMatrixChanged(final IInventory inventoryIn)
 	{
 		//this.craftResult.setInventorySlotContents(0, this.dishRegistry.findMatchingDish(this.craftMatrix).getItem());
-		final Dish d = Dishes.cutting_board.findMatchingDish(this.craftMatrix);
+		final Dish d = Dish.cutting_board.findMatchingDish(this.craftMatrix);
 		this.craftResult.setInventorySlotContents(0, d == null ? null : d.getItem());
 	}
 

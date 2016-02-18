@@ -1,6 +1,5 @@
-package com.gb.cornucopia.cuisine;
+package com.gb.cornucopia.cuisine.dish;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import net.minecraft.inventory.IInventory;
@@ -8,13 +7,12 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+// maps a list of Dishes (i.e. recipes) to a specific cookign vessel/crafting station
 public class DishRegistry {
 	private final ArrayList<Dish> dishes;
 
 	public DishRegistry(){
 		this.dishes = new ArrayList<>();
-		// BTW: zero will be cutting board, 1-7 are stovetop blocks. don't plan on implementing TOO many more...
-		// but if I do, just implement IMakesDishes and account for the offset in guiID 
 	}
 
 	public DishRegistry add(final Dish dish){

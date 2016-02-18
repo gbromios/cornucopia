@@ -1,4 +1,4 @@
-package com.gb.cornucopia.bees;
+package com.gb.cornucopia.bees.apiary;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;

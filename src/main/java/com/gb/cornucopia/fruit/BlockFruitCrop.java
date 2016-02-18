@@ -8,6 +8,7 @@ import com.gb.cornucopia.InvModel;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -27,7 +28,7 @@ public class BlockFruitCrop extends BlockBush implements IGrowable{
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 	public static final PropertyBool DROP_SAPLING = PropertyBool.create("drop_sapling");
 	public final String name;
-	
+
 	private BlockFruitLeaf leaf; // so we know where it's okay to chill.
 	private ItemFruitRaw raw;
 	private BlockFruitSapling sapling;
@@ -62,17 +63,17 @@ public class BlockFruitCrop extends BlockBush implements IGrowable{
 		// bonemeal makes fruit not drop saplings, but that had to be handled in onBlockActivate
 		return (int)state.getValue(AGE) < 3;	
 	}
-	
+
 	@Override
-    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
-    {
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
+	{
 		// not your normal bonemeal activatation...
 		if (!world.isRemote &&  EnumDyeColor.byDyeDamage(player.getHeldItem().getItemDamage()) == EnumDyeColor.WHITE)  {
 			world.setBlockState(pos, state.withProperty(DROP_SAPLING, false));
 		}
-        return false;
-    }
-	
+		return false;
+	}
+
 	@Override
 	public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random rand){
 		if (rand.nextInt(8) == 0 && this.canGrow(world, pos, state, true)) { //1/8 chance to grow on tick
@@ -84,11 +85,11 @@ public class BlockFruitCrop extends BlockBush implements IGrowable{
 	public java.util.List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune)
 	{
 		final List<ItemStack> ret = new ArrayList<ItemStack>();
-
+		if ((Boolean)state.getValue(DROP_SAPLING)){
+			ret.add(new ItemStack(this.sapling));
+		}
 		if ((Integer)state.getValue(AGE) == 3){ 
-			if ((Boolean)state.getValue(DROP_SAPLING) && RANDOM.nextInt(3) == 0){
-				ret.add(new ItemStack(this.sapling));
-			}
+
 			ret.add(new ItemStack(this.raw));
 			ret.add(new ItemStack(this.raw));
 		}
@@ -110,13 +111,14 @@ public class BlockFruitCrop extends BlockBush implements IGrowable{
 
 	@Override
 	public void onNeighborBlockChange(final World world, final BlockPos pos, final IBlockState state, final Block neighborBlock){
-		if (world.getBlockState(pos.up()).getBlock() != this.leaf){
+		if (world.getBlockState(pos.up()).getBlock() instanceof BlockLeaves){
 			if ((Integer)state.getValue(AGE) == 3){
-				if ((Boolean)state.getValue(DROP_SAPLING)) {
+				
+				spawnAsEntity(world, pos, new ItemStack(this.raw));
+				spawnAsEntity(world, pos, new ItemStack(this.raw));
+			}
+			if ((Boolean)state.getValue(DROP_SAPLING)) {
 					spawnAsEntity(world, pos, new ItemStack(this.sapling));
-				}
-				spawnAsEntity(world, pos, new ItemStack(this.raw));
-				spawnAsEntity(world, pos, new ItemStack(this.raw));
 			}
 			world.setBlockToAir(pos);
 		}

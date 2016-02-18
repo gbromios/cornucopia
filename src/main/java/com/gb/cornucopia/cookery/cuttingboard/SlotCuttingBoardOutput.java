@@ -1,7 +1,6 @@
 package com.gb.cornucopia.cookery.cuttingboard;
 
-import com.gb.cornucopia.cuisine.DishRegistry;
-import com.gb.cornucopia.cuisine.Dishes;
+import com.gb.cornucopia.cuisine.dish.Dish;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -10,18 +9,13 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class SlotCuttingBoardOutput extends Slot {
-    /** The craft matrix inventory linked to this result slot. */
     private final InventoryCrafting craftMatrix;
-    /** The player that is using the GUI where this slot resides. */
     private final EntityPlayer player;
-    /** The number of items that have been crafted so far. Gets passed to ItemStack.onCrafting before being reset. */
-    private final DishRegistry dishRegistry;
 
 	public SlotCuttingBoardOutput(final EntityPlayer player, final InventoryCrafting crafting, final IInventory inv, final int slotIndex, final int x, final int y) {
 		super(inv, slotIndex, x, y);
 		this.player = player;
 		this.craftMatrix = crafting;
-		this.dishRegistry = Dishes.cutting_board;
 	}
 
 	// can't put anything in the output slot
@@ -32,7 +26,7 @@ public class SlotCuttingBoardOutput extends Slot {
         net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(player, stack, craftMatrix);
         this.onCrafting(stack);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(player);
-        final ItemStack[] input = this.dishRegistry.getChangedInput(this.craftMatrix, player.worldObj);
+        final ItemStack[] input = Dish.cutting_board.getChangedInput(this.craftMatrix, player.worldObj);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
 
         for (int i = 0; i < input.length; ++i)

@@ -1,6 +1,5 @@
 package com.gb.cornucopia.cookery.presser;
 
-import com.gb.cornucopia.bees.Bees;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

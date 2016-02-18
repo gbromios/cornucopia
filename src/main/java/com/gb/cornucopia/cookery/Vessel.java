@@ -2,8 +2,8 @@ package com.gb.cornucopia.cookery;
 
 import java.util.HashMap;
 
-import com.gb.cornucopia.cuisine.DishRegistry;
-import com.gb.cornucopia.cuisine.Dishes;
+import com.gb.cornucopia.cuisine.dish.Dish;
+import com.gb.cornucopia.cuisine.dish.DishRegistry;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.IStringSerializable;
@@ -53,11 +53,11 @@ public enum Vessel implements IStringSerializable {
 	public DishRegistry getDishes(){
 		switch (this){
 		case NONE:
-			return Dishes.grill;
+			return Dish.grill;
 		case PAN:
-			return Dishes.pan;
+			return Dish.pan;
 		case POT:
-			return Dishes.pot;
+			return Dish.pot;
 		}
 		return null;
 	}

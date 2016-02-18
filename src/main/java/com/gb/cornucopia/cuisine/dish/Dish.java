@@ -1,9 +1,15 @@
-package com.gb.cornucopia.cuisine;
+package com.gb.cornucopia.cuisine.dish;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.gb.cornucopia.cuisine.Cuisine;
+import com.gb.cornucopia.cuisine.Ingredient;
+import com.gb.cornucopia.fruit.Fruit;
+import com.gb.cornucopia.veggie.Veggie;
+
 import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -17,6 +23,38 @@ import net.minecraftforge.common.ForgeHooks;
  * */
 
 public class Dish {
+
+	public static DishRegistry grill;
+	public static DishRegistry pan;
+	public static DishRegistry pot;
+	public static DishRegistry cutting_board;
+
+	// recipes galore~! i probably will add some here for testing but it'll get more complex later :D
+	public static void init(){
+		// set up ingredients so we can use them in dishes
+		
+		grill = new DishRegistry()
+			.add(new Dish(Items.cooked_beef, Items.beef))
+			//.add(new Dish(Cookery.delicious_food, Veggie.corn.raw, Bees.bee, Cookery.juicer))
+			//.add(new Dish(Cuisine.mirepoix, Ingredient.mirepoix_part, Ingredient.mirepoix_part, Ingredient.mirepoix_part))
+			;
+		
+		pot = new DishRegistry()
+			.add(new Dish(Cuisine.ketchup, Cuisine.vinegar, Veggie.tomato.raw, Items.sugar))
+			.add(new Dish(Cuisine.ketchup, Cuisine.vinegar, Veggie.tomato.raw, Items.sugar))
+			;
+		
+		
+		pan = new DishRegistry()
+			.add(new Dish(Cuisine.eggs_over_easy, Items.egg, Items.egg));
+			;
+		
+		cutting_board = new DishRegistry()
+			.add(new Dish(Items.cooked_beef, Veggie.asparagus.raw, Items.gunpowder))
+			.add(new Dish(Items.glowstone_dust, Fruit.lemon.raw, Veggie.broccoli.raw))
+			;
+
+	}
 
 	private final ItemStack result;
 	private final ArrayList<ItemStack> items;

@@ -1,47 +1,51 @@
 package com.gb.cornucopia;
 
+import java.io.File;
+
 import com.gb.cornucopia.bees.Bees;
-import com.gb.cornucopia.brewing.Brewing;
 import com.gb.cornucopia.cheese.Cheese;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cuisine.Cuisine;
-import com.gb.cornucopia.cuisine.Dishes;
-import com.gb.cornucopia.cuisine.Ingredients;
 import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggie;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
+import scala.Console;
 
 
 public class ServerProxy {
-
 	public void preInit(final FMLPreInitializationEvent e) {
-		Veggie.preInit();
+		CornuCopia.config =  new Settings(new File(e.getModConfigurationDirectory(), CornuCopia.MODID));
 		Fruit.preInit();
+		Veggie.preInit();
 		Bees.preInit();
+		Cheese.preInit(); // not sure where cheese will go in order tbh;
 		Cookery.preInit();
 		Cuisine.preInit();
-		Cheese.preInit();
-		Brewing.preInit();
 	}
 
 	public void init(final FMLInitializationEvent e) {
-		// TODO: take this ugly shit out and hook into BoP~!
-		//GameRegistry.registerWorldGenerator(new DummyGen(), 9999);
-		NetworkRegistry.INSTANCE.registerGuiHandler(CornuCopia.instance, new GuiHandler());
+		//Fruit.init(); client only: leaf graphics
+		Veggie.init();
+		Bees.init();
+		Cheese.init(); 
+		Cookery.init();
+		Cuisine.init();
+		
+		MinecraftForge.EVENT_BUS.register(CornuCopia.config);
+		MinecraftForge.EVENT_BUS.register(new WildGrowth());
 	}
 
 	public void postInit(final FMLPostInitializationEvent e) {
-		Cookery.initCrafting(); // crafting for kitchen equipment
-		Brewing.postInit();
-		
-		// very last thing: add ingredients then recipes
-		Ingredients.init();
-		Dishes.init();
-		
-		
+		Fruit.postInit();
+		Veggie.postInit();
+		Bees.postInit();
+		Cheese.postInit(); 
+		Cookery.postInit();
+		Cuisine.postInit();
+
 	}
 }

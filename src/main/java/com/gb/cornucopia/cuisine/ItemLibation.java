@@ -1,4 +1,4 @@
-package com.gb.cornucopia.brewing;
+package com.gb.cornucopia.cuisine;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
@@ -7,9 +7,9 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 // item for now... potion later??
-public class ItemDrink extends Item{
+public class ItemLibation extends Item{
 	public final String name;
-	public ItemDrink(String name) {
+	public ItemLibation(String name) {
 		this.name = "brew_" + name + "_drink";
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabCuisine);

@@ -1,7 +1,9 @@
-package com.gb.cornucopia.bees;
+package com.gb.cornucopia.bees.apiary;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import com.gb.cornucopia.bees.Bees;
 
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.state.IBlockState;
