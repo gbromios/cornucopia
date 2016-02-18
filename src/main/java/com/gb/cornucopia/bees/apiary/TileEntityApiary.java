@@ -5,6 +5,8 @@ import java.util.Random;
 
 import com.gb.cornucopia.bees.Bees;
 
+import net.minecraft.block.BlockDoublePlant;
+import net.minecraft.block.BlockDoublePlant.EnumPlantType;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,9 +26,10 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
+import scala.Console;
 
 public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox, IInventory {
-	public static final int TICK_PERIOD = 40; // debug = 2 seconds //* 60 * 2; // tick every two minutes, because it might be kind of expensive >__>
+	public static final int TICK_PERIOD = 1; // debug = 2 seconds //20 * 60 * 2; // tick every two minutes, because it might be kind of expensive >__>
 	public static final Random RANDOM = new Random();
 	private final ItemStack[] contents = new ItemStack[9]; // 0 = queen slot, 1 = worker slot, 2-8 are the honeycombs
 	private int ticks = 0;
@@ -41,6 +44,7 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 		if (!this.hasWorldObj()) return;
 		final World world = this.getWorld();
 		if (world.isRemote) return;
+
 		if (this.ticks++ < TICK_PERIOD){ return; }
 
 		// time to actually do the tick!
@@ -50,12 +54,13 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 		// no bees???? nothing I can do
 		if (this.contents[1] == null){ return; }
 
-		// hungry beeds? no soup for u
-		if (!this.feedBees()) {return;}
 
 		flowerSurvey();
-		produce();
-		cloneFlower();
+		// hungry bees? no soup for u
+		if (this.feedBees()) {
+			produce();
+			cloneFlower();
+		}
 
 		this.markDirty();
 
@@ -89,21 +94,21 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 			// once the hive is full of honey, 
 			// if there's a queen in the queen slot and slot 6 is not already jelly
 			// AND you've got a royal flower AAAND you're really lucky...
-			if (this.contents[6].getItem() != Bees.royal_jelly && this.nearRoyalBloom() && RANDOM.nextInt(64) == 0) {									
+			if (
+					this.contents[6].getItem() != Bees.royal_jelly
+					&& this.beeCount() == 64
+					&& this.nearRoyalBloom()
+					&& RANDOM.nextInt(64) == 0)
+			{									
 				// can happen without a queen, but it's super rare!
-				if (this.hasQueen() || RANDOM.nextInt(64) == 0) {
+				if (this.hasQueen() || RANDOM.nextInt(32) == 0) {
 					// royal jelly comes at a heavy price though. it uses up most of the honey, and the bee population will suffer
 					for (int i : new int[]{2,3,4,5,7,8}) { // outer comb slots
-						// 1/4 chance that wax will be left bee-hind 
-						if (RANDOM.nextInt(4) == 0){
-							this.contents[i] = new ItemStack(Bees.waxcomb);
-						}
-						else {
-							this.contents[i] = null;
-						}
+						this.contents[i] = null;
 
 					}
 					this.contents[6].setItem(Bees.royal_jelly);
+					this.contents[1].stackSize = 8;
 
 					return;
 				}
@@ -116,8 +121,10 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 		int n = 0;
 		for (int x = -4; x < 5; x++){
 			for (int z = -4; z < 5; z++){
-				if (this.getWorld().getBlockState(this.pos.add(x, 0, z)).getBlock() == Bees.apiary){
-					n++;
+				for (int y = -1; y < 2; y++){
+					if (this.getWorld().getBlockState(this.pos.add(x, y, z)).getBlock() == Bees.apiary){
+						n++;
+					}
 				}
 			}			
 		}
@@ -126,38 +133,23 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 
 
 	private boolean feedBees(){
-		final int bc = this.beeCount();		
-		int food = 0;
-		if (bc > 8){  food--; } // you get eight.... freebies XD
-		if (bc > 16){ food--; }
-		if (bc > 32){ food--; }
-		if (bc > 48){ food--; }
-
-		for (int i = 2; i < 9; i++){
-			if (this.contents[i] != null && this.contents[i].getItem() == Bees.honeycomb){
-				food++;
-			}
-		}
+		final int food = this.flower_score - (this.beeCount() / 4);
+		//System.out.format("%d food\n", food);
 
 		final ItemStack workers = this.contents[1];
 
-		if (food < 0){
-			workers.stackSize += food;
-			//System.out.format("   bees died :(\n");
-			if (workers.stackSize < 1){
-				this.contents[1] = null; // technically bees can't die out like this... but ya never know so BEE safe~!
+		if (food < -4){
+			if (--workers.stackSize < 8){
+				workers.stackSize = 8;
 			}
-			// return false // < actually, try allowing starving bees to produce. that way, a brood can recover after producing the costly royal jelly
+			return false;
 		}
-		// with a queen and an excess of honeycomb, theres a chance to spawn some new bees, based on the amount of excess food and the number of nearby apiaries
-		// 1 out of ( (7-amount of food) * (number of apiaries within 5 blocks) )
-		else if (food > 0 && this.hasQueen() && RANDOM.nextInt((8 - food) * (1 + this.getNeighboringApiaries())) == 0){
+		else if (food > 4 && this.hasQueen() && RANDOM.nextInt((12 - Math.min(food, 11)) * (1 + (2 * this.getNeighboringApiaries()) )) == 0){
 			//System.out.format("   bees grew! :)\n");
 			workers.stackSize = Math.min(workers.stackSize + 1, workers.getMaxStackSize()); 
 		}
 		return true;
 	}
-
 
 	private boolean nearRoyalBloom(){
 		for (int x = -2; x < 3; x++){
@@ -172,20 +164,38 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 
 	private void cloneFlower(){
 		// pick a random block near the apiary. TODO: figure out a way to make them grow closer more often
-		final BlockPos fpos = this.pos.add(RANDOM.nextInt(15) - 7, 0, RANDOM.nextInt(15) - 7);
-		if ((this.worldObj.isAirBlock(fpos) || this.worldObj.getBlockState(fpos).getBlock() == Blocks.tallgrass) && this.worldObj.getBlockState(fpos.down()).getBlock() == Blocks.grass && RANDOM.nextInt(80) < this.beeCount()){
-			// stop growing if there are 48 flowers in the vicinity (don't grow at all if there's no flowwers :()
-			if (this.flower_score > 48 || this.flower_survey.size() < 1 ){ return; }
-			this.worldObj.setBlockState(fpos, this.flower_survey.get(RANDOM.nextInt(this.flower_survey.size())), 0);
-			this.worldObj.markBlockForUpdate(fpos);
-		}
+		final BlockPos fpos = this.pos.add(RANDOM.nextInt(19) - 9, RANDOM.nextInt(3) - 1, RANDOM.nextInt(19) - 9);
 
-		// royal flower!
-		final BlockPos rpos = this.pos.add(RANDOM.nextInt(5) - 2, 0, RANDOM.nextInt(5) - 2);
-		if (this.beeCount() == 64 && this.flower_score > 16 && !this.nearRoyalBloom() && RANDOM.nextInt(this.hasQueen() ? 512 : 1024) == 0){
-			if((this.worldObj.isAirBlock(rpos) || this.worldObj.getBlockState(rpos).getBlock() == Blocks.tallgrass || this.worldObj.getBlockState(rpos).getBlock() instanceof BlockFlower) && this.worldObj.getBlockState(rpos.down()).getBlock() == Blocks.grass){
-				this.worldObj.setBlockState(rpos, Bees.royal_bloom.getDefaultState(), 0);
-				this.worldObj.markBlockForUpdate(rpos);				
+		double d = fpos.distanceSq(pos.getX(), pos.getY(), pos.getZ()) + 10.0;
+
+		double rs = RANDOM.nextDouble() * d;
+		//System.out.format("%s => %s : (%s / %s)\n",pos, fpos, rs, d);
+		if (rs < 2.0) {
+
+			if ((this.worldObj.isAirBlock(fpos) || this.worldObj.getBlockState(fpos).getBlock() == Blocks.tallgrass) && this.worldObj.getBlockState(fpos.down()).getBlock() == Blocks.grass && RANDOM.nextInt(80) < this.beeCount()){
+				// stop growing if there are 48 flowers in the vicinity (don't grow at all if there's no flowwers :()
+				if (this.flower_score > 48 || this.flower_survey.size() < 1 ){ return; }
+				IBlockState b = this.flower_survey.get(RANDOM.nextInt(this.flower_survey.size()));
+				//public void placeAt(World worldIn, BlockPos lowerPos, BlockDoublePlant.EnumPlantType variant, int flags)
+
+				this.worldObj.setBlockState(fpos, b, 0);
+				if (b.getBlock() instanceof BlockDoublePlant) {
+					//this.worldObj.setBlockState(fpos, b.withProperty(BlockDoublePlant.HALF, "lower"), 0);
+					Blocks.double_plant.placeAt(worldObj, fpos, (EnumPlantType)b.getValue(BlockDoublePlant.VARIANT), 2);
+
+				} else {
+				}
+				
+				this.worldObj.markBlockForUpdate(fpos);
+			}
+
+			// royal flower!
+			final BlockPos rpos = this.pos.add(RANDOM.nextInt(5) - 2, 0, RANDOM.nextInt(5) - 2);
+			if (this.beeCount() == 64 && this.flower_score > 16 && !this.nearRoyalBloom() && RANDOM.nextInt(this.hasQueen() ? 512 : 1024) == 0){
+				if((this.worldObj.isAirBlock(rpos) || this.worldObj.getBlockState(rpos).getBlock() == Blocks.tallgrass || this.worldObj.getBlockState(rpos).getBlock() instanceof BlockFlower) && this.worldObj.getBlockState(rpos.down()).getBlock() == Blocks.grass){
+					this.worldObj.setBlockState(rpos, Bees.royal_bloom.getDefaultState(), 0);
+					this.worldObj.markBlockForUpdate(rpos);				
+				}
 			}
 		}
 	}
@@ -204,7 +214,7 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 					// pollenate-able?
 					BlockPos fpos = pos.add(x, y, z);
 					IBlockState bs = this.getWorld().getBlockState(fpos);
-					if (bs.getBlock() instanceof BlockFlower){
+					if (bs.getBlock() instanceof BlockFlower || bs.getBlock() instanceof BlockDoublePlant){
 						density++;
 						// this list could potentially slow the server down, searching a 15x15 area...
 						if (record_states){
@@ -252,6 +262,7 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 			else { // if something else hid here... gtfo!
 				a[i-2] = 0;				
 			}
+
 		}
 
 		return a;
