@@ -1,6 +1,7 @@
 package com.gb.cornucopia.cookery;
 
 import com.gb.cornucopia.InvModel;
+import com.gb.cornucopia.cheese.Cheese;
 import com.gb.cornucopia.cookery.brewing.BlockBarrel;
 import com.gb.cornucopia.cookery.cuttingboard.BlockCuttingBoard;
 import com.gb.cornucopia.cookery.mill.BlockMill;
@@ -39,6 +40,7 @@ public class Cookery {
 	public static Item barrel_hoop;
 	public static Item barrel_stave;
 	public static BlockBarrel wine_barrel;
+	public static BlockBarrel cheese_barrel;
 
 	//endregion
 
@@ -86,6 +88,8 @@ public class Cookery {
 	// finished barrel recipes depend on items that will have been initialized in preInit, so wait until init to create barrels 
 	private static void initBarrels(){
 		wine_barrel = new BlockBarrel("wine", 1, new Item[]{Cuisine.wine}, new Item[]{Cuisine.grape_juice, Cuisine.grape_juice, Cuisine.grape_juice});
+		cheese_barrel = new BlockBarrel("cheese", 1, new Item[]{Item.getItemFromBlock(Cheese.cheese_wheel_young)}, new Item[]{Items.milk_bucket, Items.milk_bucket, Items.milk_bucket}, (int)1.8e+6); // 30 minutes
+		GameRegistry.addShapelessRecipe(new ItemStack(Cuisine.fresh_cheese, 8),  Item.getItemFromBlock(Cheese.cheese_wheel_young)); 
 	};
 
 	private static void initCrafting()

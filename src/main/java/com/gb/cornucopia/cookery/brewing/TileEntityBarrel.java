@@ -83,7 +83,7 @@ public class TileEntityBarrel extends TileEntity implements IUpdatePlayerListBox
 			}
 
 
-			if (t > ((BlockBarrel)state.getBlock()).fermentation_time) {
+			if ( ((BlockBarrel)state.getBlock()).fermented(t) ) {
 				this.worldObj.setBlockState(this.pos, state.withProperty(BlockBarrel.AGE, age + 1));
 			}
 			

@@ -53,6 +53,10 @@ public class Cuisine {
 
 
 	public static ItemLibation wine;
+	// CHEEEEESE
+	public static ItemCuisine fresh_cheese;
+	public static ItemCuisine aged_cheese;
+	
 
 
 	// i.e. inedible stables OR placeholders
@@ -92,6 +96,10 @@ public class Cuisine {
 		garden_salad = new ItemCuisine("garden_salad", 3, 0.15F);
 		ketchup = new ItemCuisine("ketchup", 1, 0.05F);
 		red_sauce = new ItemCuisine("red_sauce", 2, 0.25F);
+		
+		
+		fresh_cheese = new ItemCuisine("fresh_cheese", 4, 0.3F);
+		aged_cheese = new ItemCuisine("aged_cheese", 3, 0.5F);
 
 	}
 

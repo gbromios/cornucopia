@@ -48,10 +48,11 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 	
 	public final String name;
 	public final int last_age;
-	public final Item[] drops;
-	public final int fermentation_time;
+	private final Item[] drops;
+	private final Item[] inputs; // so we know wether to drop container items
+	private final int fermentation_time;
 	
-	public static final int DEFUALT_F_TIME = (int) 7.2e+7; // 20 hours in ms
+	public static final int DEFUALT_F_TIME = (int) 7.2e+7; // 20 irl hours in ms
 	
 	public BlockBarrel(String name, int last_stage, Item[] drops, Item[] inputs){
 		this(name, last_stage, drops, inputs, DEFUALT_F_TIME);
@@ -66,6 +67,7 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 			throw new RuntimeException(String.format("invalid drops for %s barrel-  must be = to number of stages %d \n %s\n", name, last_stage, drops));
 		}
 		this.drops = drops.clone();
+		this.inputs = inputs.clone();
 		this.last_age = Math.min(3, Math.max(1, last_stage)); // must be 1, 2, or 3 
 		this.name = "brew_"+name+"_barrel";
 		this.fermentation_time = f_time;
@@ -75,8 +77,8 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0).withProperty(AXIS, EnumAxis.Y));
 		//this.setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 0.95F, 0.7F);
 		GameRegistry.registerBlock(this, this.name);
-		GameRegistry.registerTileEntity(TileEntityBarrel.class, "brew_barrel_entity");
-		InvModel.add(this, this.name);
+		GameRegistry.registerTileEntity(TileEntityBarrel.class, "brew_"+name+"_entity");
+		InvModel.add(this, "brew_"+name+"_barrel");
 		
 		if (inputs.length == 1) {
 			GameRegistry.addShapedRecipe(new ItemStack(this),
@@ -109,10 +111,50 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 		
 	}
 	
+	@Override
+	public void setBlockBoundsBasedOnState(final IBlockAccess world, final BlockPos pos){
+
+		switch((EnumAxis)world.getBlockState(pos).getValue(AXIS)) {
+		case X:
+			this.setBlockBounds( 0.0F, 0.0625F, 0.0625F, 1F, 0.9375F, 0.875F);
+			break;
+		case Z:
+			this.setBlockBounds( 0.0625F, 0.0F, 0.0625F, 0.9375F, 1F, 0.9375F);
+			break;
+		case Y: case NONE: default:
+			this.setBlockBounds( 0.0625F, 0.0F, 0.0625F, 0.9375F, 1F, 0.9375F);
+			break;
+		}
+
+		
+		/*
+		if (facing == EnumFacing.NORTH || facing == EnumFacing.SOUTH) {
+			this.setBlockBounds(0.0625F, 0.0F, 0.125F, 0.9375F, 0.0625F, 0.875F); // figure out a better place to do this...
+		}
+		else {
+		}*/
+
+	}
+	
+	public boolean fermented(long t){
+		return t >= this.fermentation_time;
+	}
+	
 	public boolean isRipe(IBlockState state){
 		// stage >= 1
 		return (int)state.getValue(AGE) >= 1 ;
 	}
+	
+	protected boolean canBlockStay(final World world, final BlockPos pos)
+	{
+		return world.isSideSolid(pos.down(), EnumFacing.UP, true) || world.getBlockState(pos.down()).getBlock() instanceof BlockBarrel;
+	}
+	
+	@Override
+    public boolean canPlaceBlockAt(final World world, final BlockPos pos)
+    {
+		return world.isSideSolid(pos.down(), EnumFacing.UP, true) || world.getBlockState(pos.down()).getBlock() instanceof BlockBarrel;
+    }
 
 	@Override
 	public boolean isOpaqueCube(){
@@ -123,8 +165,12 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 		return false;
 	}
 	
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
+    public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
+    	if (world.getBlockState(pos.down()).getBlock() instanceof BlockBarrel) {
+			return this.getDefaultState().withProperty(AXIS, world.getBlockState(pos.down()).getValue(AXIS));
+    	} else {
     	return this.getDefaultState().withProperty(AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
+    	}
     }
 
 	@Override
@@ -154,7 +200,7 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
-		//world.setBlockState(pos, state.withProperty(AGE, 0));
+		//world.setBlockState(pos, state.withProperty(AGE, ((int)state.getValue(AGE) + 1) % 16 ));
 		//return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
 		return false;
 	}
@@ -165,6 +211,11 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 		if ((int)state.getValue(AGE) > 0) {
 			drops.add(new ItemStack(this.drops[(int)state.getValue(AGE) - 1], 4)); // drop 4 for now, might add mechanics for that later
 			drops.add(new ItemStack(Cookery.empty_barrel));
+			for (Item i : this.inputs) {
+				if (i.hasContainerItem()) {
+					drops.add(new ItemStack(i.getContainerItem()));
+				}
+			}
 		}
 		else {
 			drops.add(new ItemStack(this));
