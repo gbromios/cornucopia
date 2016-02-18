@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 import scala.Console;
 
 public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox, IInventory {
-	public static final int TICK_PERIOD = 1; // debug = 2 seconds //20 * 60 * 2; // tick every two minutes, because it might be kind of expensive >__>
+	public static final int TICK_PERIOD = 20 * 60 * 2; // tick every two minutes, because it might be kind of expensive >__>
 	public static final Random RANDOM = new Random();
 	private final ItemStack[] contents = new ItemStack[9]; // 0 = queen slot, 1 = worker slot, 2-8 are the honeycombs
 	private int ticks = 0;
@@ -163,7 +163,7 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 	}
 
 	private void cloneFlower(){
-		// pick a random block near the apiary. TODO: figure out a way to make them grow closer more often
+		// pick a random block near the apiary.
 		final BlockPos fpos = this.pos.add(RANDOM.nextInt(19) - 9, RANDOM.nextInt(3) - 1, RANDOM.nextInt(19) - 9);
 
 		double d = fpos.distanceSq(pos.getX(), pos.getY(), pos.getZ()) + 10.0;
