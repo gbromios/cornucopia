@@ -180,12 +180,8 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 
 				this.worldObj.setBlockState(fpos, b, 0);
 				if (b.getBlock() instanceof BlockDoublePlant) {
-					//this.worldObj.setBlockState(fpos, b.withProperty(BlockDoublePlant.HALF, "lower"), 0);
 					Blocks.double_plant.placeAt(worldObj, fpos, (EnumPlantType)b.getValue(BlockDoublePlant.VARIANT), 2);
-
-				} else {
 				}
-				
 				this.worldObj.markBlockForUpdate(fpos);
 			}
 
