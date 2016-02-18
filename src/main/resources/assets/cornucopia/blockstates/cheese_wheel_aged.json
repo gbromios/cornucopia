@@ -2,7 +2,11 @@
     "variants": {
         "taken=0": { "model": "cornucopia:cheese_wheel_aged_0" },
         "taken=1": { "model": "cornucopia:cheese_wheel_aged_1" },
-        "taken=2" : { "model": "cornucopia:cheese_wheel_aged_2" },
-        "taken=3" : { "model": "cornucopia:cheese_wheel_aged_3" }
+        "taken=2": { "model": "cornucopia:cheese_wheel_aged_2" },
+        "taken=3": { "model": "cornucopia:cheese_wheel_aged_3" },
+        "taken=4": { "model": "cornucopia:cheese_wheel_aged_4" },
+        "taken=5": { "model": "cornucopia:cheese_wheel_aged_5" },
+        "taken=6": { "model": "cornucopia:cheese_wheel_aged_6" },
+        "taken=7": { "model": "cornucopia:cheese_wheel_aged_7" }
     }
 }
