@@ -1,6 +1,7 @@
 package com.gb.cornucopia.cookery;
 
 import com.gb.cornucopia.InvModel;
+import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cheese.Cheese;
 import com.gb.cornucopia.cookery.brewing.BlockBarrel;
 import com.gb.cornucopia.cookery.cuttingboard.BlockCuttingBoard;
@@ -11,6 +12,7 @@ import com.gb.cornucopia.cookery.presser.BlockPresserTop;
 import com.gb.cornucopia.cookery.stove.BlockStove;
 import com.gb.cornucopia.cookery.stove.BlockStoveTop;
 import com.gb.cornucopia.cuisine.Cuisine;
+import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -40,7 +42,14 @@ public class Cookery {
 	public static Item barrel_hoop;
 	public static Item barrel_stave;
 	public static BlockBarrel wine_barrel;
+	public static BlockBarrel cider_barrel;
+	public static BlockBarrel cordial_barrel;
+	public static BlockBarrel mead_barrel;
 	public static BlockBarrel cheese_barrel;
+	public static BlockBarrel vinegar_barrel;
+	public static BlockBarrel pickle_barrel;
+	public static BlockBarrel anchovy_barrel;
+	public static BlockBarrel beer_barrel;
 
 	//endregion
 
@@ -88,7 +97,16 @@ public class Cookery {
 	// finished barrel recipes depend on items that will have been initialized in preInit, so wait until init to create barrels 
 	private static void initBarrels(){
 		wine_barrel = new BlockBarrel("wine", 1, new Item[]{Cuisine.wine}, new Item[]{Cuisine.grape_juice, Cuisine.grape_juice, Cuisine.grape_juice});
+		cider_barrel = new BlockBarrel("cider", 1, new Item[]{Cuisine.cider}, new Item[]{Cuisine.fruit_juice, Cuisine.fruit_juice, Cuisine.fruit_juice});
+		cordial_barrel = new BlockBarrel("cordial", 1, new Item[]{Cuisine.cordial}, new Item[]{Cuisine.berry_juice, Cuisine.berry_juice, Cuisine.berry_juice});
+		beer_barrel = new BlockBarrel("beer", 1, new Item[]{Cuisine.beer}, new Item[]{Cuisine.mash, Cuisine.mash, Cuisine.mash});
+		pickle_barrel = new BlockBarrel("pickle", 1, new Item[]{Cuisine.pickle}, new Item[]{Cuisine.vinegar, Veggie.cucumber.raw, Cuisine.vinegar});
+		anchovy_barrel = new BlockBarrel("anchovy", 1, new Item[]{Cuisine.anchovy}, new Item[]{Cuisine.salt, Items.fish, Cuisine.salt});
+		mead_barrel = new BlockBarrel("mead", 1, new Item[]{Cuisine.mead}, new Item[]{Bees.honey_raw, Bees.honey_raw, Bees.honey_raw});
 		cheese_barrel = new BlockBarrel("cheese", 1, new Item[]{Item.getItemFromBlock(Cheese.cheese_wheel_young)}, new Item[]{Items.milk_bucket, Items.milk_bucket, Items.milk_bucket}, (int)1.8e+6); // 30 minutes
+		vinegar_barrel = new BlockBarrel("vinegar", 1, new Item[]{Cuisine.vinegar}, new Item[]{Cuisine.wine}, (int)1.2e+6); // 20 minutes
+		
+		// might as well deal w/ young cheese recipe here :I
 		GameRegistry.addShapelessRecipe(new ItemStack(Cuisine.fresh_cheese, 8),  Item.getItemFromBlock(Cheese.cheese_wheel_young)); 
 	};
 

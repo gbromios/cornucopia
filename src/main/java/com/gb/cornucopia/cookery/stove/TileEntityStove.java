@@ -169,9 +169,18 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 	
 	private Dish _whatsCooking(){
 		// ok what is getting cooked:
-		return this.getVessel().getDishes().findMatchingDish((IInventory)this, 1, 6);
+		return this.getVessel().getDishes().findMatchingDish((IInventory)this, 1, 6, null, this.hasWater());
 	}
 	
+	private boolean hasWater() {
+		return this.hasWorldObj() && (
+				this.worldObj.getBlockState(this.pos.add(1, 0, 1)).getBlock() == Cookery.water_basin
+				|| this.worldObj.getBlockState(this.pos.add(-1, 0, 1)).getBlock() == Cookery.water_basin
+				|| this.worldObj.getBlockState(this.pos.add(1, 0, -1)).getBlock() == Cookery.water_basin
+				|| this.worldObj.getBlockState(this.pos.add(-1, 0, -1)).getBlock() == Cookery.water_basin
+				);
+	}
+
 	// force the stove block below us to light up (or turn off)
 	private void _didBurningChange (final boolean was_burning) {
 		if (was_burning != this.isBurning()) {			

@@ -3,6 +3,7 @@ package com.gb.cornucopia.cuisine;
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -22,4 +23,13 @@ public class ItemCuisine extends ItemFood{
 		InvModel.add(this, this.name);
 	}
 
+	public ItemCuisine setMaxStackSize(int i) {
+		super.setMaxStackSize(i);
+		return this;
+	}
+	public ItemCuisine setContainerItem(Item i) {
+		super.setContainerItem(i);
+		return this;
+	}
+	
 }

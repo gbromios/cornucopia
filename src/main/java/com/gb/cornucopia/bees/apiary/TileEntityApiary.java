@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 import scala.Console;
 
 public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox, IInventory {
-	public static final int TICK_PERIOD = 20 * 60 * 2; // tick every two minutes, because it might be kind of expensive >__>
+	public static final int TICK_PERIOD = 20 * 30 ; //tick 2x per minute, because it might be kind of expensive >__>
 	public static final Random RANDOM = new Random();
 	private final ItemStack[] contents = new ItemStack[9]; // 0 = queen slot, 1 = worker slot, 2-8 are the honeycombs
 	private int ticks = 0;

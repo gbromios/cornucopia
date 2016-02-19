@@ -2,13 +2,16 @@ package com.gb.cornucopia.cookery.presser;
 
 import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cuisine.Cuisine;
+import com.gb.cornucopia.cuisine.Ingredient;
 import com.gb.cornucopia.fruit.Fruit;
+import com.gb.cornucopia.veggie.ItemVeggieSeed;
 import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -78,7 +81,18 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 	public static boolean canPress(Item i) {
 		return i == Bees.honeycomb
 				|| i == Fruit.olive.raw
+				|| i == Fruit.orange.raw
+				|| i == Fruit.lemon.raw
+				|| i == Fruit.lime.raw
 				|| i == Veggie.grape.raw
+				|| Ingredient.mountain_berry.matches(i)
+				|| Ingredient.sweet_salad.matches(i)
+				|| i == Items.milk_bucket
+				|| i == Veggie.peanut.raw
+				|| i == Cuisine.pasta_dough
+				|| i == Veggie.soy.raw
+				|| i == Items.wheat_seeds
+				|| i instanceof ItemVeggieSeed
 				;
 	}
 	
@@ -140,12 +154,45 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 			press(Bees.honey_raw, 2, Bees.waxcomb);
 
 		} else if (i == Fruit.olive.raw) {
-			press(Cuisine.oil_olive, 4);
+			press(Cuisine.olive_oil, 4);
 
 		} else if (i == Veggie.grape.raw) {
 			press(Cuisine.grape_juice, 8);
 
-		}
+		} else if (i == Items.milk_bucket) {
+			press(Cuisine.butter, 1, Items.bucket);
+
+		} else if (i == Items.wheat_seeds) {
+			press(Cuisine.canola_oil, 32);
+
+		} else if (i instanceof ItemVeggieSeed) {
+			press(Cuisine.canola_oil, 16);
+
+		} else if (i == Veggie.soy.raw) {
+			press(Cuisine.tofu, 8);
+
+		} else if (i == Veggie.peanut.raw) {
+			press(Cuisine.canola_oil, 8);
+
+		} else if (Ingredient.mountain_berry.matches(i)) {
+			press(Cuisine.berry_juice, 9); // experimenting with non po2
+
+		} else if (i == Fruit.orange.raw) {
+			press(Cuisine.orange_juice, 9); // experimenting with non po2
+
+		} else if (i == Fruit.lemon.raw) {
+			press(Cuisine.lemon_juice, 9); // experimenting with non po2
+
+		} else if (i == Fruit.lime.raw) {
+			press(Cuisine.lime_juice, 9); // experimenting with non po2
+
+		} else if (Ingredient.sweet_salad.matches(i)) {
+			press(Cuisine.fruit_juice, 6); // experimenting with non po2
+			
+		}  else if (i == Cuisine.pasta_dough) {
+			press(Cuisine.fresh_pasta, 1); // experimenting with non po2
+
+		} 
 	}
 
 	@Override

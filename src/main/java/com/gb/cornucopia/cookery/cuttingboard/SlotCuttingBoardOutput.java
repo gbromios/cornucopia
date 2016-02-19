@@ -3,6 +3,7 @@ package com.gb.cornucopia.cookery.cuttingboard;
 import com.gb.cornucopia.cuisine.dish.Dish;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
@@ -10,12 +11,13 @@ import net.minecraft.item.ItemStack;
 
 public class SlotCuttingBoardOutput extends Slot {
     private final InventoryCrafting craftMatrix;
-    private final EntityPlayer player;
-
-	public SlotCuttingBoardOutput(final EntityPlayer player, final InventoryCrafting crafting, final IInventory inv, final int slotIndex, final int x, final int y) {
+    private final IInventory bowl;
+	private final Container c;
+	public SlotCuttingBoardOutput(final InventoryCrafting crafting, final IInventory inv, IInventory bowl, Container c, final int slotIndex, final int x, final int y) {
 		super(inv, slotIndex, x, y);
-		this.player = player;
 		this.craftMatrix = crafting;
+		this.bowl = bowl;
+		this.c = c;
 	}
 
 	// can't put anything in the output slot
@@ -23,34 +25,26 @@ public class SlotCuttingBoardOutput extends Slot {
 	
     public void onPickupFromSlot(final EntityPlayer player, final ItemStack stack)
     {
-        net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(player, stack, craftMatrix);
-        this.onCrafting(stack);
-        net.minecraftforge.common.ForgeHooks.setCraftingPlayer(player);
-        final ItemStack[] input = Dish.cutting_board.getChangedInput(this.craftMatrix, player.worldObj);
-        net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
+    	//not sure what the implications of this are? dont care much about attaching to other crafting systems tbh
+        //net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(player, stack, craftMatrix);
+        //net.minecraftforge.common.ForgeHooks.setCraftingPlayer(player);
+        //final ItemStack[] input = Dish.cutting_board.getChangedInput(this.craftMatrix, player.worldObj);
+        //net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
+    	
+    	// o forgive me
+    	if (this.c instanceof ContainerCuttingBoard && ((ContainerCuttingBoard)this.c).requiresBowl()) {
+    		this.bowl.decrStackSize(0, 1);
+    	}
 
-        for (int i = 0; i < input.length; ++i)
+    	// assume that everything in this inventory A) has no containerItem (lol) and B) is used in the recipe. will fix A later. 
+        for (int i = 0; i < this.craftMatrix.getSizeInventory(); ++i)
         {
-        	// no fucking clue what the distinction is here, but im not fucking with frail-ass crafting code 
-            final ItemStack slot_stack = this.craftMatrix.getStackInSlot(i);
-            ItemStack input_stack = input[i];
-
-            if (slot_stack != null)
+            if (this.craftMatrix.getStackInSlot(i) != null)
             {
                 this.craftMatrix.decrStackSize(i, 1);
+				//decrStackSize should DTRT and null check and all that
             }
 
-            if (input_stack != null)
-            {
-                if (this.craftMatrix.getStackInSlot(i) == null)
-                {
-                    this.craftMatrix.setInventorySlotContents(i, input_stack);
-                }
-                else if (!this.player.inventory.addItemStackToInventory(input_stack))
-                {
-                    this.player.dropPlayerItemWithRandomChoice(input_stack, false);
-                }
-            }
         }
     }
 }

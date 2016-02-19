@@ -49,15 +49,21 @@ public class WildGrowth {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	@SubscribeEvent
 	public void onChunkLoad(ChunkEvent.Load e) {
-		if (e.world.isRemote) { return; }
+		if (e.world.isRemote && CornuCopia.config.wild_growth_mega_log) { 
+			this.growAVeggie(e.getChunk(), e.world); // << debug only mode
+			this.growAFruit(e.getChunk(), e.world); // << debug only mode
+			return; 
+		}
+		if (true) {return;}
 		if (!Settings.wild_fruit_spawn && !Settings.wild_veggie_spawn && !Settings.wild_bee_spawn) { return; }
 		if ( this.offCooldown(e.getChunk(), (int) e.world.getWorldTime()) ) {
 			// chunk has a chance to spawn a random veggie
 			if (Settings.wild_fruit_spawn && RANDOM.nextInt(Settings.wild_fruit_spawn_chance) == 0) { this.growAFruit(e.getChunk(), e.world); }
 			if (Settings.wild_veggie_spawn && RANDOM.nextInt(Settings.wild_veggie_spawn_chance) == 0) { this.growAVeggie(e.getChunk(), e.world); }
-			if (Settings.wild_bee_spawn && RANDOM.nextInt(Settings.wild_bee_spawn_chance) == 0) { this.growABees(e.getChunk(), e.world); }
+			//if (Settings.wild_bee_spawn && RANDOM.nextInt(Settings.wild_bee_spawn_chance) == 0) { this.growABees(e.getChunk(), e.world); }
 		}
 		
 		// every thousand or so load events, make sure we're not leaking memory
@@ -86,12 +92,14 @@ public class WildGrowth {
 			if ((leaf.getBlock() == Blocks.leaves || leaf.getBlock() == Blocks.leaves2) && w.isAirBlock(pos)) {
 				final BiomeGenBase b = w.getBiomeGenForCoords(pos);
 				final Fruit f = Fruit.getForBiome(RANDOM, b);
+				/*
 				if (f == null) {return;}
 				w.setBlockState(pos, Fruit.getAny(RANDOM).crop.getDefaultState()
 						.withProperty(BlockFruitCrop.DROP_SAPLING, true)
 						.withProperty(BlockFruitCrop.AGE, RANDOM.nextInt(4))
 						);
-				System.out.format(" FRUIT @ %s = %s \n ", pos, w.getBlockState(pos), leaf);
+				*/
+				System.out.format(" FRUIT @ %s \n\n", f == null ? "<>" : f.name);
 				return;
 			}
 		} 
@@ -128,11 +136,12 @@ public class WildGrowth {
 		final BlockPos pos = new BlockPos(x, y, z);
 		final BiomeGenBase b = w.getBiomeGenForCoords(pos);
 		final Veggie v = Veggie.getForBiome(RANDOM, b);
+		/*
 		if ( v == null ) {return;}
 		if (w.getBlockState(pos.down()).getBlock() == Blocks.grass){
 			w.setBlockState(pos, v.wild.getDefaultState());
-		}
-		System.out.format(" VEGGIE @ %s in %s\n ", w.getBlockState(new BlockPos(x, y, z)), b);
+		}*/
+		System.out.format(" VEG   @ %s \n\n", v == null ? "<>" : v.name);
 	}
 	
 	

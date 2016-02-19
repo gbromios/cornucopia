@@ -6,15 +6,18 @@ import java.util.Random;
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.fruit.Fruit;
 import com.gb.util.WeightedArray;
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
-import static net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import scala.actors.threadpool.Arrays;
 
 public class Veggie {
 	// static fields/methods
@@ -100,12 +103,14 @@ public class Veggie {
 	}
 
 	// instance fields/methods
+	public final String name;
 	public final ItemVeggieRaw raw;
 	public final ItemVeggieSeed seed;
 	public final BlockVeggieCrop crop;
 	public final BlockVeggieWild wild;
 
 	public Veggie(final String name, final ItemVeggieRaw raw, final ItemVeggieSeed seed, final BlockVeggieCrop crop, final BlockVeggieWild wild){
+		this.name = name;
 		this.raw = raw;
 		this.seed = seed;
 		this.crop = crop;
@@ -230,6 +235,17 @@ public class Veggie {
 	    throw new RuntimeException();
 	}
 	public static Veggie getForBiome(Random r, BiomeGenBase b){
+		final String ts = Collections2.transform(Arrays.asList(BiomeDictionary.getTypesForBiome(b)), new Function<BiomeDictionary.Type, String>(){
+
+	        @Override
+	        public String apply(final BiomeDictionary.Type type){
+	            return  type.name();
+	        }
+
+	    }).toString();
+		
+		System.out.format(" > vb = %s @ %s => ", b.biomeName, ts);
+		
 		// cold, but only if forest; 1/4 chance
 		if (BiomeDictionary.isBiomeOfType(b, Type.COLD)) {
 			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(4) == 0 ) {

@@ -40,6 +40,8 @@ public class Settings {
 		wild_bee_spawn_chance = config.getInt("wild_bee_rate", "Wild Growth", 32, 1, Integer.MAX_VALUE, "bee spawn chance 1/N");
 
 		wild_growth_cooldown = config.getInt("wild_growth_cooldown", "Wild Growth", 120000, 600, Integer.MAX_VALUE, "defaults is ~5 minecraft days. min 600 (~30s) to prevent abuse");
+
+		wild_growth_mega_log = config.getBoolean("wild_growth_mega_log", "Wild Growth", false, "tons of extra client side logging. not recommended.");
 		
 		config.save();
 	}
@@ -57,6 +59,8 @@ public class Settings {
 	public static int wild_veggie_spread_rate;
 	
 	public static int wild_growth_cooldown; 
-		
+	
+	public static boolean wild_growth_mega_log;
+	
 }
 

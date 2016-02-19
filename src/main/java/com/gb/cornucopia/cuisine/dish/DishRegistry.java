@@ -20,40 +20,20 @@ public class DishRegistry {
 		return this;
 	}
 
-	public Dish findMatchingDish(final IInventory cooking_input){
-		return this.findMatchingDish(cooking_input, 0, cooking_input.getSizeInventory());
+	// currently assumes bowl inventory is size=0 but could easily be changed to e.g. look in player's inventory
+	public Dish findMatchingDish(final IInventory cooking_input, final IInventory bowl, final boolean has_water){
+		return this.findMatchingDish(cooking_input, 0, cooking_input.getSizeInventory(), bowl, has_water);
 	}
-	
-	public Dish findMatchingDish(final IInventory cooking_input, final int min, final int max){ // both inclusive		
+	// both indices inclusive		
+	public Dish findMatchingDish(final IInventory cooking_input, final int min, final int max, final IInventory bowl, final boolean has_water){ 
 		final Iterator<Dish> iterator = dishes.iterator();
 		while (iterator.hasNext()) {
 			final Dish d = (Dish) iterator.next();
-			if (d.matches(cooking_input, min, max)) {
+			if (d.matches(cooking_input, min, max, bowl, has_water)) {
 				return d;
 			}
 			
 		}
 		return null;
 	}
-
-	public ItemStack[] getChangedInput(final InventoryCrafting cooking_input, final World world){
-		final Iterator<Dish> iterator = dishes.iterator();
-		while (iterator.hasNext())
-		{
-			final Dish d = (Dish) iterator.next();
-			if (d.matches(cooking_input))
-			{
-				return d.getRemainingItems(cooking_input);
-			}
-		}
-
-		// return whatever items were there? I'm 
-		final ItemStack[] stacks = new ItemStack[cooking_input.getSizeInventory()];
-		for (int i = 0; i < stacks.length; ++i)
-		{
-			stacks[i] = cooking_input.getStackInSlot(i);
-		}
-		return stacks;
-	}
-	
 }

@@ -5,12 +5,15 @@ import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.util.WeightedArray;
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
 
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.init.Items;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import scala.actors.threadpool.Arrays;
 
 public class Fruit {
 	// static fields
@@ -65,12 +68,14 @@ public class Fruit {
 
 	
 	// instance fields
+	public final String name;
 	public final ItemFruitRaw raw;
 	public final BlockFruitSapling sapling;
 	public final BlockFruitLeaf leaf;
 	public final BlockFruitCrop crop;
 
 	public Fruit(final String name, final ItemFruitRaw raw, final BlockFruitSapling sapling, final BlockFruitLeaf leaf, final BlockFruitCrop crop, final BlockPlanks.EnumType wood){
+		this.name = name;
 		this.raw = raw;
 		this.sapling = sapling;
 		this.leaf = leaf;
@@ -166,6 +171,17 @@ public class Fruit {
 	}
 	
 	public static Fruit getForBiome(Random r, BiomeGenBase b){
+		final String ts = Collections2.transform(Arrays.asList(BiomeDictionary.getTypesForBiome(b)), new Function<BiomeDictionary.Type, String>(){
+
+	        @Override
+	        public String apply(final BiomeDictionary.Type type){
+	            return  type.name();
+	        }
+
+	    }).toString();
+		
+		System.out.format(" > fb = %s @ %s => ", b.biomeName, ts);
+		
 		// cold, but only if forest; 1/8 chance
 		if (BiomeDictionary.isBiomeOfType(b, Type.COLD)) {
 			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(8) == 0 ) {
