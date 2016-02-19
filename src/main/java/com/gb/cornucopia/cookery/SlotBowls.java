@@ -1,5 +1,7 @@
 package com.gb.cornucopia.cookery;
 
+import com.gb.cornucopia.cookery.stove.TileEntityStove;
+
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -15,12 +17,13 @@ public class SlotBowls extends Slot {
 		this.c = c;
 	}
 
-	
 	@Override
 	public void onSlotChanged() {
-		// TODO Auto-generated method stub
-		super.onSlotChanged();
-		this.c.onCraftMatrixChanged(this.inventory);
+		if (this.inventory instanceof TileEntityStove) {
+			((TileEntityStove)this.inventory).markInputChanged();
+		} else {
+			super.onSlotChanged();
+			this.c.onCraftMatrixChanged(this.inventory);
+		}
 	}
-
 }

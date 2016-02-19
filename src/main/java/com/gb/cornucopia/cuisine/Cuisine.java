@@ -223,6 +223,9 @@ public class Cuisine {
 		removeVanillaRecipe(new ItemStack(Items.bread)); // sorry guys!!!!
 		// how u really make bread tho:
 		GameRegistry.addSmelting(Cuisine.bread_dough, new ItemStack(Items.bread), 1.0F);
+		
+		// not quite removing a vanilla recipe:
+		Items.milk_bucket.setMaxStackSize(8);
 
 	}
 

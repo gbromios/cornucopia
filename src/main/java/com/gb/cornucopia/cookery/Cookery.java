@@ -1,5 +1,6 @@
 package com.gb.cornucopia.cookery;
 
+import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cheese.Cheese;
@@ -76,14 +77,17 @@ public class Cookery {
 
 		// things to make barrels empty barrels
 		barrel_hoop = new Item().setUnlocalizedName("brew_barrel_hoop");
+		barrel_hoop.setCreativeTab(null);
 		GameRegistry.registerItem(barrel_hoop, "brew_barrel_hoop");
 		InvModel.add(barrel_hoop, "brew_barrel_hoop");
 		
 		barrel_stave = new Item().setUnlocalizedName("brew_barrel_stave");
+		barrel_hoop.setCreativeTab(null);
 		GameRegistry.registerItem(barrel_stave, "brew_barrel_stave");
 		InvModel.add(barrel_stave, "brew_barrel_stave");
 		
 		empty_barrel = new Item().setUnlocalizedName("brew_empty_barrel");
+		barrel_hoop.setCreativeTab(CornuCopia.tabCuisine);
 		GameRegistry.registerItem(empty_barrel, "brew_empty_barrel");
 		InvModel.add(empty_barrel, "brew_empty_barrel");
 	};

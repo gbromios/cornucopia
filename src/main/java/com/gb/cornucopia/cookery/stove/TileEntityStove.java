@@ -33,7 +33,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
 public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox, IInventory {
-	private final ItemStack[] contents = new ItemStack[8]; // 0 = fuel, 1-6 input, 7 output
+	private final ItemStack[] contents = new ItemStack[9]; // 0 = fuel, 1-6 input, 7 output
 	
 	private int burn_time = 0; // time left burning current fuel: ticks DOWN every update
 	private int initial_burn_time = 1; // max burn time of the item currently used for fuel
@@ -50,7 +50,7 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 		//System.out.println("read from nbt: " + compound.toString());
 		super.readFromNBT(compound);
 		final NBTTagList items = compound.getTagList("items", Constants.NBT.TAG_COMPOUND);
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 9; i++)
 		{
 			final NBTTagCompound item = items.getCompoundTagAt(i);
 			if (item != null) {
@@ -90,7 +90,7 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 		compound.setInteger("cook_time_goal", this.cook_time_goal);
 
 		NBTTagList items = new NBTTagList();
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 9; i++) {
 			final ItemStack s = this.contents[i];
 			final NBTTagCompound input_tag = new NBTTagCompound();
 			if (s != null) {
@@ -138,7 +138,7 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 	public IChatComponent getDisplayName() { return new ChatComponentText("stove"); }
 
 	@Override
-	public int getSizeInventory() {	return 8; }
+	public int getSizeInventory() {	return 9; }
 
 	@Override
 	public ItemStack getStackInSlot(final int index) {
@@ -165,19 +165,26 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 		for (int i = 1; i <= 6; i++){
 			this.decrStackSize(i, 1);
 		}
+		if (this.whats_cooking.requiresBowl()) {
+			// i hope i can get away with this >__>
+			this.decrStackSize(8, 1);
+		}
 	}
 	
 	private Dish _whatsCooking(){
 		// ok what is getting cooked:
-		return this.getVessel().getDishes().findMatchingDish((IInventory)this, 1, 6, null, this.hasWater());
+		return this.getVessel().getDishes().findMatchingDish((IInventory)this, 1, 6, this.hasBowl(), this.hasWater());
 	}
 	
-	private boolean hasWater() {
+	public boolean hasBowl() {
+		return this.contents[8] != null && this.contents[8].stackSize > 0 && this.contents[8].getItem() == Items.bowl;
+	}
+	public boolean hasWater() {
 		return this.hasWorldObj() && (
-				this.worldObj.getBlockState(this.pos.add(1, 0, 1)).getBlock() == Cookery.water_basin
-				|| this.worldObj.getBlockState(this.pos.add(-1, 0, 1)).getBlock() == Cookery.water_basin
-				|| this.worldObj.getBlockState(this.pos.add(1, 0, -1)).getBlock() == Cookery.water_basin
-				|| this.worldObj.getBlockState(this.pos.add(-1, 0, -1)).getBlock() == Cookery.water_basin
+				this.worldObj.getBlockState(this.pos.add(1, 0, 0)).getBlock() == Cookery.water_basin
+				|| this.worldObj.getBlockState(this.pos.add(-1, 0, 0)).getBlock() == Cookery.water_basin
+				|| this.worldObj.getBlockState(this.pos.add(0, 0, 1)).getBlock() == Cookery.water_basin
+				|| this.worldObj.getBlockState(this.pos.add(0, 0, -1)).getBlock() == Cookery.water_basin
 				);
 	}
 

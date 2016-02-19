@@ -14,7 +14,7 @@ public class SlotStoveVessel extends Slot {
 	private final TileEntityStove stove;
 	public SlotStoveVessel(final TileEntityStove stove, final int index, final int xPosition, final int yPosition)
 	{
-		super(null, index, yPosition, yPosition);
+		super(null, index, xPosition, yPosition);
 		this.stove = stove;
 	}
 

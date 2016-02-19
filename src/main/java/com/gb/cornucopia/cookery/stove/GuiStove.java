@@ -1,8 +1,12 @@
 package com.gb.cornucopia.cookery.stove;
 
+import com.gb.cornucopia.cookery.Cookery;
+import com.gb.cornucopia.cookery.Vessel;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,8 +27,38 @@ public class GuiStove extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY)
 	{
-		//this.fontRendererObj.drawString(I18n.format("container.crafting", new Object[0]), 28, 6, 4210752);
-		//this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
+		//this.fontRendererObj.drawString("container.inventory", 8, this.ySize - 96 + 2, 4210752);
+		// brute force a usable interface for now (lol)
+		String tooltip = "";
+		int y0 = this.guiTop;
+		int x0 = this.guiLeft;
+		//if (( mouseX -x0 > 0 && mouseX - x0 < 100 ) && ( mouseY - y0 > 0 && mouseY - y0 < 100 )) {
+			//tooltip = String.format("X%d, Y%d", mouseX -x0, mouseY - y0 );
+		//}
+		
+		
+		if (( mouseX - x0 > 22 && mouseX - x0 < 41 ) && ( mouseY - y0 > 17 && mouseY - y0 < 36 ) ) {
+			//tooltip = String.format("X%d, Y%d", mouseX -x0, mouseY - y0 );
+			Vessel v = this.stove.getVessel();
+			if (v == Vessel.NONE) {
+				tooltip = "Grill";
+			} else {
+				tooltip = v.getName();
+			}
+			
+		}
+		
+		else if (( mouseX - x0 > 22 && mouseX - x0 < 41 ) && ( mouseY - y0 > 35 && mouseY - y0 < 54 )) {
+			tooltip = this.stove.hasBowl() ? "Bowls" : "Out of Bowls";
+		}
+		
+		else if (( mouseX - x0 > 22 && mouseX - x0 < 41 ) && ( mouseY - y0 > 53 && mouseY - y0 < 72 )) {
+			tooltip = this.stove.hasWater() ? "Water Available" : "No Water";
+		} else if (( mouseX - x0 > 79 && mouseX - x0 < 96 ) && ( mouseY - y0 > 53 && mouseY - y0 < 72 )) {
+			tooltip = this.stove.hasWater() ? "Water Available" : "No Water";
+		}
+
+		this.fontRendererObj.drawString(tooltip, 20, 6, 4210752);
 	}
 
 	

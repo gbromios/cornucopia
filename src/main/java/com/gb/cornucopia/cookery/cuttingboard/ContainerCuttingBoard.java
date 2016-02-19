@@ -4,8 +4,10 @@ import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.SlotBowls;
 import com.gb.cornucopia.cuisine.dish.Dish;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
@@ -64,12 +66,22 @@ public class ContainerCuttingBoard extends Container {
 
 	}
 	
+	public boolean hasBowl(){
+		// skip the count check on this side, i dont think it matters?
+		return this.bowl.getStackInSlot(0) != null && this.bowl.getStackInSlot(0).getItem() == Items.bowl;
+	}
 	public boolean hasWater(){
+		//Block a = this.world.getBlockState(this.pos.add(0, -1, 1)).getBlock();
+		//Block b = this.world.getBlockState(this.pos.add(0, -1, -1)).getBlock();
+		//Block c = this.world.getBlockState(this.pos.add(1, -1, 0)).getBlock();
+		//Block d = this.world.getBlockState(this.pos.add(-1, -1, 0)).getBlock();
+		//System.out.println(this.pos);
+		
 		return // im lazy
-				this.world.getBlockState(this.pos.add(1, -1, 1)).getBlock() == Cookery.water_basin
-				|| this.world.getBlockState(this.pos.add(-1, -1, 1)).getBlock() == Cookery.water_basin
-				|| this.world.getBlockState(this.pos.add(1, -1, -1)).getBlock() == Cookery.water_basin
-				|| this.world.getBlockState(this.pos.add(-1, -1, -1)).getBlock() == Cookery.water_basin
+				this.world.getBlockState(this.pos.add(1, -1, 0)).getBlock() == Cookery.water_basin
+				|| this.world.getBlockState(this.pos.add(-1, -1, 0)).getBlock() == Cookery.water_basin
+				|| this.world.getBlockState(this.pos.add(0, -1, 1)).getBlock() == Cookery.water_basin
+				|| this.world.getBlockState(this.pos.add(0, -1, -1)).getBlock() == Cookery.water_basin
 				;
 	}
 
@@ -88,7 +100,7 @@ public class ContainerCuttingBoard extends Container {
 	{
 		//if (this.world.isRemote) {return;}
 		//this.craftResult.setInventorySlotContents(0, this.dishRegistry.findMatchingDish(this.craftMatrix).getItem());
-		final Dish d = Dish.cutting_board.findMatchingDish(this.craftMatrix, this.bowl, this.hasWater());
+		final Dish d = Dish.cutting_board.findMatchingDish(this.craftMatrix, this.hasBowl(), this.hasWater());
 		this.craftResult.setInventorySlotContents(0, d == null ? null : d.getItem());
 		this.currentRecipe = d;
 	}

@@ -1,5 +1,7 @@
 package com.gb.cornucopia.cookery.stove;
 
+import com.gb.cornucopia.cookery.SlotBowls;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -28,11 +30,13 @@ public class ContainerStove extends Container {
 			} 	
 		}
 
-		// output -= 7
+		// output = 7
 		this.addSlotToContainer(new SlotStoveOutput(stoveInventory, 7, 136, 25));
+		// bowls = 8
+		this.addSlotToContainer(new SlotBowls(stove, this, 8, 24, 37));
 
-		// fake slot ~ 44
-		this.addSlotToContainer(new SlotStoveVessel(stove, 44, 20, 25));
+		// fake slot ~ 45
+		this.addSlotToContainer(new SlotStoveVessel(stove, 44, 24, 19));
 		
 
 		// the player
@@ -119,15 +123,15 @@ public class ContainerStove extends Container {
 		{
 			final ItemStack stack = slot.getStack();
 			// try to transfer from table -> player
-			if (index < 8 )
+			if (index < 9 )
 			{
-				if (!this.mergeItemStack(stack, 8, 43, true)){ 
+				if (!this.mergeItemStack(stack, 9, 44, true)){ 
 					return null;
 				}
 			}
 			// player -> table
 			else {
-				if (!this.mergeItemStack(stack, 0, 7, false)){ 
+				if (!this.mergeItemStack(stack, 0, 8, false)){ 
 					return null;
 				}
 			}

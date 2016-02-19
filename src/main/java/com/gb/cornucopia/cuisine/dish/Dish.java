@@ -148,19 +148,19 @@ public class Dish {
 
 	public ItemStack getItem(){ return result.copy(); }
 	
-	public boolean matches(final IInventory crafting, final IInventory bowl, final boolean has_water)
+	public boolean matches(final IInventory crafting, int bowlcount, final boolean has_bowl, final boolean has_water)
 	{
-		return this.matches(crafting, 0, crafting.getSizeInventory(), bowl, has_water);
+		return this.matches(crafting, 0, crafting.getSizeInventory(), has_bowl, has_water);
 	}
 	
 
-	public boolean matches(final IInventory crafting, final int min, final int max, final IInventory bowl, final boolean has_water){
+	public boolean matches(final IInventory crafting, final int min, final int max, final boolean has_bowl, final boolean has_water){
 		// container will tell you if you're next to water
-		if (this.requires_water && !(has_water)) {
+		if (this.requires_water && !has_water) {
 			return false;
 		}
 		// could make this more like containerItem but I like the idea of making wooden bowls useful for once lol
-		if (this.requiresBowl() && (bowl == null || bowl.getStackInSlot(0) == null || bowl.getStackInSlot(0).getItem() != Items.bowl )){
+		if (this.requiresBowl() && !has_bowl){
 			return false;
 		}
 
