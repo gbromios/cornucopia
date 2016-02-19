@@ -77,22 +77,26 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 		return (oldState.getBlock() != newState.getBlock());
 
 	}
+	
+	private boolean hasOrEmpty(Item i){
+		return this.contents[1] == null || this.contents[1].getItem() == i;
+	}
 
-	public static boolean canPress(Item i) {
-		return i == Bees.honeycomb
-				|| i == Fruit.olive.raw
-				|| i == Fruit.orange.raw
-				|| i == Fruit.lemon.raw
-				|| i == Fruit.lime.raw
-				|| i == Veggie.grape.raw
-				|| Ingredient.mountain_berry.matches(i)
-				|| Ingredient.sweet_salad.matches(i)
-				|| i == Items.milk_bucket
-				|| i == Veggie.peanut.raw
-				|| i == Cuisine.pasta_dough
-				|| i == Veggie.soy.raw
-				|| i == Items.wheat_seeds
-				|| i instanceof ItemVeggieSeed
+	public boolean canPress(Item i) {
+		return ( i == Bees.honeycomb && this.hasOrEmpty(Bees.honey_raw) )
+				|| ( i == Fruit.olive.raw && this.hasOrEmpty(Cuisine.olive_oil) )
+				|| ( i == Fruit.orange.raw && this.hasOrEmpty(Cuisine.orange_juice) )
+				|| ( i == Fruit.lemon.raw && this.hasOrEmpty(Cuisine.lemon_juice) )
+				|| ( i == Fruit.lime.raw && this.hasOrEmpty(Cuisine.lime_juice) )
+				|| ( i == Veggie.grape.raw && this.hasOrEmpty(Cuisine.grape_juice) )
+				|| ( Ingredient.mountain_berry.matches(i) && this.hasOrEmpty(Cuisine.berry_juice) )
+				|| ( Ingredient.sweet_salad.matches(i) && this.hasOrEmpty(Cuisine.fruit_juice) )
+				|| ( i == Items.milk_bucket && this.hasOrEmpty(Cuisine.butter) )
+				|| ( i == Veggie.peanut.raw && this.hasOrEmpty(Cuisine.canola_oil) )
+				|| ( i == Cuisine.pasta_dough && this.hasOrEmpty(Cuisine.fresh_pasta) )
+				|| ( i == Veggie.soy.raw && this.hasOrEmpty(Cuisine.tofu) )
+				|| ( i == Items.wheat_seeds && this.hasOrEmpty(Cuisine.canola_oil) )
+				|| ( i instanceof ItemVeggieSeed && this.hasOrEmpty(Cuisine.canola_oil) )
 				;
 	}
 	
@@ -104,7 +108,7 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 		}
 
 		final Item i = this.contents[0].getItem();
-		return TileEntityPresser.canPress(i);
+		return this.canPress(i);
 	}
 
 	public void press(Item output, int ratio, Item byproduct, int byproduct_ratio){
