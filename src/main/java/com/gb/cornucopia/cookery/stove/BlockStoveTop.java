@@ -60,15 +60,28 @@ public class BlockStoveTop extends Block{
 	@Override
 	public void setBlockBoundsBasedOnState(final IBlockAccess world, final BlockPos pos){
 		//final EnumFacing f = (EnumFacing)world.getBlockState(pos).getValue(FACING);
-		final IBlockState state = world.getBlockState(pos.down());
-		if (state.getBlock() != Cookery.stove) { return; }
+		final IBlockState state = world.getBlockState(pos);
+		if (state.getBlock() != Cookery.stovetop) { return; }
 
-		switch ((EnumFacing)state.getValue(FACING)) {
-		case NORTH:	case SOUTH:
-			this.setBlockBounds(0.25F, 0F, 0.1875F, 0.75F, 0.0625F, 0.8125F);
+
+		switch((Vessel)state.getValue(VESSEL)) {
+		case POT:
+			this.setBlockBounds(0.25F, 0F, 0.25F, 0.75F, 0.5F, 0.75F);
 			break;
-		default:
-			this.setBlockBounds(0.1875F, 0F, 0.25F, 0.8125F, 0.0625F, 0.75F);		
+		case PAN:
+			this.setBlockBounds(0.25F, 0F, 0.25F, 0.75F, 0.5F, 0.75F);
+			break;
+		case NONE: default:
+			if (world.getBlockState(pos.down()).getBlock() != Cookery.stove) { return; } // just bail to avoid a possible null >__>
+			switch ((EnumFacing)world.getBlockState(pos.down()).getValue(FACING)) {
+			case NORTH:	case SOUTH:
+				this.setBlockBounds(0.25F, 0F, 0.1875F, 0.75F, 0.0625F, 0.8125F);
+				break;
+			default:
+				this.setBlockBounds(0.1875F, 0F, 0.25F, 0.8125F, 0.0625F, 0.75F);		
+			}	
+			break;
+
 		}
 	}
 
@@ -80,7 +93,7 @@ public class BlockStoveTop extends Block{
 		final IBlockState stove_state = world.getBlockState(pos.down());
 		return stove_state.getBlock().onBlockActivated(world, pos.down(), stove_state, player, side, hitX, hitY, hitZ);
 	}
-	
+
 	@Override
 	public void onNeighborBlockChange(final World world, final BlockPos pos, final IBlockState state, final Block neighborBlock){
 		if (world.getBlockState(pos.down()).getBlock() != Cookery.stove){
@@ -100,7 +113,7 @@ public class BlockStoveTop extends Block{
 			world.setBlockState(pos, state.withProperty(VESSEL, Vessel.NONE));
 		}
 	}
-	
+
 	@Override
 	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
 		final Vessel v = (Vessel)state.getValue(VESSEL);
@@ -130,16 +143,16 @@ public class BlockStoveTop extends Block{
 
 		return this.getDefaultState().withProperty(VESSEL, Vessel.values()[meta & 7]);
 	}
-	
+
 	@Override
 	public IBlockState getActualState(final IBlockState state, final IBlockAccess world, final BlockPos pos)
 	{
-		 IBlockState stove = world.getBlockState(pos.down());
-		 if (stove.getBlock() == Cookery.stove) {
-			 return state.withProperty(FACING, stove.getValue(FACING));
-		 } else {
-			 return state;
-		 }
+		IBlockState stove = world.getBlockState(pos.down());
+		if (stove.getBlock() == Cookery.stove) {
+			return state.withProperty(FACING, stove.getValue(FACING));
+		} else {
+			return state;
+		}
 	}	
 
 	@Override

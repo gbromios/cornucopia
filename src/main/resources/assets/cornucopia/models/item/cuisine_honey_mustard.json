@@ -1,7 +1,7 @@
 {
-    "parent": "builtin/generated",
+    "parent":"builtin/generated",
     "textures": {
-        "layer0": "cornucopia:items/cuisine_mirepoix"
+        "layer0":"cornucopia:items/cuisine_honey_mustard"
     },
     "display": {
         "thirdperson": {
@@ -16,3 +16,4 @@
         }
     }
 }
+		

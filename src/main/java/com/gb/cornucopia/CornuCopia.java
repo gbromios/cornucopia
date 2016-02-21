@@ -2,6 +2,7 @@ package com.gb.cornucopia;
 
 import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cookery.Cookery;
+import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggie;
 
@@ -22,7 +23,7 @@ public class CornuCopia
 {
 	public static final String NAME = "CornuCopia";
 	public static final String MODID = "cornucopia";
-	public static final String VERSION = "1.1.6";
+	public static final String VERSION = "1.1.9";
 
 	@Instance(value = CornuCopia.MODID)
 	public static CornuCopia instance;
@@ -59,7 +60,7 @@ public class CornuCopia
 	public static final CreativeTabs tabCuisine = new CreativeTabs("cc_cuisine"){
 		@Override
 		public Item getTabIconItem() {
-			return Bees.honey_raw; // TODO: fix icon
+			return Cuisine.bread_dough;
 		}
 	};
 

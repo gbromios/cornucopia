@@ -31,7 +31,7 @@ public class ContainerStove extends Container {
 		}
 
 		// output = 7
-		this.addSlotToContainer(new SlotStoveOutput(stoveInventory, 7, 136, 25));
+		this.addSlotToContainer(new SlotStoveOutput(stoveInventory, 7, 136, 24));
 		// bowls = 8
 		this.addSlotToContainer(new SlotBowls(stove, this, 8, 24, 37));
 

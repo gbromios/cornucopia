@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"cornucopia:items/cuisine_oil_olive"
+        "layer0":"cornucopia:items/cuisine_pickle"
     },
     "display": {
         "thirdperson": {

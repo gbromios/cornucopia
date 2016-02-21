@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ItemLibation extends Item{
 	public final String name;
 	public ItemLibation(String name) {
-		this.name = "brew_" + name + "_drink";
+		this.name = "cuisine_" + name;
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabCuisine);
 		GameRegistry.registerItem(this, this.name);

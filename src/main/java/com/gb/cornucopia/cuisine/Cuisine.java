@@ -119,7 +119,7 @@ public class Cuisine {
 		pasta_dough = _generic("pasta_dough");
 		fresh_pasta = _generic("fresh_pasta");
 		peanut_butter = new ItemCuisine("peanut_butter", 2, 0.75F);
-		olive_oil = new ItemCuisine("oil_olive", 1, 0.5F);
+		olive_oil = new ItemCuisine("olive_oil", 1, 0.5F);
 		grape_juice = new ItemCuisine("grape_juice", 1, 0.15F);
 		berry_juice = new ItemCuisine("berry_juice", 1, 0.15F);
 		fruit_juice = new ItemCuisine("fruit_juice", 1, 0.15F);
