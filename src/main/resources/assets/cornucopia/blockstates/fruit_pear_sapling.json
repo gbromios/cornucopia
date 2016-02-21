@@ -1,10 +1,10 @@
 {
   "variants": {
     "age=0": {
-      "model": "oak_sapling"
+      "model": "cornucopia:fruit_pear_sapling"
     }, 
     "age=1": {
-      "model": "oak_sapling"
+      "model": "cornucopia:fruit_pear_sapling"
     }
   }
 }

@@ -1,10 +1,10 @@
 {
   "variants": {
     "age=0": {
-      "model": "acacia_sapling"
+      "model": "cornucopia:fruit_date_sapling"
     }, 
     "age=1": {
-      "model": "acacia_sapling"
+      "model": "cornucopia:fruit_date_sapling"
     }
   }
 }

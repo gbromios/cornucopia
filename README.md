@@ -3,7 +3,7 @@
 
 Originally I set out to update Pam's HarvestCraft for 1.8 so we could use it on WilsonSMP. However, Pam herself didn't really seem too enthused when I asked her permission, though she did consent with the qualification that it was for a private server.
 
-Given the changes required to upgrade from 1.7 to 1.8 and the nature of the HarvestCraft codebase, it quickly became apparent that it would be faster and easier to re-implement the entire thing from scratch. It's gone quite well, and I think this mod has a lot of potential.
+Given the breadth of changes required to upgrade from 1.7 to 1.8, it quickly became apparent that it would be faster and easier to re-implement the entire thing from scratch. It's gone quite well, and starting fresh allowed me to add and change functionality 
 
 The underlying ethos of CornuCopia is that of WilsonSMP: to add depth of gameplay and aesthetics without over-complicated mechanics that detract from the general feel of vanilla.
 
@@ -77,8 +77,8 @@ I'm still fine-tuning the numbers here, but this module is pretty well completed
  - There is already support for aging your brews, such that the longer you leave them, the better they'll get. Unfortunately, "better" doesn't actually mean anything yet. I'll expand those mechanics soon!
  
 ## Cheese 
-  - Raw Milk can be processed into curds
-  - Curds can be fermented (which takes much less time than fermenting libations) to produce a fresh cheese block
+  - Raw mink can be fermented (which takes much less time than fermenting libations) to produce a fresh cheese block
+  - you can break this block down into fresh cheese wedges at the cutting board
   - this block can be placed somewhere out of the way (in your pantry or cellar) to age. Again, it's possible to move this block, but doing so may reset the aging process. This is very delicate cheese, man!
   - Aged cheese wheels act like cake: click to recieve a wedge.
   
