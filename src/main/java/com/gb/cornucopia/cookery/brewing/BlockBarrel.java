@@ -7,6 +7,7 @@ import java.util.Random;
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.cookery.Cookery;
+import com.gb.cornucopia.cuisine.Cuisine;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
@@ -33,6 +34,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 // barrel is built with wood + iron + cooking product
 // e.g wood + grape juice = wine barrel
@@ -45,20 +47,20 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 	public static final PropertyBool UNDER_BARREL = PropertyBool.create("under_barrel");
 	public static final PropertyEnum AXIS = PropertyEnum.create("axis", BlockLog.EnumAxis.class);
-	
+
 	public final String name;
 	public final int last_age;
 	private final Item[] drops;
 	private final Item[] inputs; // so we know wether to drop container items
 	private final int fermentation_time;
-	
+
 	public static final int DEFUALT_F_TIME = (int) 7.2e+7; // 20 irl hours in ms
-	
-	public BlockBarrel(String name, int last_stage, Item[] drops, Item[] inputs){
-		this(name, last_stage, drops, inputs, DEFUALT_F_TIME);
+
+	public BlockBarrel(String name, int last_stage, Item[] drops, Item[] inputs, boolean juice_flag){
+		this(name, last_stage, drops, inputs, DEFUALT_F_TIME, juice_flag);
 	}
-	
-	public BlockBarrel(String name, int last_stage, Item[] drops, Item[] inputs, int f_time){
+
+	public BlockBarrel(String name, int last_stage, Item[] drops, Item[] inputs, int f_time, final boolean juice_flag){
 		super(Material.wood);
 		if (last_stage < 1 || last_stage > 3) {
 			throw new RuntimeException(String.format("error initializing %s barrel: must have one drop per stage, last_stage %d != 1..3\n", name, last_stage));
@@ -79,38 +81,54 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 		GameRegistry.registerBlock(this, this.name);
 		GameRegistry.registerTileEntity(TileEntityBarrel.class, "brew_"+name+"_entity");
 		InvModel.add(this, "brew_"+name+"_barrel");
-		
-		if (inputs.length == 1) {
-			GameRegistry.addShapedRecipe(new ItemStack(this),
-					" S ", " I ", " B ",
+
+		if (juice_flag == true) {
+			// TODO: this is bad sorry
+
+			final String juice = inputs[0] == Cuisine.apple_juice ? "juiceCider" : "juiceCordial" ;
+			GameRegistry.addRecipe(new ShapedOreRecipe(this, true, new Object[]{
+					" S ", "JJJ", " B ",
 					'S', Blocks.wooden_slab,
 					'B', Cookery.empty_barrel,
-					'I', inputs[0]
-					);	
-		} else if (inputs.length == 2) {
-			GameRegistry.addShapedRecipe(new ItemStack(this),
-					" S ", "JI ", " B ",
-					'S', Blocks.wooden_slab,
-					'B', Cookery.empty_barrel,
-					'I', inputs[0],
-					'J', inputs[1]
-					);			
-		} else if (inputs.length == 3) {
-			GameRegistry.addShapedRecipe(new ItemStack(this),
-					" S ", "JIK", " B ",
-					'S', Blocks.wooden_slab,
-					'B', Cookery.empty_barrel,
-					'I', inputs[0],
-					'J', inputs[1],
-					'K', inputs[2]
-					);
-		}  else {
-			throw new RuntimeException(String.format("invalid recipe for %s barrel- needs 1, 2 or 3 inputs\n%s\n", name, inputs));
+					'J', juice
+			}));
+
+		} else {
+
+			if (inputs.length == 1) {
+				GameRegistry.addShapedRecipe(new ItemStack(this),
+						" S ", " I ", " B ",
+						'S', Blocks.wooden_slab,
+						'B', Cookery.empty_barrel,
+						'I', inputs[0]
+						);	
+			} else if (inputs.length == 2) {
+				GameRegistry.addShapedRecipe(new ItemStack(this),
+						" S ", "JI ", " B ",
+						'S', Blocks.wooden_slab,
+						'B', Cookery.empty_barrel,
+						'I', inputs[0],
+						'J', inputs[1]
+						);			
+			} else if (inputs.length == 3) {
+				GameRegistry.addShapedRecipe(new ItemStack(this),
+						" S ", "JIK", " B ",
+						'S', Blocks.wooden_slab,
+						'B', Cookery.empty_barrel,
+						'I', inputs[0],
+						'J', inputs[1],
+						'K', inputs[2]
+						);
+			}  else {
+				throw new RuntimeException(String.format("invalid recipe for %s barrel- needs 1, 2 or 3 inputs\n%s\n", name, inputs));
+			}
 		}
-		
-		
+
+
 	}
-	
+
+	// mutant constructor
+
 	@Override
 	public void setBlockBoundsBasedOnState(final IBlockAccess world, final BlockPos pos){
 
@@ -126,7 +144,7 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 			break;
 		}
 
-		
+
 		/*
 		if (facing == EnumFacing.NORTH || facing == EnumFacing.SOUTH) {
 			this.setBlockBounds(0.0625F, 0.0F, 0.125F, 0.9375F, 0.0625F, 0.875F); // figure out a better place to do this...
@@ -135,26 +153,26 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 		}*/
 
 	}
-	
+
 	public boolean fermented(long t){
 		return t >= this.fermentation_time;
 	}
-	
+
 	public boolean isRipe(IBlockState state){
 		// stage >= 1
 		return (int)state.getValue(AGE) >= 1 ;
 	}
-	
+
 	protected boolean canBlockStay(final World world, final BlockPos pos)
 	{
 		return world.isSideSolid(pos.down(), EnumFacing.UP, true) || world.getBlockState(pos.down()).getBlock() instanceof BlockBarrel;
 	}
-	
+
 	@Override
-    public boolean canPlaceBlockAt(final World world, final BlockPos pos)
-    {
+	public boolean canPlaceBlockAt(final World world, final BlockPos pos)
+	{
 		return world.isSideSolid(pos.down(), EnumFacing.UP, true) || world.getBlockState(pos.down()).getBlock() instanceof BlockBarrel;
-    }
+	}
 
 	@Override
 	public boolean isOpaqueCube(){
@@ -164,14 +182,14 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 	public boolean isFullCube(){
 		return false;
 	}
-	
-    public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-    	if (world.getBlockState(pos.down()).getBlock() instanceof BlockBarrel) {
+
+	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
+		if (world.getBlockState(pos.down()).getBlock() instanceof BlockBarrel) {
 			return this.getDefaultState().withProperty(AXIS, world.getBlockState(pos.down()).getValue(AXIS));
-    	} else {
-    	return this.getDefaultState().withProperty(AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
-    	}
-    }
+		} else {
+			return this.getDefaultState().withProperty(AXIS, EnumAxis.fromFacingAxis(facing.getAxis()));
+		}
+	}
 
 	@Override
 	public IBlockState getStateFromMeta(final int meta)
@@ -204,7 +222,7 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 		//return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
 		return false;
 	}
-	
+
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		final List<ItemStack> drops = new ArrayList<>();
@@ -220,25 +238,25 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 		else {
 			drops.add(new ItemStack(this));
 		}
-		
+
 		return drops;
-		
+
 	};
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(final World world, final BlockPos pos, final IBlockState state, final Random rand){
 		final int age = (int) state.getValue(AGE); 
-		
+
 		if (age >= rand.nextFloat() * 3){
 			double pX = pos.getX() + 0.5;
 			double pY = pos.getY() + 1;
 			double pZ = pos.getZ() + 0.5;
-			
-		    double mX = rand.nextGaussian() * 0.02D;
-		    double mY = rand.nextGaussian() * 0.02D;
-		    double mZ = rand.nextGaussian() * 0.02D;
-		    
+
+			double mX = rand.nextGaussian() * 0.02D;
+			double mY = rand.nextGaussian() * 0.02D;
+			double mZ = rand.nextGaussian() * 0.02D;
+
 			world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, pX, pY, pZ, mX, mY, mZ);
 		}
 	}
@@ -247,7 +265,7 @@ public class BlockBarrel extends Block implements ITileEntityProvider{
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityBarrel();
 	}
-	
-	
-	
+
+
+
 }

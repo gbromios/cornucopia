@@ -85,12 +85,7 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 	public boolean canPress(Item i) {
 		return ( i == Bees.honeycomb && this.hasOrEmpty(Bees.honey_raw) )
 				|| ( i == Fruit.olive.raw && this.hasOrEmpty(Cuisine.olive_oil) )
-				|| ( i == Fruit.orange.raw && this.hasOrEmpty(Cuisine.orange_juice) )
-				|| ( i == Fruit.lemon.raw && this.hasOrEmpty(Cuisine.lemon_juice) )
-				|| ( i == Fruit.lime.raw && this.hasOrEmpty(Cuisine.lime_juice) )
-				|| ( i == Veggie.grape.raw && this.hasOrEmpty(Cuisine.grape_juice) )
-				|| ( Ingredient.mountain_berry.matches(i) && this.hasOrEmpty(Cuisine.berry_juice) )
-				|| ( Ingredient.sweet_salad.matches(i) && this.hasOrEmpty(Cuisine.fruit_juice) )
+				|| ( Cuisine.hathJuice(i) && this.hasOrEmpty(Cuisine.getJuice(i)) )
 				|| ( i == Items.milk_bucket && this.hasOrEmpty(Cuisine.butter) )
 				|| ( i == Veggie.peanut.raw && this.hasOrEmpty(Cuisine.canola_oil) )
 				|| ( i == Cuisine.pasta_dough && this.hasOrEmpty(Cuisine.fresh_pasta) )
@@ -160,9 +155,6 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 		} else if (i == Fruit.olive.raw) {
 			press(Cuisine.olive_oil, 4);
 
-		} else if (i == Veggie.grape.raw) {
-			press(Cuisine.grape_juice, 8);
-
 		} else if (i == Items.milk_bucket) {
 			press(Cuisine.butter, 1, Items.bucket);
 
@@ -178,21 +170,9 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 		} else if (i == Veggie.peanut.raw) {
 			press(Cuisine.canola_oil, 8);
 
-		} else if (Ingredient.mountain_berry.matches(i)) {
-			press(Cuisine.berry_juice, 9); // experimenting with non po2
+		} else if (Cuisine.hathJuice(i)) {
+			press(Cuisine.getJuice(i), 9); // experimenting with non po2
 
-		} else if (i == Fruit.orange.raw) {
-			press(Cuisine.orange_juice, 9); // experimenting with non po2
-
-		} else if (i == Fruit.lemon.raw) {
-			press(Cuisine.lemon_juice, 9); // experimenting with non po2
-
-		} else if (i == Fruit.lime.raw) {
-			press(Cuisine.lime_juice, 9); // experimenting with non po2
-
-		} else if (Ingredient.sweet_salad.matches(i)) {
-			press(Cuisine.fruit_juice, 6); // experimenting with non po2
-			
 		}  else if (i == Cuisine.pasta_dough) {
 			press(Cuisine.fresh_pasta, 1); // experimenting with non po2
 

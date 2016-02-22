@@ -53,7 +53,8 @@ public class BlockPresserTop extends Block {
 		final TileEntityPresser presser = (TileEntityPresser)world.getTileEntity(pos.down());
 		
 		if (progress == 7 || !presser.canPress()) {
-			return false;
+			//return false;
+			return true;
 		}
 		if (progress == 6) {
 			// trigger the pressing
@@ -97,7 +98,11 @@ public class BlockPresserTop extends Block {
 	public IBlockState getActualState(final IBlockState state, final IBlockAccess world, final BlockPos pos)
 	{
 		// derive facing from stove block below
-		return state.withProperty(FACING, world.getBlockState(pos.down()).getValue(FACING));
+		if (world.getBlockState(pos.down()) == Cookery.presser) {
+			return state.withProperty(FACING, world.getBlockState(pos.down()).getValue(FACING));
+		} else {
+			return state;
+		}
 	}
 
 	@Override

@@ -43,7 +43,7 @@ public class BlockPresser extends Block  implements ITileEntityProvider{
 
 	@Override
 	public boolean canPlaceBlockAt(final World world, final BlockPos pos){
-		return super.canPlaceBlockAt(world, pos) && super.canPlaceBlockAt(world, pos.up());
+		return super.canPlaceBlockAt(world, pos); //&& (world.isAirBlock(pos.up()) || world.getBlockState(pos.up()).getBlock() == Cookery.pressertop);
 	}
 
 	public IBlockState onBlockPlaced(final World world, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer)
@@ -53,8 +53,17 @@ public class BlockPresser extends Block  implements ITileEntityProvider{
 
 	public void onBlockPlacedBy(final World world, final BlockPos pos, final IBlockState state, final EntityLivingBase placer, final ItemStack stack)
 	{
-		world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(PROGRESS, 0), 2);
-		world.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(BlockStoveTop.FACING, placer.getHorizontalFacing().getOpposite()));
+		//world.setBlockState(pos, state, 2);
+		//super.onBlockPlacedBy(world, pos, state, placer, stack);
+		//if (this.canPlaceBlockAt(world, pos)) {
+		//	 world.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, state.getValue(FACING)));
+		//}
+		
+		
+		if ( world.isAirBlock(pos.up()) ) {
+			world.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, state.getValue(FACING)));
+		}
+		
 	}
 	
 	public void breakBlock(final World world, final BlockPos pos, final IBlockState state)
@@ -66,6 +75,11 @@ public class BlockPresser extends Block  implements ITileEntityProvider{
 		{
 			InventoryHelper.dropInventoryItems(world, pos, (TileEntityPresser)presser);
 		}
+
+		if (world.getBlockState(pos.up()).getBlock() == Cookery.pressertop) {
+			world.setBlockToAir(pos.up());
+		}
+		
 		super.breakBlock(world, pos, state);
 	}
 
@@ -94,8 +108,7 @@ public class BlockPresser extends Block  implements ITileEntityProvider{
 	{
 		// derive progress from handle above
 		final IBlockState pup = world.getBlockState(pos.up());
-		return pup.getBlock() == Cookery.pressertop ? state.withProperty(PROGRESS, pup.getValue(PROGRESS)) : state ;
-		
+		return state.withProperty(PROGRESS, pup.getBlock() == Cookery.pressertop ? pup.getValue(PROGRESS) : 0 );
 	}
 
 	public int getMetaFromState(final IBlockState state)
@@ -120,10 +133,9 @@ public class BlockPresser extends Block  implements ITileEntityProvider{
 	
 	@Override
 	public void onNeighborBlockChange(final World world, final BlockPos pos, final IBlockState state, final Block neighborBlock){
-		if (world.getBlockState(pos.up()).getBlock() != Cookery.pressertop){
-			this.dropBlockAsItem(world, pos, state, 0);
-			this.breakBlock(world, pos, state);
-			world.setBlockToAir(pos);
+		System.out.println("...");
+		if ( world.isAirBlock(pos.up()) ) {
+			world.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, state.getValue(FACING)));
 		}
 	}
 	

@@ -11,6 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class Ingredient {
 
@@ -27,6 +28,9 @@ public class Ingredient {
 	public static final Ingredient savory_salad = new Ingredient("savory_salad");
 	public static final Ingredient sweet_salad = new Ingredient("sweet_salad");
 	public static final Ingredient dressing = new Ingredient("dressing");
+	public static final Ingredient juice = new Ingredient("juice");
+	public static final Ingredient ciderable = new Ingredient("ciderable");
+	public static final Ingredient cordialable = new Ingredient("cordialable");
 
 	// set up ingredients so we can use them in dishes
 	// this can be done late as ingredient members will not
@@ -36,7 +40,7 @@ public class Ingredient {
 		.add(Items.sugar)
 		.add(Bees.honey_raw)
 		;
-		
+
 		mirepoix_part
 		.add(Veggie.onion.raw)
 		.add(Veggie.celery.raw)
@@ -44,7 +48,7 @@ public class Ingredient {
 		.add(Veggie.bell_pepper.raw)
 		.add(Items.carrot)
 		;		
-		
+
 		mountain_berry
 		.add(Veggie.blackberry.raw)
 		.add(Fruit.pear.raw)
@@ -53,20 +57,20 @@ public class Ingredient {
 		.add(Veggie.raspberry.raw)
 		.add(Fruit.cherry.raw)
 		;
-		
+
 		citrus
 		.add(Fruit.orange.raw)
 		.add(Fruit.lime.raw)
 		.add(Fruit.lemon.raw)
 		.add(Fruit.grapefruit.raw)
 		;
-		
+
 		fat
 		.add(Cuisine.olive_oil)
 		.add(Cuisine.butter)
 		.add(Cuisine.canola_oil)
 		;
-		
+
 		kebab_veggie
 		.add(Veggie.bell_pepper.raw)
 		.add(Veggie.onion.raw)
@@ -74,21 +78,21 @@ public class Ingredient {
 		.add(Blocks.red_mushroom)
 		.add(Blocks.brown_mushroom)
 		;
-		
+
 		red_meat
 		.add(Items.beef)
 		.add(Items.porkchop)
 		.add(Items.mutton)
 		.add(Items.rabbit)
 		;
-		
+
 		cooked_red_meat
 		.add(Items.cooked_beef)
 		.add(Items.cooked_porkchop)
 		.add(Items.cooked_mutton)
 		.add(Items.cooked_rabbit)
 		;
-		
+
 		seasoning
 		.add(Cuisine.black_pepper)
 		.add(Cuisine.basil)
@@ -101,7 +105,7 @@ public class Ingredient {
 		.add(Cuisine.rosemary)
 		.add(Cuisine.salt)
 		;
-		
+
 		casserole_veggie
 		.add(Veggie.artichoke.raw)
 		.add(Veggie.asparagus.raw)
@@ -116,7 +120,67 @@ public class Ingredient {
 		.add(Veggie.eggplant.raw)
 		.add(Veggie.zucchini.raw)
 		;
-		
+
+		juice
+		.add(Cuisine.apple_juice)
+		.add(Cuisine.carrot_juice)
+		.add(Cuisine.melon_juice)
+		.add(Cuisine.cherry_juice)
+		.add(Cuisine.date_juice)
+		.add(Cuisine.fig_juice)
+		.add(Cuisine.grapefruit_juice)
+		.add(Cuisine.kiwi_juice)
+		.add(Cuisine.lemon_juice)
+		.add(Cuisine.lime_juice)
+		.add(Cuisine.orange_juice)
+		.add(Cuisine.peach_juice)
+		.add(Cuisine.pear_juice)
+		.add(Cuisine.plum_juice)
+		.add(Cuisine.pomegranate_juice)
+		.add(Cuisine.beet_juice)
+		.add(Cuisine.blackberry_juice)
+		.add(Cuisine.blueberry_juice)
+		.add(Cuisine.pineapple_juice)
+		.add(Cuisine.raspberry_juice)
+		.add(Cuisine.strawberry_juice)
+		.add(Cuisine.tomato_juice)
+		.add(Cuisine.grape_juice)
+		;
+
+		cordialable
+		.add(Cuisine.cherry_juice)
+		.add(Cuisine.kiwi_juice)
+		.add(Cuisine.fig_juice)
+		.add(Cuisine.plum_juice)
+		.add(Cuisine.pomegranate_juice)
+		.add(Cuisine.blackberry_juice)
+		.add(Cuisine.blueberry_juice)
+		.add(Cuisine.raspberry_juice)
+		.add(Cuisine.strawberry_juice)
+		;
+
+		// actually need vanilla forge ore dict api for this one!
+		OreDictionary.registerOre("juiceCordial", Cuisine.cherry_juice);
+		OreDictionary.registerOre("juiceCordial", Cuisine.kiwi_juice);
+		OreDictionary.registerOre("juiceCordial", Cuisine.fig_juice);
+		OreDictionary.registerOre("juiceCordial", Cuisine.plum_juice);
+		OreDictionary.registerOre("juiceCordial", Cuisine.pomegranate_juice);
+		OreDictionary.registerOre("juiceCordial", Cuisine.blackberry_juice);
+		OreDictionary.registerOre("juiceCordial", Cuisine.blueberry_juice);
+		OreDictionary.registerOre("juiceCordial", Cuisine.raspberry_juice);
+		OreDictionary.registerOre("juiceCordial", Cuisine.strawberry_juice);
+
+		ciderable
+		.add(Cuisine.apple_juice)
+		.add(Cuisine.peach_juice)
+		.add(Cuisine.pear_juice)
+		;
+
+		OreDictionary.registerOre("juiceCider", Cuisine.apple_juice);
+		OreDictionary.registerOre("juiceCider", Cuisine.peach_juice);
+		OreDictionary.registerOre("juiceCider", Cuisine.pear_juice);
+		;
+
 		savory_salad
 		.add(Veggie.artichoke.raw)
 		.add(Veggie.beet.raw)
@@ -133,7 +197,7 @@ public class Ingredient {
 		.add(Veggie.eggplant.raw)
 		.add(Fruit.avocado.raw)
 		;
-		
+
 		dressing
 		.add(Cuisine.vinegar)
 		.add(Cuisine.olive_oil)
@@ -141,7 +205,7 @@ public class Ingredient {
 		.add(Cuisine.mayonnaise)
 		.add(Cuisine.ketchup)
 		;
-		
+
 		sweet_salad
 		.add(Items.apple)
 		.add(Veggie.blackberry.raw)
@@ -157,7 +221,7 @@ public class Ingredient {
 		.add(Fruit.kiwi.raw)
 		.add(Fruit.peach.raw)
 		;
-		
+
 	}
 	// TODO: look into compatibility with NEI?
 	public final String name;

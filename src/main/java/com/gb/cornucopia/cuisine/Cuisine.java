@@ -1,11 +1,14 @@
 package com.gb.cornucopia.cuisine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.Vessel;
 import com.gb.cornucopia.cuisine.dish.Dish;
+import com.gb.cornucopia.fruit.Fruit;
+import com.gb.cornucopia.veggie.Veggie;
 import com.gb.util.WeightedArray;
 import com.google.common.collect.Lists;
 
@@ -33,12 +36,32 @@ public class Cuisine {
 	public static ItemCuisine fresh_pasta;
 	public static ItemCuisine peanut_butter;
 	public static ItemCuisine olive_oil;
-	public static ItemCuisine grape_juice;
-	public static ItemCuisine fruit_juice;
-	public static ItemCuisine berry_juice;
-	public static ItemCuisine orange_juice;
-	public static ItemCuisine lime_juice;
+	
+	public static ItemCuisine carrot_juice;
+	public static ItemCuisine melon_juice;
+	public static ItemCuisine apple_juice;
+	public static ItemCuisine cherry_juice;
+	public static ItemCuisine date_juice;
+	public static ItemCuisine fig_juice;
+	public static ItemCuisine grapefruit_juice;
+	public static ItemCuisine kiwi_juice;
 	public static ItemCuisine lemon_juice;
+	public static ItemCuisine lime_juice;
+	public static ItemCuisine orange_juice;
+	public static ItemCuisine peach_juice;
+	public static ItemCuisine pear_juice;
+	public static ItemCuisine plum_juice;
+	public static ItemCuisine pomegranate_juice;
+	public static ItemCuisine beet_juice;
+	public static ItemCuisine blackberry_juice;
+	public static ItemCuisine blueberry_juice;
+	public static ItemCuisine pineapple_juice;
+	public static ItemCuisine raspberry_juice;
+	public static ItemCuisine strawberry_juice;
+	public static ItemCuisine tomato_juice;
+	public static ItemCuisine grape_juice;
+	private static final HashMap<Item, Item> juice_map = new HashMap<>();
+	
 	public static ItemCuisine butter;
 	public static ItemCuisine canola_oil;
 	public static ItemCuisine tofu;
@@ -101,11 +124,17 @@ public class Cuisine {
 
 	public static final WeightedArray<Item> spice_drops = new WeightedArray<>();
 	public static final WeightedArray<Item> herb_drops = new WeightedArray<>();
+	
+	public static PotionWellFed well_fed;
 
 	// i.e. inedible stables OR placeholders
 	private static ItemCuisine _generic(String name){ return new ItemCuisine(name, 0, 0F); }
 
 	public static void preInit(){		
+		// wut
+		well_fed = new PotionWellFed();
+		
+		
 		flour = _generic("flour");
 		soda = _generic("soda");
 		salt = _generic("salt");
@@ -115,15 +144,35 @@ public class Cuisine {
 		anchovy = _generic("anchovy");
 		bread_dough = _generic("bread_dough");
 		batter = _generic("batter");
+		
 		pastry_dough = _generic("pastry_dough");
 		pasta_dough = _generic("pasta_dough");
 		fresh_pasta = _generic("fresh_pasta");
 		peanut_butter = new ItemCuisine("peanut_butter", 2, 0.75F);
 		olive_oil = new ItemCuisine("olive_oil", 1, 0.5F);
-		grape_juice = new ItemCuisine("grape_juice", 1, 0.15F);
-		berry_juice = new ItemCuisine("berry_juice", 1, 0.15F);
-		fruit_juice = new ItemCuisine("fruit_juice", 1, 0.15F);
-		orange_juice = new ItemCuisine("orange_juice", 1, 0.15F);
+		
+		carrot_juice = new ItemCuisine("carrot_juice", 2, 0.15F);
+		apple_juice = new ItemCuisine("apple_juice", 2, 0.15F);
+		melon_juice = new ItemCuisine("melon_juice", 2, 0.15F);
+		cherry_juice = new ItemCuisine("cherry_juice", 2, 0.15F);
+		date_juice = new ItemCuisine("date_juice", 2, 0.15F);
+		fig_juice = new ItemCuisine("fig_juice", 2, 0.15F);
+		grapefruit_juice = new ItemCuisine("grapefruit_juice", 2, 0.15F);
+		kiwi_juice = new ItemCuisine("kiwi_juice", 2, 0.15F);
+		orange_juice = new ItemCuisine("orange_juice", 2, 0.15F);
+		peach_juice = new ItemCuisine("peach_juice", 2, 0.15F);
+		pear_juice = new ItemCuisine("pear_juice", 2, 0.15F);
+		plum_juice = new ItemCuisine("plum_juice", 2, 0.15F);
+		pomegranate_juice = new ItemCuisine("pomegranate_juice", 2, 0.15F);
+		beet_juice = new ItemCuisine("beet_juice", 2, 0.15F);
+		blackberry_juice = new ItemCuisine("blackberry_juice", 2, 0.15F);
+		blueberry_juice = new ItemCuisine("blueberry_juice", 2, 0.15F);
+		pineapple_juice = new ItemCuisine("pineapple_juice", 2, 0.15F);
+		raspberry_juice = new ItemCuisine("raspberry_juice", 2, 0.15F);
+		strawberry_juice = new ItemCuisine("strawberry_juice", 2, 0.15F);
+		tomato_juice = new ItemCuisine("tomato_juice", 2, 0.15F);
+		grape_juice = new ItemCuisine("grape_juice", 2, 0.15F);
+		
 		lime_juice = _generic("lime_juice");
 		lemon_juice = _generic("lemon_juice");
 
@@ -207,6 +256,32 @@ public class Cuisine {
 		.add(oregano = _generic("oregano"), 20)
 		.add(rosemary = _generic("rosemary"), 20)
 		;
+		
+		juice_map.put(Items.carrot, Cuisine.carrot_juice);
+		juice_map.put(Items.apple, Cuisine.apple_juice);
+		juice_map.put(Items.melon, Cuisine.melon_juice);
+		juice_map.put(Fruit.cherry.raw, Cuisine.cherry_juice);
+		juice_map.put(Fruit.date.raw, Cuisine.date_juice);
+		juice_map.put(Fruit.fig.raw, Cuisine.fig_juice);
+		juice_map.put(Fruit.grapefruit.raw, Cuisine.grapefruit_juice);
+		juice_map.put(Fruit.kiwi.raw, Cuisine.kiwi_juice);
+		juice_map.put(Fruit.lemon.raw, Cuisine.lemon_juice);
+		juice_map.put(Fruit.lime.raw, Cuisine.lime_juice);
+		juice_map.put(Fruit.orange.raw, Cuisine.orange_juice);
+		juice_map.put(Fruit.peach.raw, Cuisine.peach_juice);
+		juice_map.put(Fruit.pear.raw, Cuisine.pear_juice);
+		juice_map.put(Fruit.plum.raw, Cuisine.plum_juice);
+		juice_map.put(Fruit.pomegranate.raw, Cuisine.pomegranate_juice);
+		juice_map.put(Veggie.beet.raw, Cuisine.beet_juice);
+		juice_map.put(Veggie.blackberry.raw, Cuisine.blackberry_juice);
+		juice_map.put(Veggie.blueberry.raw, Cuisine.blueberry_juice);
+		juice_map.put(Veggie.pineapple.raw, Cuisine.pineapple_juice);
+		juice_map.put(Veggie.raspberry.raw, Cuisine.raspberry_juice);
+		juice_map.put(Veggie.strawberry.raw, Cuisine.strawberry_juice);
+		juice_map.put(Veggie.tomato.raw, Cuisine.tomato_juice);
+		juice_map.put(Veggie.grape.raw, Cuisine.grape_juice);
+
+		;
 
 	}
 
@@ -245,6 +320,13 @@ public class Cuisine {
 		{
 			recipes.remove(rm);
 		}
+	}
+
+	public static Item getJuice(Item i) {
+		return juice_map.get(i);
+	}
+	public static boolean hathJuice(Item i) {
+		return juice_map.containsKey(i);
 	}
 
 }
