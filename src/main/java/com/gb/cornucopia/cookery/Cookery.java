@@ -5,6 +5,7 @@ import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cheese.Cheese;
 import com.gb.cornucopia.cookery.brewing.BlockBarrel;
+import com.gb.cornucopia.cookery.brewing.BlockBarrelEmpty;
 import com.gb.cornucopia.cookery.cuttingboard.BlockCuttingBoard;
 import com.gb.cornucopia.cookery.mill.BlockMill;
 import com.gb.cornucopia.cookery.mill.BlockMillTop;
@@ -39,7 +40,7 @@ public class Cookery {
 	public static BlockMill mill;
 	public static BlockMillTop milltop;
 	
-	public static Item empty_barrel;
+	public static BlockBarrelEmpty empty_barrel;
 	public static Item barrel_hoop;
 	public static Item barrel_stave;
 	public static BlockBarrel wine_barrel;
@@ -77,19 +78,16 @@ public class Cookery {
 
 		// things to make barrels empty barrels
 		barrel_hoop = new Item().setUnlocalizedName("brew_barrel_hoop");
-		barrel_hoop.setCreativeTab(null);
+		barrel_hoop.setCreativeTab(CornuCopia.tabCookery);
 		GameRegistry.registerItem(barrel_hoop, "brew_barrel_hoop");
 		InvModel.add(barrel_hoop, "brew_barrel_hoop");
 		
 		barrel_stave = new Item().setUnlocalizedName("brew_barrel_stave");
-		barrel_hoop.setCreativeTab(null);
+		barrel_stave.setCreativeTab(CornuCopia.tabCookery);
 		GameRegistry.registerItem(barrel_stave, "brew_barrel_stave");
 		InvModel.add(barrel_stave, "brew_barrel_stave");
 		
-		empty_barrel = new Item().setUnlocalizedName("brew_empty_barrel");
-		barrel_hoop.setCreativeTab(CornuCopia.tabCuisine);
-		GameRegistry.registerItem(empty_barrel, "brew_empty_barrel");
-		InvModel.add(empty_barrel, "brew_empty_barrel");
+		empty_barrel = new BlockBarrelEmpty("empty");
 	};
 	
 	
@@ -100,15 +98,15 @@ public class Cookery {
 
 	// finished barrel recipes depend on items that will have been initialized in preInit, so wait until init to create barrels 
 	private static void initBarrels(){
-		wine_barrel = new BlockBarrel("wine", 1, new Item[]{Cuisine.wine}, new Item[]{Cuisine.grape_juice, Cuisine.grape_juice, Cuisine.grape_juice}, false);
-		cider_barrel = new BlockBarrel("cider", 1, new Item[]{Cuisine.cider}, new Item[]{Cuisine.apple_juice}, true);
-		cordial_barrel = new BlockBarrel("cordial", 1, new Item[]{Cuisine.cordial}, new Item[]{Cuisine.blueberry_juice}, true);
-		beer_barrel = new BlockBarrel("beer", 1, new Item[]{Cuisine.beer}, new Item[]{Cuisine.mash, Cuisine.mash, Cuisine.mash}, false);
-		pickle_barrel = new BlockBarrel("pickle", 1, new Item[]{Cuisine.pickle}, new Item[]{Cuisine.vinegar, Veggie.cucumber.raw, Cuisine.vinegar}, false);
-		anchovy_barrel = new BlockBarrel("anchovy", 1, new Item[]{Cuisine.anchovy}, new Item[]{Cuisine.salt, Items.fish, Cuisine.salt}, false);
-		mead_barrel = new BlockBarrel("mead", 1, new Item[]{Cuisine.mead}, new Item[]{Bees.honey_raw, Bees.honey_raw, Bees.honey_raw}, false);
-		cheese_barrel = new BlockBarrel("cheese", 1, new Item[]{Item.getItemFromBlock(Cheese.cheese_wheel_young)}, new Item[]{Items.milk_bucket, Items.milk_bucket, Items.milk_bucket}, (int)1.8e+6, false); // 30 minutes
-		vinegar_barrel = new BlockBarrel("vinegar", 1, new Item[]{Cuisine.vinegar}, new Item[]{Cuisine.wine}, (int)1.2e+6, false); // 20 minutes
+		wine_barrel = new BlockBarrel("wine", 1, new ItemStack[]{new ItemStack(Cuisine.wine, 2)}, new Item[]{Cuisine.grape_juice, Cuisine.grape_juice, Cuisine.grape_juice}, false);
+		cider_barrel = new BlockBarrel("cider", 1, new ItemStack[]{new ItemStack(Cuisine.cider, 2)}, new Item[]{Cuisine.apple_juice}, true);
+		cordial_barrel = new BlockBarrel("cordial", 1, new ItemStack[]{new ItemStack(Cuisine.cordial, 2)}, new Item[]{Cuisine.blueberry_juice}, true);
+		beer_barrel = new BlockBarrel("beer", 1, new ItemStack[]{new ItemStack(Cuisine.beer, 4)}, new Item[]{Cuisine.mash, Cuisine.mash, Cuisine.mash}, false);
+		pickle_barrel = new BlockBarrel("pickle", 1, new ItemStack[]{new ItemStack(Cuisine.pickle, 3)}, new Item[]{Cuisine.vinegar, Veggie.cucumber.raw, Cuisine.vinegar}, false);
+		anchovy_barrel = new BlockBarrel("anchovy", 1, new ItemStack[]{new ItemStack(Cuisine.anchovy, 3)}, new Item[]{Cuisine.salt, Items.fish, Cuisine.salt}, false);
+		mead_barrel = new BlockBarrel("mead", 1, new ItemStack[]{new ItemStack(Cuisine.mead, 2)}, new Item[]{Bees.honey_raw, Bees.honey_raw, Bees.honey_raw}, false);
+		cheese_barrel = new BlockBarrel("cheese", 1, new ItemStack[]{new ItemStack(Item.getItemFromBlock(Cheese.cheese_wheel_young))}, new Item[]{Items.milk_bucket, Items.milk_bucket, Items.milk_bucket}, (int)1.8e+6, false); // 30 minutes
+		vinegar_barrel = new BlockBarrel("vinegar", 1, new ItemStack[]{new ItemStack(Cuisine.vinegar, 4)}, new Item[]{Cuisine.wine}, (int)1.2e+6, false); // 20 minutes
 		
 		// might as well deal w/ young cheese recipe here :I
 		GameRegistry.addShapelessRecipe(new ItemStack(Cuisine.fresh_cheese, 8),  Item.getItemFromBlock(Cheese.cheese_wheel_young)); 

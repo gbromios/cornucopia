@@ -1,8 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"cornucopia:items/cuisine_grape_juice"
-    },
+        "layer0":"cornucopia:items/cuisine_grape_juice"    },
     "display": {
         "thirdperson": {
             "rotation": [ -90, 0, 0 ],

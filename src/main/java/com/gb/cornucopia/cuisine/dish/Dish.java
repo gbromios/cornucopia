@@ -10,6 +10,7 @@ import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
@@ -31,7 +32,7 @@ public class Dish {
 	public static DishRegistry cutting_board;
 
 	// recipes galore~! i probably will add some here for testing but it'll get more complex later :D
-	// output, bowl, water, 
+	// output, bowl, water, allow_dupes, [inputs], cook_time
 	public static void init(){
 		grill = new DishRegistry()
 			.add(new Dish(Cuisine.toast, false, false, false, Items.bread, 100))
@@ -73,6 +74,7 @@ public class Dish {
 		cutting_board = new DishRegistry()
 			.add(new Dish(Cuisine.bread_dough, true, true, false, Cuisine.flour, Cuisine.flour, Cuisine.flour))
 			.add(new Dish(Cuisine.batter, true, true, false, Cuisine.flour, Cuisine.flour, Items.egg, Ingredient.fat, Ingredient.sweetener))
+			.add(new Dish(Cuisine.tortilla_dough, true, true, false, Cuisine.corn_flour, Cuisine.corn_flour, Cuisine.soda))
 			.add(new Dish(Cuisine.pasta_dough, true, false, false, Cuisine.flour, Cuisine.flour, Items.egg))
 			.add(new Dish(Cuisine.pastry_dough, true, false, false, Cuisine.flour, Cuisine.flour, Ingredient.fat))
 			.add(new Dish(Cuisine.honey_mustard, false, false, true, Cuisine.mustard, Bees.honey_raw))
@@ -99,6 +101,7 @@ public class Dish {
 	}
 	public Dish(final Item  result, final boolean requires_bowl, final boolean requires_water, final boolean allows_dupes, final Object... recipe){
 		this(new ItemStack(result), requires_bowl, requires_water, allows_dupes, recipe);
+		
 	}
 
 	// idk if i like this but I am a savage

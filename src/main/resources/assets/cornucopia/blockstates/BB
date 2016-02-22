@@ -1,6 +1,0 @@
-{
-  "parent": "block/cross", 
-  "textures": {
-    "cross": "cornucopia:items/fruit_NNN_sapling"
-  }
-}

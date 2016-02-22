@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class Cuisine {
 	// intermediate food items
 	public static ItemCuisine flour;
+	public static ItemCuisine corn_flour;
 	public static ItemCuisine soda; // as in sodium bicarbonate
 	public static ItemCuisine salt; // table salt
 	public static ItemCuisine vinegar;	
@@ -30,6 +31,7 @@ public class Cuisine {
 	public static ItemCuisine anchovy;
 	public static ItemCuisine pickle;
 	public static ItemCuisine bread_dough;
+	public static ItemCuisine tortilla_dough;
 	public static ItemCuisine batter;
 	public static ItemCuisine pastry_dough;
 	public static ItemCuisine pasta_dough;
@@ -136,6 +138,7 @@ public class Cuisine {
 		
 		
 		flour = _generic("flour");
+		corn_flour = _generic("corn_flour");
 		soda = _generic("soda");
 		salt = _generic("salt");
 		vinegar = _generic("vinegar");
@@ -143,8 +146,8 @@ public class Cuisine {
 		pickle = _generic("pickle");
 		anchovy = _generic("anchovy");
 		bread_dough = _generic("bread_dough");
+		tortilla_dough = _generic("tortilla_dough");
 		batter = _generic("batter");
-		
 		pastry_dough = _generic("pastry_dough");
 		pasta_dough = _generic("pasta_dough");
 		fresh_pasta = _generic("fresh_pasta");
@@ -155,7 +158,7 @@ public class Cuisine {
 		apple_juice = new ItemCuisine("apple_juice", 2, 0.15F);
 		melon_juice = new ItemCuisine("melon_juice", 2, 0.15F);
 		cherry_juice = new ItemCuisine("cherry_juice", 2, 0.15F);
-		date_juice = new ItemCuisine("date_juice", 2, 0.15F);
+		//date_juice = new ItemCuisine("date_juice", 2, 0.15F);
 		fig_juice = new ItemCuisine("fig_juice", 2, 0.15F);
 		grapefruit_juice = new ItemCuisine("grapefruit_juice", 2, 0.15F);
 		kiwi_juice = new ItemCuisine("kiwi_juice", 2, 0.15F);
@@ -298,6 +301,10 @@ public class Cuisine {
 		removeVanillaRecipe(new ItemStack(Items.bread)); // sorry guys!!!!
 		// how u really make bread tho:
 		GameRegistry.addSmelting(Cuisine.bread_dough, new ItemStack(Items.bread), 1.0F);
+		
+		
+		//GameRegistry.addSmelting(Cuisine.bread_dough, new ItemStack(Items.bread), 1.0F);
+		
 		
 		// not quite removing a vanilla recipe:
 		Items.milk_bucket.setMaxStackSize(8);

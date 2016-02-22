@@ -123,7 +123,7 @@ public class Veggie {
 		
 		
 		// add raw veggie => seed recipe for everyone
-		GameRegistry.addShapelessRecipe(new ItemStack(seed, 2), raw);
+		//GameRegistry.addShapelessRecipe(new ItemStack(seed, 2), raw);
 
 		vegMap.put(name, this);
 	}

@@ -20,10 +20,7 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockVeggieWild
-extends BlockBush
-implements IPlantable
-{	
+public class BlockVeggieWild extends BlockBush implements IPlantable {	
 	private EnumPlantType plantType;
 	public final String name;
 	private ItemVeggieRaw raw;
@@ -57,10 +54,16 @@ implements IPlantable
 	@Override
 	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
 		final List<ItemStack> drop_stacks = new java.util.ArrayList<ItemStack>();
-		drop_stacks.add(new ItemStack(this.raw));
-		drop_stacks.add(new ItemStack(this.raw));
+		// drop 1-2 seeds and 1-2 raw
 		drop_stacks.add(new ItemStack(this.seed));
-
+		if (RANDOM.nextInt(3) > 0) {
+			drop_stacks.add(new ItemStack(this.seed));
+		}
+		drop_stacks.add(new ItemStack(this.raw));
+		if (RANDOM.nextInt(3) == 0) {
+			drop_stacks.add(new ItemStack(this.raw));
+		}
+		
 		return drop_stacks;
 	}
 
