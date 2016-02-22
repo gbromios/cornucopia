@@ -1,0 +1,30 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "cornucopia:brew_barrel",
+        "uvlock": false
+    },
+    "variants": {
+        "axis": {
+            "x": { "x": 90, "y": 90, "submodel": {"r1": { "model": "cornucopia:brew_barrel_rack_0", "z": 90, "y": 90} } },
+            "z": { "x": 90, "submodel": {"r1": { "model": "cornucopia:brew_barrel_rack_0", "z": 90, "y": 90}}},
+            "y": {},
+            "none": {}
+        },
+        "age": {
+            0: {},
+            1: {},
+            2: {},
+            3: {}
+        },
+        "under_barrel": {
+            "true": {
+                "submodel": {
+                    //"r1": { "model": "cornucopia:brew_barrel_rack_0", "z": 90, "y": 90},
+                    "r2": { "model": "cornucopia:brew_barrel_rack_1", "z": 90, "y": 90}
+                } 
+            },
+            "false": {}
+        }
+    }
+}

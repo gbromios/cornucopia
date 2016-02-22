@@ -311,7 +311,7 @@ public class Cuisine {
 
 	}
 
-	@SuppressWarnings({ "unchecked" }) // TODO: gonna be using this REAL SOON
+	@SuppressWarnings({ "unchecked" })
 	private static void removeVanillaRecipe(final ItemStack remove){
 		final List<IRecipe> recipes = (List<IRecipe>)CraftingManager.getInstance().getRecipeList();
 		final ArrayList<IRecipe> recipes_to_remove = Lists.newArrayList();

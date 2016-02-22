@@ -1,0 +1,6 @@
+{
+"parent":"cornucopia:block/test_shelf",
+"textures":{
+"primary":"minecraft:blocks/planks_oak",
+"trim":"minecraft:blocks/log_oak"}
+}

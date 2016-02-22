@@ -1,0 +1,8 @@
+{
+"variants":{
+"facing=north":{"model":"cornucopia:test_shelf_oak"},
+"facing=south":{"model":"cornucopia:test_shelf_oak","y":180},
+"facing=west":{"model":"cornucopia:test_shelf_oak","y":270},
+"facing=east":{"model":"cornucopia:test_shelf_oak","y":90}
+}
+}
