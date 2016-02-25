@@ -8,6 +8,7 @@ import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.cuisine.SaltyBoy;
 import com.gb.cornucopia.fruit.Fruit;
+import com.gb.cornucopia.shelf.BlockShelf;
 import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -26,6 +27,11 @@ public class ServerProxy {
 		Cheese.preInit(); // not sure where cheese will go in order tbh;
 		Cookery.preInit();
 		Cuisine.preInit();
+		
+		
+		// testing shelf
+		//BlockShelf.preInit();
+		
 	}
 
 	public void init(final FMLInitializationEvent e) {

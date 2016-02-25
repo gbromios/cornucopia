@@ -18,6 +18,10 @@ public class ClientProxy extends ServerProxy {
 	public void init(final FMLInitializationEvent e) {
 		super.init(e);
 		Fruit.init();
+		
+		// finally some real client-side action
+		
+		
 	}
 
 	@Override
