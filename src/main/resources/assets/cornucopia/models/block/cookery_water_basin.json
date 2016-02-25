@@ -1,9 +1,12 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "particle": "blocks/stonebrick",
-        "0": "blocks/stonebrick",
-        "1": "blocks/water_still"
+        "particle": "cornucopia:blocks/cookery_water_basin_side",
+        "0": "cornucopia:blocks/cookery_water_basin_side",
+        "1": "cornucopia:blocks/cookery_press_bottom",
+        "2": "cornucopia:blocks/cookery_water_basin_inside",
+        "3": "cornucopia:blocks/cookery_water_basin_top",
+		"4": "blocks/water_still"
     },
     "elements": [
         {
@@ -15,8 +18,8 @@
                 "east": { "texture": "#0", "uv": [ 0.0, 2.0, 16.0, 16.0 ] },
                 "south": { "texture": "#0", "uv": [ 0.0, 2.0, 16.0, 16.0 ] },
                 "west": { "texture": "#0", "uv": [ 0.0, 2.0, 16.0, 16.0 ] },
-                "up": { "texture": "#1", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "down": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
+                "up": { "texture": "#4", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+                "down": { "texture": "#1", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
             }
         },
         {
@@ -25,11 +28,10 @@
             "to": [ 2.0, 16.0, 16.0 ], 
             "faces": {
                 "north": { "texture": "#0", "uv": [ 14.0, 0.0, 16.0, 2.0 ] },
-                "east": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 2.0 ] },
+                "east": { "texture": "#2", "uv": [ 0.0, 2.0, 16.0, 4.0 ] },
                 "south": { "texture": "#0", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
                 "west": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 2.0 ] },
-                "up": { "texture": "#0", "uv": [ 14.0, 0.0, 16.0, 16.0 ] },
-                "down": { "texture": "#-1", "uv": [ 0.0, 0.0, 2.0, 16.0 ] }
+                "up": { "texture": "#3", "uv": [ 0.0, 0.0, 2.0, 16.0 ] }
             }
         },
         {
@@ -40,9 +42,8 @@
                 "north": { "texture": "#0", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
                 "east": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 2.0 ] },
                 "south": { "texture": "#0", "uv": [ 14.0, 0.0, 16.0, 2.0 ] },
-                "west": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 2.0 ] },
-                "up": { "texture": "#0", "uv": [ 2.0, 0.0, 0.0, 16.0 ] },
-                "down": { "texture": "#-1", "uv": [ 0.0, 0.0, 2.0, 16.0 ] }
+                "west": { "texture": "#2", "uv": [ 0.0, 2.0, 16.0, 4.0 ] },
+                "up": { "texture": "#3", "uv": [ 2.0, 0.0, 0.0, 16.0 ] }
             }
         },
         {
@@ -51,10 +52,8 @@
             "to": [ 14.0, 16.0, 2.0 ], 
             "faces": {
                 "north": { "texture": "#0", "uv": [ 2.0, 0.0, 14.0, 2.0 ] },
-                "east": { "texture": "#-1", "uv": [ 0.0, 0.0, -1.0, 1.0 ] },
-                "south": { "texture": "#0", "uv": [ 2.0, 0.0, 14.0, 3.0 ] },
-                "west": { "texture": "#-1", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
-                "up": { "texture": "#0", "uv": [ 2.0, 0.0, 14.0, 2.0 ] },
+                "south": { "texture": "#2", "uv": [ 2.0, 2.0, 14.0, 4.0 ] },
+                "up": { "texture": "#3", "uv": [ 2.0, 0.0, 14.0, 2.0 ] },
                 "down": { "texture": "#-1", "uv": [ 2.0, 0.0, 14.0, 2.0 ] }
             }
         },
@@ -63,12 +62,9 @@
             "from": [ 2.0, 14.0, 14.0 ], 
             "to": [ 14.0, 16.0, 16.0 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 2.0, 0.0, 14.0, 2.0 ] },
-                "east": { "texture": "#-1", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
+                "north": { "texture": "#2", "uv": [ 2.0, 2.0, 14.0, 4.0 ] },
                 "south": { "texture": "#0", "uv": [ 2.0, 0.0, 14.0, 2.0 ] },
-                "west": { "texture": "#-1", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
-                "up": { "texture": "#0", "uv": [ 2.0, 14.0, 14.0, 16.0 ] },
-                "down": { "texture": "#-1", "uv": [ 0.0, 3.0, 12.0, 5.0 ] }
+                "up": { "texture": "#3", "uv": [ 2.0, 14.0, 14.0, 16.0 ] }
             }
         }
     ]
