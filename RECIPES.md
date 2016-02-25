@@ -64,14 +64,6 @@ these need to be made compatible with wilson mats (ore dict?)
    I = Iron Ingot
    ```
 
- - [x] Juicer
-   ```
-   _I_
-   SSS
-   I = Iron Ingot
-   S = CobbleStone Slabs
-   ```
-
  - [x] Apiary
    ```
    WSW
