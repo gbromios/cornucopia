@@ -1,5 +1,6 @@
 package com.gb.cornucopia.veggie;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -17,7 +18,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import scala.actors.threadpool.Arrays;
 
 public class Veggie {
 	// static fields/methods

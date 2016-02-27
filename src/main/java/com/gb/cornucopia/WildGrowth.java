@@ -49,7 +49,6 @@ public class WildGrowth {
 		}
 	}
 	
-	@SuppressWarnings("unused")
 	@SubscribeEvent
 	public void onChunkLoad(ChunkEvent.Load e) {
 		if (e.world.isRemote && CornuCopia.config.wild_growth_mega_log) { 
@@ -63,7 +62,7 @@ public class WildGrowth {
 			// chunk has a chance to spawn a random veggie
 			if (Settings.wild_fruit_spawn && RANDOM.nextInt(Settings.wild_fruit_spawn_chance) == 0) { this.growAFruit(e.getChunk(), e.world); }
 			if (Settings.wild_veggie_spawn && RANDOM.nextInt(Settings.wild_veggie_spawn_chance) == 0) { this.growAVeggie(e.getChunk(), e.world); }
-			//if (Settings.wild_bee_spawn && RANDOM.nextInt(Settings.wild_bee_spawn_chance) == 0) { this.growABees(e.getChunk(), e.world); }
+			if (Settings.wild_bee_spawn && RANDOM.nextInt(Settings.wild_bee_spawn_chance) == 0) { this.growABees(e.getChunk(), e.world); }
 		}
 		
 		// every thousand or so load events, make sure we're not leaking memory

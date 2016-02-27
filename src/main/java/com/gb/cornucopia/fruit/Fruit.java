@@ -1,5 +1,6 @@
 package com.gb.cornucopia.fruit;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -13,7 +14,6 @@ import net.minecraft.init.Items;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import scala.actors.threadpool.Arrays;
 
 public class Fruit {
 	// static fields
