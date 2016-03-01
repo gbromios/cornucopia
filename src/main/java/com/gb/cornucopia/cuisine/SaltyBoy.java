@@ -15,8 +15,8 @@ public class SaltyBoy {
 	/// seems a bit sketchy
 	@SubscribeEvent
 	public void onGetSalty(BlockEvent.HarvestDropsEvent e) {
-		if ((e.harvester != null && e.harvester.getPosition().getY() < 50) && e.state.getBlock() == Blocks.stone && RANDOM.nextInt(100) == 0){
-			e.drops.add(new ItemStack(Bees.honey_raw));
+		if ((e.harvester != null && e.harvester.getPosition().getY() < 50) && e.state.getBlock() == Blocks.stone && RANDOM.nextInt(128) == 0){
+			e.drops.add(new ItemStack(Cuisine.rock_salt));
 		}
 	}
 	

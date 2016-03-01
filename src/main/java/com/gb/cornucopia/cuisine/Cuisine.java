@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.Vessel;
 import com.gb.cornucopia.cuisine.dish.Dish;
@@ -128,6 +130,7 @@ public class Cuisine {
 	public static final WeightedArray<Item> herb_drops = new WeightedArray<>();
 	
 	public static PotionWellFed well_fed;
+	public static Item rock_salt;
 
 	// i.e. inedible stables OR placeholders
 	private static ItemCuisine _generic(String name){ return new ItemCuisine(name, 0, 0F); }
@@ -135,6 +138,11 @@ public class Cuisine {
 	public static void preInit(){		
 		// wut
 		well_fed = new PotionWellFed();
+		rock_salt = new Item();
+		rock_salt.setUnlocalizedName("cuisine_rock_salt");
+		GameRegistry.registerItem(rock_salt, "cuisine_rock_salt");
+		rock_salt.setCreativeTab(CornuCopia.tabCuisine);
+		InvModel.add(rock_salt, "cuisine_rock_salt");
 		
 		
 		flour = _generic("flour");
@@ -300,18 +308,18 @@ public class Cuisine {
 
 		removeVanillaRecipe(new ItemStack(Items.bread)); // sorry guys!!!!
 		// how u really make bread tho:
-		GameRegistry.addSmelting(Cuisine.bread_dough, new ItemStack(Items.bread), 1.0F);
-		
-		
-		//GameRegistry.addSmelting(Cuisine.bread_dough, new ItemStack(Items.bread), 1.0F);
+		GameRegistry.addSmelting(Cuisine.bread_dough, new ItemStack(Items.bread), 0.25F);
 		
 		
 		// not quite removing a vanilla recipe:
 		Items.milk_bucket.setMaxStackSize(8);
 
+		// rock salt is dropped by mining deep in the earth, turns into 8x table salt
+		// might make this a mill recipe, but for now just leave it vanilla crafting
+		GameRegistry.addShapelessRecipe(new ItemStack(Cuisine.salt, 16), Cuisine.rock_salt);
+
 	}
 
-	@SuppressWarnings({ "unchecked" })
 	private static void removeVanillaRecipe(final ItemStack remove){
 		final List<IRecipe> recipes = (List<IRecipe>)CraftingManager.getInstance().getRecipeList();
 		final ArrayList<IRecipe> recipes_to_remove = Lists.newArrayList();
