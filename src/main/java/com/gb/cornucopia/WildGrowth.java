@@ -51,12 +51,7 @@ public class WildGrowth {
 	
 	@SubscribeEvent
 	public void onChunkLoad(ChunkEvent.Load e) {
-		if (e.world.isRemote && CornuCopia.config.wild_growth_mega_log) { 
-			this.growAVeggie(e.getChunk(), e.world); // << debug only mode
-			this.growAFruit(e.getChunk(), e.world); // << debug only mode
-			//return; 
-		}
-		//if (true) {return;}
+		if (e.world.isRemote) { return; }
 		if (!Settings.wild_fruit_spawn && !Settings.wild_veggie_spawn && !Settings.wild_bee_spawn) { return; }
 		if ( this.offCooldown(e.getChunk(), (int) e.world.getWorldTime()) ) {
 			// chunk has a chance to spawn a random veggie
