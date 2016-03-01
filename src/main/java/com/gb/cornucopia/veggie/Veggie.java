@@ -244,7 +244,7 @@ public class Veggie {
 
 	    }).toString();
 		
-		System.out.format(" > vb = %s @ %s => ", b.biomeName, ts);
+	//System.out.format(" > vb = %s @ %s => ", b.biomeName, ts);
 		
 		// cold, but only if forest; 1/4 chance
 		if (BiomeDictionary.isBiomeOfType(b, Type.COLD)) {

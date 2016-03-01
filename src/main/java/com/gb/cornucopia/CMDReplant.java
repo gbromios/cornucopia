@@ -48,7 +48,7 @@ public class CMDReplant  implements ICommand{
 	@Override
 	public void execute(final ICommandSender sender, final String[] args) throws CommandException {
 		World world = sender.getEntityWorld();
-		System.out.println("yes..");
+	//System.out.println("yes..");
 		try {
 
 			// parse out args!
@@ -104,7 +104,7 @@ public class CMDReplant  implements ICommand{
 				density = 1000;
 			}
 
-			System.out.format(" replant '%s' => '%s#%s' - r%d, d%d\n\n", target, desired, desired_meta, radius, density);
+		//System.out.format(" replant '%s' => '%s#%s' - r%d, d%d\n\n", target, desired, desired_meta, radius, density);
 
 			final BlockPos pos = sender.getPosition();
 			final int miny = pos.getY() - 20; // make param

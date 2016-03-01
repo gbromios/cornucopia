@@ -180,7 +180,7 @@ public class Fruit {
 
 	    }).toString();
 		
-		System.out.format(" > fb = %s @ %s => ", b.biomeName, ts);
+	//System.out.format(" > fb = %s @ %s => ", b.biomeName, ts);
 		
 		// cold, but only if forest; 1/8 chance
 		if (BiomeDictionary.isBiomeOfType(b, Type.COLD)) {

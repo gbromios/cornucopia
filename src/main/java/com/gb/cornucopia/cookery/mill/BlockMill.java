@@ -99,7 +99,7 @@ public class BlockMill extends Block  implements ITileEntityProvider{
 	}
 	public void breakBlock(final World world, final BlockPos pos, final IBlockState state)
 	{
-		System.out.println("break presser");
+	//System.out.println("break presser");
 
 		TileEntity mill = world.getTileEntity(pos);
 

@@ -75,7 +75,7 @@ public class TileEntityBarrel extends TileEntity implements IUpdatePlayerListBox
 			
 			final long s = System.currentTimeMillis();
 			final long t = s - this.born;
-			System.out.format("@%s born %d ;; %d ago ---- %d\n", this.pos, this.born, t, s);
+		//System.out.format("@%s born %d ;; %d ago ---- %d\n", this.pos, this.born, t, s);
 			
 			// barrel doesn't age after max_age;
 			if (age >= ((BlockBarrel)state.getBlock()).last_age){

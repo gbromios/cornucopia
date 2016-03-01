@@ -15,7 +15,7 @@ public class SlotStoveInput extends Slot {
 	@Override
 	public void onSlotChanged(){//(final ItemStack a, final ItemStack b){
 		if (this.getStack() != null) {
-			System.out.format("SLOT CHANGE!! %d : %s\n", this.slotNumber, this.getStack());
+		//System.out.format("SLOT CHANGE!! %d : %s\n", this.slotNumber, this.getStack());
 		}
 		super.onSlotChanged();
 		this.stove.markInputChanged();

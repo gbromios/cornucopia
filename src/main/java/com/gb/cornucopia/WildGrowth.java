@@ -35,7 +35,7 @@ public class WildGrowth {
 				}
 			}
 		}
-		System.out.format("		(cleared to )\n ", this.grew_last.size());
+	//System.out.format("		(cleared to )\n ", this.grew_last.size());
 	}
 
 	private boolean offCooldown(Chunk c, Integer time){
@@ -69,7 +69,7 @@ public class WildGrowth {
 		// this is roughly how many chunks i expect there to be total on the map
 		if ( last_cleaned++ > CACHECHECK)  {
 			last_cleaned = 0;
-			System.out.format("		(wild growth cache has %d)\n ", this.grew_last.size());
+		//System.out.format("		(wild growth cache has %d)\n ", this.grew_last.size());
 			if ( grew_last.size() > MAXCHUNKS ) {
 				this.clear((int) e.world.getWorldTime());
 			}
@@ -98,7 +98,7 @@ public class WildGrowth {
 						.withProperty(BlockFruitCrop.AGE, RANDOM.nextInt(4))
 						);
 				*/
-				System.out.format(" FRUIT @ %s \n\n", f == null ? "<>" : f.name);
+			//System.out.format(" FRUIT @ %s \n\n", f == null ? "<>" : f.name);
 				return;
 			}
 		} 
@@ -119,7 +119,7 @@ public class WildGrowth {
 			
 			if ((leaf.getBlock() == Blocks.leaves || leaf.getBlock() == Blocks.leaves2 ) && w.isAirBlock(pos)) {
 				w.setBlockState(pos, Bees.hive.getDefaultState());
-				System.out.format(" BEES @ %s = %s \n ", pos, w.getBlockState(pos), leaf);
+			//System.out.format(" BEES @ %s = %s \n ", pos, w.getBlockState(pos), leaf);
 				return;
 			}
 		}
@@ -140,7 +140,7 @@ public class WildGrowth {
 		if (w.getBlockState(pos.down()).getBlock() == Blocks.grass){
 			w.setBlockState(pos, v.wild.getDefaultState());
 		}*/
-		System.out.format(" VEG   @ %s \n\n", v == null ? "<>" : v.name);
+	//System.out.format(" VEG   @ %s \n\n", v == null ? "<>" : v.name);
 	}
 	
 	

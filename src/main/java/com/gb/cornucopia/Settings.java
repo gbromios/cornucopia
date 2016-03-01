@@ -11,7 +11,7 @@ public class Settings {
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
         if (eventArgs.modID.equals(CornuCopia.MODID)) {
-        	System.out.println("CornuCopia: detected change in config file, reloading...");
+        //System.out.println("CornuCopia: detected change in config file, reloading...");
         	sync();
         }
     }	
@@ -19,7 +19,7 @@ public class Settings {
     public Settings(final File config_dir){
 		config_dir.mkdirs();
 		File file = new File(config_dir, "settings.cfg");
-		System.out.println("CornuCopia: LOADING CONFIG FROM " + file.getAbsolutePath());
+	//System.out.println("CornuCopia: LOADING CONFIG FROM " + file.getAbsolutePath());
 		config = new Configuration(file);
 		sync();
 		

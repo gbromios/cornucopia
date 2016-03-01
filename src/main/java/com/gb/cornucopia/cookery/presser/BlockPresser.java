@@ -133,7 +133,7 @@ public class BlockPresser extends Block  implements ITileEntityProvider{
 	
 	@Override
 	public void onNeighborBlockChange(final World world, final BlockPos pos, final IBlockState state, final Block neighborBlock){
-		System.out.println("...");
+	//System.out.println("...");
 		if ( world.isAirBlock(pos.up()) ) {
 			world.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, state.getValue(FACING)));
 		}

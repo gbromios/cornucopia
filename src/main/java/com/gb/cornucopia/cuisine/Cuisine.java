@@ -297,8 +297,6 @@ public class Cuisine {
 	}
 
 	public static void init(){
-		// breading aint easy
-		// removeVanillaRecipe(new ItemStack(Items.bread));
 	}
 
 	public static void postInit(){
