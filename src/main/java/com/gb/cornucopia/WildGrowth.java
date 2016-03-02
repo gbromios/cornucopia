@@ -86,13 +86,11 @@ public class WildGrowth {
 			if ((leaf.getBlock() == Blocks.leaves || leaf.getBlock() == Blocks.leaves2) && w.isAirBlock(pos)) {
 				final BiomeGenBase b = w.getBiomeGenForCoords(pos);
 				final Fruit f = Fruit.getForBiome(RANDOM, b);
-				/*
 				if (f == null) {return;}
 				w.setBlockState(pos, Fruit.getAny(RANDOM).crop.getDefaultState()
 						.withProperty(BlockFruitCrop.DROP_SAPLING, true)
-						.withProperty(BlockFruitCrop.AGE, RANDOM.nextInt(4))
+						.withProperty(BlockFruitCrop.AGE, 3)
 						);
-				*/
 			//System.out.format(" FRUIT @ %s \n\n", f == null ? "<>" : f.name);
 				return;
 			}
@@ -130,11 +128,10 @@ public class WildGrowth {
 		final BlockPos pos = new BlockPos(x, y, z);
 		final BiomeGenBase b = w.getBiomeGenForCoords(pos);
 		final Veggie v = Veggie.getForBiome(RANDOM, b);
-		/*
 		if ( v == null ) {return;}
 		if (w.getBlockState(pos.down()).getBlock() == Blocks.grass){
 			w.setBlockState(pos, v.wild.getDefaultState());
-		}*/
+		}
 	//System.out.format(" VEG   @ %s \n\n", v == null ? "<>" : v.name);
 	}
 	
