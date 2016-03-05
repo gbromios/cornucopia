@@ -111,7 +111,7 @@ public class BlockFruitCrop extends BlockBush implements IGrowable{
 
 	@Override
 	public void onNeighborBlockChange(final World world, final BlockPos pos, final IBlockState state, final Block neighborBlock){
-		if (world.getBlockState(pos.up()).getBlock() instanceof BlockLeaves){
+		if (!(world.getBlockState(pos.up()).getBlock() instanceof BlockLeaves)){
 			if ((Integer)state.getValue(AGE) == 3){
 				
 				spawnAsEntity(world, pos, new ItemStack(this.raw));
