@@ -20,14 +20,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 
-public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBox, IInventory  {
+public class TileEntityPresser extends TileEntity implements ITickable, IInventory  {
 	private final ItemStack[] contents = new ItemStack[2];
 
 	@Override
@@ -262,18 +262,6 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 		return null;
 	}
 
-	@Override
-	public ItemStack getStackInSlotOnClosing(final int index)
-	{
-		if (this.contents[index] != null)
-		{
-			final ItemStack stack = this.contents[index];
-			this.contents[index] = null;
-			return stack;
-		}
-		return null;
-	}
-
 	public void setInventorySlotContents(final int index, final ItemStack stack)
 	{
 		this.contents[index] = stack;
@@ -291,4 +279,13 @@ public class TileEntityPresser extends TileEntity implements IUpdatePlayerListBo
 
 	@Override
 	public void closeInventory(final EntityPlayer player) {}
+	
+	@Override
+	public ItemStack removeStackFromSlot(int index) {
+		// TODO Auto-generated method stub
+		final ItemStack i = this.contents[index];
+		this.contents[index] = null;
+		return i;
+	}
+	
 }

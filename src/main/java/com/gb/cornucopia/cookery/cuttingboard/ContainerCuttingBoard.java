@@ -119,13 +119,13 @@ public class ContainerCuttingBoard extends Container {
 		{
 			for (int i = 0; i < 9; i++)
 			{
-				ItemStack itemstack = this.craftMatrix.getStackInSlotOnClosing(i);
+				ItemStack itemstack = this.craftMatrix.getStackInSlot(i);
 				if (itemstack != null)
 				{
 					player.dropPlayerItemWithRandomChoice(itemstack, false);
 				}
 			}
-			ItemStack itemstack = this.bowl.getStackInSlotOnClosing(0);
+			ItemStack itemstack = this.bowl.getStackInSlot(0);
 			if (itemstack != null)
 			{
 				player.dropPlayerItemWithRandomChoice(itemstack, false);

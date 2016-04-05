@@ -20,15 +20,15 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import scala.Console;
 
-public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox, IInventory {
+public class TileEntityApiary extends TileEntity implements ITickable, IInventory {
 	public static final int TICK_PERIOD = 20 * 30 ; //tick 2x per minute, because it might be kind of expensive >__>
 	public static final Random RANDOM = new Random();
 	private final ItemStack[] contents = new ItemStack[9]; // 0 = queen slot, 1 = worker slot, 2-8 are the honeycombs
@@ -373,21 +373,6 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 		return null;
 	}
 
-	@Override
-	public ItemStack getStackInSlotOnClosing(final int index)
-	{
-		if (this.contents[index] != null)
-		{
-			final ItemStack itemstack = this.contents[index];
-			this.contents[index] = null;
-			return itemstack;
-		}
-		else
-		{
-			return null;
-		}
-	}
-
 	/**
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
@@ -442,6 +427,12 @@ public class TileEntityApiary extends TileEntity implements IUpdatePlayerListBox
 		{
 			this.contents[i] = null;
 		}
+	}
+
+	@Override
+	public ItemStack removeStackFromSlot(int arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -5,10 +5,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 
-public class TileEntityBarrel extends TileEntity implements IUpdatePlayerListBox{
+public class TileEntityBarrel extends TileEntity implements ITickable{
 	private long born; // just incase wilson is still up in 2038
 	private int ticks = 0;
 

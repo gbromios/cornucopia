@@ -24,26 +24,26 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox, IInventory {
+public class TileEntityStove extends TileEntity implements ITickable, IInventory {
 	private final ItemStack[] contents = new ItemStack[9]; // 0 = fuel, 1-6 input, 7 output
-	
+
 	private int burn_time = 0; // time left burning current fuel: ticks DOWN every update
 	private int initial_burn_time = 1; // max burn time of the item currently used for fuel
-	
+
 	private int cook_time = 0; // how long the current recipe has been cooking. ticks UP every update
 	private int cook_time_goal = 1; // vanilla furnace cooks things in 200.
-	
+
 	private Dish whats_cooking = null; // storing this field lets us avoid calculating recipes unless there's a chance it's changed (i.e. changed input i.e. inventory slots )
 	private boolean input_changed = false; // set this to true when fucking with the input slots, check in every update and
-	
+
 	@Override
 	public void readFromNBT(final NBTTagCompound compound)
 	{
@@ -61,16 +61,16 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 			}
 		}
 		this.markInputChanged();
-		
+
 		// TODO: maybe what's cooking is not working? does that need saved?
 		// I hope not, because saving dishes to nbt would suck ASS
 
 		this.burn_time = compound.getInteger("burn_time");
 		this.initial_burn_time = compound.getInteger("initial_burn_time");
-		
+
 		this.cook_time = compound.getInteger("cook_time");
 		this.cook_time_goal = compound.getInteger("cook_time_goal");
-		
+
 
 		//final String s = String.format("Stove_B%d/%d_C%d/%d", this.burn_time, this.initial_burn_time, this.cook_time, this.cook_time_goal);
 		//System.out.println("...now I'm like: " + s);
@@ -102,14 +102,14 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 		//if (this.hasCustomName()){ compound.setString("CustomName", "whatever"); }		
 		//System.out.println("wrote nbt: " + compound.toString());
 	}
-	
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState){
-    	//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
-    	return (oldState.getBlock() != newState.getBlock());
-    	
-    }
 
-	
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState){
+		//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
+		return (oldState.getBlock() != newState.getBlock());
+
+	}
+
+
 	@Override
 	public Packet getDescriptionPacket() {
 		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
@@ -118,12 +118,12 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 		S35PacketUpdateTileEntity pkt = new S35PacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
 		//System.out.println("getting data to send : " + pkt.toString());
 		return pkt;
-		
+
 	}
 
 	@Override
 	public void onDataPacket(final NetworkManager net, final S35PacketUpdateTileEntity pkt) {
-	//System.out.println("got data pkt: " + pkt.toString());
+		//System.out.println("got data pkt: " + pkt.toString());
 		this.readFromNBT(pkt.getNbtCompound());
 	}
 
@@ -150,17 +150,17 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 	{
 		return this.burn_time > 0;
 	}
-	
+
 	public Vessel getVessel() {
 		return BlockStove.getVessel(this.worldObj, this.pos);
 	}
-	
+
 	// different, more specific than markDirty();
 	public void markInputChanged() {
-	//System.out.format("~~input changed~~!\n");
+		//System.out.format("~~input changed~~!\n");
 		this.input_changed = true;
 	}
-	
+
 	private void _consumeIngredients() {
 		for (int i = 1; i <= 6; i++){
 			this.decrStackSize(i, 1);
@@ -170,12 +170,12 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 			this.decrStackSize(8, 1);
 		}
 	}
-	
+
 	private Dish _whatsCooking(){
 		// ok what is getting cooked:
 		return this.getVessel().getDishes().findMatchingDish((IInventory)this, 1, 6, this.hasBowl(), this.hasWater());
 	}
-	
+
 	public boolean hasBowl() {
 		return this.contents[8] != null && this.contents[8].stackSize > 0 && this.contents[8].getItem() == Items.bowl;
 	}
@@ -201,26 +201,26 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 			}
 		}
 	}
-	
+
 	private boolean _debug_update(){
 		if (
-		(this.isBurning() && (this.burn_time % 50 < 2)) 
+				(this.isBurning() && (this.burn_time % 50 < 2)) 
 				|| (this.cook_time > 0 && this.cook_time % 50 < 2) 
 				) {
 			//System.out.format(" = = = =\n");
 			//System.out.format("BURNTIME: %d\n", this.burn_time);	
 			//System.out.format("COOKTIME: %d\n", this.cook_time);
-				return true;
-			}
+			return true;
+		}
 		return false;
 	}
-	
+
 	private void _debug_update_end(boolean marked){
 		if (this.isBurning() && (this.burn_time + 1) % 50 < 3 ){
-		//System.out.format("BURNTIME: %d\n", this.burn_time);	
+			//System.out.format("BURNTIME: %d\n", this.burn_time);	
 		}
 		if (this.cook_time > 0 && (this.cook_time + 1) % 50 < 3) {
-		//System.out.format("COOKTIME: %d\n", this.cook_time);
+			//System.out.format("COOKTIME: %d\n", this.cook_time);
 		}
 	}
 
@@ -228,31 +228,31 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 	public void update() {
 		if (!this.worldObj.isRemote) {
 			final boolean debug = this._debug_update();
-			
+
 			// before we tick down, so we can track wether the ON state should change this tick
 			final boolean was_burning = this.isBurning();
 			if (this.isBurning()) {
 				this.burn_time--;
 			}
-			
+
 			// after the burn counter has had a chance decrement, then we can deal with a non-burning oven.
 			if (!this.isBurning() && TileEntityStove.getFuelValue(this.contents[0]) > 0) {
-			//System.out.format(" START FIRE: %d -> %s \n", this.burn_time, this.getFuelValue(this.contents[0]));
+				//System.out.format(" START FIRE: %d -> %s \n", this.burn_time, this.getFuelValue(this.contents[0]));
 				this.burn_time = TileEntityStove.getFuelValue(this.contents[0]); 
 				this.initial_burn_time = this.burn_time;
 				this.decrStackSize(0, 1);
 				this.markDirty();
 			}
-			
+
 			// figure out the recipe output??
 			if (this.input_changed) {
-			//System.out.format(" INPUT CHANGED: %s -> %s \n", this.whats_cooking, this._whatsCooking());
+				//System.out.format(" INPUT CHANGED: %s -> %s \n", this.whats_cooking, this._whatsCooking());
 				this.whats_cooking = this._whatsCooking();
 				this.input_changed = false; // reset the flag
 				this.cook_time = 0; // changing the input resets the timer also
 				this.cook_time_goal = this.whats_cooking != null ? this.whats_cooking.cook_time : 1;
 			}
-			
+
 			// check if visual update for stove is required
 			this._didBurningChange(was_burning);
 
@@ -270,21 +270,21 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 								|| ( slot_stack.getHasSubtypes() && slot_stack.getMetadata() != in_stack.getMetadata() )
 								|| ! 
 								) { continue; }*/
-						
+
 						// cooking time is done
 						final ItemStack result = this.whats_cooking.getItem();
 						final ItemStack output = this.contents[7];
-						
+
 						if (output == null) {
 							// take one thing out of each slot in the crafting input
 							this._consumeIngredients();
 							this.markInputChanged();
-							
+
 							// if there's no output stack, put one there.
 							this.contents[7] = this.whats_cooking.getItem();
 							this.cook_time = 0; //reset the cooking timer. theoretically, a changed input grid should take care of it but whatever?
 						}
-						
+
 						// existing output is a bit tricker:
 						else if ( // stupid way of saying "can these stacks be merged"
 								output.isStackable()
@@ -297,7 +297,7 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 							this.markInputChanged();
 							this.cook_time = 0;
 						}
-						
+
 						// overflow?? do nothing for now but it might be funny to drop overflowing food on the ground huehue
 						else {	
 						}				
@@ -351,21 +351,6 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 		}
 	}
 
-	@Override
-	public ItemStack getStackInSlotOnClosing(final int index)
-	{
-		return null;
-		/*
-		if (this.getStackInSlot(index) != null)
-		{
-			final ItemStack stack = this.getStackInSlot(index);
-			this.setInventorySlotContents(index,  null);
-			return stack;
-		}
-
-		return null;*/
-	}
-
 	/**
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
@@ -394,7 +379,7 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 
 	// i think this is obsolete~?
 	//public DishRegistry getDishes(){
-		//return DishRegistry.byID(((Vessel)this.worldObj.getBlockState(this.pos).getValue(BlockStoveTop.VESSEL)).meta);	
+	//return DishRegistry.byID(((Vessel)this.worldObj.getBlockState(this.pos).getValue(BlockStoveTop.VESSEL)).meta);	
 	//}
 
 	@Override
@@ -419,7 +404,7 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 	@Override
 	public int getInventoryStackLimit() {return 64;}
 
-	 // TODO: this should actually make sure the player is close enough.
+	// TODO: this should actually make sure the player is close enough.
 	@Override
 	public boolean isUseableByPlayer(final EntityPlayer player) { return true; }
 
@@ -462,4 +447,13 @@ public class TileEntityStove extends TileEntity implements IUpdatePlayerListBox,
 	};
 
 	public int getFieldCount(){return 4;};
+
+	@Override
+	public ItemStack removeStackFromSlot(int index) {
+		// TODO Auto-generated method stub
+		final ItemStack i = this.contents[index];
+		this.contents[index] = null;
+		return i;
+	}	
+
 }

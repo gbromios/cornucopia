@@ -16,18 +16,6 @@ public class CMDReplant  implements ICommand{
 	private static final Random RANDOM = new Random();
 
 	@Override
-	public int compareTo(final Object arg0) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return "repl";
-	}
-
-	@Override
 	public String getCommandUsage(final ICommandSender sender) {
 		// TODO Auto-generated method stub
 		return " == repl, area replanting command ==\n == `/repl PLANT[#M] [TARGET [GROUND]] [RADIUS [DENSITY]`\n\n" +
@@ -40,13 +28,7 @@ public class CMDReplant  implements ICommand{
 	}
 
 	@Override
-	public List<?> getAliases() {
-		// TODO Auto-generated method stub
-		return new ArrayList<>();
-	}
-
-	@Override
-	public void execute(final ICommandSender sender, final String[] args) throws CommandException {
+	public void processCommand(final ICommandSender sender, final String[] args) throws CommandException {
 		World world = sender.getEntityWorld();
 	//System.out.println("yes..");
 		try {
@@ -140,17 +122,38 @@ public class CMDReplant  implements ICommand{
 	}
 
 	@Override
-	public boolean canCommandSenderUse(final ICommandSender sender) {
-		return true;
+	public int compareTo(ICommand o) {
+		// TODO Auto-generated method stub
+		return (this == o) ? 0 : 1;
 	}
 
 	@Override
-	public List<?> addTabCompletionOptions(final ICommandSender sender, final String[] args, final BlockPos pos) {
+	public String getCommandName() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean isUsernameIndex(final String[] args, final int index) {
+	public List<String> getCommandAliases() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean canCommandSenderUseCommand(ICommandSender sender) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isUsernameIndex(String[] args, int index) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

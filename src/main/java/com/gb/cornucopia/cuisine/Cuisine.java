@@ -129,7 +129,6 @@ public class Cuisine {
 	public static final WeightedArray<Item> spice_drops = new WeightedArray<>();
 	public static final WeightedArray<Item> herb_drops = new WeightedArray<>();
 	
-	public static PotionWellFed well_fed;
 	public static Item rock_salt;
 
 	// i.e. inedible stables OR placeholders
@@ -137,7 +136,6 @@ public class Cuisine {
 
 	public static void preInit(){		
 		// wut
-		well_fed = new PotionWellFed();
 		rock_salt = new Item();
 		rock_salt.setUnlocalizedName("cuisine_rock_salt");
 		GameRegistry.registerItem(rock_salt, "cuisine_rock_salt");

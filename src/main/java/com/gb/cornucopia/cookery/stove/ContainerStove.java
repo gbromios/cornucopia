@@ -56,12 +56,6 @@ public class ContainerStove extends Container {
 
 	}
 
-	public void addCraftingToCrafters(final ICrafting listener)
-	{
-		super.addCraftingToCrafters(listener);
-		listener.func_175173_a(this, this.stoveInventory);
-	}
-
 	public void detectAndSendChanges()
 	{
 		super.detectAndSendChanges();

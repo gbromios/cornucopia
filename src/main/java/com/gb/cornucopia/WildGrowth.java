@@ -148,8 +148,8 @@ public class WildGrowth {
 	private void growAFruit(Chunk c, World w) {
 		final int x = 16 * c.xPosition + RANDOM.nextInt(16);
 		final int z = 16 * c.zPosition + RANDOM.nextInt(16);;
-		final int yMin = c.getHeight(x & 15, z & 15) - 12;
-		int y = c.getHeight(x & 15, z & 15);
+		final int yMin = c.getHeightValue(x & 15, z & 15);
+		int y = c.getHeightValue(x & 15, z & 15);
 
 		// don't bother searching too low
 		while (--y > yMin) {
@@ -175,8 +175,8 @@ public class WildGrowth {
 	private void growABees(Chunk c, World w) {
 		final int x = 16 * c.xPosition + RANDOM.nextInt(16);
 		final int z = 16 * c.zPosition + RANDOM.nextInt(16);;
-		final int yMin = c.getHeight(x & 15, z & 15) - 12;
-		int y = c.getHeight(x & 15, z & 15);
+		final int yMin = c.getHeightValue(x & 15, z & 15) - 12;
+		int y = c.getHeightValue(x & 15, z & 15);
 
 		// don't bother searching too low
 		while (--y > yMin) {
@@ -198,7 +198,7 @@ public class WildGrowth {
 		// account for: temperate forest, cold forest, jungle, plains, arid
 		final int x = 16 * c.xPosition + RANDOM.nextInt(16);
 		final int z = 16 * c.zPosition + RANDOM.nextInt(16);;
-		final int y = c.getHeight(x & 15, z & 15);
+		final int y = c.getHeightValue(x & 15, z & 15);
 		final BlockPos pos = new BlockPos(x, y, z);
 		final BiomeGenBase b = w.getBiomeGenForCoords(pos);
 		final Veggie v = Veggie.getForBiome(RANDOM, b);
