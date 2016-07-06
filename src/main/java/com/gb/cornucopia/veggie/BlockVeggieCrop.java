@@ -14,9 +14,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockVeggieCrop extends BlockBush implements IGrowable
 {
@@ -69,6 +73,24 @@ public class BlockVeggieCrop extends BlockBush implements IGrowable
 	public int getMetaFromState(final IBlockState state) {
 		return ((Integer)state.getValue(AGE));
 	}
+	
+    @SideOnly(Side.CLIENT)
+    public int getBlockColor()
+    {
+        return ColorizerGrass.getGrassColor(0.5D, 1.0D);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public int getRenderColor(IBlockState state)
+    {
+        return this.getBlockColor();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
+    {
+        return BiomeColorHelper.getGrassColorAtPos(world, pos);
+    }
 
 	@Override
 	public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random rand){
