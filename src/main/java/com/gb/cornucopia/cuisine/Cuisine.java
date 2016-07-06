@@ -100,6 +100,7 @@ public class Cuisine {
 	public static ItemCuisine bruscetta;
 	public static ItemCuisine kebab;
 
+	public static ItemCuisine smoothie;
 
 	// delicicious dranks
 	public static ItemLibation wine;
@@ -227,6 +228,10 @@ public class Cuisine {
 				.setContainerItem(Items.bowl)
 				.setMaxStackSize(4)
 				;
+		fish_and_chips = new ItemCuisine("fish_and_chips", 15, 1.6F)
+				.setContainerItem(Items.bowl)
+				.setMaxStackSize(4)
+				;
 		caesar_salad = new ItemCuisine("caesar_salad", 8, 0.8F)
 				.setContainerItem(Items.bowl)
 				.setMaxStackSize(4)
@@ -238,7 +243,10 @@ public class Cuisine {
 				.setContainerItem(Items.stick)
 				.setMaxStackSize(4)
 				;
-		
+		smoothie = new ItemCuisine("smoothie", 6, 0.6F)
+				.setMaxStackSize(4)
+				;		
+
 		wine = new ItemLibation("wine");
 		cordial = new ItemLibation("cordial");
 		cider = new ItemLibation("cider");
@@ -305,6 +313,11 @@ public class Cuisine {
 		removeVanillaRecipe(new ItemStack(Items.bread)); // sorry guys!!!!
 		// how u really make bread tho:
 		GameRegistry.addSmelting(Cuisine.bread_dough, new ItemStack(Items.bread), 0.25F);
+		
+		removeVanillaRecipe(new ItemStack(Items.cake)); // srsly
+		GameRegistry.addSmelting(Cuisine.batter, new ItemStack(Items.cake), 0.25F);
+		
+		// removeVanillaRecipe(new ItemStack(Items.cookie)); // YOU'RE NEXT
 		
 		
 		// not quite removing a vanilla recipe:

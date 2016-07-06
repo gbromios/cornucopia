@@ -99,8 +99,8 @@ public class Cookery {
 	// finished barrel recipes depend on items that will have been initialized in preInit, so wait until init to create barrels 
 	private static void initBarrels(){
 		wine_barrel = new BlockBarrel("wine", 1, new ItemStack[]{new ItemStack(Cuisine.wine, 2)}, new Item[]{Cuisine.grape_juice, Cuisine.grape_juice, Cuisine.grape_juice}, false);
-		cider_barrel = new BlockBarrel("cider", 1, new ItemStack[]{new ItemStack(Cuisine.cider, 2)}, new Item[]{Cuisine.apple_juice}, true);
-		cordial_barrel = new BlockBarrel("cordial", 1, new ItemStack[]{new ItemStack(Cuisine.cordial, 2)}, new Item[]{Cuisine.blueberry_juice}, true);
+		cider_barrel = new BlockBarrel("cider", 1, new ItemStack[]{new ItemStack(Cuisine.cider, 2)}, new Item[]{Cuisine.apple_juice, Cuisine.apple_juice, Cuisine.apple_juice}, true);
+		cordial_barrel = new BlockBarrel("cordial", 1, new ItemStack[]{new ItemStack(Cuisine.cordial, 2)}, new Item[]{Cuisine.blueberry_juice, Cuisine.blueberry_juice, Cuisine.blueberry_juice}, true);
 		beer_barrel = new BlockBarrel("beer", 1, new ItemStack[]{new ItemStack(Cuisine.beer, 4)}, new Item[]{Cuisine.mash, Cuisine.mash, Cuisine.mash}, false);
 		pickle_barrel = new BlockBarrel("pickle", 1, new ItemStack[]{new ItemStack(Cuisine.pickle, 3)}, new Item[]{Cuisine.vinegar, Veggie.cucumber.raw, Cuisine.vinegar}, false);
 		anchovy_barrel = new BlockBarrel("anchovy", 1, new ItemStack[]{new ItemStack(Cuisine.anchovy, 3)}, new Item[]{Cuisine.salt, Items.fish, Cuisine.salt}, false);

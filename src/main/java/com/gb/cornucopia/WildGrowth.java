@@ -36,13 +36,14 @@ import scala.Console;
 
 public class WildGrowth {
 	private static final Random RANDOM = new Random();
-	private static final int MAXCHUNKS = (512 * 512 * 2);	
-	private static final int CACHECHECK = 1024;
+	private static final int MAXCHUNKS = (512 * 512 * 4);	
+	private static final int CACHECHECK = 2048;
 	private static final String FILENAME = "cc_wild_growth.dat";
 	private int last_cleaned = 0;
 	private Table<Integer, Integer, Integer> grew_last = HashBasedTable.create();
 
 	private void read(){
+		System.out.println("CornuCopia: reading in stored growth data from cc_wild_growth.dat");
 		try {
 			File f = new File(DimensionManager.getCurrentSaveRootDirectory(), FILENAME);
 			FileInputStream fis = new FileInputStream(f);
@@ -148,9 +149,9 @@ public class WildGrowth {
 	private void growAFruit(Chunk c, World w) {
 		final int x = 16 * c.xPosition + RANDOM.nextInt(16);
 		final int z = 16 * c.zPosition + RANDOM.nextInt(16);;
-		final int yMin = c.getHeightValue(x & 15, z & 15);
-		int y = c.getHeightValue(x & 15, z & 15);
 
+		final int yMin = c.getHeightValue(x & 15, z & 15) - 20;
+		int y = c.getHeightValue(x & 15, z & 15);
 		// don't bother searching too low
 		while (--y > yMin) {
 			final BlockPos pos = new BlockPos(x, y, z);
@@ -161,7 +162,7 @@ public class WildGrowth {
 				final BiomeGenBase b = w.getBiomeGenForCoords(pos);
 				final Fruit f = Fruit.getForBiome(RANDOM, b);
 				if (f == null) {return;}
-				w.setBlockState(pos, Fruit.getAny(RANDOM).crop.getDefaultState()
+				w.setBlockState(pos, f.crop.getDefaultState()
 						.withProperty(BlockFruitCrop.DROP_SAPLING, true)
 						.withProperty(BlockFruitCrop.AGE, 3)
 						);

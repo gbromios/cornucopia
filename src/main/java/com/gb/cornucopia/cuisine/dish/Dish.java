@@ -34,6 +34,7 @@ public class Dish {
 	// recipes galore~! i probably will add some here for testing but it'll get more complex later :D
 	// output, bowl, water, allow_dupes, [inputs], cook_time
 	public static void init(){
+		// REMEMBER BOWL, WATER, DUPES, ITEM1, ITEM2, ... ITEMN, COOK_TIME
 		grill = new DishRegistry()
 			.add(new Dish(Cuisine.toast, false, false, false, Items.bread, 100))
 			.add(new Dish(Items.cooked_beef, false, false, false, Items.beef, 200))
@@ -72,17 +73,19 @@ public class Dish {
 			;
 		
 		cutting_board = new DishRegistry()
-			.add(new Dish(Cuisine.bread_dough, true, true, false, Cuisine.flour, Cuisine.flour, Cuisine.flour))
-			.add(new Dish(Cuisine.batter, true, true, false, Cuisine.flour, Cuisine.flour, Items.egg, Ingredient.fat, Ingredient.sweetener))
-			.add(new Dish(Cuisine.tortilla_dough, true, true, false, Cuisine.corn_flour, Cuisine.corn_flour, Cuisine.soda))
-			.add(new Dish(Cuisine.pasta_dough, true, false, false, Cuisine.flour, Cuisine.flour, Items.egg))
-			.add(new Dish(Cuisine.pastry_dough, true, false, false, Cuisine.flour, Cuisine.flour, Ingredient.fat))
+			.add(new Dish(Cuisine.bread_dough, false, true, false, Cuisine.flour, Cuisine.flour, Cuisine.flour))
+			.add(new Dish(Cuisine.batter, false, true, false, Cuisine.flour, Cuisine.flour, Items.egg, Ingredient.fat, Ingredient.sweetener))
+			.add(new Dish(Cuisine.tortilla_dough, false, true, false, Cuisine.corn_flour, Cuisine.corn_flour, Cuisine.soda))
+			.add(new Dish(Cuisine.pasta_dough, false, false, false, Cuisine.flour, Cuisine.flour, Items.egg))
+			.add(new Dish(Cuisine.pastry_dough, false, false, false, Cuisine.flour, Cuisine.flour, Ingredient.fat))
 			.add(new Dish(Cuisine.honey_mustard, false, false, true, Cuisine.mustard, Bees.honey_raw))
 			.add(new Dish(Cuisine.garden_salad, true, false, true, Veggie.lettuce.raw, Veggie.lettuce.raw, Ingredient.dressing, Ingredient.savory_salad, Ingredient.savory_salad))
 			.add(new Dish(Cuisine.caesar_salad, true, false, true, Veggie.lettuce.raw, Veggie.lettuce.raw, Cuisine.olive_oil, Cuisine.lemon_juice, Cuisine.salt, Cuisine.black_pepper, Cuisine.anchovy, Items.egg, Cuisine.toast))
 			.add(new Dish(Cuisine.chicken_caesar_salad, false, false, false, Cuisine.caesar_salad, Items.cooked_chicken))
 			.add(new Dish(Cuisine.bloody_mary, false, false, false, Veggie.tomato.raw, Veggie.tomato.raw, Veggie.celery.raw, Cuisine.black_pepper, Cuisine.spirits))
 			.add(new Dish(Cuisine.bruscetta, false, false, false, Veggie.tomato.raw, Cuisine.olive_oil, Cuisine.basil, Cuisine.toast))
+			.add(new Dish(Cuisine.smoothie, false, false, true, Ingredient.smoothie_base, Ingredient.smoothie_base, Ingredient.sweet_salad, Ingredient.sweet_salad, Ingredient.sweet_salad, Items.snowball));
+		
 			;
 
 	}

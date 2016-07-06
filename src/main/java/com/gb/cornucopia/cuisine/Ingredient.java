@@ -27,6 +27,7 @@ public class Ingredient {
 	public static final Ingredient seasoning = new Ingredient("seasoning");
 	public static final Ingredient savory_salad = new Ingredient("savory_salad");
 	public static final Ingredient sweet_salad = new Ingredient("sweet_salad");
+	public static final Ingredient smoothie_base = new Ingredient("smoothie_base");
 	public static final Ingredient dressing = new Ingredient("dressing");
 	public static final Ingredient juice = new Ingredient("juice");
 	public static final Ingredient ciderable = new Ingredient("ciderable");
@@ -126,7 +127,6 @@ public class Ingredient {
 		.add(Cuisine.carrot_juice)
 		.add(Cuisine.melon_juice)
 		.add(Cuisine.cherry_juice)
-		.add(Cuisine.date_juice)
 		.add(Cuisine.fig_juice)
 		.add(Cuisine.grapefruit_juice)
 		.add(Cuisine.kiwi_juice)
@@ -220,6 +220,29 @@ public class Ingredient {
 		.add(Fruit.plum.raw)
 		.add(Fruit.kiwi.raw)
 		.add(Fruit.peach.raw)
+		;
+		
+		smoothie_base
+		.add(Cuisine.apple_juice)
+		.add(Cuisine.carrot_juice)
+		.add(Cuisine.melon_juice)
+		.add(Cuisine.cherry_juice)
+		.add(Cuisine.fig_juice)
+		.add(Cuisine.grapefruit_juice)
+		.add(Cuisine.kiwi_juice)
+		.add(Cuisine.orange_juice)
+		.add(Cuisine.peach_juice)
+		.add(Cuisine.pear_juice)
+		.add(Cuisine.plum_juice)
+		.add(Cuisine.pomegranate_juice)
+		.add(Cuisine.beet_juice)
+		.add(Cuisine.blackberry_juice)
+		.add(Cuisine.blueberry_juice)
+		.add(Cuisine.pineapple_juice)
+		.add(Cuisine.raspberry_juice)
+		.add(Cuisine.strawberry_juice)
+		.add(Cuisine.grape_juice)
+		.add(Items.milk_bucket)
 		;
 
 	}
