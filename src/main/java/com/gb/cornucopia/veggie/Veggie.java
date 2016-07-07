@@ -227,6 +227,29 @@ public class Veggie {
         .add(grape, 10)
         .add(spice, 15)
         ;
+		
+		// remove "unready" veggies from creative tab pls
+		celery.seed.setCreativeTab(null);
+		celery.wild.setCreativeTab(null);
+		cucumber.seed.setCreativeTab(null);
+		cucumber.wild.setCreativeTab(null);
+		pea.seed.setCreativeTab(null);
+		pea.wild.setCreativeTab(null);
+		tea.seed.setCreativeTab(null);
+		tea.wild.setCreativeTab(null);
+		zucchini.seed.setCreativeTab(null);
+		zucchini.wild.setCreativeTab(null);
+		pineapple.seed.setCreativeTab(null);
+		pineapple.wild.setCreativeTab(null);
+		broccoli.seed.setCreativeTab(null);
+		broccoli.wild.setCreativeTab(null);
+		soy.seed.setCreativeTab(null);
+		soy.wild.setCreativeTab(null);
+		eggplant.seed.setCreativeTab(null);
+		eggplant.wild.setCreativeTab(null);
+		bean.seed.setCreativeTab(null);
+		bean.wild.setCreativeTab(null);
+		
 	}
 
 	public static Veggie getAny(Random r){
