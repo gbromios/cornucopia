@@ -105,14 +105,15 @@ public class BlockVeggieCrop extends BlockBush implements IGrowable
 	{
 		// TODO: make drops better. this works for now
 		java.util.List<ItemStack> ret = new ArrayList<ItemStack>();
+		ret.add(new ItemStack(this.seed));
 
 		if ((Integer)state.getValue(AGE) == MAX_AGE){
-			// after three grows, veggie is ready to harvest
+			// after three grows, veggie is ready to harvest (might spawn a bonus seed)
 			ret.add(new ItemStack(this.raw));
+			if (RANDOM.nextInt(3) == 0) {
+				ret.add(new ItemStack(this.seed));
+			}
 
-		}
-		else {
-			ret.add(new ItemStack(this.seed));
 		}
 
 		return ret;
