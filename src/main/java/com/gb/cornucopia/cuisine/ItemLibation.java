@@ -7,14 +7,11 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 // item for now... potion later??
-public class ItemLibation extends Item{
-	public final String name;
+public class ItemLibation extends ItemCuisine{
+	//public final String name;
 	public ItemLibation(String name) {
-		this.name = "cuisine_" + name;
-		this.setUnlocalizedName(this.name);
-		this.setCreativeTab(CornuCopia.tabCuisine);
-		GameRegistry.registerItem(this, this.name);
-		InvModel.add(this, this.name);
+		super(name, 4, 0.4F);
+		this.setAlwaysEdible();
 	}
 
 }
