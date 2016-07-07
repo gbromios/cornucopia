@@ -1,7 +1,6 @@
 {
-  "parent": "cornucopia:block/veggie_crop", 
+  "parent": "cornucopia:block/veggie_sprout", 
   "textures": {
-    "stem": "cornucopia:blocks/veggie_stem_2",
-    "crop": "cornucopia:blocks/veggie_turnip_crop_2"
+    "stem": "cornucopia:blocks/veggie_shoot_2"
   }
 }
