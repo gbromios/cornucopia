@@ -14,11 +14,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockVeggieWild extends BlockBush implements IPlantable {	
 	private EnumPlantType plantType;
@@ -42,6 +46,23 @@ public class BlockVeggieWild extends BlockBush implements IPlantable {
 		this.raw = raw;
 		this.seed = seed;
 	}
+    @SideOnly(Side.CLIENT)
+    public int getBlockColor()
+    {
+        return ColorizerGrass.getGrassColor(0.5D, 1.0D);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public int getRenderColor(IBlockState state)
+    {
+        return this.getBlockColor();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass)
+    {
+        return BiomeColorHelper.getGrassColorAtPos(world, pos);
+    }
 
 	@Override
 	public EnumPlantType getPlantType(final IBlockAccess world, final BlockPos pos) { return this.plantType; }

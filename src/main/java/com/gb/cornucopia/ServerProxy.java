@@ -8,7 +8,6 @@ import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.cuisine.SaltyBoy;
 import com.gb.cornucopia.fruit.Fruit;
-import com.gb.cornucopia.shelf.BlockShelf;
 import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraftforge.common.MinecraftForge;
