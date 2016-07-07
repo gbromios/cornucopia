@@ -1,4 +1,4 @@
-itemGroup.cc_bees=BEES
+trtemGroup.cc_bees=BEES
 itemGroup.cc_veggies=Crops
 itemGroup.cc_fruit=Orchards
 itemGroup.cc_cookery=Kitchen Equipment
@@ -155,10 +155,6 @@ item.veggie_lentil_seed.name=Lentil Seeds
 tile.veggie_pea_wild.name=Wild Peas
 item.veggie_pea_raw.name=Peas
 item.veggie_pea_seed.name=Pea Seeds
-
-tile.veggie_stringbean_wild.name=Wild String Bean
-item.veggie_stringbean_raw.name=String Beans
-item.veggie_stringbean_seed.name=String Bean Seeds
 
 tile.veggie_grape_wild.name=Wild Grapevine
 item.veggie_grape_raw.name=Grapes

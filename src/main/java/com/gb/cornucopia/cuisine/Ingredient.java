@@ -117,7 +117,6 @@ public class Ingredient {
 		.add(Veggie.bean.raw)
 		.add(Veggie.lentil.raw)
 		.add(Veggie.pea.raw)
-		.add(Veggie.stringbean.raw)
 		.add(Veggie.eggplant.raw)
 		.add(Veggie.zucchini.raw)
 		;
@@ -192,7 +191,6 @@ public class Ingredient {
 		.add(Veggie.tomato.raw)
 		.add(Veggie.turnip.raw)
 		.add(Veggie.pea.raw)
-		.add(Veggie.stringbean.raw)
 		.add(Veggie.cucumber.raw)
 		.add(Veggie.eggplant.raw)
 		.add(Fruit.avocado.raw)

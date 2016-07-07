@@ -44,7 +44,6 @@ public class Veggie {
 	public static Veggie bean;
 	public static Veggie lentil;
 	public static Veggie pea;
-	public static Veggie stringbean;
 	public static Veggie grape;
 	public static Veggie spice;
 	public static Veggie herb;
@@ -85,7 +84,6 @@ public class Veggie {
 		soy = new Veggie("soy");
 		spice = new Veggie("spice");
 		strawberry = new Veggie("strawberry");
-		stringbean = new Veggie("stringbean");
 		tea = new Veggie("tea");
 		tomato = new Veggie("tomato");
 		turnip = new Veggie("turnip");
@@ -210,7 +208,6 @@ public class Veggie {
         .add(onion, 10)
         //.add(bean, 10)
         //.add(pea, 10)
-        //.add(stringbean, 10)
         .add(grape, 10)
         //.add(soy, 10)
         //.add(cucumber, 10)
