@@ -161,9 +161,9 @@ public class Veggie {
 		.add(bell_pepper, 10)
 		.add(herb, 10)
 		.add(peanut, 10)
-		.add(pineapple, 10)
+		//.add(pineapple, 10)
 		.add(spice, 10)
-		.add(tea, 10)
+		//.add(tea, 10)
 		.add(tomato, 10)
 		;
 		
@@ -174,7 +174,7 @@ public class Veggie {
         .add(onion, 10)
         .add(turnip, 10)
         .add(garlic, 10)
-        .add(bean, 10)
+        //.add(bean, 10)
         .add(hops, 10)
 		;
 		
@@ -195,7 +195,7 @@ public class Veggie {
         .add(strawberry, 10)
         .add(herb, 10)
         .add(garlic, 10)
-        .add(eggplant, 10)
+        //.add(eggplant, 10)
 		;
 		
 		plainsVeggies
@@ -203,26 +203,26 @@ public class Veggie {
         .add(asparagus, 10)
         .add(barley, 10)
         .add(beet, 10)
-        .add(broccoli, 10)
+        //.add(broccoli, 10)
         .add(cabbage, 10)
-        .add(celery, 10)
+        //.add(celery, 10)
         .add(lettuce, 10)
         .add(onion, 10)
-        .add(bean, 10)
-        .add(pea, 10)
-        .add(stringbean, 10)
+        //.add(bean, 10)
+        //.add(pea, 10)
+        //.add(stringbean, 10)
         .add(grape, 10)
-        .add(soy, 10)
-        .add(cucumber, 10)
-        .add(eggplant, 10)
-        .add(zucchini, 10)
+        //.add(soy, 10)
+        //.add(cucumber, 10)
+        //.add(eggplant, 10)
+        //.add(zucchini, 10)
         .add(corn, 10)
 		;
 		
 		dryVeggies
         .add(onion, 10)
         .add(garlic, 10)
-        .add(bean, 15)
+        //.add(bean, 15)
         .add(lentil, 10)
         .add(grape, 10)
         .add(spice, 15)
