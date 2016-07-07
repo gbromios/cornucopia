@@ -1,1 +1,1 @@
-{"textures": {"layer0": "cornucopia:blocks/veggie_grape_crop_7"}, "display": {"thirdperson": {"rotation": [10, -45, 170], "scale": [0.375, 0.375, 0.375], "translation": [0, 1.5, -2.75]}}, "parent": "builtin/generated"}
+{"textures": {"layer0": "cornucopia:blocks/veggie_grape_crop"}, "display": {"thirdperson": {"rotation": [10, -45, 170], "scale": [0.375, 0.375, 0.375], "translation": [0, 1.5, -2.75]}}, "parent": "builtin/generated"}
