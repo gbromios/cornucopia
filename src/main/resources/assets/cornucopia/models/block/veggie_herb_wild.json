@@ -1,6 +1,7 @@
 {
-  "parent": "block/cross", 
+  "parent": "cornucopia:block/veggie_cross", 
   "textures": {
-    "cross": "cornucopia:blocks/veggie_herb_crop_7"
+    "stem": "cornucopia:blocks/veggie_stalk_7",
+    "crop": "cornucopia:blocks/veggie_herb_crop_7"
   }
 }
