@@ -37,6 +37,6 @@
   }, 
   "parent": "builtin/generated", 
   "textures": {
-    "layer0": "cornucopia:items/seed_missing"
+    "layer0": "cornucopia:items/veggie_tomato_seed"
   }
 }
