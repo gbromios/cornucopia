@@ -49,7 +49,7 @@ public class Dish {
 			;
 		
 		pot = new DishRegistry()
-			.add(new Dish(new ItemStack(Cuisine.mozzarella, 4), false, false, false, Items.milk_bucket, Items.milk_bucket, Items.milk_bucket, Fruit.lemon.raw ))
+			.add(new Dish(new ItemStack(Cuisine.mozzarella, 4), false, false, false, Items.milk_bucket, Items.milk_bucket, Items.milk_bucket, Cuisine.lemon_juice ))
 			.add(new Dish(Cuisine.mash, false, true, false, Veggie.barley.raw, Veggie.barley.raw, Veggie.barley.raw, Veggie.barley.raw, Veggie.hops.raw, 240))
 			.add(new Dish(Cuisine.ketchup, true, false, false, Cuisine.vinegar, Veggie.tomato.raw, Items.sugar, 200))
 			.add(new Dish(Cuisine.mayonnaise, false, false, true, Ingredient.fat, Ingredient.fat, Items.egg))
