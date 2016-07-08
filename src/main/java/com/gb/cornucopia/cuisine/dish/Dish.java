@@ -44,7 +44,6 @@ public class Dish {
 			.add(new Dish(Items.cooked_fish, false, false, false, Items.fish, 200))
 			.add(new Dish(Items.cooked_rabbit, false, false, false, Items.rabbit, 200))
 			.add(new Dish(Cuisine.kebab, false, false, true, Items.stick, Ingredient.red_meat, Ingredient.red_meat, Ingredient.seasoning, Ingredient.kebab_veggie, Ingredient.kebab_veggie, 240))
-			//.add(new Dish(Cookery.delicious_food, Veggie.corn.raw, Bees.bee, Cookery.juicer))
 			//.add(new Dish(Cuisine.mirepoix, Ingredient.mirepoix_part, Ingredient.mirepoix_part, Ingredient.mirepoix_part))
 			;
 		

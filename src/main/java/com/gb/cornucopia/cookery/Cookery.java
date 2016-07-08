@@ -24,8 +24,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Cookery {	
 	//region yawn static fields
-	public static ItemCookWare juicer;
-
 	public static ItemCookWare pot;
 	public static ItemCookWare pan;
 	public static ItemCookWare skillet;
@@ -58,8 +56,6 @@ public class Cookery {
 
 
 	public static void preInit(){
-		juicer = new ItemCookWare("juicer");
-
 		pot = new ItemCookWare("pot", Vessel.POT);
 		pan = new ItemCookWare("pan", Vessel.PAN);
 		//skillet = new ItemCookWare("skillet", Vessel.SKILLET);
@@ -153,11 +149,6 @@ public class Cookery {
 				" II", " II", "S  ",
 				'I', Items.iron_ingot,
 				'S', Items.stick
-				);
-		GameRegistry.addShapedRecipe(new ItemStack(juicer),
-				" I ", "SSS",
-				'I', Items.iron_ingot,
-				'S', Blocks.stone_slab
 				);
 		GameRegistry.addShapedRecipe(new ItemStack(barrel_hoop),
 				" I ", "I I", " I ",
