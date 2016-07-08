@@ -18,12 +18,10 @@ Without further ado:
 ## Features Overview
 
 #### Current
-- 33 New Ground Crops
-- 18 New Orchard Trees
-- Beekeeping
-- Kitchens (food-centered crafting stations)
-
-#### Ready by Feb 2016 Re-Opening of WilsonSMP
+ - Tons of New Ground Crops
+ - Tons of New Orchard Trees
+ - Beekeeping
+ - Kitchens (food-centered crafting stations)
  - Dozens if not *Millions* of new Recipes & Textures
  - Cheesemaking
  - Libation Brewing
