@@ -120,9 +120,10 @@ public class BlockVeggieWild extends BlockBush implements IPlantable {
 				RANDOM.nextInt(5) - 2
 				);
 
+		IBlockState grow_state = world.getBlockState(grow_at.down());
 		if (
 				world.isAirBlock(grow_at) && 
-				world.getBlockState(grow_at.down()).getBlock().canSustainPlant(world, grow_at.down(), EnumFacing.UP, this)
+				grow_state.getBlock().canSustainPlant(grow_state, world, grow_at.down(), EnumFacing.UP, this)
 
 				){
 			//world.setBlockState(grow_at, new BlockState(this), 0);

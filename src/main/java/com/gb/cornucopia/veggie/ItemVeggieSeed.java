@@ -38,12 +38,13 @@ public class ItemVeggieSeed extends Item implements IPlantable{
 	{
 
 		// may elect to put biome restrictions here?
+		IBlockState grow_state = world.getBlockState(pos);
 
 		if (side != EnumFacing.UP || !player.canPlayerEdit(pos.offset(side), side, stack))
 		{
 			return false;
 		}
-		else if (world.getBlockState(pos).getBlock().canSustainPlant(world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up()))
+		else if (grow_state.getBlock().canSustainPlant(grow_state, world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up()))
 		{
 			world.setBlockState(pos.up(), this.crop.getDefaultState());
 			--stack.stackSize;

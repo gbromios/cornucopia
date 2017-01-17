@@ -74,7 +74,8 @@ public class BlockStove extends Block  implements ITileEntityProvider{
 		//final IBlockState top = world.getBlockState(pos.up());
 		if (world.isRemote || world.getBlockState(pos.up()).getBlock() != Cookery.stovetop) { return true; }
 	//System.out.format("ok go \n" );
-		if (BlockStove.getVessel(world, pos) == Vessel.NONE) {			
+		// TODO  need to make this hand-aware #62
+		/*if (BlockStove.getVessel(world, pos) == Vessel.NONE) {			
 			final Vessel v = (player.getHeldItem() == null) ? Vessel.NONE : Vessel.fromItem(player.getHeldItem().getItem());
 			// if the held item is associated with any vessel, place that vessel
 			if (v != Vessel.NONE) {
@@ -83,7 +84,7 @@ public class BlockStove extends Block  implements ITileEntityProvider{
 				player.destroyCurrentEquippedItem();
 				return true;
 			}
-		}
+		}*/
 		
 		// if there's a vessel already in place, open the crafting table 
 		// ( also hue hue we doin this... none type gui)
