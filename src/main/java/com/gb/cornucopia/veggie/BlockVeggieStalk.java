@@ -6,10 +6,10 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -19,7 +19,7 @@ public class BlockVeggieStalk extends BlockBush{
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 
 	public BlockVeggieStalk(final String name, final BlockVeggieCropTall crop) {
-		super(Material.plants);
+		super(Material.PLANTS);
 		this.name = "veggie_" + name + "_stalk";
 		this.crop = crop;
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
@@ -42,7 +42,7 @@ public class BlockVeggieStalk extends BlockBush{
 	{
 		return
 				// if stalks are ever 2 grow, we must allow (this) to be below itself 
-				(world.getBlockState(pos.down()).getBlock() == Blocks.farmland)
+				(world.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND)
 				// crop has to be above
 				&& (world.getBlockState(pos.up()).getBlock() == this.crop)
 				;
@@ -59,8 +59,8 @@ public class BlockVeggieStalk extends BlockBush{
 	}
 
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { AGE });
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { AGE });
 	}
 
 	@Override

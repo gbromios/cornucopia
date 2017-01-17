@@ -19,11 +19,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 
@@ -37,7 +37,7 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	public boolean hasCustomName() { return false; }
 
 	@Override
-	public IChatComponent getDisplayName() { return new ChatComponentText("presser"); }
+	public ITextComponent getDisplayName() { return new TextComponentString("presser"); }
 
 	@Override
 	public int getSizeInventory() {	return 2; }
@@ -86,11 +86,11 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		return ( i == Bees.honeycomb && this.hasOrEmpty(Bees.honey_raw) )
 				|| ( i == Fruit.olive.raw && this.hasOrEmpty(Cuisine.olive_oil) )
 				|| ( Cuisine.hathJuice(i) && this.hasOrEmpty(Cuisine.getJuice(i)) )
-				|| ( i == Items.milk_bucket && this.hasOrEmpty(Cuisine.butter) )
+				|| ( i == Items.MILK_BUCKET && this.hasOrEmpty(Cuisine.butter) )
 				|| ( i == Veggie.peanut.raw && this.hasOrEmpty(Cuisine.canola_oil) )
 				|| ( i == Cuisine.pasta_dough && this.hasOrEmpty(Cuisine.fresh_pasta) )
 				|| ( i == Veggie.soy.raw && this.hasOrEmpty(Cuisine.tofu) )
-				|| ( i == Items.wheat_seeds && this.hasOrEmpty(Cuisine.canola_oil) )
+				|| ( i == Items.WHEAT_SEEDS && this.hasOrEmpty(Cuisine.canola_oil) )
 				|| ( i instanceof ItemVeggieSeed && this.hasOrEmpty(Cuisine.canola_oil) )
 				;
 	}
@@ -155,10 +155,10 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		} else if (i == Fruit.olive.raw) {
 			press(Cuisine.olive_oil, 4);
 
-		} else if (i == Items.milk_bucket) {
-			press(Cuisine.butter, 1, Items.bucket);
+		} else if (i == Items.MILK_BUCKET) {
+			press(Cuisine.butter, 1, Items.BUCKET);
 
-		} else if (i == Items.wheat_seeds) {
+		} else if (i == Items.WHEAT_SEEDS) {
 			press(Cuisine.canola_oil, 32);
 
 		} else if (i instanceof ItemVeggieSeed) {
@@ -184,11 +184,11 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		writeToNBT(nbtTagCompound);
 		int metadata = getBlockMetadata();
-		return new S35PacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
+		return new SPacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
 	}
 
 	@Override
-	public void onDataPacket(final NetworkManager net, final S35PacketUpdateTileEntity pkt) {
+	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.getNbtCompound());
 	}
 

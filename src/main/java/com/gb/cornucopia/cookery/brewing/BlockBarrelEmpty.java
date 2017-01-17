@@ -10,10 +10,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -25,7 +25,7 @@ public class BlockBarrelEmpty extends Block {
 	public final String name;
 
 	public BlockBarrelEmpty(String name) {
-		super(Material.wood);
+		super(Material.WOOD);
 		// TODO Auto-generated constructor stub
 		this.name = "brew_"+name+"_barrel";
 		this.setUnlocalizedName(this.name);
@@ -83,9 +83,9 @@ public class BlockBarrelEmpty extends Block {
 	}
 
 	@Override
-	protected BlockState createBlockState()
+	protected BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, new IProperty[] {AXIS, UNDER_BARREL});
+		return new BlockStateContainer(this, new IProperty[] {AXIS, UNDER_BARREL});
 	}
 
 	@Override

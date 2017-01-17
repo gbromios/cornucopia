@@ -11,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -21,7 +21,7 @@ public class BlockWaterBasin extends Block{
 	//public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
 	public BlockWaterBasin(){
-		super(Material.rock);
+		super(Material.ROCK);
 		this.name = "cookery_water_basin";
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setUnlocalizedName(this.name);
@@ -46,13 +46,13 @@ public class BlockWaterBasin extends Block{
 		final Item held_item = player.inventory.getCurrentItem().getItem();
 		ItemStack filled_container = null;
 
-		if (held_item == Items.glass_bottle)
+		if (held_item == Items.GLASS_BOTTLE)
 		{
-			filled_container = new ItemStack(Items.potionitem, 1, 0);
+			filled_container = new ItemStack(Items.POTIONITEM, 1, 0);
 		}
-		else if (held_item == Items.bucket)
+		else if (held_item == Items.BUCKET)
 		{
-			filled_container = new ItemStack(Items.water_bucket, 1, 0);
+			filled_container = new ItemStack(Items.WATER_BUCKET, 1, 0);
 		}
 		else
 		{

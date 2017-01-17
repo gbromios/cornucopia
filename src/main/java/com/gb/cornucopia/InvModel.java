@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 
 public class InvModel {
@@ -38,7 +38,7 @@ public class InvModel {
 	public static void register(){
 		final ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
 		for (InvModel m : models){
-			mesher.register(m.item, 0, new ModelResourceLocation(m.location, "inventory"));
+			mesher.register(m.item, 0, new net.minecraft.client.renderer.block.model.ModelResourceLocation(m.location, "inventory"));
 		}
 
 	}

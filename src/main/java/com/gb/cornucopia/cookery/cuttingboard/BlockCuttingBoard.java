@@ -7,11 +7,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -21,7 +21,7 @@ public class BlockCuttingBoard extends Block {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public final String name;
 	public BlockCuttingBoard() {
-		super(Material.wood);
+		super(Material.WOOD);
 		this.name = "cookery_cutting_board";
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setUnlocalizedName(this.name);
@@ -110,9 +110,9 @@ public class BlockCuttingBoard extends Block {
 	}
 
 	@Override
-	protected BlockState createBlockState()
+	protected BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, new IProperty[] {FACING});
+		return new BlockStateContainer(this, new IProperty[] {FACING});
 	}
 
 }

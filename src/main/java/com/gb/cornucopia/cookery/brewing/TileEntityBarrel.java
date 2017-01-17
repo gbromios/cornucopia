@@ -4,7 +4,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 
@@ -50,13 +50,13 @@ public class TileEntityBarrel extends TileEntity implements ITickable{
 		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		this.writeToNBT(nbtTagCompound);
 		final int metadata = getBlockMetadata();
-		S35PacketUpdateTileEntity pkt = new S35PacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
+		SPacketUpdateTileEntity pkt = new SPacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
 		return pkt;
 
 	}
 
 	@Override
-	public void onDataPacket(final NetworkManager net, final S35PacketUpdateTileEntity pkt) {
+	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		//System.out.println("got data pkt: " + pkt.toString());
 		this.readFromNBT(pkt.getNbtCompound());
 	}

@@ -13,12 +13,12 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -76,7 +76,7 @@ public class BlockFruitCrop extends BlockBush implements IGrowable{
 
 	@Override
 	public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random rand){
-		if (rand.nextInt(8) == 0 && this.canGrow(world, pos, state, true)) { //1/8 chance to grow on tick
+		if (rand.nextInt(32) == 0 && this.canGrow(world, pos, state, true)) { //1/8 chance to grow on tick
 			this.grow(world, rand, pos, state);
 		}
 	}
@@ -125,8 +125,8 @@ public class BlockFruitCrop extends BlockBush implements IGrowable{
 	}
 
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { AGE, DROP_SAPLING });
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { AGE, DROP_SAPLING });
 	}
 
 	@Override

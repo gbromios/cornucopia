@@ -2,13 +2,9 @@ package com.gb.cornucopia;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Random;
 
 import com.gb.cornucopia.bees.Bees;
@@ -21,18 +17,14 @@ import com.google.common.collect.Table.Cell;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import scala.Console;
 
 public class WildGrowth {
 	private static final Random RANDOM = new Random();
@@ -126,13 +118,13 @@ public class WildGrowth {
 	}
 	@SubscribeEvent
 	public void onChunkLoad(ChunkEvent.Load e) {
-		if (e.world.isRemote) { return; }
+		if (e.getWorld().isRemote) { return; }
 		if (!Settings.wild_fruit_spawn && !Settings.wild_veggie_spawn && !Settings.wild_bee_spawn) { return; }
-		if ( this.offCooldown(e.getChunk(), (int) e.world.getWorldTime()) ) {
+		if ( this.offCooldown(e.getChunk(), (int) e.getWorld().getWorldTime()) ) {
 			// chunk has a chance to spawn a random veggie
-			if (Settings.wild_fruit_spawn && RANDOM.nextInt(Settings.wild_fruit_spawn_chance) == 0) { this.growAFruit(e.getChunk(), e.world); }
-			if (Settings.wild_veggie_spawn && RANDOM.nextInt(Settings.wild_veggie_spawn_chance) == 0) { this.growAVeggie(e.getChunk(), e.world); }
-			if (Settings.wild_bee_spawn && RANDOM.nextInt(Settings.wild_bee_spawn_chance) == 0) { this.growABees(e.getChunk(), e.world); }
+			if (Settings.wild_fruit_spawn && RANDOM.nextInt(Settings.wild_fruit_spawn_chance) == 0) { this.growAFruit(e.getChunk(), e.getWorld()); }
+			if (Settings.wild_veggie_spawn && RANDOM.nextInt(Settings.wild_veggie_spawn_chance) == 0) { this.growAVeggie(e.getChunk(), e.getWorld()); }
+			if (Settings.wild_bee_spawn && RANDOM.nextInt(Settings.wild_bee_spawn_chance) == 0) { this.growABees(e.getChunk(), e.getWorld()); }
 		}
 
 		// every thousand or so load events, make sure we're not leaking memory
@@ -141,7 +133,7 @@ public class WildGrowth {
 			last_cleaned = 0;
 			//System.out.format("		(wild growth cache has %d)\n ", this.grew_last.size());
 			if ( grew_last.size() > MAXCHUNKS ) {
-				this.clear((int) e.world.getWorldTime());
+				this.clear((int) e.getWorld().getWorldTime());
 			}
 		}
 	}
@@ -158,8 +150,8 @@ public class WildGrowth {
 			final IBlockState leaf = w.getBlockState(pos.up());
 			//System.out.format("		......%s ? %s ____ %s\n ", pos, w.getBlockState(pos), leaf);
 
-			if ((leaf.getBlock() == Blocks.leaves || leaf.getBlock() == Blocks.leaves2) && w.isAirBlock(pos)) {
-				final BiomeGenBase b = w.getBiomeGenForCoords(pos);
+			if ((leaf.getBlock() == Blocks.LEAVES || leaf.getBlock() == Blocks.LEAVES2) && w.isAirBlock(pos)) {
+				final Biome b = w.getBiomeGenForCoords(pos);
 				final Fruit f = Fruit.getForBiome(RANDOM, b);
 				if (f == null) {return;}
 				w.setBlockState(pos, f.crop.getDefaultState()
@@ -185,7 +177,7 @@ public class WildGrowth {
 			final IBlockState leaf = w.getBlockState(pos.up());
 			//System.out.format("		......%s ? %s ____ %s\n ", pos, w.getBlockState(pos), leaf);
 
-			if ((leaf.getBlock() == Blocks.leaves || leaf.getBlock() == Blocks.leaves2 ) && w.isAirBlock(pos)) {
+			if ((leaf.getBlock() == Blocks.LEAVES || leaf.getBlock() == Blocks.LEAVES2 ) && w.isAirBlock(pos)) {
 				w.setBlockState(pos, Bees.hive.getDefaultState());
 				//System.out.format(" BEES @ %s = %s \n ", pos, w.getBlockState(pos), leaf);
 				return;
@@ -201,10 +193,10 @@ public class WildGrowth {
 		final int z = 16 * c.zPosition + RANDOM.nextInt(16);;
 		final int y = c.getHeightValue(x & 15, z & 15);
 		final BlockPos pos = new BlockPos(x, y, z);
-		final BiomeGenBase b = w.getBiomeGenForCoords(pos);
+		final Biome b = w.getBiomeGenForCoords(pos);
 		final Veggie v = Veggie.getForBiome(RANDOM, b);
 		if ( v == null ) {return;}
-		if (w.getBlockState(pos.down()).getBlock() == Blocks.grass){
+		if (w.getBlockState(pos.down()).getBlock() == Blocks.GRASS){
 			w.setBlockState(pos, v.wild.getDefaultState());
 		}
 		//System.out.format(" VEG   @ %s \n\n", v == null ? "<>" : v.name);

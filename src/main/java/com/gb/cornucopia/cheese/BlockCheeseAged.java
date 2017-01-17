@@ -11,12 +11,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -28,7 +28,7 @@ public class BlockCheeseAged extends Block {
 	public final String name = "cheese_wheel_aged";
 
 	public BlockCheeseAged() {
-		super(Material.cake);
+		super(Material.CAKE);
 
 		this.setDefaultState(this.blockState.getBaseState().withProperty(TAKEN, 0));
 		this.setBlockBounds(0.0625F, 0, 0.0625F, 0.9375F, 0.5F,  0.9375F);
@@ -60,9 +60,9 @@ public class BlockCheeseAged extends Block {
 	}
 
 	@Override
-	protected BlockState createBlockState()
+	protected BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, new IProperty[] {TAKEN});
+		return new BlockStateContainer(this, new IProperty[] {TAKEN});
 	}
 
 	@Override

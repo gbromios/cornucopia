@@ -99,9 +99,9 @@ public class Cookery {
 		cordial_barrel = new BlockBarrel("cordial", 1, new ItemStack[]{new ItemStack(Cuisine.cordial, 2)}, new Item[]{Cuisine.blueberry_juice, Cuisine.blueberry_juice, Cuisine.blueberry_juice}, true);
 		beer_barrel = new BlockBarrel("beer", 1, new ItemStack[]{new ItemStack(Cuisine.beer, 4)}, new Item[]{Cuisine.mash, Cuisine.mash, Cuisine.mash}, false);
 		pickle_barrel = new BlockBarrel("pickle", 1, new ItemStack[]{new ItemStack(Cuisine.pickle, 3)}, new Item[]{Cuisine.vinegar, Veggie.cucumber.raw, Cuisine.vinegar}, false);
-		anchovy_barrel = new BlockBarrel("anchovy", 1, new ItemStack[]{new ItemStack(Cuisine.anchovy, 3)}, new Item[]{Cuisine.salt, Items.fish, Cuisine.salt}, false);
+		anchovy_barrel = new BlockBarrel("anchovy", 1, new ItemStack[]{new ItemStack(Cuisine.anchovy, 3)}, new Item[]{Cuisine.salt, Items.FISH, Cuisine.salt}, false);
 		mead_barrel = new BlockBarrel("mead", 1, new ItemStack[]{new ItemStack(Cuisine.mead, 2)}, new Item[]{Bees.honey_raw, Bees.honey_raw, Bees.honey_raw}, false);
-		cheese_barrel = new BlockBarrel("cheese", 1, new ItemStack[]{new ItemStack(Item.getItemFromBlock(Cheese.cheese_wheel_young))}, new Item[]{Items.milk_bucket, Items.milk_bucket, Items.milk_bucket}, (int)1.8e+6, false); // 30 minutes
+		cheese_barrel = new BlockBarrel("cheese", 1, new ItemStack[]{new ItemStack(Item.getItemFromBlock(Cheese.cheese_wheel_young))}, new Item[]{Items.MILK_BUCKET, Items.MILK_BUCKET, Items.MILK_BUCKET}, (int)1.8e+6, false); // 30 minutes
 		vinegar_barrel = new BlockBarrel("vinegar", 1, new ItemStack[]{new ItemStack(Cuisine.vinegar, 4)}, new Item[]{Cuisine.wine}, (int)1.2e+6, false); // 20 minutes
 		
 		// might as well deal w/ young cheese recipe here :I
@@ -113,50 +113,50 @@ public class Cookery {
 		// crafting recipes
 		GameRegistry.addShapedRecipe(new ItemStack(water_basin),
 				"S S", "SBS", "SSS",
-				'B', Items.water_bucket,
-				'S', Blocks.cobblestone
+				'B', Items.WATER_BUCKET,
+				'S', Blocks.COBBLESTONE
 				);
 
 		GameRegistry.addShapedRecipe(new ItemStack(cutting_board),
 				"I  ", "SSS",
-				'S', Blocks.wooden_slab,
-				'I', Items.iron_ingot
+				'S', Blocks.WOODEN_SLAB,
+				'I', Items.IRON_INGOT
 				);
 		GameRegistry.addShapedRecipe(new ItemStack(presser),
 				"III", "WPW", "WWW",
-				'I', Items.iron_ingot,
-				'W', Blocks.planks,
-				'P', Blocks.piston
+				'I', Items.IRON_INGOT,
+				'W', Blocks.PLANKS,
+				'P', Blocks.PISTON
 				);
 		GameRegistry.addShapedRecipe(new ItemStack(mill),
 				"SSS", "WIW", "WWW",
-				'I', Items.iron_ingot,
-				'W', Blocks.planks, 
-				'S', Blocks.cobblestone
+				'I', Items.IRON_INGOT,
+				'W', Blocks.PLANKS, 
+				'S', Blocks.COBBLESTONE
 				);
 		GameRegistry.addShapedRecipe(new ItemStack(stove), 
 				"III", "S S", "SSS",
-				'I', Items.iron_ingot,
-				'S', Blocks.cobblestone
+				'I', Items.IRON_INGOT,
+				'S', Blocks.COBBLESTONE
 				);
 		
 		GameRegistry.addShapedRecipe(new ItemStack(pot),
 				"S S", "I I", "III",
-				'I', Items.iron_ingot,
-				'S', Items.stick
+				'I', Items.IRON_INGOT,
+				'S', Items.STICK
 				);
 		GameRegistry.addShapedRecipe(new ItemStack(pan),
 				" II", " II", "S  ",
-				'I', Items.iron_ingot,
-				'S', Items.stick
+				'I', Items.IRON_INGOT,
+				'S', Items.STICK
 				);
 		GameRegistry.addShapedRecipe(new ItemStack(barrel_hoop),
 				" I ", "I I", " I ",
-				'I', Items.iron_ingot
+				'I', Items.IRON_INGOT
 				);
 		GameRegistry.addShapedRecipe(new ItemStack(barrel_stave),
 				" W ", " W ", " W ",
-				'W', Blocks.planks
+				'W', Blocks.PLANKS
 				);
 		GameRegistry.addShapedRecipe(new ItemStack(empty_barrel),
 				"SHS", "S S", "SHS",

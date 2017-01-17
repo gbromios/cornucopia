@@ -203,44 +203,44 @@ public class Cuisine {
 		ketchup = new ItemCuisine("ketchup", 1, 0.05F);
 
 		cheese_sauce = new ItemCuisine("cheese_sauce", 1, 0.12F)
-				.setContainerItem(Items.bowl)
+				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 				;
 		red_sauce = new ItemCuisine("red_sauce", 1, 0.12F)
-				.setContainerItem(Items.bowl)
+				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 				;
 		popcorn = new ItemCuisine("popcorn", 3, 0.09F)
-				.setContainerItem(Items.bowl)
+				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(16)
 				;
 
 		// larger meals!
 		cheesy_noodles = new ItemCuisine("cheesy_noodles", 12, 1.2F)
-				.setContainerItem(Items.bowl)
+				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 				;
 		spaghetti_bolognese = new ItemCuisine("spaghetti_bolognese", 12, 1.3F)
-				.setContainerItem(Items.bowl)
+				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 				;
 		chicken_caesar_salad = new ItemCuisine("chicken_caesar_salad", 11, 1.2F)
-				.setContainerItem(Items.bowl)
+				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 				;
 		fish_and_chips = new ItemCuisine("fish_and_chips", 15, 1.6F)
-				.setContainerItem(Items.bowl)
+				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 				;
 		caesar_salad = new ItemCuisine("caesar_salad", 8, 0.8F)
-				.setContainerItem(Items.bowl)
+				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 				;
 		bruscetta = new ItemCuisine("bruscetta", 6, 0.4F)
 				.setMaxStackSize(8)
 				;
 		kebab = new ItemCuisine("kebab", 11, 1.0F)
-				.setContainerItem(Items.stick)
+				.setContainerItem(Items.STICK)
 				.setMaxStackSize(4)
 				;
 		smoothie = new ItemCuisine("smoothie", 6, 0.6F)
@@ -274,9 +274,9 @@ public class Cuisine {
 		.add(rosemary = _generic("rosemary"), 20)
 		;
 		
-		juice_map.put(Items.carrot, Cuisine.carrot_juice);
-		juice_map.put(Items.apple, Cuisine.apple_juice);
-		juice_map.put(Items.melon, Cuisine.melon_juice);
+		juice_map.put(Items.CARROT, Cuisine.carrot_juice);
+		juice_map.put(Items.APPLE, Cuisine.apple_juice);
+		juice_map.put(Items.MELON, Cuisine.melon_juice);
 		juice_map.put(Fruit.cherry.raw, Cuisine.cherry_juice);
 		juice_map.put(Fruit.date.raw, Cuisine.date_juice);
 		juice_map.put(Fruit.fig.raw, Cuisine.fig_juice);
@@ -310,18 +310,18 @@ public class Cuisine {
 		Ingredient.init();
 		Dish.init();
 
-		removeVanillaRecipe(new ItemStack(Items.bread)); // sorry guys!!!!
+		removeVanillaRecipe(new ItemStack(Items.BREAD)); // sorry guys!!!!
 		// how u really make bread tho:
-		GameRegistry.addSmelting(Cuisine.bread_dough, new ItemStack(Items.bread), 0.25F);
+		GameRegistry.addSmelting(Cuisine.bread_dough, new ItemStack(Items.BREAD), 0.25F);
 		
-		removeVanillaRecipe(new ItemStack(Items.cake)); // srsly
-		GameRegistry.addSmelting(Cuisine.batter, new ItemStack(Items.cake), 0.25F);
+		removeVanillaRecipe(new ItemStack(Items.CAKE)); // srsly
+		GameRegistry.addSmelting(Cuisine.batter, new ItemStack(Items.CAKE), 0.25F);
 		
 		// removeVanillaRecipe(new ItemStack(Items.cookie)); // YOU'RE NEXT
 		
 		
 		// not quite removing a vanilla recipe:
-		Items.milk_bucket.setMaxStackSize(8);
+		Items.MILK_BUCKET.setMaxStackSize(8);
 
 		// rock salt is dropped by mining deep in the earth, turns into 8x table salt
 		// might make this a mill recipe, but for now just leave it vanilla crafting

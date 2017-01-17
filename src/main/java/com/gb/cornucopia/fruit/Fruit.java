@@ -11,7 +11,7 @@ import com.google.common.collect.Collections2;
 
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.init.Items;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
@@ -38,7 +38,7 @@ public class Fruit {
 	public static Fruit peach;
 
 	public static void preInit(){
-		Items.apple.setCreativeTab(CornuCopia.tabFruit);
+		Items.APPLE.setCreativeTab(CornuCopia.tabFruit);
 		almond = new Fruit("almond", BlockPlanks.EnumType.SPRUCE);
 		avocado = new Fruit("avocado", BlockPlanks.EnumType.SPRUCE);
 		banana = new Fruit("banana", BlockPlanks.EnumType.JUNGLE);
@@ -170,7 +170,7 @@ public class Fruit {
 	    
 	}
 	
-	public static Fruit getForBiome(Random r, BiomeGenBase b){
+	public static Fruit getForBiome(Random r, Biome b){
 		final String ts = Collections2.transform(Arrays.asList(BiomeDictionary.getTypesForBiome(b)), new Function<BiomeDictionary.Type, String>(){
 
 	        @Override

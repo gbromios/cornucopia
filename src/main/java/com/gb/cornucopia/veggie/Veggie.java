@@ -13,7 +13,7 @@ import com.google.common.collect.Collections2;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.EnumPlantType;
@@ -89,14 +89,14 @@ public class Veggie {
 		turnip = new Veggie("turnip");
 		zucchini = new Veggie("zucchini");
 		// move vanilla food to this tab!
-		Items.carrot.setCreativeTab(CornuCopia.tabVeggies);
-		Items.melon.setCreativeTab(CornuCopia.tabVeggies);
-		Items.melon_seeds.setCreativeTab(CornuCopia.tabVeggies);
-		Blocks.pumpkin.setCreativeTab(CornuCopia.tabVeggies);
-		Items.pumpkin_seeds.setCreativeTab(CornuCopia.tabVeggies);
-		Items.potato.setCreativeTab(CornuCopia.tabVeggies);
-		Items.wheat.setCreativeTab(CornuCopia.tabVeggies);
-		Items.wheat_seeds.setCreativeTab(CornuCopia.tabVeggies);
+		Items.CARROT.setCreativeTab(CornuCopia.tabVeggies);
+		Items.MELON.setCreativeTab(CornuCopia.tabVeggies);
+		Items.MELON_SEEDS.setCreativeTab(CornuCopia.tabVeggies);
+		Blocks.PUMPKIN.setCreativeTab(CornuCopia.tabVeggies);
+		Items.PUMPKIN_SEEDS.setCreativeTab(CornuCopia.tabVeggies);
+		Items.POTATO.setCreativeTab(CornuCopia.tabVeggies);
+		Items.WHEAT.setCreativeTab(CornuCopia.tabVeggies);
+		Items.WHEAT_SEEDS.setCreativeTab(CornuCopia.tabVeggies);
 
 	}
 
@@ -254,7 +254,7 @@ public class Veggie {
 	    for(Veggie v: vegMap.values()) { if (--i < 0) return v; }
 	    throw new RuntimeException();
 	}
-	public static Veggie getForBiome(Random r, BiomeGenBase b){
+	public static Veggie getForBiome(Random r, Biome b){
 		final String ts = Collections2.transform(Arrays.asList(BiomeDictionary.getTypesForBiome(b)), new Function<BiomeDictionary.Type, String>(){
 
 	        @Override

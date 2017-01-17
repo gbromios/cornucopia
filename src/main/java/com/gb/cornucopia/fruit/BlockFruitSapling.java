@@ -12,10 +12,10 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
@@ -45,11 +45,11 @@ public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowabl
 		case SPRUCE:
 		case BIRCH:
 		case JUNGLE:
-			this.wood = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, wood_type);
+			this.wood = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, wood_type);
 			break;
 		case ACACIA:
 		case DARK_OAK:
-			this.wood = Blocks.log2.getDefaultState().withProperty(BlockNewLog.VARIANT, wood_type);
+			this.wood = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, wood_type);
 			break;
 		}
 		
@@ -72,8 +72,8 @@ public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowabl
 	}
 
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { AGE });
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { AGE });
 	}
 
 	@Override

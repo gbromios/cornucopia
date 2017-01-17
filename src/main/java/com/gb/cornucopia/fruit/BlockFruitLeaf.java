@@ -10,12 +10,12 @@ import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -74,11 +74,14 @@ public class BlockFruitLeaf extends BlockLeaves {
 				}
 			}
 		}
-		if (rand.nextInt(3) == 0) {
+		if (rand.nextInt(64) == 0) {
 			world.setBlockState(pos, state.withProperty(SAPLING_GENERATOR, true));
 		}
 		
-		world.setBlockState(pos.down(), this.crop.getDefaultState().withProperty(BlockFruitCrop.DROP_SAPLING, state.getValue(SAPLING_GENERATOR)));
+		world.setBlockState(pos.down(), this.crop.getDefaultState().withProperty(
+				BlockFruitCrop.DROP_SAPLING,
+				state.getValue(SAPLING_GENERATOR) && rand.nextInt(4) == 0
+				));
 
 	}
 
@@ -103,9 +106,9 @@ public class BlockFruitLeaf extends BlockLeaves {
 
 	}
 
-	protected BlockState createBlockState()
+	protected BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, new IProperty[] {CHECK_DECAY, DECAYABLE, SAPLING_GENERATOR});
+		return new BlockStateContainer(this, new IProperty[] {CHECK_DECAY, DECAYABLE, SAPLING_GENERATOR});
 	}
 
 
@@ -122,7 +125,7 @@ public class BlockFruitLeaf extends BlockLeaves {
 
 	public Item getItemDropped(final IBlockState state, final Random rand, final int fortune)
 	{
-		return Item.getItemFromBlock(Blocks.sapling);
+		return Item.getItemFromBlock(Blocks.SAPLING);
 	}
 
 	@Override

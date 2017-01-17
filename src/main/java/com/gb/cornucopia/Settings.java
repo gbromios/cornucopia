@@ -10,7 +10,7 @@ public class Settings {
 	private Configuration config;
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-        if (eventArgs.modID.equals(CornuCopia.MODID)) {
+        if (eventArgs.getModID().equals(CornuCopia.MODID)) {
         //System.out.println("CornuCopia: detected change in config file, reloading...");
         	sync();
         }

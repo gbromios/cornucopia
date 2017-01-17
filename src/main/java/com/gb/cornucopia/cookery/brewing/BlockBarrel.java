@@ -18,7 +18,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,7 +26,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.IBlockAccess;
@@ -77,7 +77,7 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 			final String juice = inputs[0] == Cuisine.apple_juice ? "juiceCider" : "juiceCordial" ;
 			GameRegistry.addRecipe(new ShapedOreRecipe(this, true, new Object[]{
 					" S ", "JJJ", " B ",
-					'S', Blocks.wooden_slab,
+					'S', Blocks.WOODEN_SLAB,
 					'B', Cookery.empty_barrel,
 					'J', juice
 			}));
@@ -87,14 +87,14 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 			if (inputs.length == 1) {
 				GameRegistry.addShapedRecipe(new ItemStack(this),
 						" S ", " I ", " B ",
-						'S', Blocks.wooden_slab,
+						'S', Blocks.WOODEN_SLAB,
 						'B', Cookery.empty_barrel,
 						'I', inputs[0]
 						);	
 			} else if (inputs.length == 2) {
 				GameRegistry.addShapedRecipe(new ItemStack(this),
 						" S ", "JI ", " B ",
-						'S', Blocks.wooden_slab,
+						'S', Blocks.WOODEN_SLAB,
 						'B', Cookery.empty_barrel,
 						'I', inputs[0],
 						'J', inputs[1]
@@ -102,7 +102,7 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 			} else if (inputs.length == 3) {
 				GameRegistry.addShapedRecipe(new ItemStack(this),
 						" S ", "JIK", " B ",
-						'S', Blocks.wooden_slab,
+						'S', Blocks.WOODEN_SLAB,
 						'B', Cookery.empty_barrel,
 						'I', inputs[0],
 						'J', inputs[1],
@@ -128,9 +128,9 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 
 
 	@Override
-	protected BlockState createBlockState()
+	protected BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, new IProperty[] {AGE, AXIS, UNDER_BARREL});
+		return new BlockStateContainer(this, new IProperty[] {AGE, AXIS, UNDER_BARREL});
 	}
 
 	@Override

@@ -10,13 +10,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -32,7 +31,7 @@ public class BlockStoveTop extends Block{
 
 	public BlockStoveTop()
 	{
-		super(Material.plants);
+		super(Material.PLANTS);
 		this.name = "cookery_stovetop";
 		this.setUnlocalizedName(this.name);
 		this.setHardness(0.5F);
@@ -126,7 +125,7 @@ public class BlockStoveTop extends Block{
 	}
 
 	// destroy/hit effects: don't show the particles please
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	public boolean addDestroyEffects(final World world, final BlockPos pos, final net.minecraft.client.particle.EffectRenderer effectRenderer)
 	{
 		return true;
@@ -135,7 +134,7 @@ public class BlockStoveTop extends Block{
 	public boolean addHitEffects(final World worldObj, final MovingObjectPosition target, final net.minecraft.client.particle.EffectRenderer effectRenderer)
 	{
 		return true;
-	}
+	}*/
 
 	@Override
 	public IBlockState getStateFromMeta(final int meta)
@@ -162,9 +161,9 @@ public class BlockStoveTop extends Block{
 	}
 
 	@Override
-	protected BlockState createBlockState()
+	protected BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, new IProperty[] {VESSEL, FACING});
+		return new BlockStateContainer(this, new IProperty[] {VESSEL, FACING});
 	}
 
 }

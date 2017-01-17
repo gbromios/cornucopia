@@ -23,11 +23,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
@@ -115,14 +115,14 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		this.writeToNBT(nbtTagCompound);
 		final int metadata = getBlockMetadata();
-		S35PacketUpdateTileEntity pkt = new S35PacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
+		SPacketUpdateTileEntity pkt = new SPacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
 		//System.out.println("getting data to send : " + pkt.toString());
 		return pkt;
 
 	}
 
 	@Override
-	public void onDataPacket(final NetworkManager net, final S35PacketUpdateTileEntity pkt) {
+	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		//System.out.println("got data pkt: " + pkt.toString());
 		this.readFromNBT(pkt.getNbtCompound());
 	}
@@ -135,7 +135,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	public boolean hasCustomName() { return false; }
 
 	@Override
-	public IChatComponent getDisplayName() { return new ChatComponentText("stove"); }
+	public ITextComponent getDisplayName() { return new TextComponentString("stove"); }
 
 	@Override
 	public int getSizeInventory() {	return 9; }
@@ -177,7 +177,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	}
 
 	public boolean hasBowl() {
-		return this.contents[8] != null && this.contents[8].stackSize > 0 && this.contents[8].getItem() == Items.bowl;
+		return this.contents[8] != null && this.contents[8].stackSize > 0 && this.contents[8].getItem() == Items.BOWL;
 	}
 	public boolean hasWater() {
 		return this.hasWorldObj() && (
@@ -235,10 +235,13 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 				this.burn_time--;
 			}
 
+			// stove cooks for longer than a normal furnace
+			int fuel_value = 8 * net.minecraftforge.fml.common.registry.GameRegistry.getFuelValue(this.contents[0]);
+
 			// after the burn counter has had a chance decrement, then we can deal with a non-burning oven.
-			if (!this.isBurning() && TileEntityStove.getFuelValue(this.contents[0]) > 0) {
+			if (!this.isBurning() && fuel_value > 0) {
 				//System.out.format(" START FIRE: %d -> %s \n", this.burn_time, this.getFuelValue(this.contents[0]));
-				this.burn_time = TileEntityStove.getFuelValue(this.contents[0]); 
+				this.burn_time = fuel_value; 
 				this.initial_burn_time = this.burn_time;
 				this.decrStackSize(0, 1);
 				this.markDirty();
@@ -307,49 +310,6 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 			this._debug_update_end(debug); // wat changed??
 		}
 	}	
-
-	// S M H
-	public static int getFuelValue(final ItemStack stack)
-	{
-		if (stack == null)
-		{
-			return 0;
-		}
-		else
-		{
-			Item item = stack.getItem();
-
-			if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.air)
-			{
-				final Block block = Block.getBlockFromItem(item);
-
-				if (block == Blocks.wooden_slab)
-				{
-					return 150;
-				}
-
-				if (block.getMaterial() == Material.wood)
-				{
-					return 300;
-				}
-
-				if (block == Blocks.coal_block)
-				{
-					return 16000;
-				}
-			}
-
-			if (item instanceof ItemTool && ((ItemTool)item).getToolMaterialName().equals("WOOD")) return 200;
-			if (item instanceof ItemSword && ((ItemSword)item).getToolMaterialName().equals("WOOD")) return 200;
-			if (item instanceof ItemHoe && ((ItemHoe)item).getMaterialName().equals("WOOD")) return 200;
-			if (item == Items.stick) return 100;
-			if (item == Items.coal) return 1600;
-			if (item == Items.lava_bucket) return 20000;
-			if (item == Item.getItemFromBlock(Blocks.sapling)) return 100;
-			if (item == Items.blaze_rod) return 2400;
-			return net.minecraftforge.fml.common.registry.GameRegistry.getFuelValue(stack);
-		}
-	}
 
 	/**
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).

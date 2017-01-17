@@ -15,11 +15,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
@@ -34,7 +34,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	public boolean hasCustomName() { return false; }
 
 	@Override
-	public IChatComponent getDisplayName() { return new ChatComponentText("mill"); }
+	public ITextComponent getDisplayName() { return new TextComponentString("mill"); }
 
 	@Override
 	public int getSizeInventory() {	return 9; }
@@ -70,7 +70,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	}
 
 	private boolean _canMakeFlour() {
-		return this._hasInput(Items.wheat) + this._hasInput(Veggie.barley.raw) == 3;
+		return this._hasInput(Items.WHEAT) + this._hasInput(Veggie.barley.raw) == 3;
 	}
 
 	private boolean _makeFlour(){
@@ -232,11 +232,11 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		writeToNBT(nbtTagCompound);
 		int metadata = getBlockMetadata();
-		return new S35PacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
+		return new SPacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
 	}
 
 	@Override
-	public void onDataPacket(final NetworkManager net, final S35PacketUpdateTileEntity pkt) {
+	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.getNbtCompound());
 	}
 	@Override

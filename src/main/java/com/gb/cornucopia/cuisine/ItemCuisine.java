@@ -39,7 +39,8 @@ public class ItemCuisine extends ItemFood{
 	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
 		super.onFoodEaten(stack, worldIn, player);
 		if (this.meal > 0) {
-            player.addPotionEffect(new PotionEffect(31, 100 * 20, 1));
+			// placeholder that broke in 1.10 update. revisit later~
+            // player.addPotionEffect(new PotionEffect(31, 100 * 20, 1));
 		}
 	}
 

@@ -24,7 +24,7 @@ public class SlotMill extends Slot {
 		}
 
 		final Item i = stack.getItem();
-		return i == Items.wheat
+		return i == Items.WHEAT
 				|| i == Veggie.barley.raw
 				|| i == Veggie.peanut.raw
 				|| i == Veggie.spice.raw

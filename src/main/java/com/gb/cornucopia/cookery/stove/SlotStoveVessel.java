@@ -64,7 +64,7 @@ public class SlotStoveVessel extends Slot {
 	@SideOnly(Side.CLIENT)
 	public net.minecraft.util.ResourceLocation getBackgroundLocation()
 	{
-		return (backgroundLocation == null ? net.minecraft.client.renderer.texture.TextureMap.locationBlocksTexture : backgroundLocation);
+		return (backgroundLocation == null ? net.minecraft.client.renderer.texture.TextureMap.LOCATION_BLOCKS_TEXTURE : backgroundLocation);
 	}
 
 	/**

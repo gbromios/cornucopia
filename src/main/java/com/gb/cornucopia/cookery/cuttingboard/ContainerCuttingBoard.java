@@ -15,7 +15,7 @@ import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 
@@ -68,7 +68,7 @@ public class ContainerCuttingBoard extends Container {
 	
 	public boolean hasBowl(){
 		// skip the count check on this side, i dont think it matters?
-		return this.bowl.getStackInSlot(0) != null && this.bowl.getStackInSlot(0).getItem() == Items.bowl;
+		return this.bowl.getStackInSlot(0) != null && this.bowl.getStackInSlot(0).getItem() == Items.BOWL;
 	}
 	public boolean hasWater(){
 		//Block a = this.world.getBlockState(this.pos.add(0, -1, 1)).getBlock();

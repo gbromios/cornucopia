@@ -19,11 +19,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import scala.Console;
@@ -172,7 +172,7 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 		//System.out.format("%s => %s : (%s / %s)\n",pos, fpos, rs, d);
 		if (rs < 2.0) {
 
-			if ((this.worldObj.isAirBlock(fpos) || this.worldObj.getBlockState(fpos).getBlock() == Blocks.tallgrass) && this.worldObj.getBlockState(fpos.down()).getBlock() == Blocks.grass && RANDOM.nextInt(80) < this.beeCount()){
+			if ((this.worldObj.isAirBlock(fpos) || this.worldObj.getBlockState(fpos).getBlock() == Blocks.TALLGRASS) && this.worldObj.getBlockState(fpos.down()).getBlock() == Blocks.GRASS && RANDOM.nextInt(80) < this.beeCount()){
 				// stop growing if there are 48 flowers in the vicinity (don't grow at all if there's no flowwers :()
 				if (this.flower_score > 48 || this.flower_survey.size() < 1 ){ return; }
 				IBlockState b = this.flower_survey.get(RANDOM.nextInt(this.flower_survey.size()));
@@ -180,7 +180,7 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 
 				this.worldObj.setBlockState(fpos, b, 0);
 				if (b.getBlock() instanceof BlockDoublePlant) {
-					Blocks.double_plant.placeAt(worldObj, fpos, (EnumPlantType)b.getValue(BlockDoublePlant.VARIANT), 2);
+					Blocks.DOUBLE_PLANT.placeAt(worldObj, fpos, (EnumPlantType)b.getValue(BlockDoublePlant.VARIANT), 2);
 				}
 				this.worldObj.markBlockForUpdate(fpos);
 			}
@@ -188,7 +188,7 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 			// royal flower!
 			final BlockPos rpos = this.pos.add(RANDOM.nextInt(5) - 2, 0, RANDOM.nextInt(5) - 2);
 			if (this.beeCount() == 64 && this.flower_score > 16 && !this.nearRoyalBloom() && RANDOM.nextInt(this.hasQueen() ? 512 : 1024) == 0){
-				if((this.worldObj.isAirBlock(rpos) || this.worldObj.getBlockState(rpos).getBlock() == Blocks.tallgrass || this.worldObj.getBlockState(rpos).getBlock() instanceof BlockFlower) && this.worldObj.getBlockState(rpos.down()).getBlock() == Blocks.grass){
+				if((this.worldObj.isAirBlock(rpos) || this.worldObj.getBlockState(rpos).getBlock() == Blocks.TALLGRASS || this.worldObj.getBlockState(rpos).getBlock() instanceof BlockFlower) && this.worldObj.getBlockState(rpos.down()).getBlock() == Blocks.GRASS){
 					this.worldObj.setBlockState(rpos, Bees.royal_bloom.getDefaultState(), 0);
 					this.worldObj.markBlockForUpdate(rpos);				
 				}
@@ -269,11 +269,11 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		writeToNBT(nbtTagCompound);
 		final int metadata = getBlockMetadata();
-		return new S35PacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
+		return new SPacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
 	}
 
 	@Override
-	public void onDataPacket(final NetworkManager net, final S35PacketUpdateTileEntity pkt) {
+	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.getNbtCompound());
 	}
 
@@ -337,7 +337,7 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 	public boolean hasCustomName() { return false; }
 
 	@Override
-	public IChatComponent getDisplayName() { return new ChatComponentText("apiary"); }
+	public ITextComponent getDisplayName() { return new TextComponentString("apiary"); }
 
 	@Override
 	public int getSizeInventory() {	return 9; }

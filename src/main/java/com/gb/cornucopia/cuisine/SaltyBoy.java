@@ -10,6 +10,8 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+// cf issue #61
+/*
 public class SaltyBoy {
 	private static final Random RANDOM = new Random();
 	/// seems a bit sketchy
@@ -25,4 +27,4 @@ public class SaltyBoy {
 		}
 	}
 	
-}
+}*/

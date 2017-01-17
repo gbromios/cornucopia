@@ -14,7 +14,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -22,7 +22,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.IBlockAccess;
@@ -38,7 +38,7 @@ public class BlockStove extends Block  implements ITileEntityProvider{
 
 	public BlockStove()
 	{
-		super(Material.iron);
+		super(Material.IRON);
 		this.name = "cookery_stove";
 		this.setUnlocalizedName(this.name);
 		this.setHardness(1.5F);
@@ -158,9 +158,9 @@ public class BlockStove extends Block  implements ITileEntityProvider{
 	}
 	
 
-	protected BlockState createBlockState()
+	protected BlockStateContainer createBlockState()
 	{
-		return new BlockState(this, new IProperty[] {ON, FACING});
+		return new BlockStateContainer(this, new IProperty[] {ON, FACING});
 	}
 
 	@Override

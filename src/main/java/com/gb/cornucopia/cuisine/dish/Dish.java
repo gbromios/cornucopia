@@ -36,14 +36,14 @@ public class Dish {
 	public static void init(){
 		// REMEMBER BOWL, WATER, DUPES, ITEM1, ITEM2, ... ITEMN, COOK_TIME
 		grill = new DishRegistry()
-			//.add(new Dish(Cuisine.toast, false, false, false, Items.bread, 100))
-			.add(new Dish(Items.cooked_beef, false, false, false, Items.beef, 200))
-			.add(new Dish(Items.cooked_porkchop, false, false, false, Items.porkchop, 200))
-			.add(new Dish(Items.cooked_chicken, false, false, false, Items.chicken, 200))
-			.add(new Dish(Items.cooked_mutton, false, false, false, Items.mutton, 200))
-			.add(new Dish(Items.cooked_fish, false, false, false, Items.fish, 200))
-			.add(new Dish(Items.cooked_rabbit, false, false, false, Items.rabbit, 200))
-			.add(new Dish(Cuisine.kebab, false, false, true, Items.stick, Ingredient.red_meat, Ingredient.red_meat, Ingredient.seasoning, Ingredient.kebab_veggie, Ingredient.kebab_veggie, 240))
+			//.add(new Dish(Cuisine.toast, false, false, false, Items.BREAD, 100))
+			.add(new Dish(Items.COOKED_BEEF, false, false, false, Items.BEEF, 200))
+			.add(new Dish(Items.COOKED_PORKCHOP, false, false, false, Items.PORKCHOP, 200))
+			.add(new Dish(Items.COOKED_CHICKEN, false, false, false, Items.CHICKEN, 200))
+			.add(new Dish(Items.COOKED_MUTTON, false, false, false, Items.MUTTON, 200))
+			.add(new Dish(Items.COOKED_FISH, false, false, false, Items.FISH, 200))
+			.add(new Dish(Items.COOKED_RABBIT, false, false, false, Items.RABBIT, 200))
+			.add(new Dish(Cuisine.kebab, false, false, true, Items.STICK, Ingredient.red_meat, Ingredient.red_meat, Ingredient.seasoning, Ingredient.kebab_veggie, Ingredient.kebab_veggie, 240))
 			//.add(new Dish(Cuisine.mirepoix, Ingredient.mirepoix_part, Ingredient.mirepoix_part, Ingredient.mirepoix_part))
 			;
 		
@@ -63,17 +63,17 @@ public class Dish {
 		pan = new DishRegistry()
 			//.add(new Dish(Cuisine.cheese_sauce, true, false, false, Ingredient.seasoning, Ingredient.seasoning, Cuisine.flour, Cuisine.butter, Cuisine.fresh_cheese, Cuisine.fresh_cheese))
 			//.add(new Dish(Cuisine.eggs_over_easy, false, false, false, Items.egg, Items.egg))
-			.add(new Dish(Items.cooked_beef, false, false, false, Items.beef, 200))
-			.add(new Dish(Items.cooked_porkchop, false, false, false, Items.porkchop, 200))
-			.add(new Dish(Items.cooked_chicken, false, false, false, Items.chicken, 200))
-			.add(new Dish(Items.cooked_mutton, false, false, false, Items.mutton, 200))
-			.add(new Dish(Items.cooked_fish, false, false, false, Items.fish, 200))
-			.add(new Dish(Items.cooked_rabbit, false, false, false, Items.rabbit, 200))
+			.add(new Dish(Items.COOKED_BEEF, false, false, false, Items.BEEF, 200))
+			.add(new Dish(Items.COOKED_PORKCHOP, false, false, false, Items.PORKCHOP, 200))
+			.add(new Dish(Items.COOKED_CHICKEN, false, false, false, Items.CHICKEN, 200))
+			.add(new Dish(Items.COOKED_MUTTON, false, false, false, Items.MUTTON, 200))
+			.add(new Dish(Items.COOKED_FISH, false, false, false, Items.FISH, 200))
+			.add(new Dish(Items.COOKED_RABBIT, false, false, false, Items.RABBIT, 200))
 			;
 		
 		cutting_board = new DishRegistry()
 			.add(new Dish(Cuisine.bread_dough, false, true, false, Cuisine.flour, Cuisine.flour, Cuisine.flour))
-			.add(new Dish(Cuisine.batter, false, true, false, Cuisine.flour, Cuisine.flour, Items.egg, Ingredient.fat, Ingredient.sweetener))
+			.add(new Dish(Cuisine.batter, false, true, false, Cuisine.flour, Cuisine.flour, Items.EGG, Ingredient.fat, Ingredient.sweetener))
 			.add(new Dish(Cuisine.tortilla_dough, false, true, false, Cuisine.corn_flour, Cuisine.corn_flour, Cuisine.soda))
 			//.add(new Dish(Cuisine.pasta_dough, false, false, false, Cuisine.flour, Cuisine.flour, Items.egg))
 			//.add(new Dish(Cuisine.pastry_dough, false, false, false, Cuisine.flour, Cuisine.flour, Ingredient.fat))
@@ -83,7 +83,7 @@ public class Dish {
 			//.add(new Dish(Cuisine.chicken_caesar_salad, false, false, false, Cuisine.caesar_salad, Items.cooked_chicken))
 			.add(new Dish(Cuisine.bloody_mary, false, false, false, Veggie.tomato.raw, Veggie.tomato.raw, Veggie.celery.raw, Cuisine.black_pepper, Cuisine.spirits))
 			//.add(new Dish(Cuisine.bruscetta, false, false, false, Veggie.tomato.raw, Cuisine.olive_oil, Cuisine.basil, Cuisine.toast))
-			.add(new Dish(Cuisine.smoothie, false, false, true, Ingredient.smoothie_base, Ingredient.smoothie_base, Ingredient.sweet_salad, Ingredient.sweet_salad, Ingredient.sweet_salad, Items.snowball));
+			.add(new Dish(Cuisine.smoothie, false, false, true, Ingredient.smoothie_base, Ingredient.smoothie_base, Ingredient.sweet_salad, Ingredient.sweet_salad, Ingredient.sweet_salad, Items.SNOWBALL));
 		
 			;
 

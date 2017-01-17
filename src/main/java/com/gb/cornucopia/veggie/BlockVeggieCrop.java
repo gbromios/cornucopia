@@ -9,11 +9,11 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -39,7 +39,6 @@ public class BlockVeggieCrop extends BlockBush implements IGrowable
 		this.setCreativeTab(null);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
 		this.setHardness(0.0F);
-		this.setStepSound(soundTypeGrass);
 
 		GameRegistry.registerBlock(this, this.name);
 		InvModel.add(this, this.name);
@@ -55,13 +54,13 @@ public class BlockVeggieCrop extends BlockBush implements IGrowable
 	{
 		// possibility there may be veggies subclasses that use a different
 		// "soil" block in the future, but i think we just need farmland.
-		return world.getBlockState(pos.down()).getBlock() == Blocks.farmland;
+		return world.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND;
 	}
 
 
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { AGE });
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { AGE });
 	}
 
 	@Override
@@ -120,20 +119,15 @@ public class BlockVeggieCrop extends BlockBush implements IGrowable
 	}
 
 	protected boolean shouldGrow(final World world, final BlockPos pos, final Random rand){
-		float g = 1F; // initial chance to grow
+		float g = 0.8F; // 80% initial chance to grow
 		// this is essentially where I'd add biome/crop rotation mechanics 
 		// either a straight up manual mapping or temp/elevation/rainfall based
 		
-		// every neighboring plant of this type reduces the chance by 1.2%
-		for (int x = -1; x <= 1; x++){
-			for (int z = -1; z <= 1; z++){
-				if (world.getBlockState(pos.add(x, 0, z)).getBlock() == this) {
-					g -= 0.075F;
-				}
-			}
-		}
-		//final float f = rand.nextFloat();
-		//return f < g;
+		// every neighboring plant cuts the chance in half
+		if (world.getBlockState(pos.add(-1, 0, -1)).getBlock() == this) { g /= 2F; }
+		if (world.getBlockState(pos.add(1, 0, -1)).getBlock() == this) { g /= 2F; }
+		if (world.getBlockState(pos.add(-1, 0, 1)).getBlock() == this) { g /= 2F; }
+		if (world.getBlockState(pos.add(1, 0, 1)).getBlock() == this) { g /= 2F; }
 		
 		return rand.nextFloat() < g;	
 	}

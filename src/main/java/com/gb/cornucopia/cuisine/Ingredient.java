@@ -38,7 +38,7 @@ public class Ingredient {
 	// be referenced until crafters are looking stuff up
 	public static void init() {
 		sweetener
-		.add(Items.sugar)
+		.add(Items.SUGAR)
 		.add(Bees.honey_raw)
 		;
 
@@ -47,7 +47,7 @@ public class Ingredient {
 		.add(Veggie.celery.raw)
 		.add(Veggie.garlic.raw)
 		.add(Veggie.bell_pepper.raw)
-		.add(Items.carrot)
+		.add(Items.SUGAR)
 		;		
 
 		mountain_berry
@@ -76,22 +76,24 @@ public class Ingredient {
 		.add(Veggie.bell_pepper.raw)
 		.add(Veggie.onion.raw)
 		.add(Veggie.zucchini.raw)
-		.add(Blocks.red_mushroom)
-		.add(Blocks.brown_mushroom)
+		.add(Blocks.RED_MUSHROOM)
+		.add(Blocks.BROWN_MUSHROOM)
+		.add(Blocks.RED_MUSHROOM_BLOCK)
+		.add(Blocks.BROWN_MUSHROOM_BLOCK)
 		;
 
 		red_meat
-		.add(Items.beef)
-		.add(Items.porkchop)
-		.add(Items.mutton)
-		.add(Items.rabbit)
+		.add(Items.BEEF)
+		.add(Items.PORKCHOP)
+		.add(Items.MUTTON)
+		.add(Items.RABBIT)
 		;
 
 		cooked_red_meat
-		.add(Items.cooked_beef)
-		.add(Items.cooked_porkchop)
-		.add(Items.cooked_mutton)
-		.add(Items.cooked_rabbit)
+		.add(Items.COOKED_BEEF)
+		.add(Items.COOKED_PORKCHOP)
+		.add(Items.COOKED_MUTTON)
+		.add(Items.COOKED_RABBIT)
 		;
 
 		seasoning
@@ -113,7 +115,7 @@ public class Ingredient {
 		.add(Veggie.broccoli.raw)
 		.add(Veggie.celery.raw)
 		.add(Veggie.garlic.raw)
-		.add(Items.carrot)
+		.add(Items.CARROT)
 		.add(Veggie.bean.raw)
 		.add(Veggie.lentil.raw)
 		.add(Veggie.pea.raw)
@@ -185,7 +187,7 @@ public class Ingredient {
 		.add(Veggie.beet.raw)
 		.add(Veggie.bell_pepper.raw)
 		.add(Veggie.broccoli.raw)
-		.add(Items.carrot)
+		.add(Items.CARROT)
 		.add(Veggie.cabbage.raw)
 		.add(Veggie.onion.raw)
 		.add(Veggie.tomato.raw)
@@ -205,7 +207,7 @@ public class Ingredient {
 		;
 
 		sweet_salad
-		.add(Items.apple)
+		.add(Items.APPLE)
 		.add(Veggie.blackberry.raw)
 		.add(Veggie.blueberry.raw)
 		.add(Veggie.pineapple.raw)
@@ -240,7 +242,7 @@ public class Ingredient {
 		.add(Cuisine.raspberry_juice)
 		.add(Cuisine.strawberry_juice)
 		.add(Cuisine.grape_juice)
-		.add(Items.milk_bucket)
+		.add(Items.MILK_BUCKET)
 		;
 
 	}
