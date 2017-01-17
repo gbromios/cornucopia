@@ -20,6 +20,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -65,10 +66,10 @@ public class BlockFruitCrop extends BlockBush implements IGrowable{
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
 	{
 		// not your normal bonemeal activatation...
-		if (!world.isRemote &&  EnumDyeColor.byDyeDamage(player.getHeldItem().getItemDamage()) == EnumDyeColor.WHITE)  {
+		if (!world.isRemote &&  EnumDyeColor.byDyeDamage(stack.getItemDamage()) == EnumDyeColor.WHITE)  {
 			world.setBlockState(pos, state.withProperty(DROP_SAPLING, false));
 		}
 		return false;

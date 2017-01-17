@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -85,12 +86,12 @@ public class BlockStoveTop extends Block{
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player,  EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
 	{
 		// defer activations to the stove below.
 		// not too concerned about the edge case of the wrong block type... those can get right clicked too
 		final IBlockState stove_state = world.getBlockState(pos.down());
-		return stove_state.getBlock().onBlockActivated(world, pos.down(), stove_state, player, side, hitX, hitY, hitZ);
+		return stove_state.getBlock().onBlockActivated(world, pos.down(), stove_state, player, hand, stack, side, hitX, hitY, hitZ);
 	}
 
 	@Override

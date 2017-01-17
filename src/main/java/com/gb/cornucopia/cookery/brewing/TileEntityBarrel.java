@@ -46,16 +46,6 @@ public class TileEntityBarrel extends TileEntity implements ITickable{
 
 
 	@Override
-	public Packet getDescriptionPacket() {
-		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
-		this.writeToNBT(nbtTagCompound);
-		final int metadata = getBlockMetadata();
-		SPacketUpdateTileEntity pkt = new SPacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
-		return pkt;
-
-	}
-
-	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		//System.out.println("got data pkt: " + pkt.toString());
 		this.readFromNBT(pkt.getNbtCompound());

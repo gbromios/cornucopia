@@ -265,14 +265,6 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 	}
 
 	@Override
-	public Packet getDescriptionPacket() {
-		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
-		writeToNBT(nbtTagCompound);
-		final int metadata = getBlockMetadata();
-		return new SPacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
-	}
-
-	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.getNbtCompound());
 	}

@@ -12,6 +12,6 @@ public class SlotStoveFuel extends Slot {
 
 	public boolean isItemValid(final ItemStack stack)
 	{
-		return TileEntityStove.getFuelValue(stack) > 0;
+		return net.minecraftforge.fml.common.registry.GameRegistry.getFuelValue(stack) > 0;
 	}
 }

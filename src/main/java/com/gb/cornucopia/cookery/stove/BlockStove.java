@@ -51,10 +51,11 @@ public class BlockStove extends Block  implements ITileEntityProvider{
 
 	public int getLightValue(IBlockAccess world, BlockPos pos)
 	{
-		final Block block = world.getBlockState(pos).getBlock();
+		final IBlockState state = world.getBlockState(pos);
+		final Block block = state.getBlock();
 		if (block != this)
 		{
-			return block.getLightValue(world, pos);
+			return block.getLightValue(state, world, pos);
 		}
 		return (boolean)world.getBlockState(pos).getValue(ON) ? 2 : 0;
 	}

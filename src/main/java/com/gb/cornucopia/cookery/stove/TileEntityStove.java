@@ -109,18 +109,6 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 
 	}
 
-
-	@Override
-	public Packet getDescriptionPacket() {
-		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
-		this.writeToNBT(nbtTagCompound);
-		final int metadata = getBlockMetadata();
-		SPacketUpdateTileEntity pkt = new SPacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
-		//System.out.println("getting data to send : " + pkt.toString());
-		return pkt;
-
-	}
-
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		//System.out.println("got data pkt: " + pkt.toString());

@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -48,7 +49,7 @@ public class BlockPresserTop extends Block {
 
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer playerIn, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer playerIn, final EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
 	{
 		final Integer progress = (Integer)state.getValue(PROGRESS);
 		final TileEntityPresser presser = (TileEntityPresser)world.getTileEntity(pos.down());

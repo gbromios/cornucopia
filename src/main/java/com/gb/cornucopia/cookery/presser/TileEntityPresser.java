@@ -180,14 +180,6 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	}
 
 	@Override
-	public Packet getDescriptionPacket() {
-		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
-		writeToNBT(nbtTagCompound);
-		int metadata = getBlockMetadata();
-		return new SPacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
-	}
-
-	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.getNbtCompound());
 	}

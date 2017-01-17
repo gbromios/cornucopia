@@ -227,13 +227,6 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 		return -1;
 	}
 
-	@Override
-	public Packet getDescriptionPacket() {
-		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
-		writeToNBT(nbtTagCompound);
-		int metadata = getBlockMetadata();
-		return new SPacketUpdateTileEntity(this.pos, metadata, nbtTagCompound);
-	}
 
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
