@@ -1,8 +1,7 @@
-package com.gb.cornucopia.farming.veggie.block;
+package com.gb.cornucopia.farming.veggie;
 
 import com.gb.cornucopia.InvModel;
 
-import com.gb.cornucopia.farming.veggie.block.BlockVeggieCropTall;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;

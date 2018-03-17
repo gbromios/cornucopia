@@ -1,4 +1,4 @@
-package com.gb.cornucopia.farming.fruit.block;
+package com.gb.cornucopia.farming.fruit;
 
 import java.util.Random;
 

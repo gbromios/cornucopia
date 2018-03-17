@@ -1,4 +1,4 @@
-package com.gb.cornucopia.farming.veggie.block;
+package com.gb.cornucopia.farming.veggie;
 
 import java.util.List;
 import java.util.Random;
@@ -7,8 +7,8 @@ import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.Settings;
 
-import com.gb.cornucopia.farming.veggie.item.ItemVeggieRaw;
-import com.gb.cornucopia.farming.veggie.item.ItemVeggieSeed;
+import com.gb.cornucopia.farming.veggie.ItemVeggieRaw;
+import com.gb.cornucopia.farming.veggie.ItemVeggieSeed;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

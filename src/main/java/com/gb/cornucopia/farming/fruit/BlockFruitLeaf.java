@@ -1,4 +1,4 @@
-package com.gb.cornucopia.farming.fruit.block;
+package com.gb.cornucopia.farming.fruit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.Random;
 
 import com.gb.cornucopia.InvModel;
 
-import com.gb.cornucopia.farming.fruit.block.BlockFruitCrop;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.properties.IProperty;

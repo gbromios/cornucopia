@@ -1,4 +1,4 @@
-package com.gb.cornucopia.farming.fruit.item;
+package com.gb.cornucopia.farming.fruit;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;

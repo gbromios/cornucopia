@@ -8,7 +8,7 @@ import com.gb.cornucopia.food.cuisine.Cuisine;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-public class ModCreativeTabs {
+public class CornucopiaTabs {
 
     public class BeesCreativeTab extends CreativeTabs {
 

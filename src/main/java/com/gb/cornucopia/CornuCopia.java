@@ -24,11 +24,11 @@ public class CornuCopia {
     @SidedProxy(clientSide = "com.gb.cornucopia.proxy.ClientProxy", serverSide = "com.gb.cornucopia.proxy.ServerProxy")
     public static CommonProxy proxy;
 
-    public static final CreativeTabs tabBees = new ModCreativeTabs().new BeesCreativeTab();
-    public static final CreativeTabs tabCookery = new ModCreativeTabs().new CookeryCreativeTab();
-    public static final CreativeTabs tabCuisine = new ModCreativeTabs().new CuisineCreativeTab();
-    public static final CreativeTabs tabFruit = new ModCreativeTabs().new FruitCreativeTab();
-    public static final CreativeTabs tabVeggies = new ModCreativeTabs().new VeggieCreativeTab();
+    public static final CreativeTabs tabBees = new CornucopiaTabs().new BeesCreativeTab();
+    public static final CreativeTabs tabCookery = new CornucopiaTabs().new CookeryCreativeTab();
+    public static final CreativeTabs tabCuisine = new CornucopiaTabs().new CuisineCreativeTab();
+    public static final CreativeTabs tabFruit = new CornucopiaTabs().new FruitCreativeTab();
+    public static final CreativeTabs tabVeggies = new CornucopiaTabs().new VeggieCreativeTab();
 
     @EventHandler
     public void preInit(final FMLPreInitializationEvent e) {

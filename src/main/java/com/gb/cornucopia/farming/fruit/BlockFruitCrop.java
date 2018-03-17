@@ -1,11 +1,7 @@
-package com.gb.cornucopia.farming.fruit.block;
+package com.gb.cornucopia.farming.fruit;
 
 import com.gb.cornucopia.InvModel;
-import com.gb.cornucopia.farming.fruit.item.ItemFruitRaw;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.IGrowable;
+import net.minecraft.block.*;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -24,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockFruitCrop extends BlockBush implements IGrowable {
+public class BlockFruitCrop extends BlockCrops {
     public static final PropertyBool DROP_SAPLING = PropertyBool.create("drop_sapling");
     public final String name;
 
@@ -48,19 +44,6 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
     public void setDrops(final ItemFruitRaw raw, final BlockFruitSapling sapling) {
         this.raw = raw;
         this.sapling = sapling;
-    }
-
-    //private void breakBlock(){}
-
-    @Override
-    public boolean canGrow(final World world, final BlockPos pos, final IBlockState state, final boolean isClient) {
-        return (Integer) state.getValue(AGE) <= 3;
-    }
-
-    @Override
-    public boolean canUseBonemeal(final World world, final Random rand, final BlockPos pos, final IBlockState state) {
-        // bonemeal makes fruit not drop saplings, but that had to be handled in onBlockActivate
-        return (int) state.getValue(AGE) < 3;
     }
 
     @Override

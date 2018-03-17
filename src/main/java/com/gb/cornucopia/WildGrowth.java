@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.util.Random;
 
 import com.gb.cornucopia.farming.bees.Bees;
-import com.gb.cornucopia.farming.fruit.block.BlockFruitCrop;
+import com.gb.cornucopia.farming.fruit.BlockFruitCrop;
 import com.gb.cornucopia.farming.fruit.Fruit;
 import com.gb.cornucopia.farming.veggie.Veggie;
 import com.google.common.collect.HashBasedTable;

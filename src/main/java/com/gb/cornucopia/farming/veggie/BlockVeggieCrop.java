@@ -1,7 +1,5 @@
-package com.gb.cornucopia.farming.veggie.block;
+package com.gb.cornucopia.farming.veggie;
 
-import com.gb.cornucopia.farming.veggie.item.ItemVeggieRaw;
-import com.gb.cornucopia.farming.veggie.item.ItemVeggieSeed;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
@@ -24,7 +22,7 @@ public class BlockVeggieCrop extends BlockCrops {
     private ItemVeggieRaw raw;
     public final String name;
 
-    BlockVeggieCrop(final String name) {
+    public BlockVeggieCrop(final String name) {
         super();
         this.name = "veggie_" + name + "_crop";
         this.setUnlocalizedName(this.name);
@@ -72,35 +70,28 @@ public class BlockVeggieCrop extends BlockCrops {
     @Override
     public java.util.List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         // TODO: make drops better. this works for now
-        java.util.List<ItemStack> ret = new ArrayList<ItemStack>();
+        java.util.List<ItemStack> ret = new ArrayList<>();
         ret.add(new ItemStack(this.seed));
 
-        if ((Integer) state.getValue(AGE) == getMaxAge()) {
+        if (state.getValue(AGE) == getMaxAge()) {
             // after three grows, veggie is ready to harvest (might spawn a bonus seed)
             ret.add(new ItemStack(this.raw));
             if (RANDOM.nextInt(3) == 0) {
                 ret.add(new ItemStack(this.seed));
             }
-
         }
-
         return ret;
     }
 
     private boolean shouldGrow(World world, BlockPos pos, Random rand) {
         float chance = 0.8F;
-        // this is essentially where I'd add biome/crop rotation mechanics
-        // either a straight up manual mapping or temp/elevation/rainfall based
-
-        // every neighboring plant cuts the chance in half
-        List<Block> blocks = getSurroundingBlocks(world, pos.down());
-        for (Block block : blocks) {
+        for (Block block : getSurroundingBlocks(world, pos.down())) {
             if (block == this) chance /= 2F;
         }
         return rand.nextFloat() < chance;
     }
 
-    private static List<Block> getSurroundingBlocks(World world, BlockPos pos) {
+    private List<Block> getSurroundingBlocks(World world, BlockPos pos) {
         List<Block> blocks = new ArrayList<Block>();
         blocks.add(world.getBlockState(pos.north()).getBlock());
         blocks.add(world.getBlockState(pos.east()).getBlock());

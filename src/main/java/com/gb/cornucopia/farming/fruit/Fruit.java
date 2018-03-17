@@ -5,10 +5,6 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.farming.fruit.block.BlockFruitCrop;
-import com.gb.cornucopia.farming.fruit.block.BlockFruitLeaf;
-import com.gb.cornucopia.farming.fruit.block.BlockFruitSapling;
-import com.gb.cornucopia.farming.fruit.item.ItemFruitRaw;
 import com.gb.util.WeightedArray;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
