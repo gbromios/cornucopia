@@ -1,5 +1,7 @@
 package com.gb.cornucopia.veggie;
 
+import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -13,6 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BlockVeggieCrop extends BlockCrops {
@@ -20,7 +23,7 @@ public class BlockVeggieCrop extends BlockCrops {
     private ItemVeggieRaw raw;
     public final String name;
 
-    public BlockVeggieCrop(final String name) {
+    BlockVeggieCrop(final String name) {
         super();
         this.name = "veggie_" + name + "_crop";
         this.setUnlocalizedName(this.name);
@@ -42,23 +45,23 @@ public class BlockVeggieCrop extends BlockCrops {
         return raw;
     }
 
-    @SideOnly(Side.CLIENT) // TODO find out what replaced this
+    @SideOnly(Side.CLIENT) // TODO find out what replaced this (or if it's necessary!)
     public int getBlockColor() {
         return ColorizerGrass.getGrassColor(0.5D, 1.0D);
     }
 
-    @SideOnly(Side.CLIENT) // TODO find out what replaced this
+    @SideOnly(Side.CLIENT) // TODO find out what replaced this (or if it's necessary!)
     public int getRenderColor(IBlockState state) {
         return this.getBlockColor();
     }
 
-    @SideOnly(Side.CLIENT) // TODO find out what replaced this
+    @SideOnly(Side.CLIENT) // TODO find out what replaced this (or if it's necessary!)
     public int colorMultiplier(IBlockAccess world, BlockPos pos, int renderPass) {
         return BiomeColorHelper.getGrassColorAtPos(world, pos);
     }
 
     @Override
-    public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
+    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
         if (this.canGrow(world, pos, state, true) && this.shouldGrow(world, pos, rand)) {
             this.grow(world, rand, pos, state);
         }
@@ -83,25 +86,25 @@ public class BlockVeggieCrop extends BlockCrops {
         return ret;
     }
 
-    protected boolean shouldGrow(final World world, final BlockPos pos, final Random rand) {
-        float g = 0.8F; // 80% initial chance to grow
+    private boolean shouldGrow(World world, BlockPos pos, Random rand) {
+        float chance = 0.8F;
         // this is essentially where I'd add biome/crop rotation mechanics
         // either a straight up manual mapping or temp/elevation/rainfall based
 
         // every neighboring plant cuts the chance in half
-        if (world.getBlockState(pos.add(-1, 0, -1)).getBlock() == this) {
-            g /= 2F;
+        List<Block> blocks = getSurroundingBlocks(world, pos.down());
+        for (Block block : blocks) {
+            if (block == this) chance /= 2F;
         }
-        if (world.getBlockState(pos.add(1, 0, -1)).getBlock() == this) {
-            g /= 2F;
-        }
-        if (world.getBlockState(pos.add(-1, 0, 1)).getBlock() == this) {
-            g /= 2F;
-        }
-        if (world.getBlockState(pos.add(1, 0, 1)).getBlock() == this) {
-            g /= 2F;
-        }
+        return rand.nextFloat() < chance;
+    }
 
-        return rand.nextFloat() < g;
+    private static List<Block> getSurroundingBlocks(World world, BlockPos pos) {
+        List<Block> blocks = new ArrayList<Block>();
+        blocks.add(world.getBlockState(pos.north()).getBlock());
+        blocks.add(world.getBlockState(pos.east()).getBlock());
+        blocks.add(world.getBlockState(pos.south()).getBlock());
+        blocks.add(world.getBlockState(pos.west()).getBlock());
+        return blocks;
     }
 }
