@@ -2,8 +2,8 @@ package com.gb.cornucopia.cookery;
 
 import java.util.HashMap;
 
-import com.gb.cornucopia.cuisine.dish.Dish;
-import com.gb.cornucopia.cuisine.dish.DishRegistry;
+import com.gb.cornucopia.food.cuisine.dish.Dish;
+import com.gb.cornucopia.food.cuisine.dish.DishRegistry;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.IStringSerializable;

@@ -1,6 +1,6 @@
 package com.gb.cornucopia.cookery.mill;
 
-import com.gb.cornucopia.veggie.Veggie;
+import com.gb.cornucopia.farming.veggie.Veggie;
 
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;

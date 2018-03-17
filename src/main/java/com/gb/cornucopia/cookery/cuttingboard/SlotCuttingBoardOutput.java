@@ -1,7 +1,5 @@
 package com.gb.cornucopia.cookery.cuttingboard;
 
-import com.gb.cornucopia.cuisine.dish.Dish;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;

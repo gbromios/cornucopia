@@ -2,8 +2,8 @@ package com.gb.cornucopia.cookery;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
-import com.gb.cornucopia.bees.Bees;
-import com.gb.cornucopia.cheese.Cheese;
+import com.gb.cornucopia.farming.bees.Bees;
+import com.gb.cornucopia.food.cheese.Cheese;
 import com.gb.cornucopia.cookery.brewing.BlockBarrel;
 import com.gb.cornucopia.cookery.brewing.BlockBarrelEmpty;
 import com.gb.cornucopia.cookery.cuttingboard.BlockCuttingBoard;
@@ -13,8 +13,8 @@ import com.gb.cornucopia.cookery.presser.BlockPresser;
 import com.gb.cornucopia.cookery.presser.BlockPresserTop;
 import com.gb.cornucopia.cookery.stove.BlockStove;
 import com.gb.cornucopia.cookery.stove.BlockStoveTop;
-import com.gb.cornucopia.cuisine.Cuisine;
-import com.gb.cornucopia.veggie.Veggie;
+import com.gb.cornucopia.food.cuisine.Cuisine;
+import com.gb.cornucopia.farming.veggie.Veggie;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

@@ -4,23 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.gb.cornucopia.CornuCopia;
-import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.cookery.Cookery;
-import com.gb.cornucopia.cuisine.Cuisine;
+import com.gb.cornucopia.food.cuisine.Cuisine;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
