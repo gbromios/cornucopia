@@ -10,6 +10,8 @@ import java.util.Random;
 import com.gb.cornucopia.farming.bees.Bees;
 import com.gb.cornucopia.farming.fruit.BlockFruitCrop;
 import com.gb.cornucopia.farming.fruit.Fruit;
+import com.gb.cornucopia.farming.veggie.BlockVeggieCrop;
+import com.gb.cornucopia.farming.veggie.BlockVeggieWild;
 import com.gb.cornucopia.farming.veggie.Veggie;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
@@ -194,10 +196,10 @@ public class WildGrowth {
 		final int y = c.getHeightValue(x & 15, z & 15);
 		final BlockPos pos = new BlockPos(x, y, z);
 		final Biome b = w.getBiomeGenForCoords(pos);
-		final Veggie v = Veggie.getForBiome(RANDOM, b);
+		final BlockVeggieWild v = Veggie.getForBiome(RANDOM, b);
 		if ( v == null ) {return;}
 		if (w.getBlockState(pos.down()).getBlock() == Blocks.GRASS){
-			w.setBlockState(pos, v.wild.getDefaultState());
+			w.setBlockState(pos, v.getDefaultState());
 		}
 		//System.out.format(" VEG   @ %s \n\n", v == null ? "<>" : v.name);
 	}
