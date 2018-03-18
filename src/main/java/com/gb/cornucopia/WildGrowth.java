@@ -9,6 +9,7 @@ import java.util.Random;
 
 import com.gb.cornucopia.farming.bees.Bees;
 import com.gb.cornucopia.farming.fruit.BlockFruitCrop;
+import com.gb.cornucopia.farming.fruit.BlockFruitSapling;
 import com.gb.cornucopia.farming.fruit.Fruit;
 import com.gb.cornucopia.farming.veggie.BlockVeggieCrop;
 import com.gb.cornucopia.farming.veggie.BlockVeggieWild;
@@ -154,9 +155,9 @@ public class WildGrowth {
 
 			if ((leaf.getBlock() == Blocks.LEAVES || leaf.getBlock() == Blocks.LEAVES2) && w.isAirBlock(pos)) {
 				final Biome b = w.getBiomeGenForCoords(pos);
-				final Fruit f = Fruit.getForBiome(RANDOM, b);
+				final BlockFruitCrop f = Fruit.getForBiome(RANDOM, b);
 				if (f == null) {return;}
-				w.setBlockState(pos, f.crop.getDefaultState()
+				w.setBlockState(pos, f.getDefaultState()
 						.withProperty(BlockFruitCrop.DROP_SAPLING, true)
 						.withProperty(BlockFruitCrop.AGE, 3)
 						);

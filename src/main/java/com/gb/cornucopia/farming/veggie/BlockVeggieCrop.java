@@ -1,5 +1,6 @@
 package com.gb.cornucopia.farming.veggie;
 
+import com.gb.cornucopia.InvModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
@@ -10,6 +11,7 @@ import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -24,9 +26,11 @@ public class BlockVeggieCrop extends BlockCrops {
 
     public BlockVeggieCrop(final String name) {
         super();
-        this.name = "veggie_" + name + "_crop";
+        this.name = String.format("veggie_%s_crop", name);
         this.setUnlocalizedName(this.name);
         this.setCreativeTab(null);
+        GameRegistry.register(this);
+        InvModel.add(this, this.name);
     }
 
     public void setDrops(final ItemVeggieRaw raw, final ItemVeggieSeed seed) {

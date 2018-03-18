@@ -13,18 +13,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockVeggieStalk extends BlockBush{
+public class BlockVeggieStalk extends BlockBush {
 	public final String name;
 	public final BlockVeggieCropTall crop;
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 
 	public BlockVeggieStalk(final String name, final BlockVeggieCropTall crop) {
 		super(Material.PLANTS);
-		this.name = "veggie_" + name + "_stalk";
+		this.name = String.format("veggie_%s_stalk", name);
 		this.crop = crop;
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
 		this.setCreativeTab(null);
-		GameRegistry.registerBlock(this, this.name);
+		GameRegistry.register(this);
 		InvModel.add(this, this.name);
 	}
 

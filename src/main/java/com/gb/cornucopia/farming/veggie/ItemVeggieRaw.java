@@ -10,14 +10,12 @@ public class ItemVeggieRaw extends ItemFood{
 	public final String name; 
 
 	public ItemVeggieRaw(final String name) {
-		// raw veggies: not very filling, also not enjoyed by doggies
 		super(3, 0.6F, false);
-		this.name = "veggie_" + name + "_raw";
+		this.name = String.format("veggie_%s_raw", name);
 
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabVeggies);
-		GameRegistry.registerItem(this, this.name);
-		InvModel.add(this, this.name);
+		GameRegistry.register(this);
 	}
 
 }

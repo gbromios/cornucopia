@@ -11,12 +11,11 @@ public class ItemFruitRaw extends ItemFood{
 	
 	public ItemFruitRaw(final String name) {
 		super(4, 0.3F, false);
-		this.name = "fruit_" + name + "_raw";
+		this.name = String.format("fruit_%s_raw", name);
 		
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabFruit);
-		GameRegistry.registerItem(this, this.name);
-		InvModel.add(this, this.name);
+		GameRegistry.register(this);
 	}
 
 }
