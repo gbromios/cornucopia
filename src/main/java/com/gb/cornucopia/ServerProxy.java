@@ -1,4 +1,4 @@
-package com.gb.cornucopia.proxy;
+package com.gb.cornucopia;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

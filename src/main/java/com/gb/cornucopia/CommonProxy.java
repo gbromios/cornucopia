@@ -1,4 +1,4 @@
-package com.gb.cornucopia.proxy;
+package com.gb.cornucopia;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.Settings;

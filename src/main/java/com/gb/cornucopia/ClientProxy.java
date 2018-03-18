@@ -1,6 +1,5 @@
-package com.gb.cornucopia.proxy;
+package com.gb.cornucopia;
 
-import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.fruit.Fruit;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
