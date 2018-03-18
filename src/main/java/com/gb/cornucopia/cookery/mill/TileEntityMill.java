@@ -1,7 +1,7 @@
 package com.gb.cornucopia.cookery.mill;
 
-import com.gb.cornucopia.food.cuisine.Cuisine;
-import com.gb.cornucopia.farming.veggie.Veggie;
+import com.gb.cornucopia.cuisine.Cuisine;
+import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

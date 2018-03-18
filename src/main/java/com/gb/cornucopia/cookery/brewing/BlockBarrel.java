@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.gb.cornucopia.cookery.Cookery;
-import com.gb.cornucopia.food.cuisine.Cuisine;
+import com.gb.cornucopia.cuisine.Cuisine;
 
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.properties.IProperty;

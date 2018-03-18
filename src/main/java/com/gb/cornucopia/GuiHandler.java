@@ -1,8 +1,8 @@
 package com.gb.cornucopia;
 
-import com.gb.cornucopia.farming.bees.Bees;
-import com.gb.cornucopia.farming.bees.apiary.ContainerApiary;
-import com.gb.cornucopia.farming.bees.apiary.GuiApiary;
+import com.gb.cornucopia.bees.Bees;
+import com.gb.cornucopia.bees.apiary.ContainerApiary;
+import com.gb.cornucopia.bees.apiary.GuiApiary;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.cuttingboard.ContainerCuttingBoard;
 import com.gb.cornucopia.cookery.cuttingboard.GuiCuttingBoard;

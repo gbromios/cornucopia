@@ -1,10 +1,10 @@
 package com.gb.cornucopia;
 
 import com.gb.cornucopia.cookery.Cookery;
-import com.gb.cornucopia.farming.bees.Bees;
-import com.gb.cornucopia.farming.fruit.Fruit;
-import com.gb.cornucopia.farming.veggie.Veggie;
-import com.gb.cornucopia.food.cuisine.Cuisine;
+import com.gb.cornucopia.bees.Bees;
+import com.gb.cornucopia.fruit.Fruit;
+import com.gb.cornucopia.veggie.Veggie;
+import com.gb.cornucopia.cuisine.Cuisine;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 

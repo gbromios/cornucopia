@@ -7,13 +7,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Random;
 
-import com.gb.cornucopia.farming.bees.Bees;
-import com.gb.cornucopia.farming.fruit.BlockFruitCrop;
-import com.gb.cornucopia.farming.fruit.BlockFruitSapling;
-import com.gb.cornucopia.farming.fruit.Fruit;
-import com.gb.cornucopia.farming.veggie.BlockVeggieCrop;
-import com.gb.cornucopia.farming.veggie.BlockVeggieWild;
-import com.gb.cornucopia.farming.veggie.Veggie;
+import com.gb.cornucopia.bees.Bees;
+import com.gb.cornucopia.fruit.BlockFruitCrop;
+import com.gb.cornucopia.fruit.Fruit;
+import com.gb.cornucopia.veggie.BlockVeggieWild;
+import com.gb.cornucopia.veggie.Veggie;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.google.common.collect.Table.Cell;

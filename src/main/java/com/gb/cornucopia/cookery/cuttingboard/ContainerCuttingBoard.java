@@ -2,7 +2,7 @@ package com.gb.cornucopia.cookery.cuttingboard;
 
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.SlotBowls;
-import com.gb.cornucopia.food.cuisine.dish.Dish;
+import com.gb.cornucopia.cuisine.dish.Dish;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

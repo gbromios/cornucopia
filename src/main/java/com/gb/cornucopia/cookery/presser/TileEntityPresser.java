@@ -1,10 +1,10 @@
 package com.gb.cornucopia.cookery.presser;
 
-import com.gb.cornucopia.farming.bees.Bees;
-import com.gb.cornucopia.food.cuisine.Cuisine;
-import com.gb.cornucopia.farming.fruit.Fruit;
-import com.gb.cornucopia.farming.veggie.ItemVeggieSeed;
-import com.gb.cornucopia.farming.veggie.Veggie;
+import com.gb.cornucopia.bees.Bees;
+import com.gb.cornucopia.cuisine.Cuisine;
+import com.gb.cornucopia.fruit.Fruit;
+import com.gb.cornucopia.veggie.ItemVeggieSeed;
+import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
