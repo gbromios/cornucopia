@@ -12,40 +12,40 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = CornuCopia.MODID, version = CornuCopia.VERSION)
 public class CornuCopia {
-    public static final String NAME = "CornuCopia";
-    public static final String MODID = "cornucopia";
-    public static final String VERSION = "1.2.5";
+	public static final String NAME = "CornuCopia";
+	public static final String MODID = "cornucopia";
+	public static final String VERSION = "1.2.5";
 
-    @Mod.Instance(value = CornuCopia.MODID)
-    public static CornuCopia instance;
-    public static Settings config;
+	@Mod.Instance(value = CornuCopia.MODID)
+	public static CornuCopia instance;
+	public static Settings config;
 
-    @SidedProxy(clientSide = "com.gb.cornucopia.ClientProxy", serverSide = "com.gb.cornucopia.ServerProxy")
-    public static CommonProxy proxy;
+	@SidedProxy(clientSide = "com.gb.cornucopia.ClientProxy", serverSide = "com.gb.cornucopia.ServerProxy")
+	public static CommonProxy proxy;
 
-    public static final CreativeTabs tabBees = new CornucopiaTabs().new BeesCreativeTab();
-    public static final CreativeTabs tabCookery = new CornucopiaTabs().new CookeryCreativeTab();
-    public static final CreativeTabs tabCuisine = new CornucopiaTabs().new CuisineCreativeTab();
-    public static final CreativeTabs tabFruit = new CornucopiaTabs().new FruitCreativeTab();
-    public static final CreativeTabs tabVeggies = new CornucopiaTabs().new VeggieCreativeTab();
+	public static final CreativeTabs tabBees = new CornucopiaTabs().new BeesCreativeTab();
+	public static final CreativeTabs tabCookery = new CornucopiaTabs().new CookeryCreativeTab();
+	public static final CreativeTabs tabCuisine = new CornucopiaTabs().new CuisineCreativeTab();
+	public static final CreativeTabs tabFruit = new CornucopiaTabs().new FruitCreativeTab();
+	public static final CreativeTabs tabVeggies = new CornucopiaTabs().new VeggieCreativeTab();
 
-    @EventHandler
-    public void preInit(final FMLPreInitializationEvent e) {
-        CornuCopia.proxy.preInit(e);
-    }
+	@EventHandler
+	public void preInit(final FMLPreInitializationEvent e) {
+		CornuCopia.proxy.preInit(e);
+	}
 
-    @EventHandler
-    public void init(final FMLInitializationEvent e) {
-        CornuCopia.proxy.init(e);
-        GuiHandler.init(this);
-    }
+	@EventHandler
+	public void init(final FMLInitializationEvent e) {
+		CornuCopia.proxy.init(e);
+		GuiHandler.init(this);
+	}
 
-    @EventHandler
-    public void PostInit(final FMLPostInitializationEvent e) {
-        CornuCopia.proxy.postInit(e);
-    }
+	@EventHandler
+	public void PostInit(final FMLPostInitializationEvent e) {
+		CornuCopia.proxy.postInit(e);
+	}
 
-    @EventHandler
-    public void serverLoad(final FMLServerStartingEvent event) {
-    }
+	@EventHandler
+	public void serverLoad(final FMLServerStartingEvent event) {
+	}
 }

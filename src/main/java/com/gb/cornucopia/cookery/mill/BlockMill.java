@@ -1,4 +1,4 @@
-	package com.gb.cornucopia.cookery.mill;
+package com.gb.cornucopia.cookery.mill;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
@@ -22,12 +22,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockMill extends Block  implements ITileEntityProvider{
+public class BlockMill extends Block implements ITileEntityProvider {
 	public static final PropertyInteger PROGRESS = PropertyInteger.create("progress", 0, 3);
-	public final String name = "cookery_mill"; 
+	public final String name = "cookery_mill";
 
-	public BlockMill()
-	{
+	public BlockMill() {
 		super(Material.WOOD);
 		this.setUnlocalizedName(this.name);
 		this.setHardness(1.5F);
@@ -40,76 +39,70 @@ public class BlockMill extends Block  implements ITileEntityProvider{
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
-	{
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
 		if (!world.isRemote) {
 			player.openGui(CornuCopia.instance, 420, world, pos.getX(), pos.getY(), pos.getZ());
 			//world.setBlockState(pos, state.withProperty(PROGRESS, ((int)state.getValue(PROGRESS) + 1) % 16 ));
 		}
-		
 
-		
+
 		return true;
 	}
-	
+
 	@Override
-	public void onBlockPlacedBy(final World world, final BlockPos pos, final IBlockState state, final EntityLivingBase placer, final ItemStack stack)
-	{
+	public void onBlockPlacedBy(final World world, final BlockPos pos, final IBlockState state, final EntityLivingBase placer, final ItemStack stack) {
 		world.setBlockState(pos.up(), Cookery.milltop.getDefaultState());
 	}
-	
+
 	@Override
-	public boolean canPlaceBlockAt(final World world, final BlockPos pos){
+	public boolean canPlaceBlockAt(final World world, final BlockPos pos) {
 		return super.canPlaceBlockAt(world, pos) && super.canPlaceBlockAt(world, pos.up());
 	}
 
-	public IBlockState getStateFromMeta(final int meta)
-	{
+	public IBlockState getStateFromMeta(final int meta) {
 		return this.getDefaultState().withProperty(PROGRESS, meta);
 	}
 
-	public int getMetaFromState(final IBlockState state)
-	{
-		return (int)state.getValue(PROGRESS);
+	public int getMetaFromState(final IBlockState state) {
+		return (int) state.getValue(PROGRESS);
 	}
 
-	protected BlockStateContainer createBlockState()
-	{
-		return new BlockStateContainer(this, new IProperty[] {PROGRESS});
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[]{PROGRESS});
 	}
-	
+
 
 	@Override
-	public boolean isOpaqueCube(){
+	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
-	public boolean isFullCube(){
+	public boolean isFullCube() {
 		return false;
 	}
-	
+
 	@Override
-	public void onNeighborBlockChange(final World world, final BlockPos pos, final IBlockState state, final Block neighborBlock){
-		if (world.getBlockState(pos.up()).getBlock() != Cookery.milltop){
+	public void onNeighborBlockChange(final World world, final BlockPos pos, final IBlockState state, final Block neighborBlock) {
+		if (world.getBlockState(pos.up()).getBlock() != Cookery.milltop) {
 			// breaking the handle
 			this.dropBlockAsItem(world, pos, state, 0);
 			this.breakBlock(world, pos, state);
 			world.setBlockToAir(pos);
 		}
 	}
-	public void breakBlock(final World world, final BlockPos pos, final IBlockState state)
-	{
-	//System.out.println("break presser");
+
+	public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {
+		//System.out.println("break presser");
 
 		TileEntity mill = world.getTileEntity(pos);
 
-		if (mill instanceof TileEntityMill)
-		{
-			InventoryHelper.dropInventoryItems(world, pos, (TileEntityMill)mill);
+		if (mill instanceof TileEntityMill) {
+			InventoryHelper.dropInventoryItems(world, pos, (TileEntityMill) mill);
 		}
 		super.breakBlock(world, pos, state);
 	}
+
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityMill();

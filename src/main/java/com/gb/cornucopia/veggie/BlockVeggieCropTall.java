@@ -1,10 +1,10 @@
 package com.gb.cornucopia.veggie;
 
-import java.util.Random;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BlockVeggieCropTall extends BlockVeggieCrop {
 	public final BlockVeggieStalk stalk;
@@ -23,8 +23,7 @@ public class BlockVeggieCropTall extends BlockVeggieCrop {
 	}
 
 	@Override
-	public boolean canBlockStay(final World world, final BlockPos pos, final IBlockState state)
-	{
+	public boolean canBlockStay(final World world, final BlockPos pos, final IBlockState state) {
 		return super.canBlockStay(world, pos, state) || world.getBlockState(pos.down()).getBlock() == this.stalk;
 	}
 
@@ -34,23 +33,23 @@ public class BlockVeggieCropTall extends BlockVeggieCrop {
 		final IBlockState new_state = world.getBlockState(pos); // get our updated state
 
 		// make sure the the block is still there after growing.
-		if (new_state.getBlock() != this){
+		if (new_state.getBlock() != this) {
 			return;
 		}
 
 		// if the veggie is on top of a stalk, then dont do anything different.
 		// TODO: if you want to make taller veggies, here's where you'd do `if ( this.stalk.height() >= MAX_HEIGHT  )`
-		if (world.getBlockState(pos.down()).getBlock() == this.stalk){
+		if (world.getBlockState(pos.down()).getBlock() == this.stalk) {
 			// stalk's age is veggie's age - 4
 			// for growing taller than one, will probably want to shift this to onNeighborChange
 			world.setBlockState(pos.down(), this.stalk.getDefaultState().withProperty(
-					BlockVeggieStalk.AGE, (Integer)new_state.getValue(AGE) - 4
-					));
+					BlockVeggieStalk.AGE, (Integer) new_state.getValue(AGE) - 4
+			));
 			return;
 		}
 
 		// for a crop on the ground, hitting age 4 (i.e. the get taller age)  
-		if ((Integer)new_state.getValue(AGE) == 4){
+		if ((Integer) new_state.getValue(AGE) == 4) {
 			if (world.isAirBlock(pos.up())) {
 				world.setBlockState(pos.up(), new_state);
 				world.setBlockState(pos, this.stalk.getDefaultState());
@@ -59,7 +58,7 @@ public class BlockVeggieCropTall extends BlockVeggieCrop {
 			else {
 				world.setBlockState(pos, state);
 			}
-		} 
+		}
 	}
 
 }
