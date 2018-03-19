@@ -1,12 +1,11 @@
 package com.gb.cornucopia;
 
 import com.gb.cornucopia.fruit.Fruit;
-
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class ClientProxy extends ServerProxy {
+public class ClientProxy extends CommonProxy {
 
 
 	@Override
@@ -18,10 +17,6 @@ public class ClientProxy extends ServerProxy {
 	public void init(final FMLInitializationEvent e) {
 		super.init(e);
 		Fruit.init();
-		
-		// finally some real client-side action
-		
-		
 	}
 
 	@Override

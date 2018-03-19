@@ -2,7 +2,6 @@ package com.gb.cornucopia.cookery.presser;
 
 import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cuisine.Cuisine;
-import com.gb.cornucopia.cuisine.Ingredient;
 import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.ItemVeggieSeed;
 import com.gb.cornucopia.veggie.Veggie;
@@ -18,7 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;

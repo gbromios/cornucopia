@@ -6,15 +6,12 @@ import java.util.List;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
-import com.gb.cornucopia.cookery.Cookery;
-import com.gb.cornucopia.cookery.Vessel;
 import com.gb.cornucopia.cuisine.dish.Dish;
 import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggie;
 import com.gb.util.WeightedArray;
 import com.google.common.collect.Lists;
 
-import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

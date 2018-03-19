@@ -3,9 +3,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 // maps a list of Dishes (i.e. recipes) to a specific cookign vessel/crafting station
 public class DishRegistry {

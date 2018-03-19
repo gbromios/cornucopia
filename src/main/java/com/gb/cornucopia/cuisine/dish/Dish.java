@@ -3,20 +3,15 @@ package com.gb.cornucopia.cuisine.dish;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.cuisine.Ingredient;
-import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ForgeHooks;
 
 /*
  * copied a lot from ShapelessOreRecipe here. it does what I want but not close enough to extend.

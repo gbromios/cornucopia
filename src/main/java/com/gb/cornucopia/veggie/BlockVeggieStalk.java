@@ -1,7 +1,6 @@
 package com.gb.cornucopia.veggie;
 
 import com.gb.cornucopia.InvModel;
-
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -13,18 +12,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockVeggieStalk extends BlockBush{
+public class BlockVeggieStalk extends BlockBush {
 	public final String name;
 	public final BlockVeggieCropTall crop;
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 
 	public BlockVeggieStalk(final String name, final BlockVeggieCropTall crop) {
 		super(Material.PLANTS);
-		this.name = "veggie_" + name + "_stalk";
+		this.name = String.format("veggie_%s_stalk", name);
 		this.crop = crop;
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
 		this.setCreativeTab(null);
-		GameRegistry.registerBlock(this, this.name);
+		GameRegistry.register(this);
 		InvModel.add(this, this.name);
 	}
 
@@ -38,21 +37,18 @@ public class BlockVeggieStalk extends BlockBush{
 	 */
 
 	@Override
-	public boolean canBlockStay(final World world, final BlockPos pos, final IBlockState state)
-	{
+	public boolean canBlockStay(final World world, final BlockPos pos, final IBlockState state) {
 		return
 				// if stalks are ever 2 grow, we must allow (this) to be below itself 
 				(world.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND)
-				// crop has to be above
-				&& (world.getBlockState(pos.up()).getBlock() == this.crop)
+						// crop has to be above
+						&& (world.getBlockState(pos.up()).getBlock() == this.crop)
 				;
 	}
 
 	@Override
-	protected void checkAndDropBlock(final World world, final BlockPos pos, final IBlockState state)
-	{
-		if (!this.canBlockStay(world, pos, state))
-		{
+	protected void checkAndDropBlock(final World world, final BlockPos pos, final IBlockState state) {
+		if (!this.canBlockStay(world, pos, state)) {
 			// exact same as the parent but don't drop anything :I
 			world.setBlockToAir(pos);
 		}
@@ -60,7 +56,7 @@ public class BlockVeggieStalk extends BlockBush{
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { AGE });
+		return new BlockStateContainer(this, new IProperty[]{AGE});
 	}
 
 	@Override
@@ -70,6 +66,6 @@ public class BlockVeggieStalk extends BlockBush{
 
 	@Override
 	public int getMetaFromState(final IBlockState state) {
-		return ((Integer)state.getValue(AGE));
+		return ((Integer) state.getValue(AGE));
 	}
 }
