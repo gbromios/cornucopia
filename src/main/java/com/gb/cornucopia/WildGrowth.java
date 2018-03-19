@@ -208,12 +208,12 @@ public class WildGrowth {
 		final int y = c.getHeightValue(x & 15, z & 15);
 		final BlockPos pos = new BlockPos(x, y, z);
 		final Biome b = w.getBiomeGenForCoords(pos);
-		final BlockVeggieWild v = Veggie.getForBiome(RANDOM, b);
+		final Veggie v = Veggie.getForBiome(RANDOM, b);
 		if (v == null) {
 			return;
 		}
 		if (w.getBlockState(pos.down()).getBlock() == Blocks.GRASS) {
-			w.setBlockState(pos, v.getDefaultState());
+			w.setBlockState(pos, v.wild.getDefaultState());
 		}
 		//System.out.format(" VEG   @ %s \n\n", v == null ? "<>" : v.name);
 	}

@@ -16,24 +16,49 @@ import java.util.Random;
 // This class is actually, despite the name, the class for *all* planted crops.
 // So long as the crop does not grow on a tree, it should be added here.
 public class Veggie {
+	public static final HashMap<String, Veggie> vegMap = new HashMap<>();
+
+	public final String name;
+	public final BlockVeggieCrop crop;
+	public final BlockVeggieWild wild;
+	public final ItemVeggieRaw raw;
+	public final ItemVeggieSeed seed;
+
 	public enum Veggies {
-		artichoke, asparagus, barley, bean, beet, bell_pepper, blackberry, blueberry, broccoli, cabbage, celery, cucumber,
-		eggplant, garlic, grape, herb, hops, lentil, lettuce, onion, pea, peanut, pineapple, raspberry, soy, spice,
-		strawberry, tomato, turnip, tea, zucchini
+		artichoke(1), asparagus(1), barley(1), bean(1), beet(1), bell_pepper(1), blackberry(1), blueberry(1), broccoli(1),
+		cabbage(1), celery(1), corn(2), cucumber(1), eggplant(1), garlic(1), grape(1), herb(1), hops(1), lentil(1),
+		lettuce(1), onion(1), pea(1), peanut(1), pineapple(1), raspberry(1), soy(1), spice(1), strawberry(1), tomato(1),
+		turnip(1), tea(1), zucchini(1);
+
+		// Currently only height of 1 & 2 is supported.
+		private final int height;
+
+		Veggies(int height) {
+			this.height = height;
+		}
 	}
 
-	public enum TallVeggies {
-		corn
+	public Veggie(final String name, final BlockVeggieCrop crop, final BlockVeggieWild wild, final ItemVeggieRaw raw, final ItemVeggieSeed seed) {
+		this.name = name;
+		this.crop = crop;
+		this.wild = wild;
+		this.raw = raw;
+		this.seed = seed;
 	}
 
-	public static final HashMap<String, BlockVeggieCrop> cropMap = new HashMap<>();
-	public static final HashMap<String, BlockVeggieWild> wildMap = new HashMap<>();
-	public static final HashMap<String, ItemVeggieRaw> rawMap = new HashMap<>();
-	public static final HashMap<String, ItemVeggieSeed> seedMap = new HashMap<>();
+	private Veggie(final String name, final BlockVeggieCrop crop, final BlockVeggieWild wild, final ItemVeggieRaw raw) {
+		this(name, crop, wild, raw, new ItemVeggieSeed(name, crop));
+	}
+
+	public Veggie(final Veggies veggie) {
+		this(veggie.name(),
+				veggie.height == 1 ? new BlockVeggieCrop(veggie.name()) : new BlockVeggieCropTall(veggie.name()),
+				new BlockVeggieWild(veggie.name(), EnumPlantType.Plains),
+				new ItemVeggieRaw(veggie.name()));
+	}
 
 	public static void preInit() {
-		for (Veggies veggie : Veggies.values()) registerVeggie(veggie.name());
-		for (TallVeggies tallVeggie : TallVeggies.values()) registerTallVeggie(tallVeggie.name());
+		for (Veggies veggie : Veggies.values()) vegMap.put(veggie.name(), new Veggie(veggie));
 
 		// move vanilla food to this tab!
 		Items.CARROT.setCreativeTab(CornuCopia.tabVeggies);
@@ -44,27 +69,6 @@ public class Veggie {
 		Items.POTATO.setCreativeTab(CornuCopia.tabVeggies);
 		Items.WHEAT.setCreativeTab(CornuCopia.tabVeggies);
 		Items.WHEAT_SEEDS.setCreativeTab(CornuCopia.tabVeggies);
-	}
-
-	private static void registerVeggie(String name, BlockVeggieCrop crop) {
-		BlockVeggieWild wild = new BlockVeggieWild(name, EnumPlantType.Plains);
-		ItemVeggieRaw raw = new ItemVeggieRaw(name);
-		ItemVeggieSeed seed = new ItemVeggieSeed(name, crop);
-
-		crop.setDrops(raw, seed);
-
-		cropMap.put(name, crop);
-		wildMap.put(name, wild);
-		rawMap.put(name, raw);
-		seedMap.put(name, seed);
-	}
-
-	private static void registerVeggie(String name) {
-		registerVeggie(name, new BlockVeggieCrop(name));
-	}
-
-	private static void registerTallVeggie(String name) {
-		registerVeggie(name, new BlockVeggieCropTall(name));
 	}
 
 	public static void init() {
@@ -137,7 +141,7 @@ public class Veggie {
 				//.add(Veggies.cucumber, 10)
 				//.add(Veggies.eggplant, 10)
 				//.add(Veggies.zucchini, 10)
-				.add(TallVeggies.corn, 10)
+				.add(Veggies.corn, 10)
 		;
 
 		dryVeggies
@@ -154,31 +158,32 @@ public class Veggie {
 				Veggies.celery, Veggies.cucumber, Veggies.pea, Veggies.tea, Veggies.zucchini, Veggies.pineapple,
 				Veggies.broccoli, Veggies.soy, Veggies.eggplant, Veggies.bean
 		};
-		for (Enum veggie : disabledVeggies) {
-			seedMap.get(veggie.name()).setCreativeTab(null);
-			wildMap.get(veggie.name()).setCreativeTab(null);
+		for (Enum disabled : disabledVeggies) {
+			Veggie veggie = vegMap.get(disabled.name());
+			veggie.raw.setCreativeTab(null);
+			veggie.wild.setCreativeTab(null);
 		}
 	}
 
-	public static BlockVeggieCrop getAny(Random r) {
-		int i = (int) (r.nextInt(cropMap.size()));
-		for (BlockVeggieCrop veggie : cropMap.values()) {
+	public static Veggie getAny(Random r) {
+		int i = (int) (r.nextInt(vegMap.size()));
+		for (Veggie veggie : vegMap.values()) {
 			if (--i < 0) return veggie;
 		}
 		throw new RuntimeException();
 	}
 
-	public static BlockVeggieWild getForBiome(Random r, Biome b) {
+	public static Veggie getForBiome(Random r, Biome b) {
 		if (BiomeDictionary.isBiomeOfType(b, Type.COLD)) {
 			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(4) == 0) {
-				return wildMap.get(coldVeggies.getRandom(r).name());
+				return vegMap.get(coldVeggies.getRandom(r).name());
 			}
 			return null;
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.MOUNTAIN)) {
 			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(3) == 0) {
-				return wildMap.get(mountainVeggies.getRandom(r).name());
+				return vegMap.get(mountainVeggies.getRandom(r).name());
 			}
 			return null;
 		}
@@ -187,25 +192,25 @@ public class Veggie {
 			if (BiomeDictionary.isBiomeOfType(b, Type.SWAMP) && r.nextInt(3) > 0) {
 				return null;
 			}
-			return wildMap.get(jungleVeggies.getRandom(r).name());
+			return vegMap.get(jungleVeggies.getRandom(r).name());
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.FOREST)) {
 			if (r.nextInt(2) > 0) {
-				return wildMap.get(forestVeggies.getRandom(r).name());
+				return vegMap.get(forestVeggies.getRandom(r).name());
 			}
 			return null;
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.HOT) || BiomeDictionary.isBiomeOfType(b, Type.MESA)) {
 			if (r.nextInt(3) > 0) {
-				return wildMap.get(dryVeggies.getRandom(r).name());
+				return vegMap.get(dryVeggies.getRandom(r).name());
 			}
 			return null;
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.PLAINS)) {
-			return wildMap.get(plainsVeggies.getRandom(r).name());
+			return vegMap.get(plainsVeggies.getRandom(r).name());
 		}
 
 		return null;
