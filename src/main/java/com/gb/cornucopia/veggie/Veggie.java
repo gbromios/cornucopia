@@ -44,6 +44,8 @@ public class Veggie {
 		this.wild = wild;
 		this.raw = raw;
 		this.seed = seed;
+
+		this.crop.setDrops(this.raw, this.seed);
 	}
 
 	private Veggie(final String name, final BlockVeggieCrop crop, final BlockVeggieWild wild, final ItemVeggieRaw raw) {
