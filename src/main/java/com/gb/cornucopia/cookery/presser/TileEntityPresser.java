@@ -82,12 +82,12 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 
 	public boolean canPress(Item i) {
 		return ( i == Bees.honeycomb && this.hasOrEmpty(Bees.honey_raw) )
-				|| ( i == Fruit.olive.raw && this.hasOrEmpty(Cuisine.olive_oil) )
+				|| ( i == Fruit.getRaw("olive") && this.hasOrEmpty(Cuisine.olive_oil) )
 				|| ( Cuisine.hathJuice(i) && this.hasOrEmpty(Cuisine.getJuice(i)) )
 				|| ( i == Items.MILK_BUCKET && this.hasOrEmpty(Cuisine.butter) )
-				|| ( i == Veggie.peanut.raw && this.hasOrEmpty(Cuisine.canola_oil) )
+				|| ( i == Veggie.getRaw("peanut") && this.hasOrEmpty(Cuisine.canola_oil) )
 				|| ( i == Cuisine.pasta_dough && this.hasOrEmpty(Cuisine.fresh_pasta) )
-				|| ( i == Veggie.soy.raw && this.hasOrEmpty(Cuisine.tofu) )
+				|| ( i == Veggie.getRaw("soy") && this.hasOrEmpty(Cuisine.tofu) )
 				|| ( i == Items.WHEAT_SEEDS && this.hasOrEmpty(Cuisine.canola_oil) )
 				|| ( i instanceof ItemVeggieSeed && this.hasOrEmpty(Cuisine.canola_oil) )
 				;
@@ -150,7 +150,7 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		if (i == Bees.honeycomb) {
 			press(Bees.honey_raw, 2, Bees.waxcomb);
 
-		} else if (i == Fruit.olive.raw) {
+		} else if (i == Fruit.getRaw("olive")) {
 			press(Cuisine.olive_oil, 4);
 
 		} else if (i == Items.MILK_BUCKET) {
@@ -162,10 +162,10 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		} else if (i instanceof ItemVeggieSeed) {
 			press(Cuisine.canola_oil, 16);
 
-		} else if (i == Veggie.soy.raw) {
+		} else if (i == Veggie.getRaw("soy")) {
 			press(Cuisine.tofu, 8);
 
-		} else if (i == Veggie.peanut.raw) {
+		} else if (i == Veggie.getRaw("peanut")) {
 			press(Cuisine.canola_oil, 8);
 
 		} else if (Cuisine.hathJuice(i)) {

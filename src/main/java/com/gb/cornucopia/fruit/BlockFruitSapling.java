@@ -17,9 +17,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Random;
 
-public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowable {
-
-	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 1);
+public class BlockFruitSapling extends BlockSapling {
 	public final String name;
 	private IBlockState wood;
 	private IBlockState leaf;
@@ -29,8 +27,8 @@ public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowabl
 		this.name = "fruit_" + name + "_sapling";
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(CornuCopia.tabFruit);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
-		GameRegistry.registerBlock(this, this.name);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE, Integer.valueOf(0)));
+		GameRegistry.register(this);
 		InvModel.add(this, this.name);
 	}
 
@@ -51,6 +49,7 @@ public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowabl
 		this.leaf = leaf;
 	}
 
+	@Override
 	public void generateTree(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
 		for (int x = -1; x <= 1; x++) {
 			for (int z = -1; z <= 1; z++) {
@@ -63,31 +62,6 @@ public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowabl
 		for (int y = 0; y < 3; y++) {
 			world.setBlockState(pos.add(0, y, 0), this.wood);
 		}
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[]{AGE});
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(final int meta) {
-		return getDefaultState().withProperty(AGE, meta);
-	}
-
-	@Override
-	public int getMetaFromState(final IBlockState state) {
-		return ((Integer) state.getValue(AGE));
-	}
-
-	@Override
-	public EnumPlantType getPlantType(final IBlockAccess world, BlockPos pos) {
-		return EnumPlantType.Plains; // ugh, later.
-	}
-
-	@Override
-	public IBlockState getPlant(final IBlockAccess world, final BlockPos pos) {
-		return this.getDefaultState();
 	}
 
 	public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
@@ -119,26 +93,5 @@ public class BlockFruitSapling extends BlockBush implements IPlantable, IGrowabl
 			}
 		}
 		return true;
-	}
-
-	@Override
-	public boolean canUseBonemeal(final World world, final Random rand, final BlockPos pos, final IBlockState state) {
-		return this.canGrow(world, pos, state, true) && this.shouldGrow(world, pos, rand);
-	}
-
-	@Override
-	public void grow(final World world, final Random rand, final BlockPos pos, final IBlockState state) {
-		switch ((Integer) state.getValue(AGE)) {
-			case 0:
-				world.setBlockState(
-						pos,
-						state.withProperty(AGE, Integer.valueOf(1)),
-						2
-				);
-				break;
-			case 1:
-				this.generateTree(world, pos, state, rand);
-				break;
-		}
 	}
 }

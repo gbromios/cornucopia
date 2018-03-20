@@ -13,48 +13,86 @@ import java.util.Random;
 
 // This class is for all fruit-bearing trees. If your crop grows on a tree, add it here.
 public class Fruit {
+	public static final HashMap<String, Fruit> fruitMap = new HashMap<>();
+
+	public final String name;
+	public final BlockFruitCrop crop;
+	public final BlockFruitLeaf leaf;
+	public final BlockFruitSapling sapling;
+	public final ItemFruitRaw raw;
+
 	public enum Fruits {
-		almond("SPRUCE"), avocado("SPRUCE"), banana("JUNGLE"), cherry("OAK"), coconut("JUNGLE"), coffee("DARK_OAK"),
-		date("ACACIA"), fig("ACACIA"), grapefruit("SPRUCE"), kiwi("DARK_OAK"), lemon("BIRCH"), lime("BIRCH"),
-		olive("ACACIA"), orange("JUNGLE"), peach("OAK"), pear("OAK"), plum("BIRCH"), pomegranate("DARK_OAK");
+		almond(BlockPlanks.EnumType.SPRUCE),
+		avocado(BlockPlanks.EnumType.SPRUCE),
+		banana(BlockPlanks.EnumType.JUNGLE),
+		cherry(BlockPlanks.EnumType.OAK),
+		coconut(BlockPlanks.EnumType.JUNGLE),
+		coffee(BlockPlanks.EnumType.DARK_OAK),
+		date(BlockPlanks.EnumType.ACACIA),
+		fig(BlockPlanks.EnumType.ACACIA),
+		grapefruit(BlockPlanks.EnumType.SPRUCE),
+		kiwi(BlockPlanks.EnumType.DARK_OAK),
+		lemon(BlockPlanks.EnumType.BIRCH),
+		lime(BlockPlanks.EnumType.BIRCH),
+		olive(BlockPlanks.EnumType.ACACIA),
+		orange(BlockPlanks.EnumType.JUNGLE),
+		peach(BlockPlanks.EnumType.OAK),
+		pear(BlockPlanks.EnumType.OAK),
+		plum(BlockPlanks.EnumType.BIRCH),
+		pomegranate(BlockPlanks.EnumType.DARK_OAK);
 
 		private final BlockPlanks.EnumType wood;
 
-		Fruits(String type) {
-			this.wood = BlockPlanks.EnumType.valueOf(type.toUpperCase());
+		Fruits(BlockPlanks.EnumType wood) {
+			this.wood = wood;
 		}
 	}
 
-	// static fields
-	public static final HashMap<String, BlockFruitCrop> cropMap = new HashMap<>();
-	public static final HashMap<String, BlockFruitLeaf> leafMap = new HashMap<>();
-	public static final HashMap<String, BlockFruitSapling> saplingMap = new HashMap<>();
-	public static final HashMap<String, ItemFruitRaw> rawMap = new HashMap<>();
+	public Fruit(final String name, final BlockPlanks.EnumType wood, final BlockFruitCrop crop, final BlockFruitLeaf leaf, final BlockFruitSapling sapling, final ItemFruitRaw raw) {
+		this.name = name;
+		this.crop = crop;
+		this.leaf = leaf;
+		this.sapling = sapling;
+		this.raw = raw;
+
+		this.crop.setLeaf(this.leaf).setDrops(this.raw, this.sapling);
+		this.leaf.setGrows(this.crop);
+		this.sapling.setTreeStates(wood, this.leaf.getDefaultState());
+		fruitMap.put(name, this);
+	}
+
+	public Fruit(final Fruits fruit) {
+		this(fruit.name(), fruit.wood,
+				new BlockFruitCrop(fruit.name()),
+				new BlockFruitLeaf(fruit.name()),
+				new BlockFruitSapling(fruit.name()),
+				new ItemFruitRaw(fruit.name()));
+	}
+
+	public static BlockFruitCrop getCrop(final String name) {
+		return fruitMap.get(name).crop;
+	}
+
+	public static BlockFruitLeaf getLeaf(final String name) {
+		return fruitMap.get(name).leaf;
+	}
+
+	public static BlockFruitSapling getSapling(final String name) {
+		return fruitMap.get(name).sapling;
+	}
+
+	public static ItemFruitRaw getRaw(final String name) {
+		return fruitMap.get(name).raw;
+	}
 
 	public static void preInit() {
-		for (Fruits fruit : Fruits.values()) registerFruit(fruit.name(), fruit.wood);
+		for (Fruits fruit : Fruits.values()) new Fruit(fruit);
 
 		Items.APPLE.setCreativeTab(CornuCopia.tabFruit);
 	}
 
-	public static void registerFruit(final String name, final BlockPlanks.EnumType wood) {
-		BlockFruitCrop crop = new BlockFruitCrop(name);
-		BlockFruitLeaf leaf = new BlockFruitLeaf(name);
-		BlockFruitSapling sapling = new BlockFruitSapling(name);
-		ItemFruitRaw raw = new ItemFruitRaw(name);
-
-		// hook up needfuls
-		sapling.setTreeStates(wood, leaf.getDefaultState());
-		leaf.setGrows(crop);
-		crop.setLeaf(leaf).setDrops(raw, sapling);
-
-		cropMap.put(name, crop);
-		leafMap.put(name, leaf);
-		saplingMap.put(name, sapling);
-		rawMap.put(name, raw);
-	}
-
 	public static void init() {
+		// TODO gbro what is this?
         /*for (BlockFruitCrop f : cropMap.values()) {
             f.leaf.setGraphicsLevel(true);
         }*/
@@ -118,26 +156,25 @@ public class Fruit {
 		;
 	}
 
-	public static BlockFruitCrop getAny(Random r) {
-		int i = (int) (r.nextInt(cropMap.size()));
-		for (BlockFruitCrop fruit : cropMap.values()) {
+	public static Fruit getAny(Random r) {
+		int i = (int) (r.nextInt(fruitMap.size()));
+		for (Fruit fruit : fruitMap.values()) {
 			if (--i < 0) return fruit;
 		}
 		throw new RuntimeException();
 	}
 
-	public static BlockFruitCrop getForBiome(Random r, Biome b) {
+	public static Fruit getForBiome(Random r, Biome b) {
 		if (BiomeDictionary.isBiomeOfType(b, Type.COLD)) {
 			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(8) == 0) {
-				return cropMap.get(coldFruits.getRandom(r).name());
+				return fruitMap.get(coldFruits.getRandom(r).name());
 			}
 			return null;
-
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.MOUNTAIN)) {
 			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(4) == 0) {
-				return cropMap.get(mountainFruits.getRandom(r).name());
+				return fruitMap.get(mountainFruits.getRandom(r).name());
 			}
 			return null;
 		}
@@ -146,23 +183,23 @@ public class Fruit {
 			if (BiomeDictionary.isBiomeOfType(b, Type.SWAMP) && r.nextInt(8) > 0) {
 				return null;
 			}
-			return cropMap.get(jungleFruits.getRandom(r).name());
+			return fruitMap.get(jungleFruits.getRandom(r).name());
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.FOREST)) {
-			return cropMap.get(forestFruits.getRandom(r).name());
+			return fruitMap.get(forestFruits.getRandom(r).name());
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.HOT) || BiomeDictionary.isBiomeOfType(b, Type.MESA)) {
 			if (r.nextInt(2) == 0) {
-				return cropMap.get(dryFruits.getRandom(r).name());
+				return fruitMap.get(dryFruits.getRandom(r).name());
 			}
 			return null;
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.PLAINS)) {
 			if (r.nextInt(2) == 0) {
-				return cropMap.get(plainsFruits.getRandom(r).name());
+				return fruitMap.get(plainsFruits.getRandom(r).name());
 			}
 		}
 

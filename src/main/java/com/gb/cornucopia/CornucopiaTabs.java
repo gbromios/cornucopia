@@ -50,7 +50,7 @@ public class CornucopiaTabs {
 
 		@Override
 		public Item getTabIconItem() {
-			return Fruit.rawMap.get(Fruit.Fruits.peach.name());
+			return Fruit.getRaw("peach");
 		}
 	}
 
@@ -61,7 +61,7 @@ public class CornucopiaTabs {
 
 		@Override
 		public Item getTabIconItem() {
-			return Veggie.rawMap.get(Veggie.Veggies.asparagus.name());
+			return Veggie.getRaw("asparagus");
 		}
 	}
 }

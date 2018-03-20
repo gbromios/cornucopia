@@ -162,11 +162,11 @@ public class WildGrowth {
 
 			if ((leaf.getBlock() == Blocks.LEAVES || leaf.getBlock() == Blocks.LEAVES2) && w.isAirBlock(pos)) {
 				final Biome b = w.getBiomeGenForCoords(pos);
-				final BlockFruitCrop f = Fruit.getForBiome(RANDOM, b);
+				final Fruit f = Fruit.getForBiome(RANDOM, b);
 				if (f == null) {
 					return;
 				}
-				w.setBlockState(pos, f.getDefaultState()
+				w.setBlockState(pos, f.crop.getDefaultState()
 						.withProperty(BlockFruitCrop.DROP_SAPLING, true)
 						.withProperty(BlockFruitCrop.AGE, 3)
 				);

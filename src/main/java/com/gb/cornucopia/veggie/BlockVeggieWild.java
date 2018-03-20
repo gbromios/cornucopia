@@ -41,7 +41,7 @@ public class BlockVeggieWild extends BlockBush implements IPlantable {
 		InvModel.add(this, this.name);
 	}
 
-	public void setDrop(final ItemVeggieRaw raw, final ItemVeggieSeed seed) {
+	public void setDrops(final ItemVeggieRaw raw, final ItemVeggieSeed seed) {
 		this.raw = raw;
 		this.seed = seed;
 	}
