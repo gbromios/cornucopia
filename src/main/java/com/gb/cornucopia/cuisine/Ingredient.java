@@ -43,27 +43,27 @@ public class Ingredient {
 		;
 
 		mirepoix_part
-		.add(Veggie.getRaw("onion"))
-		.add(Veggie.getRaw("celery"))
-		.add(Veggie.getRaw("garlic"))
-		.add(Veggie.getRaw("bell_pepper"))
+		.add(Veggie.onion.raw)
+		.add(Veggie.celery.raw)
+		.add(Veggie.garlic.raw)
+		.add(Veggie.bell_pepper.raw)
 		.add(Items.SUGAR)
 		;		
 
 		mountain_berry
-		.add(Veggie.getRaw("blackberry"))
-		.add(Fruit.getRaw("pear"))
-		.add(Veggie.getRaw("blueberry"))
-		.add(Veggie.getRaw("strawberry"))
-		.add(Veggie.getRaw("raspberry"))
-		.add(Fruit.getRaw("cherry"))
+		.add(Veggie.blackberry.raw)
+		.add(Fruit.pear.raw)
+		.add(Veggie.blueberry.raw)
+		.add(Veggie.strawberry.raw)
+		.add(Veggie.raspberry.raw)
+		.add(Fruit.cherry.raw)
 		;
 
 		citrus
-		.add(Fruit.getRaw("orange"))
-		.add(Fruit.getRaw("lime"))
-		.add(Fruit.getRaw("lemon"))
-		.add(Fruit.getRaw("grapefruit"))
+		.add(Fruit.orange.raw)
+		.add(Fruit.lime.raw)
+		.add(Fruit.lemon.raw)
+		.add(Fruit.grapefruit.raw)
 		;
 
 		fat
@@ -73,9 +73,9 @@ public class Ingredient {
 		;
 
 		kebab_veggie
-		.add(Veggie.getRaw("bell_pepper"))
-		.add(Veggie.getRaw("onion"))
-		.add(Veggie.getRaw("zucchini"))
+		.add(Veggie.bell_pepper.raw)
+		.add(Veggie.onion.raw)
+		.add(Veggie.zucchini.raw)
 		.add(Blocks.RED_MUSHROOM)
 		.add(Blocks.BROWN_MUSHROOM)
 		.add(Blocks.RED_MUSHROOM_BLOCK)
@@ -110,17 +110,17 @@ public class Ingredient {
 		;
 
 		casserole_veggie
-		.add(Veggie.getRaw("artichoke"))
-		.add(Veggie.getRaw("asparagus"))
-		.add(Veggie.getRaw("broccoli"))
-		.add(Veggie.getRaw("celery"))
-		.add(Veggie.getRaw("garlic"))
+		.add(Veggie.artichoke.raw)
+		.add(Veggie.asparagus.raw)
+		.add(Veggie.broccoli.raw)
+		.add(Veggie.celery.raw)
+		.add(Veggie.garlic.raw)
 		.add(Items.CARROT)
-		.add(Veggie.getRaw("bean"))
-		.add(Veggie.getRaw("lentil"))
-		.add(Veggie.getRaw("pea"))
-		.add(Veggie.getRaw("eggplant"))
-		.add(Veggie.getRaw("zucchini"))
+		.add(Veggie.bean.raw)
+		.add(Veggie.lentil.raw)
+		.add(Veggie.pea.raw)
+		.add(Veggie.eggplant.raw)
+		.add(Veggie.zucchini.raw)
 		;
 
 		juice
@@ -183,19 +183,19 @@ public class Ingredient {
 		;
 
 		savory_salad
-		.add(Veggie.getRaw("artichoke"))
-		.add(Veggie.getRaw("beet"))
-		.add(Veggie.getRaw("bell_pepper"))
-		.add(Veggie.getRaw("broccoli"))
+		.add(Veggie.artichoke.raw)
+		.add(Veggie.beet.raw)
+		.add(Veggie.bell_pepper.raw)
+		.add(Veggie.broccoli.raw)
 		.add(Items.CARROT)
-		.add(Veggie.getRaw("cabbage"))
-		.add(Veggie.getRaw("onion"))
-		.add(Veggie.getRaw("tomato"))
-		.add(Veggie.getRaw("turnip"))
-		.add(Veggie.getRaw("pea"))
-		.add(Veggie.getRaw("cucumber"))
-		.add(Veggie.getRaw("eggplant"))
-		.add(Fruit.getRaw("avocado"))
+		.add(Veggie.cabbage.raw)
+		.add(Veggie.onion.raw)
+		.add(Veggie.tomato.raw)
+		.add(Veggie.turnip.raw)
+		.add(Veggie.pea.raw)
+		.add(Veggie.cucumber.raw)
+		.add(Veggie.eggplant.raw)
+		.add(Fruit.avocado.raw)
 		;
 
 		dressing
@@ -208,18 +208,18 @@ public class Ingredient {
 
 		sweet_salad
 		.add(Items.APPLE)
-		.add(Veggie.getRaw("blackberry"))
-		.add(Veggie.getRaw("blueberry"))
-		.add(Veggie.getRaw("pineapple"))
-		.add(Veggie.getRaw("raspberry"))
-		.add(Veggie.getRaw("strawberry"))
-		.add(Veggie.getRaw("grape"))
-		.add(Fruit.getRaw("banana"))
-		.add(Fruit.getRaw("cherry"))
-		.add(Fruit.getRaw("pear"))
-		.add(Fruit.getRaw("plum"))
-		.add(Fruit.getRaw("kiwi"))
-		.add(Fruit.getRaw("peach"))
+		.add(Veggie.blackberry.raw)
+		.add(Veggie.blueberry.raw)
+		.add(Veggie.pineapple.raw)
+		.add(Veggie.raspberry.raw)
+		.add(Veggie.strawberry.raw)
+		.add(Veggie.grape.raw)
+		.add(Fruit.banana.raw)
+		.add(Fruit.cherry.raw)
+		.add(Fruit.pear.raw)
+		.add(Fruit.plum.raw)
+		.add(Fruit.kiwi.raw)
+		.add(Fruit.peach.raw)
 		;
 		
 		smoothie_base

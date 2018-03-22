@@ -4,22 +4,57 @@ import com.gb.cornucopia.CornuCopia;
 import com.gb.util.WeightedArray;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 
 // This class is actually, despite the name, the class for *all* planted crops.
 // So long as the crop does not grow on a tree, it should be added here.
 public class Veggie {
+	private static final HashMap<String, Veggie> vegMap = new HashMap<>();
+	public static Veggie artichoke;
+	public static Veggie asparagus;
+	public static Veggie barley;
+	public static Veggie beet;
+	public static Veggie bell_pepper;
+	public static Veggie blackberry;
+	public static Veggie blueberry;
+	public static Veggie broccoli;
+	public static Veggie cabbage;
+	public static Veggie celery;
+	public static Veggie lettuce;
+	public static Veggie onion;
+	public static Veggie pineapple;
+	public static Veggie raspberry;
+	public static Veggie strawberry;
+	public static Veggie tomato;
+	public static Veggie turnip;
+	public static Veggie garlic;
+	public static Veggie peanut;
+	public static Veggie bean;
+	public static Veggie lentil;
+	public static Veggie pea;
+	public static Veggie grape;
+	public static Veggie spice;
+	public static Veggie herb;
+	public static Veggie tea;
+	public static Veggie soy;
+	public static Veggie cucumber;
+	public static Veggie eggplant;
+	public static Veggie zucchini;
+	public static Veggie hops;
+	public static Veggie corn;
+
 	private static final int MIN_HEIGHT = 1;
 	private static final int MAX_HEIGHT = 2;
-
-	private static final HashMap<String, Veggie> vegMap = new HashMap<>();
 
 	public final String name;
 	public final BlockVeggieCrop crop;
@@ -27,94 +62,72 @@ public class Veggie {
 	public final ItemVeggieRaw raw;
 	public final ItemVeggieSeed seed;
 
-	private enum Veggies {
-		artichoke(1),
-		asparagus(1),
-		barley(1),
-		bean(1),
-		beet(1),
-		bell_pepper(1),
-		blackberry(1),
-		blueberry(1),
-		broccoli(1),
-		cabbage(1),
-		celery(1),
-		corn(2),
-		cucumber(1),
-		eggplant(1),
-		garlic(1),
-		grape(1),
-		herb(1),
-		hops(1),
-		lentil(1),
-		lettuce(1),
-		onion(1),
-		pea(1),
-		peanut(1),
-		pineapple(1),
-		raspberry(1),
-		soy(1),
-		spice(1),
-		strawberry(1),
-		tomato(1),
-		turnip(1),
-		tea(1),
-		zucchini(1);
-
-		private final int height;
-
-		// if height is not between min & max, set it to 1
-		Veggies(int height) {
-			this.height = (height >= MIN_HEIGHT && height <= MAX_HEIGHT) ? height : 1;
-		}
-	}
-
-	public Veggie(final String name, final BlockVeggieCrop crop, final BlockVeggieWild wild, final ItemVeggieRaw raw, final ItemVeggieSeed seed) {
+	public Veggie(final String name, final ItemVeggieRaw raw, final ItemVeggieSeed seed, final BlockVeggieCrop crop, final BlockVeggieWild wild) {
 		this.name = name;
-		this.crop = crop;
-		this.wild = wild;
 		this.raw = raw;
 		this.seed = seed;
+		this.crop = crop;
+		this.wild = wild;
 
-		this.crop.setDrops(this.raw, this.seed);
-		this.wild.setDrops(this.raw, this.seed);
+		this.crop.setDrops(raw, seed);
+		this.wild.setDrops(raw, seed);
 		vegMap.put(name, this);
+
+		GameRegistry.addShapelessRecipe(new ItemStack(seed, 2), raw);
 	}
 
 	private Veggie(final String name, final BlockVeggieCrop crop, final BlockVeggieWild wild, final ItemVeggieRaw raw) {
-		this(name, crop, wild, raw, new ItemVeggieSeed(name, crop));
+		this(name, raw, new ItemVeggieSeed(name, crop), crop, wild);
 	}
 
-	public Veggie(final Veggies veggie) {
-		this(veggie.name(),
-				veggie.height == 1 ? new BlockVeggieCrop(veggie.name())
-						: new BlockVeggieCropTall(veggie.name()),
-				new BlockVeggieWild(veggie.name(), EnumPlantType.Plains),
-				new ItemVeggieRaw(veggie.name()));
+	public Veggie(final String name, final int height) {
+		this(name,
+			 height == 1 ? new BlockVeggieCrop(name)
+					 	 : new BlockVeggieCropTall(name),
+			 new BlockVeggieWild(name, EnumPlantType.Plains),
+			 new ItemVeggieRaw(name));
 	}
 
-	public static Veggie getVeggie(final String name) {
-		return vegMap.get(name);
-	}
-
-	public static BlockVeggieCrop getCrop(final String name) {
-		return vegMap.get(name).crop;
-	}
-
-	public static BlockVeggieWild getWild(final String name) {
-		return vegMap.get(name).wild;
-	}
-
-	public static ItemVeggieRaw getRaw(final String name) {
-		return vegMap.get(name).raw;
-	}
-
-	public static ItemVeggieSeed getSeed(final String name) {
-		return vegMap.get(name).seed;
+	public Veggie(final String name) {
+		this(name,
+			 new BlockVeggieCrop(name),
+			 new BlockVeggieWild(name, EnumPlantType.Plains),
+			 new ItemVeggieRaw(name));
 	}
 
 	public static void preInit() {
-		for (Veggies veggie : Veggies.values()) new Veggie(veggie);
+		artichoke = new Veggie("artichoke");
+		asparagus = new Veggie("asparagus");
+		barley = new Veggie("barley");
+		beet = new Veggie("beet");
+		bean = new Veggie("bean");
+		bell_pepper = new Veggie("bell_pepper");
+		blackberry = new Veggie("blackberry");
+		blueberry = new Veggie("blueberry");
+		broccoli = new Veggie("broccoli");
+		cabbage = new Veggie("cabbage");
+		celery = new Veggie("celery");
+		corn =  new Veggie("corn", 2);
+		eggplant = new Veggie("eggplant");
+		garlic = new Veggie("garlic");
+		cucumber = new Veggie("cucumber");
+		lentil = new Veggie("lentil");
+		grape = new Veggie("grape");
+		herb = new Veggie("herb");
+		hops = new Veggie("hops");
+		lettuce = new Veggie("lettuce");
+		onion = new Veggie("onion");
+		pea = new Veggie("pea");
+		peanut = new Veggie("peanut");
+		pineapple = new Veggie("pineapple");
+		raspberry = new Veggie("raspberry");
+		soy = new Veggie("soy");
+		spice = new Veggie("spice");
+		strawberry = new Veggie("strawberry");
+		tea = new Veggie("tea");
+		tomato = new Veggie("tomato");
+		turnip = new Veggie("turnip");
+		zucchini = new Veggie("zucchini");
 
 		// move vanilla food to this tab!
 		Items.CARROT.setCreativeTab(CornuCopia.tabVeggies);
@@ -130,98 +143,97 @@ public class Veggie {
 	public static void init() {
 	}
 
-	private static final WeightedArray<Veggies> jungleVeggies = new WeightedArray<>();
-	private static final WeightedArray<Veggies> coldVeggies = new WeightedArray<>();
-	private static final WeightedArray<Veggies> forestVeggies = new WeightedArray<>();
-	private static final WeightedArray<Veggies> mountainVeggies = new WeightedArray<>();
-	private static final WeightedArray<Veggies> plainsVeggies = new WeightedArray<>();
-	private static final WeightedArray<Veggies> dryVeggies = new WeightedArray<>();
+	private static final WeightedArray<Veggie> jungleVeggies = new WeightedArray<>();
+	private static final WeightedArray<Veggie> coldVeggies = new WeightedArray<>();
+	private static final WeightedArray<Veggie> forestVeggies = new WeightedArray<>();
+	private static final WeightedArray<Veggie> mountainVeggies = new WeightedArray<>();
+	private static final WeightedArray<Veggie> plainsVeggies = new WeightedArray<>();
+	private static final WeightedArray<Veggie> dryVeggies = new WeightedArray<>();
 
 	public static void postInit() {
 		// map veggies to biomes
 		jungleVeggies
-				.add(Veggies.bell_pepper, 10)
-				.add(Veggies.herb, 10)
-				.add(Veggies.peanut, 10)
-				//.add(Veggies.pineapple, 10)
-				.add(Veggies.spice, 10)
-				//.add(Veggies.tea, 10)
-				.add(Veggies.tomato, 10)
+				.add(bell_pepper, 10)
+				.add(herb, 10)
+				.add(peanut, 10)
+				//.add(pineapple, 10)
+				.add(spice, 10)
+				//.add(tea, 10)
+				.add(tomato, 10)
 		;
 
 		coldVeggies
-				.add(Veggies.barley, 10)
-				.add(Veggies.beet, 10)
-				.add(Veggies.cabbage, 10)
-				.add(Veggies.onion, 10)
-				.add(Veggies.turnip, 10)
-				.add(Veggies.garlic, 10)
-				//.add(Veggies.bean, 10)
-				.add(Veggies.hops, 10)
+				.add(barley, 10)
+				.add(beet, 10)
+				.add(cabbage, 10)
+				.add(onion, 10)
+				.add(turnip, 10)
+				.add(garlic, 10)
+				//.add(bean, 10)
+				.add(hops, 10)
 		;
 
 		mountainVeggies
-				.add(Veggies.barley, 20)
-				.add(Veggies.blackberry, 10)
-				.add(Veggies.raspberry, 10)
-				.add(Veggies.lentil, 20)
+				.add(barley, 20)
+				.add(blackberry, 10)
+				.add(raspberry, 10)
+				.add(lentil, 20)
 		;
 
 
 		forestVeggies
-				.add(Veggies.artichoke, 10)
-				.add(Veggies.asparagus, 10)
-				.add(Veggies.blackberry, 10)
-				.add(Veggies.blueberry, 10)
-				.add(Veggies.raspberry, 10)
-				.add(Veggies.strawberry, 10)
-				.add(Veggies.herb, 10)
-				.add(Veggies.garlic, 10)
-		//.add(Veggies.eggplant, 10)
+				.add(artichoke, 10)
+				.add(asparagus, 10)
+				.add(blackberry, 10)
+				.add(blueberry, 10)
+				.add(raspberry, 10)
+				.add(strawberry, 10)
+				.add(herb, 10)
+				.add(garlic, 10)
+		//.add(eggplant, 10)
 		;
 
 		plainsVeggies
-				.add(Veggies.artichoke, 10)
-				.add(Veggies.asparagus, 10)
-				.add(Veggies.barley, 10)
-				.add(Veggies.beet, 10)
-				//.add(Veggies.broccoli, 10)
-				.add(Veggies.cabbage, 10)
-				//.add(Veggies.celery, 10)
-				.add(Veggies.lettuce, 10)
-				.add(Veggies.onion, 10)
-				//.add(Veggies.bean, 10)
-				//.add(Veggies.pea, 10)
-				.add(Veggies.grape, 10)
-				//.add(Veggies.soy, 10)
-				//.add(Veggies.cucumber, 10)
-				//.add(Veggies.eggplant, 10)
-				//.add(Veggies.zucchini, 10)
-				.add(Veggies.corn, 10)
+				.add(artichoke, 10)
+				.add(asparagus, 10)
+				.add(barley, 10)
+				.add(beet, 10)
+				//.add(broccoli, 10)
+				.add(cabbage, 10)
+				//.add(celery, 10)
+				.add(lettuce, 10)
+				.add(onion, 10)
+				//.add(bean, 10)
+				//.add(pea, 10)
+				.add(grape, 10)
+				//.add(soy, 10)
+				//.add(cucumber, 10)
+				//.add(eggplant, 10)
+				//.add(zucchini, 10)
+				.add(corn, 10)
 		;
 
 		dryVeggies
-				.add(Veggies.onion, 10)
-				.add(Veggies.garlic, 10)
-				//.add(Veggies.bean, 15)
-				.add(Veggies.lentil, 10)
-				.add(Veggies.grape, 10)
-				.add(Veggies.spice, 15)
+				.add(onion, 10)
+				.add(garlic, 10)
+				//.add(bean, 15)
+				.add(lentil, 10)
+				.add(grape, 10)
+				.add(spice, 15)
 		;
 
 		// remove "unready" veggies from creative tab pls
-		Enum[] disabledVeggies = new Enum[]{
-				Veggies.celery, Veggies.cucumber, Veggies.pea, Veggies.tea, Veggies.zucchini, Veggies.pineapple,
-				Veggies.broccoli, Veggies.soy, Veggies.eggplant, Veggies.bean
+		Veggie[] disabledVeggies = new Veggie[] {
+				celery, cucumber, pea, tea, zucchini, pineapple, broccoli, soy, eggplant, bean
 		};
-		for (Enum disabled : disabledVeggies) {
-			Veggie veggie = vegMap.get(disabled.name());
-			veggie.raw.setCreativeTab(null);
-			veggie.wild.setCreativeTab(null);
+
+		for (Veggie disabled : disabledVeggies) {
+			disabled.raw.setCreativeTab(null);
+			disabled.wild.setCreativeTab(null);
 		}
 	}
 
-	public static Veggie getRandomVeggie(Random r) {
+	public static Veggie getAnyVeggie(Random r) {
 		int i = (int) (r.nextInt(vegMap.size()));
 		for (Veggie veggie : vegMap.values()) {
 			if (--i < 0) return veggie;
@@ -232,14 +244,14 @@ public class Veggie {
 	public static Veggie getForBiome(Random r, Biome b) {
 		if (BiomeDictionary.isBiomeOfType(b, Type.COLD)) {
 			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(4) == 0) {
-				return vegMap.get(coldVeggies.getRandom(r).name());
+				return coldVeggies.getRandom(r);
 			}
 			return null;
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.MOUNTAIN)) {
 			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(3) == 0) {
-				return vegMap.get(mountainVeggies.getRandom(r).name());
+				return mountainVeggies.getRandom(r);
 			}
 			return null;
 		}
@@ -248,25 +260,25 @@ public class Veggie {
 			if (BiomeDictionary.isBiomeOfType(b, Type.SWAMP) && r.nextInt(3) > 0) {
 				return null;
 			}
-			return vegMap.get(jungleVeggies.getRandom(r).name());
+			return jungleVeggies.getRandom(r);
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.FOREST)) {
 			if (r.nextInt(2) > 0) {
-				return vegMap.get(forestVeggies.getRandom(r).name());
+				return forestVeggies.getRandom(r);
 			}
 			return null;
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.HOT) || BiomeDictionary.isBiomeOfType(b, Type.MESA)) {
 			if (r.nextInt(3) > 0) {
-				return vegMap.get(dryVeggies.getRandom(r).name());
+				return dryVeggies.getRandom(r);
 			}
 			return null;
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.PLAINS)) {
-			return vegMap.get(plainsVeggies.getRandom(r).name());
+			return plainsVeggies.getRandom(r);
 		}
 
 		return null;

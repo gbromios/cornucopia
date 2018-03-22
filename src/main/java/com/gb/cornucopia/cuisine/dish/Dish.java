@@ -44,13 +44,13 @@ public class Dish {
 		
 		pot = new DishRegistry()
 			//.add(new Dish(new ItemStack(Cuisine.mozzarella, 4), false, false, false, Items.milk_bucket, Items.milk_bucket, Items.milk_bucket, Cuisine.lemon_juice ))
-			.add(new Dish(Cuisine.mash, false, true, false, Veggie.getRaw("barley"), Veggie.getRaw("barley"), Veggie.getRaw("barley"), Veggie.getRaw("barley"), Veggie.getRaw("hops"), 240))
+			.add(new Dish(Cuisine.mash, false, true, false, Veggie.barley.raw, Veggie.barley.raw, Veggie.barley.raw, Veggie.barley.raw, Veggie.hops.raw, 240))
 			//.add(new Dish(Cuisine.ketchup, true, false, false, Cuisine.vinegar, Veggie.tomato.raw, Items.sugar, 200))
 			//.add(new Dish(Cuisine.mayonnaise, false, false, true, Ingredient.fat, Ingredient.fat, Items.egg))
 			//.add(new Dish(Cuisine.popcorn, true, false, false, Veggie.corn.seed, Veggie.corn.seed, Veggie.corn.seed, Ingredient.fat))
 			//.add(new Dish(Cuisine.spaghetti_bolognese, false, false, false, Ingredient.red_meat, Cuisine.fresh_pasta, Cuisine.aged_cheese, Cuisine.red_sauce, Cuisine.wine, 360))
 			//.add(new Dish(Cuisine.cheesy_noodles, false, true, false, Cuisine.fresh_pasta, Cuisine.cheese_sauce, Ingredient.casserole_veggie, 300))
-			.add(new Dish(Cuisine.red_sauce, true, false, false, Veggie.getRaw("tomato"), Veggie.getRaw("tomato"), Ingredient.fat, Ingredient.seasoning, Ingredient.mirepoix_part, Ingredient.mirepoix_part, Ingredient.kebab_veggie, 240))
+			.add(new Dish(Cuisine.red_sauce, true, false, false, Veggie.tomato.raw, Veggie.tomato.raw, Ingredient.fat, Ingredient.seasoning, Ingredient.mirepoix_part, Ingredient.mirepoix_part, Ingredient.kebab_veggie, 240))
 			//.add(new Dish(Cuisine.fish_and_chips, true, false, false, Items.fish, Items.potato, Cuisine.canola_oil, Cuisine.canola_oil, Ingredient.seasoning, Ingredient.dressing ))
 			;
 		
@@ -76,7 +76,7 @@ public class Dish {
 			//.add(new Dish(Cuisine.garden_salad, true, false, true, Veggie.lettuce.raw, Veggie.lettuce.raw, Ingredient.dressing, Ingredient.savory_salad, Ingredient.savory_salad))
 			//.add(new Dish(Cuisine.caesar_salad, true, false, true, Veggie.lettuce.raw, Veggie.lettuce.raw, Cuisine.olive_oil, Cuisine.lemon_juice, Cuisine.salt, Cuisine.black_pepper, Cuisine.anchovy, Items.egg, Cuisine.toast))
 			//.add(new Dish(Cuisine.chicken_caesar_salad, false, false, false, Cuisine.caesar_salad, Items.cooked_chicken))
-			.add(new Dish(Cuisine.bloody_mary, false, false, false, Veggie.getRaw("tomato"), Veggie.getRaw("tomato"), Veggie.getRaw("celery"), Cuisine.black_pepper, Cuisine.spirits))
+			.add(new Dish(Cuisine.bloody_mary, false, false, false, Veggie.tomato.raw, Veggie.tomato.raw, Veggie.celery.raw, Cuisine.black_pepper, Cuisine.spirits))
 			//.add(new Dish(Cuisine.bruscetta, false, false, false, Veggie.tomato.raw, Cuisine.olive_oil, Cuisine.basil, Cuisine.toast))
 			.add(new Dish(Cuisine.smoothie, false, false, true, Ingredient.smoothie_base, Ingredient.smoothie_base, Ingredient.sweet_salad, Ingredient.sweet_salad, Ingredient.sweet_salad, Items.SNOWBALL));
 		

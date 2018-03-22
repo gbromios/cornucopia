@@ -13,7 +13,26 @@ import java.util.Random;
 
 // This class is for all fruit-bearing trees. If your crop grows on a tree, add it here.
 public class Fruit {
-	public static final HashMap<String, Fruit> fruitMap = new HashMap<>();
+	private static final HashMap<String, Fruit> fruitMap = new HashMap<>();
+
+	public static Fruit almond;
+	public static Fruit avocado;
+	public static Fruit banana;
+	public static Fruit cherry;
+	public static Fruit lemon;
+	public static Fruit lime;
+	public static Fruit orange;
+	public static Fruit plum;
+	public static Fruit olive;
+	public static Fruit pear;
+	public static Fruit date;
+	public static Fruit coconut;
+	public static Fruit coffee;
+	public static Fruit fig;
+	public static Fruit pomegranate;
+	public static Fruit grapefruit;
+	public static Fruit kiwi;
+	public static Fruit peach;
 
 	public final String name;
 	public final BlockFruitCrop crop;
@@ -21,34 +40,7 @@ public class Fruit {
 	public final BlockFruitSapling sapling;
 	public final ItemFruitRaw raw;
 
-	public enum Fruits {
-		almond(BlockPlanks.EnumType.SPRUCE),
-		avocado(BlockPlanks.EnumType.SPRUCE),
-		banana(BlockPlanks.EnumType.JUNGLE),
-		cherry(BlockPlanks.EnumType.OAK),
-		coconut(BlockPlanks.EnumType.JUNGLE),
-		coffee(BlockPlanks.EnumType.DARK_OAK),
-		date(BlockPlanks.EnumType.ACACIA),
-		fig(BlockPlanks.EnumType.ACACIA),
-		grapefruit(BlockPlanks.EnumType.SPRUCE),
-		kiwi(BlockPlanks.EnumType.DARK_OAK),
-		lemon(BlockPlanks.EnumType.BIRCH),
-		lime(BlockPlanks.EnumType.BIRCH),
-		olive(BlockPlanks.EnumType.ACACIA),
-		orange(BlockPlanks.EnumType.JUNGLE),
-		peach(BlockPlanks.EnumType.OAK),
-		pear(BlockPlanks.EnumType.OAK),
-		plum(BlockPlanks.EnumType.BIRCH),
-		pomegranate(BlockPlanks.EnumType.DARK_OAK);
-
-		private final BlockPlanks.EnumType wood;
-
-		Fruits(BlockPlanks.EnumType wood) {
-			this.wood = wood;
-		}
-	}
-
-	public Fruit(final String name, final BlockPlanks.EnumType wood, final BlockFruitCrop crop, final BlockFruitLeaf leaf, final BlockFruitSapling sapling, final ItemFruitRaw raw) {
+	private Fruit(final String name, final BlockPlanks.EnumType wood, final BlockFruitCrop crop, final BlockFruitLeaf leaf, final BlockFruitSapling sapling, final ItemFruitRaw raw) {
 		this.name = name;
 		this.crop = crop;
 		this.leaf = leaf;
@@ -61,32 +53,42 @@ public class Fruit {
 		fruitMap.put(name, this);
 	}
 
-	public Fruit(final Fruits fruit) {
-		this(fruit.name(), fruit.wood,
-				new BlockFruitCrop(fruit.name()),
-				new BlockFruitLeaf(fruit.name()),
-				new BlockFruitSapling(fruit.name()),
-				new ItemFruitRaw(fruit.name()));
+	public Fruit(final String name, final BlockPlanks.EnumType wood) {
+		this(name, wood,
+				new BlockFruitCrop(name),
+				new BlockFruitLeaf(name),
+				new BlockFruitSapling(name),
+				new ItemFruitRaw(name));
 	}
 
-	public static BlockFruitCrop getCrop(final String name) {
-		return fruitMap.get(name).crop;
-	}
-
-	public static BlockFruitLeaf getLeaf(final String name) {
-		return fruitMap.get(name).leaf;
-	}
-
-	public static BlockFruitSapling getSapling(final String name) {
-		return fruitMap.get(name).sapling;
-	}
-
-	public static ItemFruitRaw getRaw(final String name) {
-		return fruitMap.get(name).raw;
+	public Fruit(final String name) {
+		this(name,
+				BlockPlanks.EnumType.OAK,
+				new BlockFruitCrop(name),
+				new BlockFruitLeaf(name),
+				new BlockFruitSapling(name),
+				new ItemFruitRaw(name));
 	}
 
 	public static void preInit() {
-		for (Fruits fruit : Fruits.values()) new Fruit(fruit);
+		almond = new Fruit("almond", BlockPlanks.EnumType.SPRUCE);
+		avocado = new Fruit("avocado", BlockPlanks.EnumType.SPRUCE);
+		banana = new Fruit("banana", BlockPlanks.EnumType.JUNGLE);
+		cherry = new Fruit("cherry");
+		coconut = new Fruit("coconut", BlockPlanks.EnumType.JUNGLE);
+		coffee = new Fruit("coffee", BlockPlanks.EnumType.DARK_OAK);
+		date = new Fruit("date", BlockPlanks.EnumType.ACACIA);
+		fig = new Fruit("fig", BlockPlanks.EnumType.ACACIA);
+		grapefruit = new Fruit("grapefruit", BlockPlanks.EnumType.SPRUCE);
+		kiwi = new Fruit("kiwi", BlockPlanks.EnumType.DARK_OAK);
+		lemon = new Fruit("lemon", BlockPlanks.EnumType.BIRCH);
+		lime = new Fruit("lime", BlockPlanks.EnumType.BIRCH);
+		olive = new Fruit("olive", BlockPlanks.EnumType.ACACIA);
+		orange = new Fruit("orange", BlockPlanks.EnumType.JUNGLE);
+		peach = new Fruit("peach");
+		pear = new Fruit("pear");
+		plum = new Fruit("plum", BlockPlanks.EnumType.BIRCH);
+		pomegranate = new Fruit("pomegranate", BlockPlanks.EnumType.DARK_OAK);
 
 		Items.APPLE.setCreativeTab(CornuCopia.tabFruit);
 	}
@@ -99,60 +101,60 @@ public class Fruit {
 	}
 
 	// instance fields
-	private static final WeightedArray<Fruits> jungleFruits = new WeightedArray<>();
-	private static final WeightedArray<Fruits> coldFruits = new WeightedArray<>();
-	private static final WeightedArray<Fruits> forestFruits = new WeightedArray<>();
-	private static final WeightedArray<Fruits> mountainFruits = new WeightedArray<>();
-	private static final WeightedArray<Fruits> plainsFruits = new WeightedArray<>();
-	private static final WeightedArray<Fruits> dryFruits = new WeightedArray<>();
+	private static final WeightedArray<Fruit> jungleFruits = new WeightedArray<>();
+	private static final WeightedArray<Fruit> coldFruits = new WeightedArray<>();
+	private static final WeightedArray<Fruit> forestFruits = new WeightedArray<>();
+	private static final WeightedArray<Fruit> mountainFruits = new WeightedArray<>();
+	private static final WeightedArray<Fruit> plainsFruits = new WeightedArray<>();
+	private static final WeightedArray<Fruit> dryFruits = new WeightedArray<>();
 
 	public static void postInit() {
 		jungleFruits
-				.add(Fruits.avocado, 10)
-				.add(Fruits.banana, 10)
-				.add(Fruits.coconut, 10)
-				.add(Fruits.coffee, 10)
-				.add(Fruits.date, 10)
-				.add(Fruits.fig, 10)
-				.add(Fruits.kiwi, 10)
-				.add(Fruits.lemon, 10)
-				.add(Fruits.lime, 10)
-				.add(Fruits.orange, 10)
-				.add(Fruits.pomegranate, 10)
+				.add(avocado, 10)
+				.add(banana, 10)
+				.add(coconut, 10)
+				.add(coffee, 10)
+				.add(date, 10)
+				.add(fig, 10)
+				.add(kiwi, 10)
+				.add(lemon, 10)
+				.add(lime, 10)
+				.add(orange, 10)
+				.add(pomegranate, 10)
 		;
 		coldFruits
-				.add(Fruits.almond, 10)
-				.add(Fruits.grapefruit, 10)
+				.add(almond, 10)
+				.add(grapefruit, 10)
 		;
 		forestFruits
-				.add(Fruits.almond, 5)
-				.add(Fruits.cherry, 10)
-				.add(Fruits.peach, 20)
-				.add(Fruits.pear, 20)
-				.add(Fruits.plum, 20)
+				.add(almond, 5)
+				.add(cherry, 10)
+				.add(peach, 20)
+				.add(pear, 20)
+				.add(plum, 20)
 		;
 		mountainFruits
-				.add(Fruits.almond, 10)
-				.add(Fruits.cherry, 10)
+				.add(almond, 10)
+				.add(cherry, 10)
 		;
 		plainsFruits
-				.add(Fruits.lemon, 2)
-				.add(Fruits.lime, 2)
-				.add(Fruits.orange, 2)
-				.add(Fruits.peach, 15)
-				.add(Fruits.pear, 10)
-				.add(Fruits.plum, 10)
+				.add(lemon, 2)
+				.add(lime, 2)
+				.add(orange, 2)
+				.add(peach, 15)
+				.add(pear, 10)
+				.add(plum, 10)
 		;
 		dryFruits
-				.add(Fruits.coffee, 10)
-				.add(Fruits.date, 10)
-				.add(Fruits.fig, 10)
-				.add(Fruits.grapefruit, 10)
-				.add(Fruits.lemon, 15)
-				.add(Fruits.lime, 15)
-				.add(Fruits.olive, 15)
-				.add(Fruits.orange, 10)
-				.add(Fruits.pomegranate, 10)
+				.add(coffee, 10)
+				.add(date, 10)
+				.add(fig, 10)
+				.add(grapefruit, 10)
+				.add(lemon, 15)
+				.add(lime, 15)
+				.add(olive, 15)
+				.add(orange, 10)
+				.add(pomegranate, 10)
 		;
 	}
 
@@ -167,14 +169,14 @@ public class Fruit {
 	public static Fruit getForBiome(Random r, Biome b) {
 		if (BiomeDictionary.isBiomeOfType(b, Type.COLD)) {
 			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(8) == 0) {
-				return fruitMap.get(coldFruits.getRandom(r).name());
+				return coldFruits.getRandom(r);
 			}
 			return null;
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.MOUNTAIN)) {
 			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(4) == 0) {
-				return fruitMap.get(mountainFruits.getRandom(r).name());
+				return mountainFruits.getRandom(r);
 			}
 			return null;
 		}
@@ -183,23 +185,23 @@ public class Fruit {
 			if (BiomeDictionary.isBiomeOfType(b, Type.SWAMP) && r.nextInt(8) > 0) {
 				return null;
 			}
-			return fruitMap.get(jungleFruits.getRandom(r).name());
+			return jungleFruits.getRandom(r);
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.FOREST)) {
-			return fruitMap.get(forestFruits.getRandom(r).name());
+			return forestFruits.getRandom(r);
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.HOT) || BiomeDictionary.isBiomeOfType(b, Type.MESA)) {
 			if (r.nextInt(2) == 0) {
-				return fruitMap.get(dryFruits.getRandom(r).name());
+				return dryFruits.getRandom(r);
 			}
 			return null;
 		}
 
 		if (BiomeDictionary.isBiomeOfType(b, Type.PLAINS)) {
 			if (r.nextInt(2) == 0) {
-				return fruitMap.get(plainsFruits.getRandom(r).name());
+				return plainsFruits.getRandom(r);
 			}
 		}
 

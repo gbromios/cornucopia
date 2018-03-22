@@ -50,7 +50,7 @@ public class CornucopiaTabs {
 
 		@Override
 		public Item getTabIconItem() {
-			return Fruit.getRaw("peach");
+			return Fruit.peach.raw;
 		}
 	}
 
@@ -61,7 +61,7 @@ public class CornucopiaTabs {
 
 		@Override
 		public Item getTabIconItem() {
-			return Veggie.getRaw("asparagus");
+			return Veggie.asparagus.raw;
 		}
 	}
 }

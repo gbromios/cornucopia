@@ -26,21 +26,19 @@ public class BlockFruitLeaf extends BlockLeaves {
 	public BlockFruitLeaf(final String name) {
 		super();
 		this.name = "fruit_" + name + "_leaf";
-		//this.setGraphicsLevel(true); // FUCK IT
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(null);
 		this.setDefaultState(
 				this.blockState.getBaseState()
-						.withProperty(CHECK_DECAY, Boolean.valueOf(true))
-						.withProperty(DECAYABLE, Boolean.valueOf(true))
-						.withProperty(SAPLING_GENERATOR, Boolean.valueOf(false)) // other leaves use the first two bits as VARIANT
+						.withProperty(CHECK_DECAY, Boolean.TRUE)
+						.withProperty(DECAYABLE, Boolean.TRUE)
+						.withProperty(SAPLING_GENERATOR, Boolean.FALSE) // other leaves use the first two bits as VARIANT
 		);
 
-		GameRegistry.registerBlock(this, this.name);
+		GameRegistry.register(this);
 		InvModel.add(this, "oak_leaves", "minecraft"); // TODO: maybe dont event have these in creative??
 	}
 
-	@Override
 	public EnumType getWoodType(final int meta) {
 		return EnumType.OAK;
 	}
@@ -110,7 +108,6 @@ public class BlockFruitLeaf extends BlockLeaves {
 		return new BlockStateContainer(this, CHECK_DECAY, DECAYABLE, SAPLING_GENERATOR);
 	}
 
-
 	//region MOJANG PLS
 	// fruit trees don't drop shit when you break em
 	//private void destroy(final World world, final BlockPos pos)
@@ -136,7 +133,6 @@ public class BlockFruitLeaf extends BlockLeaves {
 		return new ArrayList<ItemStack>();
 	}
 
-	//aint shearin shit
 	@Override
 	public boolean isShearable(final ItemStack item, final IBlockAccess world, final BlockPos pos) {
 		return false;
@@ -146,7 +142,4 @@ public class BlockFruitLeaf extends BlockLeaves {
 	public List<ItemStack> onSheared(final ItemStack item, final IBlockAccess world, final BlockPos pos, final int fortune) {
 		return new ArrayList<ItemStack>();
 	}
-
-	//endregion
-
 }

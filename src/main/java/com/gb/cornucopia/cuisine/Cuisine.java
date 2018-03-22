@@ -274,27 +274,26 @@ public class Cuisine {
 		juice_map.put(Items.CARROT, Cuisine.carrot_juice);
 		juice_map.put(Items.APPLE, Cuisine.apple_juice);
 		juice_map.put(Items.MELON, Cuisine.melon_juice);
-		juice_map.put(Fruit.getRaw("cherry"), Cuisine.cherry_juice);
-		juice_map.put(Fruit.getRaw("date"), Cuisine.date_juice);
-		juice_map.put(Fruit.getRaw("fig"), Cuisine.fig_juice);
-		juice_map.put(Fruit.getRaw("grapefruit"), Cuisine.grapefruit_juice);
-		juice_map.put(Fruit.getRaw("kiwi"), Cuisine.kiwi_juice);
-		juice_map.put(Fruit.getRaw("lemon"), Cuisine.lemon_juice);
-		juice_map.put(Fruit.getRaw("lime"), Cuisine.lime_juice);
-		juice_map.put(Fruit.getRaw("orange"), Cuisine.orange_juice);
-		juice_map.put(Fruit.getRaw("peach"), Cuisine.peach_juice);
-		juice_map.put(Fruit.getRaw("pear"), Cuisine.pear_juice);
-		juice_map.put(Fruit.getRaw("plum"), Cuisine.plum_juice);
-		juice_map.put(Fruit.getRaw("pomegranate"), Cuisine.pomegranate_juice);
-		juice_map.put(Veggie.getRaw("beet"), Cuisine.beet_juice);
-		juice_map.put(Veggie.getRaw("blackberry"), Cuisine.blackberry_juice);
-		juice_map.put(Veggie.getRaw("blueberry"), Cuisine.blueberry_juice);
-		juice_map.put(Veggie.getRaw("pineapple"), Cuisine.pineapple_juice);
-		juice_map.put(Veggie.getRaw("raspberry"), Cuisine.raspberry_juice);
-		juice_map.put(Veggie.getRaw("strawberry"), Cuisine.strawberry_juice);
-		juice_map.put(Veggie.getRaw("tomato"), Cuisine.tomato_juice);
-		juice_map.put(Veggie.getRaw("grape"), Cuisine.grape_juice);
-
+		juice_map.put(Fruit.cherry.raw, Cuisine.cherry_juice);
+		juice_map.put(Fruit.date.raw, Cuisine.date_juice);
+		juice_map.put(Fruit.fig.raw, Cuisine.fig_juice);
+		juice_map.put(Fruit.grapefruit.raw, Cuisine.grapefruit_juice);
+		juice_map.put(Fruit.kiwi.raw, Cuisine.kiwi_juice);
+		juice_map.put(Fruit.lemon.raw, Cuisine.lemon_juice);
+		juice_map.put(Fruit.lime.raw, Cuisine.lime_juice);
+		juice_map.put(Fruit.orange.raw, Cuisine.orange_juice);
+		juice_map.put(Fruit.peach.raw, Cuisine.peach_juice);
+		juice_map.put(Fruit.pear.raw, Cuisine.pear_juice);
+		juice_map.put(Fruit.plum.raw, Cuisine.plum_juice);
+		juice_map.put(Fruit.pomegranate.raw, Cuisine.pomegranate_juice);
+		juice_map.put(Veggie.beet.raw, Cuisine.beet_juice);
+		juice_map.put(Veggie.blackberry.raw, Cuisine.blackberry_juice);
+		juice_map.put(Veggie.blueberry.raw, Cuisine.blueberry_juice);
+		juice_map.put(Veggie.pineapple.raw, Cuisine.pineapple_juice);
+		juice_map.put(Veggie.raspberry.raw, Cuisine.raspberry_juice);
+		juice_map.put(Veggie.strawberry.raw, Cuisine.strawberry_juice);
+		juice_map.put(Veggie.tomato.raw, Cuisine.tomato_juice);
+		juice_map.put(Veggie.grape.raw, Cuisine.grape_juice);
 		;
 
 	}
