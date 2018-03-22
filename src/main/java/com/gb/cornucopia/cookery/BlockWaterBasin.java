@@ -28,8 +28,7 @@ public class BlockWaterBasin extends Block{
 		this.setUnlocalizedName(this.name);
 		//this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(0.5F);
-		this.setBlockBounds(0, 0, 0, 1, 1, 1);
-		GameRegistry.registerBlock(this, this.name);
+		GameRegistry.register(this);
 		InvModel.add(this, this.name);
 
 	}

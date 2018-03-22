@@ -15,6 +15,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Random;
 
 public class BlockFruitCrop extends BlockBush implements IGrowable {
+	protected static final AxisAlignedBB CROP_AABB = new AxisAlignedBB(0.3F, 0.3F, 0.3F, 0.7F, 0.95F, 0.7F);
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 	public static final PropertyBool DROP_SAPLING = PropertyBool.create("drop_sapling");
 	public final String name;
@@ -35,7 +37,7 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 
 	public BlockFruitCrop(final String name) {
 		super();
-		this.name = "fruit_" + name + "_crop";
+		this.name = String.format("fruit_%s_crop", name);
 		this.setUnlocalizedName(this.name);
 		this.setCreativeTab(null);
 		GameRegistry.register(this);
@@ -110,17 +112,22 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public void onNeighborBlockChange(final World world, final BlockPos pos, final IBlockState state, final Block neighborBlock) {
-		if (!(world.getBlockState(pos.up()).getBlock() instanceof BlockLeaves)) {
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return CROP_AABB;
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+		if (!(worldIn.getBlockState(pos.up()).getBlock() instanceof BlockLeaves)) {
 			if ((Integer) state.getValue(AGE) == 3) {
 
-				spawnAsEntity(world, pos, new ItemStack(this.raw));
-				spawnAsEntity(world, pos, new ItemStack(this.raw));
+				spawnAsEntity(worldIn, pos, new ItemStack(this.raw));
+				spawnAsEntity(worldIn, pos, new ItemStack(this.raw));
 			}
 			if ((Boolean) state.getValue(DROP_SAPLING)) {
-				spawnAsEntity(world, pos, new ItemStack(this.sapling));
+				spawnAsEntity(worldIn, pos, new ItemStack(this.sapling));
 			}
-			world.setBlockToAir(pos);
+			worldIn.setBlockToAir(pos);
 		}
 	}
 

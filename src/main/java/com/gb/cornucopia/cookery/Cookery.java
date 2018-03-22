@@ -98,7 +98,7 @@ public class Cookery {
 		cider_barrel = new BlockBarrel("cider", 1, new ItemStack[]{new ItemStack(Cuisine.cider, 2)}, new Item[]{Cuisine.apple_juice, Cuisine.apple_juice, Cuisine.apple_juice}, true);
 		cordial_barrel = new BlockBarrel("cordial", 1, new ItemStack[]{new ItemStack(Cuisine.cordial, 2)}, new Item[]{Cuisine.blueberry_juice, Cuisine.blueberry_juice, Cuisine.blueberry_juice}, true);
 		beer_barrel = new BlockBarrel("beer", 1, new ItemStack[]{new ItemStack(Cuisine.beer, 4)}, new Item[]{Cuisine.mash, Cuisine.mash, Cuisine.mash}, false);
-		pickle_barrel = new BlockBarrel("pickle", 1, new ItemStack[]{new ItemStack(Cuisine.pickle, 3)}, new Item[]{Cuisine.vinegar, Veggie.getRaw("cucumber"), Cuisine.vinegar}, false);
+		pickle_barrel = new BlockBarrel("pickle", 1, new ItemStack[]{new ItemStack(Cuisine.pickle, 3)}, new Item[]{Cuisine.vinegar, Veggie.cucumber.raw, Cuisine.vinegar}, false);
 		anchovy_barrel = new BlockBarrel("anchovy", 1, new ItemStack[]{new ItemStack(Cuisine.anchovy, 3)}, new Item[]{Cuisine.salt, Items.FISH, Cuisine.salt}, false);
 		mead_barrel = new BlockBarrel("mead", 1, new ItemStack[]{new ItemStack(Cuisine.mead, 2)}, new Item[]{Bees.honey_raw, Bees.honey_raw, Bees.honey_raw}, false);
 		cheese_barrel = new BlockBarrel("cheese", 1, new ItemStack[]{new ItemStack(Item.getItemFromBlock(Cheese.cheese_wheel_young))}, new Item[]{Items.MILK_BUCKET, Items.MILK_BUCKET, Items.MILK_BUCKET}, (int)1.8e+6, false); // 30 minutes

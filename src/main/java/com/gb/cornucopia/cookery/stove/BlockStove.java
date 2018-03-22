@@ -1,12 +1,9 @@
 package com.gb.cornucopia.cookery.stove;
 
-import java.util.Random;
-
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.Vessel;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -22,22 +19,23 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockStove extends Block  implements ITileEntityProvider{
+import java.util.Random;
+
+public class BlockStove extends Block implements ITileEntityProvider {
 	public final String name;
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool ON = PropertyBool.create("on");
 
-	public BlockStove()
-	{
+	public BlockStove() {
 		super(Material.IRON);
 		this.name = "cookery_stove";
 		this.setUnlocalizedName(this.name);
@@ -49,20 +47,19 @@ public class BlockStove extends Block  implements ITileEntityProvider{
 		InvModel.add(this, this.name);
 	}
 
-	public int getLightValue(IBlockAccess world, BlockPos pos)
-	{
+	public int getLightValue(IBlockAccess world, BlockPos pos) {
 		final IBlockState state = world.getBlockState(pos);
 		final Block block = state.getBlock();
-		if (block != this)
-		{
+		if (block != this) {
 			return block.getLightValue(state, world, pos);
 		}
-		return (boolean)world.getBlockState(pos).getValue(ON) ? 2 : 0;
+		return (boolean) world.getBlockState(pos).getValue(ON) ? 2 : 0;
 	}
-	
+
 	public static final PropertyEnum VESSEL = PropertyEnum.create("vessel", Vessel.class);
+
 	public static Vessel getVessel(World world, BlockPos pos) {
-		if ( world.getBlockState(pos.up()).getBlock() == Cookery.stovetop ) {
+		if (world.getBlockState(pos.up()).getBlock() == Cookery.stovetop) {
 			return (Vessel) world.getBlockState(pos.up()).getValue(VESSEL);
 		} else {
 			// sometimes there is no stove top block there. cest la vie!
@@ -70,11 +67,12 @@ public class BlockStove extends Block  implements ITileEntityProvider{
 		}
 	}
 
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
-	{
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
 		//final IBlockState top = world.getBlockState(pos.up());
-		if (world.isRemote || world.getBlockState(pos.up()).getBlock() != Cookery.stovetop) { return true; }
-	//System.out.format("ok go \n" );
+		if (world.isRemote || world.getBlockState(pos.up()).getBlock() != Cookery.stovetop) {
+			return true;
+		}
+		//System.out.format("ok go \n" );
 		// TODO  need to make this hand-aware #62
 		/*if (BlockStove.getVessel(world, pos) == Vessel.NONE) {			
 			final Vessel v = (player.getHeldItem() == null) ? Vessel.NONE : Vessel.fromItem(player.getHeldItem().getItem());
@@ -86,7 +84,7 @@ public class BlockStove extends Block  implements ITileEntityProvider{
 				return true;
 			}
 		}*/
-		
+
 		// if there's a vessel already in place, open the crafting table 
 		// ( also hue hue we doin this... none type gui)
 		player.openGui(CornuCopia.instance, (BlockStove.getVessel(world, pos)).meta, world, pos.getX(), pos.getY(), pos.getZ());
@@ -95,44 +93,40 @@ public class BlockStove extends Block  implements ITileEntityProvider{
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(final World world, final BlockPos pos){
+	public boolean canPlaceBlockAt(final World world, final BlockPos pos) {
 		return super.canPlaceBlockAt(world, pos) && super.canPlaceBlockAt(world, pos.up());
 	}
 
 
-	public IBlockState onBlockPlaced(final World world, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer)
-	{
+	public IBlockState onBlockPlaced(final World world, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
 		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(ON, false);
 	}
 
-	public void onBlockPlacedBy(final World world, final BlockPos pos, final IBlockState state, final EntityLivingBase placer, final ItemStack stack)
-	{
+	public void onBlockPlacedBy(final World world, final BlockPos pos, final IBlockState state, final EntityLivingBase placer, final ItemStack stack) {
 		world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(ON, false), 2);
 		world.setBlockState(pos.up(), Cookery.stovetop.getDefaultState().withProperty(BlockStoveTop.FACING, placer.getHorizontalFacing().getOpposite()));
 	}
 
-	public void breakBlock(final World world, final BlockPos pos, final IBlockState state)
-	{
+	public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {
 
 		TileEntity stove = world.getTileEntity(pos);
 
-		if (stove instanceof TileEntityStove)
-		{
+		if (stove instanceof TileEntityStove) {
 			Vessel v = BlockStove.getVessel(world, pos);
-			if (v != Vessel.NONE){
+			if (v != Vessel.NONE) {
 				world.spawnEntityInWorld(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(v.getItem())));
 				world.setBlockToAir(pos.up());
 			}
-			InventoryHelper.dropInventoryItems(world, pos, (TileEntityStove)stove);
+			InventoryHelper.dropInventoryItems(world, pos, (TileEntityStove) stove);
 		}
 
 		super.breakBlock(world, pos, state);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(final World world, final BlockPos pos, final IBlockState state, final Random rand){
-		if ((boolean) state.getValue(ON)){
+	public void randomDisplayTick(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
+		if ((boolean) state.getValue(ON)) {
 			double d0 = (double) pos.getX() + 0.5D;
 			double d1 = pos.getY() + rand.nextDouble() * 6.0D / 16.0D + 0.3D;
 			double d2 = (double) pos.getZ() + 0.5D;
@@ -142,27 +136,24 @@ public class BlockStove extends Block  implements ITileEntityProvider{
 
 		}
 	}
-	
-	public IBlockState getStateFromMeta(final int meta)
-	{
+
+	public IBlockState getStateFromMeta(final int meta) {
 		return this.getDefaultState()
 				.withProperty(FACING, EnumFacing.getHorizontal(meta & 3))
-				.withProperty(ON, (meta & 4) == 4 )
+				.withProperty(ON, (meta & 4) == 4)
 				;
 	}
 
-	public int getMetaFromState(final IBlockState state)
-	{
+	public int getMetaFromState(final IBlockState state) {
 		return (
-				(EnumFacing)state.getValue(FACING)).getHorizontalIndex()
-				| (((boolean)state.getValue(ON)) ? 4 : 0
-						);
+				(EnumFacing) state.getValue(FACING)).getHorizontalIndex()
+				| (((boolean) state.getValue(ON)) ? 4 : 0
+		);
 	}
-	
 
-	protected BlockStateContainer createBlockState()
-	{
-		return new BlockStateContainer(this, new IProperty[] {ON, FACING});
+
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[]{ON, FACING});
 	}
 
 	@Override

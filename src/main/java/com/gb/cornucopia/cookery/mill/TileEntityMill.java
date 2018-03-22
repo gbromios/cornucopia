@@ -69,7 +69,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	}
 
 	private boolean _canMakeFlour() {
-		return this._hasInput(Items.WHEAT) + this._hasInput(Veggie.getRaw("barley")) == 3;
+		return this._hasInput(Items.WHEAT) + this._hasInput(Veggie.barley.raw) == 3;
 	}
 
 	private boolean _makeFlour(){
@@ -101,7 +101,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	}
 
 	private boolean _canMakePeanutButter() {
-		return this._hasInput(Veggie.getRaw("peanut")) == 3;
+		return this._hasInput(Veggie.peanut.raw) == 3;
 	}
 
 	private boolean _makePeanutButter(){
@@ -132,7 +132,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	}
 
 	private boolean _canMakeHerbs() {
-		return this._hasInput(Veggie.getRaw("herb")) > 0;
+		return this._hasInput(Veggie.herb.raw) > 0;
 	}
 
 	private boolean _makeHerbs(){
@@ -144,7 +144,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 
 		for (int i = 0; i < 2; i++) {
 			final ItemStack input = contents[i];
-			if ( input == null || input.getItem() != Veggie.getRaw("herb")) {
+			if ( input == null || input.getItem() != Veggie.herb.raw) {
 				continue; 
 			} else if (--input.stackSize < 1) {
 				contents[i] = null;
@@ -162,7 +162,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	}
 
 	private boolean _canMakeSpices() {
-		return this._hasInput(Veggie.getRaw("spice")) > 0;
+		return this._hasInput(Veggie.spice.raw) > 0;
 	}
 	private boolean _makeSpices(){
 		final ItemStack drop = new ItemStack(Cuisine.spice_drops.getRandom());
@@ -173,7 +173,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 
 		for (int i = 0; i < 2; i++) {
 			final ItemStack input = contents[i];
-			if ( input == null || input.getItem() != Veggie.getRaw("spice")) {
+			if ( input == null || input.getItem() != Veggie.spice.raw) {
 				continue; 
 			} 
 
