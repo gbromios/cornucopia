@@ -74,12 +74,12 @@ public class Cookery {
 		barrel_hoop = new Item().setUnlocalizedName("brew_barrel_hoop").setRegistryName("brew_barrel_hoop");
 		barrel_hoop.setCreativeTab(CornuCopia.tabCookery);
 		GameRegistry.register(barrel_hoop);
-		InvModel.add(barrel_hoop, "brew_barrel_hoop");
+		InvModel.add(barrel_hoop);
 
 		barrel_stave = new Item().setUnlocalizedName("brew_barrel_stave").setRegistryName("brew_barrel_stave");
 		barrel_stave.setCreativeTab(CornuCopia.tabCookery);
 		GameRegistry.register(barrel_stave);
-		InvModel.add(barrel_stave, "brew_barrel_stave");
+		InvModel.add(barrel_stave);
 
 		empty_barrel = new BlockBarrelEmpty("empty");
 	}
@@ -100,9 +100,6 @@ public class Cookery {
 		mead_barrel = new BlockBarrel("mead", 1, new ItemStack[]{new ItemStack(Cuisine.mead, 2)}, new Item[]{Bees.honey_raw, Bees.honey_raw, Bees.honey_raw}, false);
 		cheese_barrel = new BlockBarrel("cheese", 1, new ItemStack[]{new ItemStack(Item.getItemFromBlock(Cheese.cheese_wheel_young))}, new Item[]{Items.MILK_BUCKET, Items.MILK_BUCKET, Items.MILK_BUCKET}, (int) 1.8e+6, false); // 30 minutes
 		vinegar_barrel = new BlockBarrel("vinegar", 1, new ItemStack[]{new ItemStack(Cuisine.vinegar, 4)}, new Item[]{Cuisine.wine}, (int) 1.2e+6, false); // 20 minutes
-
-		// might as well deal w/ young cheese recipe here :I
-		GameRegistry.addShapelessRecipe(new ItemStack(Cuisine.fresh_cheese, 8), Item.getItemFromBlock(Cheese.cheese_wheel_young));
 	}
 
 	private static void initCrafting() {

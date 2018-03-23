@@ -27,7 +27,7 @@ public class BlockFruitSapling extends BlockSapling {
 		this.setCreativeTab(CornuCopia.tabFruit);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE, Integer.valueOf(0)));
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	public void setTreeStates(final BlockPlanks.EnumType wood_type, final IBlockState leaf) {

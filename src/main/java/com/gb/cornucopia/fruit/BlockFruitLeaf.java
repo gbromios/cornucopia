@@ -37,7 +37,7 @@ public class BlockFruitLeaf extends BlockLeaves {
 		);
 
 		GameRegistry.register(this);
-		InvModel.add(this, "oak_leaves", "minecraft"); // TODO: maybe dont event have these in creative??
+		InvModel.add(this, "minecraft"); // TODO: maybe dont event have these in creative??
 	}
 
 	public EnumType getWoodType(final int meta) {

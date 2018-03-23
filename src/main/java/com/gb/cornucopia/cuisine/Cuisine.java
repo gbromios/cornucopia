@@ -2,6 +2,7 @@ package com.gb.cornucopia.cuisine;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
+import com.gb.cornucopia.cheese.Cheese;
 import com.gb.cornucopia.cuisine.dish.Dish;
 import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggie;
@@ -140,7 +141,7 @@ public class Cuisine {
 		rock_salt.setRegistryName("cuisine_rock_salt");
 		GameRegistry.register(rock_salt);
 		rock_salt.setCreativeTab(CornuCopia.tabCuisine);
-		InvModel.add(rock_salt, "cuisine_rock_salt");
+		InvModel.add(rock_salt);
 
 
 		flour = _generic("flour");
@@ -301,6 +302,7 @@ public class Cuisine {
 	}
 
 	public static void init() {
+		GameRegistry.addShapelessRecipe(new ItemStack(Cuisine.fresh_cheese, 8), Cheese.cheese_wheel_young);
 	}
 
 	public static void postInit() {

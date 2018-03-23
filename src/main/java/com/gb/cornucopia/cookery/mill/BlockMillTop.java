@@ -36,7 +36,7 @@ public class BlockMillTop extends Block {
 		this.setHardness(5F);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(PROGRESS, 0));
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	@Override

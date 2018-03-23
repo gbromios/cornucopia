@@ -26,7 +26,7 @@ public class BlockVeggieStalk extends BlockBush {
 		this.setRegistryName(this.name);
 		this.setCreativeTab(null);
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	/* probably not going to bother implementing plants that grow higher than 2, but it wouldnt be hard :3

@@ -31,7 +31,7 @@ public class BlockVeggieCrop extends BlockCrops {
 		this.setRegistryName(this.name);
 		this.setCreativeTab(null);
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	public void setDrops(final ItemVeggieRaw raw, final ItemVeggieSeed seed) {

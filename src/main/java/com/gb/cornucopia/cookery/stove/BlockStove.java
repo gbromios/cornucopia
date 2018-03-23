@@ -45,7 +45,7 @@ public class BlockStove extends Block implements ITileEntityProvider {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ON, false).withProperty(FACING, EnumFacing.NORTH));
 		GameRegistry.register(this);
 		GameRegistry.registerTileEntity(TileEntityStove.class, "cookery_stove_entity");
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	public int getLightValue(IBlockAccess world, BlockPos pos) {

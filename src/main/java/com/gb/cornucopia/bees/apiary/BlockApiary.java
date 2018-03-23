@@ -28,7 +28,7 @@ public class BlockApiary extends Block implements ITileEntityProvider {
 		this.setRegistryName(name);
 		GameRegistry.register(this);
 		GameRegistry.registerTileEntity(TileEntityApiary.class, String.format("%s_entity", name));
-		InvModel.add(this, name);
+		InvModel.add(this);
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public class BlockCheeseAged extends Block {
 		this.setRegistryName(this.name);
 		this.setCreativeTab(CornuCopia.tabCuisine);
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 

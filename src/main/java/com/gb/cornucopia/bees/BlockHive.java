@@ -23,7 +23,7 @@ public class BlockHive extends Block {
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
 		GameRegistry.register(this);
-		InvModel.add(this, name);
+		InvModel.add(this);
 	}
 
 	@Override

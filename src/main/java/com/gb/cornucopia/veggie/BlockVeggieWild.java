@@ -38,7 +38,7 @@ public class BlockVeggieWild extends BlockBush implements IPlantable {
 		this.setCreativeTab(CornuCopia.tabVeggies);
 		this.plantType = plantType;
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	public void setDrops(final ItemVeggieRaw raw, final ItemVeggieSeed seed) {

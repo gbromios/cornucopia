@@ -29,7 +29,7 @@ public class BlockWaterBasin extends Block {
 		//this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(0.5F);
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 
 	}
 

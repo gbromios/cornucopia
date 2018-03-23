@@ -35,7 +35,7 @@ public class BlockBarrelEmpty extends Block {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumAxis.Y));
 		//this.setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 0.95F, 0.7F);
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	@Override

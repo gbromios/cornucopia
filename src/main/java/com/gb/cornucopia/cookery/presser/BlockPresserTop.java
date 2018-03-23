@@ -35,7 +35,7 @@ public class BlockPresserTop extends Block {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(PROGRESS, 0));
 		this.setBlockUnbreakable();
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	@Override

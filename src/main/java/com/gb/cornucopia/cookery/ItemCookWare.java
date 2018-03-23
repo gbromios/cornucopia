@@ -17,7 +17,7 @@ public class ItemCookWare extends Item {
 		this.setContainerItem(this);
 		this.setCreativeTab(CornuCopia.tabCookery);
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	public ItemCookWare(final String name, final Vessel v) {

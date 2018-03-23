@@ -32,7 +32,7 @@ public class ItemCuisine extends ItemFood {
 		this.setRegistryName(this.name);
 		this.setCreativeTab(CornuCopia.tabCuisine);
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	@Override

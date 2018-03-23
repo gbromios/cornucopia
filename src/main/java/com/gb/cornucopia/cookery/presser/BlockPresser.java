@@ -37,7 +37,7 @@ public class BlockPresser extends Block implements ITileEntityProvider {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(PROGRESS, 0));
 		GameRegistry.register(this);
 		GameRegistry.registerTileEntity(TileEntityPresser.class, String.format("%s_entity", name));
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	@Override

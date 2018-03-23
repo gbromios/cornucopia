@@ -42,7 +42,7 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 		this.setRegistryName(this.name);
 		this.setCreativeTab(null);
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 	public BlockFruitCrop setLeaf(final BlockFruitLeaf leaf) {

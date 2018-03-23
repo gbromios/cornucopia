@@ -1,46 +1,54 @@
 package com.gb.cornucopia;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 
 public class InvModel {
 	private static final ArrayList<InvModel> models = new ArrayList<>();
 
-	public static void add(final Item i, final String name, final String modid) {
-		models.add(new InvModel(i, name, modid));
+	public static void add(Item item, int meta, String modid) {
+		models.add(new InvModel(item, meta, modid));
+
 	}
 
-	public static void add(final Item i, final String name) {
-		add(i, name, CornuCopia.MODID);
+	public static void add(final Item item, final String modid) {
+		add(item, 0, modid);
 	}
 
-	public static void add(final Block b, final String name, final String modid) {
-		add(Item.getItemFromBlock(b), name, modid);
+	public static void add(final Item item) {
+		add(item, CornuCopia.MODID);
 	}
 
-	public static void add(final Block b, final String name) {
-		add(b, name, CornuCopia.MODID);
+	public static void add(final Block block, final String modid) {
+		ItemBlock itemBlock = new ItemBlock(block);
+		itemBlock.setRegistryName(String.format("%s:%s", modid, block.getRegistryName().getResourcePath()));
+		GameRegistry.register(itemBlock);
+		add(itemBlock, 0, modid);
+	}
+
+	public static void add(final Block block) {
+		add(block, CornuCopia.MODID);
 	}
 
 	private final Item item;
+	private final int meta;
 	private final String location;
 
-	public InvModel(final Item item, final String name, final String modid) {
+	public InvModel(Item item, int meta, String modid) {
 		// used to collect the various blocks and items that need to have inventory models
 		// registered all at once in the ClientProxy
 		this.item = item;
-		this.location = modid + ":" + name;
-
+		this.meta = meta;
+		this.location = String.format("%s:%s", modid, item.getRegistryName().getResourcePath());
 	}
 
 	public static void register() {
-		final ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
-		for (InvModel m : models) {
-			mesher.register(m.item, 0, new net.minecraft.client.renderer.block.model.ModelResourceLocation(m.location, "inventory"));
+		for (InvModel model : models) {
+			CornuCopia.proxy.registerItemRenderer(model.item, model.meta, model.location);
 		}
 
 	}

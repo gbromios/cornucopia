@@ -31,7 +31,7 @@ public class BlockCheeseYoung extends Block {
 		this.setCreativeTab(CornuCopia.tabCuisine);
 		this.setTickRandomly(true);
 		GameRegistry.register(this);
-		InvModel.add(this, this.name);
+		InvModel.add(this);
 	}
 
 

@@ -6,6 +6,7 @@ import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggie;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -46,5 +47,8 @@ public class CommonProxy {
 		Cheese.postInit();
 		Cookery.postInit();
 		Cuisine.postInit();
+	}
+
+	public void registerItemRenderer(Item item, int meta, String loc) {
 	}
 }
