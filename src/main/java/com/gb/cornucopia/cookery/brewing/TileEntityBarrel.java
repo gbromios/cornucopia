@@ -3,23 +3,21 @@ package com.gb.cornucopia.cookery.brewing;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 
-public class TileEntityBarrel extends TileEntity implements ITickable{
+public class TileEntityBarrel extends TileEntity implements ITickable {
 	private long born; // just incase wilson is still up in 2038
 	private int ticks = 0;
 
-	public TileEntityBarrel(){
+	public TileEntityBarrel() {
 		this.born = System.currentTimeMillis();
 
 	}
 
 	@Override
-	public void readFromNBT(final NBTTagCompound compound)
-	{
+	public void readFromNBT(final NBTTagCompound compound) {
 		//System.out.println("read from nbt: " + compound.toString());
 		super.readFromNBT(compound);
 		this.born = compound.getLong("born");
@@ -33,10 +31,9 @@ public class TileEntityBarrel extends TileEntity implements ITickable{
 	}
 
 	@Override
-	public void writeToNBT(final NBTTagCompound compound)
-	{
-		super.writeToNBT(compound);
+	public NBTTagCompound writeToNBT(final NBTTagCompound compound) {
 		compound.setLong("born", this.born);
+		return super.writeToNBT(compound);
 	}
 
 	// actually want the stupidass behavior for this one
@@ -54,30 +51,30 @@ public class TileEntityBarrel extends TileEntity implements ITickable{
 	@Override
 	public void update() {
 		if (this.hasWorldObj() && !this.worldObj.isRemote) {
-			if ( this.ticks-- > 0 ) {
+			if (this.ticks-- > 0) {
 				return; // long timescales so don't need to check every frame.
 			}
 			this.ticks = 100;
-			
-			final IBlockState state = this.worldObj.getBlockState(this.getPos());  
-			final int age = (int)state.getValue(BlockBarrel.AGE); 
 
-			
+			final IBlockState state = this.worldObj.getBlockState(this.getPos());
+			final int age = (int) state.getValue(BlockBarrel.AGE);
+
+
 			final long s = System.currentTimeMillis();
 			final long t = s - this.born;
-		//System.out.format("@%s born %d ;; %d ago ---- %d\n", this.pos, this.born, t, s);
-			
+			//System.out.format("@%s born %d ;; %d ago ---- %d\n", this.pos, this.born, t, s);
+
 			// barrel doesn't age after max_age;
-			if (age >= ((BlockBarrel)state.getBlock()).last_age){
+			if (age >= ((BlockBarrel) state.getBlock()).last_age) {
 				return;
 			}
 
 
-			if ( ((BlockBarrel)state.getBlock()).fermented(t) ) {
+			if (((BlockBarrel) state.getBlock()).fermented(t)) {
 				this.worldObj.setBlockState(this.pos, state.withProperty(BlockBarrel.AGE, age + 1));
 			}
-			
-			
+
+
 		}
 	}
 }

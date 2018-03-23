@@ -3,7 +3,6 @@ package com.gb.cornucopia.cookery.mill;
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.cookery.Cookery;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -16,24 +15,27 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockMill extends Block implements ITileEntityProvider {
+	protected static final AxisAlignedBB MILL_AABB = new AxisAlignedBB(0F, 0F, 0F, 1F, 0.75F, 1F);
 	public static final PropertyInteger PROGRESS = PropertyInteger.create("progress", 0, 3);
 	public final String name = "cookery_mill";
 
 	public BlockMill() {
 		super(Material.WOOD);
 		this.setUnlocalizedName(this.name);
+		this.setRegistryName(this.name);
 		this.setHardness(1.5F);
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(PROGRESS, 0));
-		this.setBlockBounds(0F, 0F, 0F, 1F, 0.75F, 1F);
-		GameRegistry.registerBlock(this, this.name);
+		GameRegistry.register(this);
 		GameRegistry.registerTileEntity(TileEntityMill.class, "cookery_mill_entity");
 		InvModel.add(this, this.name);
 	}
@@ -59,6 +61,11 @@ public class BlockMill extends Block implements ITileEntityProvider {
 		return super.canPlaceBlockAt(world, pos) && super.canPlaceBlockAt(world, pos.up());
 	}
 
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return MILL_AABB;
+	}
+
 	public IBlockState getStateFromMeta(final int meta) {
 		return this.getDefaultState().withProperty(PROGRESS, meta);
 	}
@@ -73,22 +80,22 @@ public class BlockMill extends Block implements ITileEntityProvider {
 
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean isFullCube() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public void onNeighborBlockChange(final World world, final BlockPos pos, final IBlockState state, final Block neighborBlock) {
-		if (world.getBlockState(pos.up()).getBlock() != Cookery.milltop) {
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+		if (worldIn.getBlockState(pos.up()).getBlock() != Cookery.milltop) {
 			// breaking the handle
-			this.dropBlockAsItem(world, pos, state, 0);
-			this.breakBlock(world, pos, state);
-			world.setBlockToAir(pos);
+			this.dropBlockAsItem(worldIn, pos, state, 0);
+			this.breakBlock(worldIn, pos, state);
+			worldIn.setBlockToAir(pos);
 		}
 	}
 

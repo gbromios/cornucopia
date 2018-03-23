@@ -34,9 +34,9 @@ public class BlockVeggieWild extends BlockBush implements IPlantable {
 		this.name = String.format("veggie_%s_wild", name);
 		this.setTickRandomly(true);
 		this.setUnlocalizedName(this.name);
+		this.setRegistryName(this.name);
 		this.setCreativeTab(CornuCopia.tabVeggies);
 		this.plantType = plantType;
-
 		GameRegistry.register(this);
 		InvModel.add(this, this.name);
 	}

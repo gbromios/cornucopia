@@ -28,6 +28,7 @@ public class BlockVeggieCrop extends BlockCrops {
 		super();
 		this.name = String.format("veggie_%s_crop", name);
 		this.setUnlocalizedName(this.name);
+		this.setRegistryName(this.name);
 		this.setCreativeTab(null);
 		GameRegistry.register(this);
 		InvModel.add(this, this.name);

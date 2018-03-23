@@ -33,9 +33,9 @@ public class BlockCuttingBoard extends Block {
 		this.name = "cookery_cutting_board";
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setUnlocalizedName(this.name);
+		this.setRegistryName(this.name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(0.4F);
-
 		GameRegistry.register(this);
 		InvModel.add(this, this.name);
 	}

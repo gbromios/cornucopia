@@ -2,7 +2,6 @@ package com.gb.cornucopia.cookery.mill;
 
 import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.veggie.Veggie;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -16,54 +15,66 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityMill extends TileEntity implements ITickable, IInventory  {
+public class TileEntityMill extends TileEntity implements ITickable, IInventory {
 	private final ItemStack[] contents = new ItemStack[9];
 
 	@Override
-	public String getName() { return "mill"; }
+	public String getName() {
+		return "mill";
+	}
 
 	@Override
-	public boolean hasCustomName() { return false; }
+	public boolean hasCustomName() {
+		return false;
+	}
 
 	@Override
-	public ITextComponent getDisplayName() { return new TextComponentString("mill"); }
+	public ITextComponent getDisplayName() {
+		return new TextComponentString("mill");
+	}
 
 	@Override
-	public int getSizeInventory() {	return 9; }
+	public int getSizeInventory() {
+		return 9;
+	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
 
 	@Override
 	public boolean isItemValidForSlot(final int index, final ItemStack stack) {
 		return false;
 	}
 
-	public Container createContainer(final InventoryPlayer playerInventory, final EntityPlayer player)
-	{
-		return new ContainerMill(playerInventory, (IInventory)this);
+	public Container createContainer(final InventoryPlayer playerInventory, final EntityPlayer player) {
+		return new ContainerMill(playerInventory, (IInventory) this);
 	}
 
 	@Override
-	public int getField(final int id) { return 0; }
+	public int getField(final int id) {
+		return 0;
+	}
 
 	@Override
-	public void setField(final int id, int value) {}
+	public void setField(final int id, int value) {
+	}
 
 	@Override
-	public int getFieldCount() { return 0; }
+	public int getFieldCount() {
+		return 0;
+	}
 
 	@Override
 	public void clear() {
-		for (int i = 0; i < this.contents.length; ++i)
-		{
+		for (int i = 0; i < this.contents.length; ++i) {
 			this.contents[i] = null;
 		}
 	}
@@ -72,7 +83,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 		return this._hasInput(Items.WHEAT) + this._hasInput(Veggie.barley.raw) == 3;
 	}
 
-	private boolean _makeFlour(){
+	private boolean _makeFlour() {
 		// 3 grain => 2 flour
 		final ItemStack drop = new ItemStack(Cuisine.flour, 2);
 		final int where = this._canAccept(drop);
@@ -80,9 +91,15 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 			return false;
 		}
 		try {
-			if ( --this.contents[0].stackSize == 0) { this.contents[0] = null; }
-			if ( --this.contents[1].stackSize == 0) { this.contents[1] = null; }
-			if ( --this.contents[2].stackSize == 0) { this.contents[2] = null; }
+			if (--this.contents[0].stackSize == 0) {
+				this.contents[0] = null;
+			}
+			if (--this.contents[1].stackSize == 0) {
+				this.contents[1] = null;
+			}
+			if (--this.contents[2].stackSize == 0) {
+				this.contents[2] = null;
+			}
 		} catch (NullPointerException e) {
 			// screw whoever broke my sweet machine
 			this.contents[0] = null;
@@ -93,7 +110,8 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 
 		final ItemStack output = this.contents[where];
 		if (output != null) {
-			output.stackSize += drop.stackSize;;
+			output.stackSize += drop.stackSize;
+			;
 		} else {
 			this.contents[where] = drop;
 		}
@@ -104,16 +122,22 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 		return this._hasInput(Veggie.peanut.raw) == 3;
 	}
 
-	private boolean _makePeanutButter(){
+	private boolean _makePeanutButter() {
 		final ItemStack i = new ItemStack(Cuisine.peanut_butter);
 		final int where = this._canAccept(i);
 		if (where == -1) {
 			return false;
 		}
 		try {
-			if ( --this.contents[0].stackSize == 0) { this.contents[0] = null; }
-			if ( --this.contents[1].stackSize == 0) { this.contents[1] = null; }
-			if ( --this.contents[2].stackSize == 0) { this.contents[2] = null; }
+			if (--this.contents[0].stackSize == 0) {
+				this.contents[0] = null;
+			}
+			if (--this.contents[1].stackSize == 0) {
+				this.contents[1] = null;
+			}
+			if (--this.contents[2].stackSize == 0) {
+				this.contents[2] = null;
+			}
 		} catch (NullPointerException e) {
 			// screw whoever broke my sweet machine
 			this.contents[0] = null;
@@ -124,7 +148,8 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 
 		final ItemStack o = this.contents[where];
 		if (o != null) {
-			o.stackSize++;;
+			o.stackSize++;
+			;
 		} else {
 			this.contents[where] = i;
 		}
@@ -135,7 +160,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 		return this._hasInput(Veggie.herb.raw) > 0;
 	}
 
-	private boolean _makeHerbs(){
+	private boolean _makeHerbs() {
 		final ItemStack drop = new ItemStack(Cuisine.herb_drops.getRandom());
 		final int where = this._canAccept(drop);
 		if (where == -1) {
@@ -144,8 +169,8 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 
 		for (int i = 0; i < 2; i++) {
 			final ItemStack input = contents[i];
-			if ( input == null || input.getItem() != Veggie.herb.raw) {
-				continue; 
+			if (input == null || input.getItem() != Veggie.herb.raw) {
+				continue;
 			} else if (--input.stackSize < 1) {
 				contents[i] = null;
 			}
@@ -164,7 +189,8 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	private boolean _canMakeSpices() {
 		return this._hasInput(Veggie.spice.raw) > 0;
 	}
-	private boolean _makeSpices(){
+
+	private boolean _makeSpices() {
 		final ItemStack drop = new ItemStack(Cuisine.spice_drops.getRandom());
 		final int where = this._canAccept(drop);
 		if (where == -1) {
@@ -173,9 +199,9 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 
 		for (int i = 0; i < 2; i++) {
 			final ItemStack input = contents[i];
-			if ( input == null || input.getItem() != Veggie.spice.raw) {
-				continue; 
-			} 
+			if (input == null || input.getItem() != Veggie.spice.raw) {
+				continue;
+			}
 
 			if (--input.stackSize < 1) {
 				contents[i] = null;
@@ -192,15 +218,25 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	}
 
 
-	public boolean mill(){
+	public boolean mill() {
 		// returns true if an item was milled
 		// shutup its fine
 
-		if (this._hasEmptyInput()) { return false; }		
-		if (this._canMakeFlour()) { return this._makeFlour(); }
-		if (this._canMakePeanutButter()) { return this._makePeanutButter(); }
-		if (this._canMakeHerbs()) { return this._makeHerbs(); }
-		if (this._canMakeSpices()) { return this._makeSpices(); }
+		if (this._hasEmptyInput()) {
+			return false;
+		}
+		if (this._canMakeFlour()) {
+			return this._makeFlour();
+		}
+		if (this._canMakePeanutButter()) {
+			return this._makePeanutButter();
+		}
+		if (this._canMakeHerbs()) {
+			return this._makeHerbs();
+		}
+		if (this._canMakeSpices()) {
+			return this._makeSpices();
+		}
 
 		return false; // these input items don't make anything >:(	
 	}
@@ -209,8 +245,8 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 		return this.contents[0] == null && this.contents[1] == null && this.contents[2] == null;
 	}
 
-	private int _hasInput(Item i){
-		return ((contents[0] != null && contents[0].getItem() == i) ? 1 : 0) 
+	private int _hasInput(Item i) {
+		return ((contents[0] != null && contents[0].getItem() == i) ? 1 : 0)
 				+ ((contents[1] != null && contents[1].getItem() == i) ? 1 : 0)
 				+ ((contents[2] != null && contents[2].getItem() == i) ? 1 : 0);
 	}
@@ -219,7 +255,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 		// drop items in a specific order
 		for (int i : new int[]{7, 6, 8, 4, 3, 4}) {
 			final ItemStack output = this.contents[i];
-			if ( output == null || (drop.isItemEqual(output) && drop.stackSize + output.stackSize <= output.getMaxStackSize())) {
+			if (output == null || (drop.isItemEqual(output) && drop.stackSize + output.stackSize <= output.getMaxStackSize())) {
 				return i;
 			}
 		}
@@ -231,29 +267,25 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.getNbtCompound());
 	}
-	@Override
-	public void readFromNBT(final NBTTagCompound compound)
-	{
+
+	@Override //TODO
+	public void readFromNBT(final NBTTagCompound compound) {
 		//System.out.println("read from nbt: " + compound.toString());
 		super.readFromNBT(compound);
 		final NBTTagList items = compound.getTagList("items", Constants.NBT.TAG_COMPOUND);
-		for (int i = 0; i < 6; i++)
-		{
+		for (int i = 0; i < 6; i++) {
 			final NBTTagCompound item = items.getCompoundTagAt(i);
 			if (item != null) {
 				this.contents[i] = ItemStack.loadItemStackFromNBT(item);
-			}
-			else {
-				this.contents[i] = null;	
+			} else {
+				this.contents[i] = null;
 			}
 		}
 	}
 
 
-	@Override
-	public void writeToNBT(final NBTTagCompound compound)
-	{
-		super.writeToNBT(compound);
+	@Override //TODO
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		NBTTagList items = new NBTTagList();
 		for (int i = 0; i < 6; i++) {
 			final ItemStack s = this.contents[i];
@@ -264,20 +296,22 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 			items.appendTag(input_tag);
 		}
 		compound.setTag("items", items);
-
+		return super.writeToNBT(compound);
 	}
 
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState){
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
 		return (oldState.getBlock() != newState.getBlock());
 
 	}
 
 	@Override
-	public int getInventoryStackLimit() {return 64;}
+	public int getInventoryStackLimit() {
+		return 64;
+	}
 
 	@Override
-	public boolean isUseableByPlayer(final EntityPlayer player) {	
+	public boolean isUseableByPlayer(final EntityPlayer player) {
 		return player.getDistanceSq(this.pos) < 6;
 	}
 
@@ -287,12 +321,10 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	}
 
 	@Override
-	public ItemStack decrStackSize(final int index, final int count) { 
-		if (this.contents[index] != null)
-		{
+	public ItemStack decrStackSize(final int index, final int count) {
+		if (this.contents[index] != null) {
 			final ItemStack stack = this.contents[index].splitStack(Math.min(count, this.contents[index].stackSize));
-			if (this.contents[index].stackSize == 0)
-			{
+			if (this.contents[index].stackSize == 0) {
 				this.contents[index] = null;
 			}
 			this.markDirty();
@@ -301,12 +333,10 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 		return null;
 	}
 
-	public void setInventorySlotContents(final int index, final ItemStack stack)
-	{
+	public void setInventorySlotContents(final int index, final ItemStack stack) {
 		this.contents[index] = stack;
 
-		if (stack != null && stack.stackSize > this.getInventoryStackLimit())
-		{
+		if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
 			stack.stackSize = this.getInventoryStackLimit();
 		}
 
@@ -314,10 +344,12 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	}
 
 	@Override
-	public void openInventory(final EntityPlayer player) {}
+	public void openInventory(final EntityPlayer player) {
+	}
 
 	@Override
-	public void closeInventory(final EntityPlayer player) {}
+	public void closeInventory(final EntityPlayer player) {
+	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {

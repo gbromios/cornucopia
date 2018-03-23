@@ -25,8 +25,9 @@ public class BlockFruitLeaf extends BlockLeaves {
 
 	public BlockFruitLeaf(final String name) {
 		super();
-		this.name = "fruit_" + name + "_leaf";
+		this.name = String.format("fruit_%s_leaf", name);
 		this.setUnlocalizedName(this.name);
+		this.setRegistryName(this.name);
 		this.setCreativeTab(null);
 		this.setDefaultState(
 				this.blockState.getBaseState()

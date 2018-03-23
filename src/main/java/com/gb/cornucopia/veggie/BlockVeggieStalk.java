@@ -22,6 +22,8 @@ public class BlockVeggieStalk extends BlockBush {
 		this.name = String.format("veggie_%s_stalk", name);
 		this.crop = crop;
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
+		this.setUnlocalizedName(this.name);
+		this.setRegistryName(this.name);
 		this.setCreativeTab(null);
 		GameRegistry.register(this);
 		InvModel.add(this, this.name);

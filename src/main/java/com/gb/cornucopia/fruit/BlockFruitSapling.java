@@ -2,17 +2,14 @@ package com.gb.cornucopia.fruit;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
-import net.minecraft.block.*;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.BlockNewLog;
+import net.minecraft.block.BlockOldLog;
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Random;
@@ -24,8 +21,9 @@ public class BlockFruitSapling extends BlockSapling {
 
 	public BlockFruitSapling(final String name) {
 		super();
-		this.name = "fruit_" + name + "_sapling";
+		this.name = String.format("fruit_%s_sapling", name);
 		this.setUnlocalizedName(this.name);
+		this.setRegistryName(this.name);
 		this.setCreativeTab(CornuCopia.tabFruit);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE, Integer.valueOf(0)));
 		GameRegistry.register(this);

@@ -39,10 +39,11 @@ public class BlockStove extends Block implements ITileEntityProvider {
 		super(Material.IRON);
 		this.name = "cookery_stove";
 		this.setUnlocalizedName(this.name);
+		this.setRegistryName(this.name);
 		this.setHardness(1.5F);
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ON, false).withProperty(FACING, EnumFacing.NORTH));
-		GameRegistry.registerBlock(this, this.name);
+		GameRegistry.register(this);
 		GameRegistry.registerTileEntity(TileEntityStove.class, "cookery_stove_entity");
 		InvModel.add(this, this.name);
 	}
@@ -56,7 +57,7 @@ public class BlockStove extends Block implements ITileEntityProvider {
 		return (boolean) world.getBlockState(pos).getValue(ON) ? 2 : 0;
 	}
 
-	public static final PropertyEnum VESSEL = PropertyEnum.create("vessel", Vessel.class);
+	private static final PropertyEnum VESSEL = PropertyEnum.create("vessel", Vessel.class);
 
 	public static Vessel getVessel(World world, BlockPos pos) {
 		if (world.getBlockState(pos.up()).getBlock() == Cookery.stovetop) {
@@ -125,18 +126,19 @@ public class BlockStove extends Block implements ITileEntityProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
-		if ((boolean) state.getValue(ON)) {
+	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		if ((boolean) stateIn.getValue(ON)) {
 			double d0 = (double) pos.getX() + 0.5D;
 			double d1 = pos.getY() + rand.nextDouble() * 6.0D / 16.0D + 0.3D;
 			double d2 = (double) pos.getZ() + 0.5D;
 			double d3 = rand.nextDouble() * 0.6D - 0.3D;
 			double d4 = rand.nextDouble() * 0.6D - 0.3D;
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+			worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
 
 		}
 	}
 
+	@Override
 	public IBlockState getStateFromMeta(final int meta) {
 		return this.getDefaultState()
 				.withProperty(FACING, EnumFacing.getHorizontal(meta & 3))
@@ -144,6 +146,7 @@ public class BlockStove extends Block implements ITileEntityProvider {
 				;
 	}
 
+	@Override
 	public int getMetaFromState(final IBlockState state) {
 		return (
 				(EnumFacing) state.getValue(FACING)).getHorizontalIndex()
