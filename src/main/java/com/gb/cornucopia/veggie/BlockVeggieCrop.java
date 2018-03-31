@@ -11,7 +11,6 @@ import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -30,7 +29,6 @@ public class BlockVeggieCrop extends BlockCrops {
 		this.setUnlocalizedName(this.name);
 		this.setRegistryName(this.name);
 		this.setCreativeTab(null);
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 

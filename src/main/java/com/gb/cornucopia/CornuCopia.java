@@ -1,5 +1,6 @@
 package com.gb.cornucopia;
 
+import com.gb.cornucopia.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -20,7 +21,7 @@ public class CornuCopia {
 	public static CornuCopia instance;
 	public static Settings config;
 
-	@SidedProxy(clientSide = "com.gb.cornucopia.ClientProxy", serverSide = "com.gb.cornucopia.ServerProxy")
+	@SidedProxy(clientSide = "com.gb.cornucopia.proxy.ClientProxy", serverSide = "com.gb.cornucopia.proxy.ServerProxy")
 	public static CommonProxy proxy;
 
 	public static final CreativeTabs tabBees = new CornucopiaTabs().new BeesCreativeTab();

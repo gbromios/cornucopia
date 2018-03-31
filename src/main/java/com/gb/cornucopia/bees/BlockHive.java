@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 
@@ -22,7 +21,6 @@ public class BlockHive extends Block {
 		this.setCreativeTab(CornuCopia.tabBees);
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 

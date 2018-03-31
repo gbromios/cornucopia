@@ -35,7 +35,6 @@ public class BlockPresser extends Block implements ITileEntityProvider {
 		this.setHardness(1.5F);
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(PROGRESS, 0));
-		GameRegistry.register(this);
 		GameRegistry.registerTileEntity(TileEntityPresser.class, String.format("%s_entity", name));
 		InvModel.add(this);
 	}

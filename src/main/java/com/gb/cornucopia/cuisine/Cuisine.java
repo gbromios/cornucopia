@@ -139,7 +139,6 @@ public class Cuisine {
 		rock_salt = new Item();
 		rock_salt.setUnlocalizedName("cuisine_rock_salt");
 		rock_salt.setRegistryName("cuisine_rock_salt");
-		GameRegistry.register(rock_salt);
 		rock_salt.setCreativeTab(CornuCopia.tabCuisine);
 		InvModel.add(rock_salt);
 

@@ -1,8 +1,8 @@
 package com.gb.cornucopia.veggie;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.InvModel;
 import net.minecraft.item.ItemFood;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemVeggieRaw extends ItemFood {
 	public final String name;
@@ -13,7 +13,7 @@ public class ItemVeggieRaw extends ItemFood {
 		this.setUnlocalizedName(this.name);
 		this.setRegistryName(this.name);
 		this.setCreativeTab(CornuCopia.tabVeggies);
-		GameRegistry.register(this);
+		InvModel.add(this);
 	}
 
 }

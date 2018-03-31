@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class BlockFruitLeaf extends BlockLeaves {
 	private BlockFruitCrop crop;
 	public static final PropertyBool SAPLING_GENERATOR = PropertyBool.create("sapling_generator");
 
-	public BlockFruitLeaf(final String name) {
+	public BlockFruitLeaf(String name) {
 		super();
 		this.name = String.format("fruit_%s_leaf", name);
 		this.setUnlocalizedName(this.name);
@@ -35,25 +34,23 @@ public class BlockFruitLeaf extends BlockLeaves {
 						.withProperty(DECAYABLE, Boolean.TRUE)
 						.withProperty(SAPLING_GENERATOR, Boolean.FALSE) // other leaves use the first two bits as VARIANT
 		);
-
-		GameRegistry.register(this);
-		InvModel.add(this, "minecraft"); // TODO: maybe dont event have these in creative??
+		InvModel.add(this, "minecraft");
 	}
 
-	public EnumType getWoodType(final int meta) {
+	public EnumType getWoodType(int meta) {
 		return EnumType.OAK;
 	}
 
-	public void makeSaplings(final World world, final BlockPos pos) {
+	public void makeSaplings(World world, BlockPos pos) {
 
 	}
 
-	public void setGrows(final BlockFruitCrop crop) {
+	public void setGrows(BlockFruitCrop crop) {
 		this.crop = crop;
 	}
 
 	@Override
-	public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		// this does all the brutal leaf decay code
 		super.updateTick(world, pos, state, rand);
 		// super call might destroy the block so make sure it's still there afterwards
@@ -89,7 +86,7 @@ public class BlockFruitLeaf extends BlockLeaves {
 	// 1 2 4 8
 	//   ^     - when this leaf spawns a fruit: will the fruit drop a sapling?
 	//     ^ ^ - no fucking idea, BlockLeaf uses these to check for decay. 4 seems to work in reverse but i just copied BlockNewLeaf for those...
-	public IBlockState getStateFromMeta(final int meta) {
+	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState()
 				.withProperty(SAPLING_GENERATOR, (meta & 2) == 2)
 				.withProperty(DECAYABLE, (meta & 4) == 0)
@@ -97,7 +94,7 @@ public class BlockFruitLeaf extends BlockLeaves {
 				;
 	}
 
-	public int getMetaFromState(final IBlockState state) {
+	public int getMetaFromState(IBlockState state) {
 		return (state.getValue(SAPLING_GENERATOR) ? 2 : 0)
 				| (state.getValue(DECAYABLE) ? 0 : 4)
 				| (state.getValue(CHECK_DECAY) ? 8 : 0)
@@ -111,36 +108,36 @@ public class BlockFruitLeaf extends BlockLeaves {
 
 	//region MOJANG PLS
 	// fruit trees don't drop shit when you break em
-	//private void destroy(final World world, final BlockPos pos)
+	//private void destroy(World world, BlockPos pos)
 	//{
 	//world.setBlockToAir(pos);
 	//}
 
-	public int quantityDropped(final Random random) {
+	public int quantityDropped(Random random) {
 		return 0;
 	}
 
-	public Item getItemDropped(final IBlockState state, final Random rand, final int fortune) {
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Item.getItemFromBlock(Blocks.SAPLING);
 	}
 
 	@Override
-	public void dropBlockAsItemWithChance(final World world, final BlockPos pos, final IBlockState state, final float chance, final int fortune) {
+	public void dropBlockAsItemWithChance(World world, BlockPos pos, IBlockState state, float chance, int fortune) {
 		return;
 	}
 
 	@Override
-	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		return new ArrayList<ItemStack>();
 	}
 
 	@Override
-	public boolean isShearable(final ItemStack item, final IBlockAccess world, final BlockPos pos) {
+	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
 		return false;
 	}
 
 	@Override
-	public List<ItemStack> onSheared(final ItemStack item, final IBlockAccess world, final BlockPos pos, final int fortune) {
+	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
 		return new ArrayList<ItemStack>();
 	}
 }

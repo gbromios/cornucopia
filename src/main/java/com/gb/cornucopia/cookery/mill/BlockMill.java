@@ -35,7 +35,6 @@ public class BlockMill extends Block implements ITileEntityProvider {
 		this.setHardness(1.5F);
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(PROGRESS, 0));
-		GameRegistry.register(this);
 		GameRegistry.registerTileEntity(TileEntityMill.class, "cookery_mill_entity");
 		InvModel.add(this);
 	}

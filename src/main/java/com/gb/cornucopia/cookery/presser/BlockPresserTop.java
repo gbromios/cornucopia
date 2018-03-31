@@ -17,7 +17,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.List;
 
@@ -34,7 +33,6 @@ public class BlockPresserTop extends Block {
 		this.setRegistryName(this.name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(PROGRESS, 0));
 		this.setBlockUnbreakable();
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 

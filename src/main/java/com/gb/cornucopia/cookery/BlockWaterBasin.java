@@ -14,7 +14,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockWaterBasin extends Block {
 	public final String name;
@@ -28,7 +27,6 @@ public class BlockWaterBasin extends Block {
 		this.setRegistryName(this.name);
 		//this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(0.5F);
-		GameRegistry.register(this);
 		InvModel.add(this);
 
 	}

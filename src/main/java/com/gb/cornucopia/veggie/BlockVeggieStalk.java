@@ -10,7 +10,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockVeggieStalk extends BlockBush {
 	public final String name;
@@ -24,8 +23,6 @@ public class BlockVeggieStalk extends BlockBush {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
 		this.setUnlocalizedName(this.name);
 		this.setRegistryName(this.name);
-		this.setCreativeTab(null);
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 

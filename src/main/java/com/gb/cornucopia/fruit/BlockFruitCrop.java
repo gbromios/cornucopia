@@ -19,7 +19,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,22 +34,21 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 	private ItemFruitRaw raw;
 	private BlockFruitSapling sapling;
 
-	public BlockFruitCrop(final String name) {
+	public BlockFruitCrop(String name) {
 		super();
 		this.name = String.format("fruit_%s_crop", name);
 		this.setUnlocalizedName(this.name);
 		this.setRegistryName(this.name);
 		this.setCreativeTab(null);
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 
-	public BlockFruitCrop setLeaf(final BlockFruitLeaf leaf) {
+	public BlockFruitCrop setLeaf(BlockFruitLeaf leaf) {
 		this.leaf = leaf;
 		return this;
 	}
 
-	public BlockFruitCrop setDrops(final ItemFruitRaw raw, final BlockFruitSapling sapling) {
+	public BlockFruitCrop setDrops(ItemFruitRaw raw, BlockFruitSapling sapling) {
 		this.raw = raw;
 		this.sapling = sapling;
 		return this;
@@ -59,18 +57,18 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 	//private void breakBlock(){}
 
 	@Override
-	public boolean canGrow(final World world, final BlockPos pos, final IBlockState state, final boolean isClient) {
+	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient) {
 		return (Integer) state.getValue(AGE) <= 3;
 	}
 
 	@Override
-	public boolean canUseBonemeal(final World world, final Random rand, final BlockPos pos, final IBlockState state) {
+	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state) {
 		// bonemeal makes fruit not drop saplings, but that had to be handled in onBlockActivate
 		return (int) state.getValue(AGE) < 3;
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
 		// not your normal bonemeal activatation...
 		if (!world.isRemote && EnumDyeColor.byDyeDamage(stack.getItemDamage()) == EnumDyeColor.WHITE) {
 			world.setBlockState(pos, state.withProperty(DROP_SAPLING, false));
@@ -79,14 +77,14 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		if (rand.nextInt(32) == 0 && this.canGrow(world, pos, state, true)) { //1/8 chance to grow on tick
 			this.grow(world, rand, pos, state);
 		}
 	}
 
 	@Override
-	public java.util.List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
+	public java.util.List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		final List<ItemStack> ret = new ArrayList<ItemStack>();
 		if ((Boolean) state.getValue(DROP_SAPLING)) {
 			ret.add(new ItemStack(this.sapling));
@@ -100,7 +98,7 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public void grow(final World world, final Random rand, final BlockPos pos, final IBlockState state) {
+	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
 		world.setBlockState(
 				pos,
 				state
@@ -138,7 +136,7 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(final int meta) {
+	public IBlockState getStateFromMeta(int meta) {
 		// 1 2 4 8
 		// ^ ^     - age of the growing fruit 0-3
 		//     ^   - whether the fruit should drop a sapling,
@@ -146,7 +144,7 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public int getMetaFromState(final IBlockState state) {
+	public int getMetaFromState(IBlockState state) {
 		return ((Integer) state.getValue(AGE) | ((Boolean) state.getValue(DROP_SAPLING) ? 4 : 0));
 	}
 }

@@ -7,7 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemCuisine extends ItemFood {
 	public final String name;
@@ -31,7 +30,6 @@ public class ItemCuisine extends ItemFood {
 		this.setUnlocalizedName(this.name);
 		this.setRegistryName(this.name);
 		this.setCreativeTab(CornuCopia.tabCuisine);
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 

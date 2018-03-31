@@ -3,7 +3,6 @@ package com.gb.cornucopia.cookery;
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemCookWare extends Item {
 	public final String name;
@@ -16,7 +15,6 @@ public class ItemCookWare extends Item {
 		this.setMaxStackSize(1);
 		this.setContainerItem(this);
 		this.setCreativeTab(CornuCopia.tabCookery);
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 

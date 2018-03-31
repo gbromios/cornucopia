@@ -10,7 +10,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Random;
 
@@ -19,18 +18,19 @@ public class BlockFruitSapling extends BlockSapling {
 	private IBlockState wood;
 	private IBlockState leaf;
 
-	public BlockFruitSapling(final String name) {
-		super();
+	public BlockFruitSapling(String name) {
+//		super();
 		this.name = String.format("fruit_%s_sapling", name);
+		this.setDefaultState(this.blockState.getBaseState()
+				.withProperty(TYPE, BlockPlanks.EnumType.OAK)
+				.withProperty(STAGE, Integer.valueOf(0)));
 		this.setUnlocalizedName(this.name);
 		this.setRegistryName(this.name);
 		this.setCreativeTab(CornuCopia.tabFruit);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE, Integer.valueOf(0)));
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 
-	public void setTreeStates(final BlockPlanks.EnumType wood_type, final IBlockState leaf) {
+	public void setTreeStates(BlockPlanks.EnumType wood_type, IBlockState leaf) {
 		switch (wood_type) {
 			case OAK:
 			case SPRUCE:
@@ -48,7 +48,7 @@ public class BlockFruitSapling extends BlockSapling {
 	}
 
 	@Override
-	public void generateTree(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
+	public void generateTree(World world, BlockPos pos, IBlockState state, Random rand) {
 		for (int x = -1; x <= 1; x++) {
 			for (int z = -1; z <= 1; z++) {
 				world.setBlockState(pos.add(x, 2, z), this.leaf);
@@ -62,20 +62,20 @@ public class BlockFruitSapling extends BlockSapling {
 		}
 	}
 
-	public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		if (this.canGrow(world, pos, state, true) && this.shouldGrow(world, pos, rand)) {
 			this.grow(world, rand, pos, state);
 		}
 	}
 
-	protected boolean shouldGrow(final World world, final BlockPos pos, final Random rand) {
-		final float g = 0.1F;
-		final float r = rand.nextFloat();
+	protected boolean shouldGrow(World world, BlockPos pos, Random rand) {
+		float g = 0.1F;
+		float r = rand.nextFloat();
 		return r < g;
 	}
 
 	@Override
-	public boolean canGrow(final World world, final BlockPos pos, final IBlockState state, final boolean isClient) {
+	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient) {
 		// saplings need light and 3x3 empty space above them
 		if (world.getLightFromNeighbors(pos.up()) < 9) {
 			return false;
@@ -83,7 +83,7 @@ public class BlockFruitSapling extends BlockSapling {
 		for (int x = pos.getX() - 1; x <= pos.getX() + 1; x++) {
 			for (int z = pos.getZ() - 1; z <= pos.getZ() + 1; z++) {
 				for (int y = pos.getY() + 1; y <= pos.getY() + 3; y++) {
-					final BlockPos p = new BlockPos(x, y, z);
+					BlockPos p = new BlockPos(x, y, z);
 					if (!world.getBlockState(p).getBlock().isReplaceable(world, p)) {
 						return false;
 					}

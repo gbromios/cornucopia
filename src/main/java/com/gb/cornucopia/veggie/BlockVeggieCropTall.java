@@ -11,15 +11,14 @@ public class BlockVeggieCropTall extends BlockVeggieCrop {
 	public final boolean blocking;
 
 
-	public BlockVeggieCropTall(final String name) {
-		this(name, false);
-	}
-
-
 	public BlockVeggieCropTall(final String name, final boolean blocking) {
 		super(name);
 		this.blocking = blocking;
 		stalk = new BlockVeggieStalk(name, this);
+	}
+
+	public BlockVeggieCropTall(final String name) {
+		this(name, false);
 	}
 
 	@Override

@@ -12,7 +12,6 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 
@@ -23,6 +22,7 @@ public class Veggie {
 	public static Veggie artichoke;
 	public static Veggie asparagus;
 	public static Veggie barley;
+	public static Veggie bean;
 	public static Veggie beet;
 	public static Veggie bell_pepper;
 	public static Veggie blackberry;
@@ -30,28 +30,27 @@ public class Veggie {
 	public static Veggie broccoli;
 	public static Veggie cabbage;
 	public static Veggie celery;
-	public static Veggie lettuce;
-	public static Veggie onion;
-	public static Veggie pineapple;
-	public static Veggie raspberry;
-	public static Veggie strawberry;
-	public static Veggie tomato;
-	public static Veggie turnip;
-	public static Veggie garlic;
-	public static Veggie peanut;
-	public static Veggie bean;
-	public static Veggie lentil;
-	public static Veggie pea;
-	public static Veggie grape;
-	public static Veggie spice;
-	public static Veggie herb;
-	public static Veggie tea;
-	public static Veggie soy;
+	public static Veggie corn;
 	public static Veggie cucumber;
 	public static Veggie eggplant;
-	public static Veggie zucchini;
+	public static Veggie garlic;
+	public static Veggie grape;
+	public static Veggie herb;
 	public static Veggie hops;
-	public static Veggie corn;
+	public static Veggie lentil;
+	public static Veggie lettuce;
+	public static Veggie onion;
+	public static Veggie pea;
+	public static Veggie peanut;
+	public static Veggie pineapple;
+	public static Veggie raspberry;
+	public static Veggie soy;
+	public static Veggie spice;
+	public static Veggie strawberry;
+	public static Veggie tea;
+	public static Veggie tomato;
+	public static Veggie turnip;
+	public static Veggie zucchini;
 
 	private static final int MIN_HEIGHT = 1;
 	private static final int MAX_HEIGHT = 2;
@@ -82,17 +81,17 @@ public class Veggie {
 
 	public Veggie(final String name, final int height) {
 		this(name,
-			 height == 1 ? new BlockVeggieCrop(name)
-					 	 : new BlockVeggieCropTall(name),
-			 new BlockVeggieWild(name, EnumPlantType.Plains),
-			 new ItemVeggieRaw(name));
+				height == 1 ? new BlockVeggieCrop(name)
+						: new BlockVeggieCropTall(name),
+				new BlockVeggieWild(name, EnumPlantType.Plains),
+				new ItemVeggieRaw(name));
 	}
 
 	public Veggie(final String name) {
 		this(name,
-			 new BlockVeggieCrop(name),
-			 new BlockVeggieWild(name, EnumPlantType.Plains),
-			 new ItemVeggieRaw(name));
+				new BlockVeggieCrop(name),
+				new BlockVeggieWild(name, EnumPlantType.Plains),
+				new ItemVeggieRaw(name));
 	}
 
 	public static void preInit() {
@@ -107,7 +106,7 @@ public class Veggie {
 		broccoli = new Veggie("broccoli");
 		cabbage = new Veggie("cabbage");
 		celery = new Veggie("celery");
-		corn =  new Veggie("corn", 2);
+		corn = new Veggie("corn", 2);
 		eggplant = new Veggie("eggplant");
 		garlic = new Veggie("garlic");
 		cucumber = new Veggie("cucumber");
@@ -138,6 +137,17 @@ public class Veggie {
 		Items.POTATO.setCreativeTab(CornuCopia.tabVeggies);
 		Items.WHEAT.setCreativeTab(CornuCopia.tabVeggies);
 		Items.WHEAT_SEEDS.setCreativeTab(CornuCopia.tabVeggies);
+
+		// remove "unready" veggies from creative tab pls
+		Veggie[] disabledVeggies = new Veggie[]{
+				celery, cucumber, pea, tea, zucchini, pineapple, broccoli, soy, eggplant, bean
+		};
+
+		for (Veggie disabled : disabledVeggies) {
+			disabled.raw.setCreativeTab(null);
+			disabled.wild.setCreativeTab(null);
+			disabled.seed.setCreativeTab(null);
+		}
 	}
 
 	public static void init() {
@@ -221,16 +231,6 @@ public class Veggie {
 				.add(grape, 10)
 				.add(spice, 15)
 		;
-
-		// remove "unready" veggies from creative tab pls
-		Veggie[] disabledVeggies = new Veggie[] {
-				celery, cucumber, pea, tea, zucchini, pineapple, broccoli, soy, eggplant, bean
-		};
-
-		for (Veggie disabled : disabledVeggies) {
-			disabled.raw.setCreativeTab(null);
-			disabled.wild.setCreativeTab(null);
-		}
 	}
 
 	public static Veggie getAnyVeggie(Random r) {

@@ -16,7 +16,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -37,7 +36,6 @@ public class BlockVeggieWild extends BlockBush implements IPlantable {
 		this.setRegistryName(this.name);
 		this.setCreativeTab(CornuCopia.tabVeggies);
 		this.plantType = plantType;
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 
@@ -101,7 +99,7 @@ public class BlockVeggieWild extends BlockBush implements IPlantable {
 	@Override
 	public void updateTick(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
 		if (!Settings.wild_veggie_spread || RANDOM.nextInt(Settings.wild_veggie_spread_rate) != 0) return;
-		// TODO: add config options to control density of wild veggies? 
+		// TODO: add config options to control density of wild veggies?
 		final int search_radius = 3;
 		int max_wild_veggies = 3;
 

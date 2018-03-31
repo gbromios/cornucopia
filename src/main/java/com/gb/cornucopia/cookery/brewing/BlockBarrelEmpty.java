@@ -17,7 +17,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockBarrelEmpty extends Block {
 	public static final PropertyBool UNDER_BARREL = PropertyBool.create("under_barrel");
@@ -34,7 +33,6 @@ public class BlockBarrelEmpty extends Block {
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumAxis.Y));
 		//this.setBlockBounds(0.3F, 0.3F, 0.3F, 0.7F, 0.95F, 0.7F);
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 

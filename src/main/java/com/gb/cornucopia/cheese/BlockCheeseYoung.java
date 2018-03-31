@@ -13,7 +13,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Random;
 
@@ -30,7 +29,6 @@ public class BlockCheeseYoung extends Block {
 		this.setRegistryName(this.name);
 		this.setCreativeTab(CornuCopia.tabCuisine);
 		this.setTickRandomly(true);
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 

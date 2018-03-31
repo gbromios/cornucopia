@@ -1,5 +1,8 @@
-package com.gb.cornucopia;
+package com.gb.cornucopia.proxy;
 
+import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.Settings;
+import com.gb.cornucopia.WildGrowth;
 import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cheese.Cheese;
 import com.gb.cornucopia.cookery.Cookery;
@@ -7,6 +10,7 @@ import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggie;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -29,6 +33,7 @@ public class CommonProxy {
 	}
 
 	public void init(FMLInitializationEvent e) {
+		Fruit.init();
 		Veggie.init();
 		Bees.init();
 		Cheese.init();
@@ -49,6 +54,6 @@ public class CommonProxy {
 		Cuisine.postInit();
 	}
 
-	public void registerItemRenderer(Item item, int meta, String loc) {
+	public void registerItemRenderer(Item item, int meta, ResourceLocation name) {
 	}
 }

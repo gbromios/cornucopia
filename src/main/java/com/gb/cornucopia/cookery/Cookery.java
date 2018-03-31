@@ -73,12 +73,10 @@ public class Cookery {
 		// things to make barrels empty barrels
 		barrel_hoop = new Item().setUnlocalizedName("brew_barrel_hoop").setRegistryName("brew_barrel_hoop");
 		barrel_hoop.setCreativeTab(CornuCopia.tabCookery);
-		GameRegistry.register(barrel_hoop);
 		InvModel.add(barrel_hoop);
 
 		barrel_stave = new Item().setUnlocalizedName("brew_barrel_stave").setRegistryName("brew_barrel_stave");
 		barrel_stave.setCreativeTab(CornuCopia.tabCookery);
-		GameRegistry.register(barrel_stave);
 		InvModel.add(barrel_stave);
 
 		empty_barrel = new BlockBarrelEmpty("empty");

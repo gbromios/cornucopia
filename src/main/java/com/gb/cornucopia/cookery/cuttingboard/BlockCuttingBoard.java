@@ -17,7 +17,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockCuttingBoard extends Block {
 	protected static final AxisAlignedBB[] BOARD_AABB = new AxisAlignedBB[]{
@@ -36,7 +35,6 @@ public class BlockCuttingBoard extends Block {
 		this.setRegistryName(this.name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(0.4F);
-		GameRegistry.register(this);
 		InvModel.add(this);
 	}
 
