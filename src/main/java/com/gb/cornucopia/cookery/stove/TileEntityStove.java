@@ -3,32 +3,22 @@ package com.gb.cornucopia.cookery.stove;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.Vessel;
 import com.gb.cornucopia.cuisine.dish.Dish;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
@@ -45,19 +35,16 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	private boolean input_changed = false; // set this to true when fucking with the input slots, check in every update and
 
 	@Override
-	public void readFromNBT(final NBTTagCompound compound)
-	{
+	public void readFromNBT(final NBTTagCompound compound) {
 		//System.out.println("read from nbt: " + compound.toString());
 		super.readFromNBT(compound);
 		final NBTTagList items = compound.getTagList("items", Constants.NBT.TAG_COMPOUND);
-		for (int i = 0; i < 9; i++)
-		{
+		for (int i = 0; i < 9; i++) {
 			final NBTTagCompound item = items.getCompoundTagAt(i);
 			if (item != null) {
 				this.contents[i] = ItemStack.loadItemStackFromNBT(item);
-			}
-			else {
-				this.contents[i] = null;	
+			} else {
+				this.contents[i] = null;
 			}
 		}
 		this.markInputChanged();
@@ -81,9 +68,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	}
 
 	@Override
-	public void writeToNBT(final NBTTagCompound compound)
-	{
-		super.writeToNBT(compound);
+	public NBTTagCompound writeToNBT(final NBTTagCompound compound) {
 		compound.setInteger("burn_time", this.burn_time);
 		compound.setInteger("initial_burn_time", this.initial_burn_time);
 		compound.setInteger("cook_time", this.cook_time);
@@ -99,11 +84,13 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 			items.appendTag(input_tag);
 		}
 		compound.setTag("items", items);
-		//if (this.hasCustomName()){ compound.setString("CustomName", "whatever"); }		
+		//if (this.hasCustomName()){ compound.setString("CustomName", "whatever"); }
 		//System.out.println("wrote nbt: " + compound.toString());
+
+		return super.writeToNBT(compound);
 	}
 
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState){
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
 		return (oldState.getBlock() != newState.getBlock());
 
@@ -117,16 +104,24 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 
 
 	@Override
-	public String getName() { return "stove"; }
+	public String getName() {
+		return "stove";
+	}
 
 	@Override
-	public boolean hasCustomName() { return false; }
+	public boolean hasCustomName() {
+		return false;
+	}
 
 	@Override
-	public ITextComponent getDisplayName() { return new TextComponentString("stove"); }
+	public ITextComponent getDisplayName() {
+		return new TextComponentString("stove");
+	}
 
 	@Override
-	public int getSizeInventory() {	return 9; }
+	public int getSizeInventory() {
+		return 9;
+	}
 
 	@Override
 	public ItemStack getStackInSlot(final int index) {
@@ -134,8 +129,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 
 	}
 
-	public boolean isBurning()
-	{
+	public boolean isBurning() {
 		return this.burn_time > 0;
 	}
 
@@ -150,7 +144,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	}
 
 	private void _consumeIngredients() {
-		for (int i = 1; i <= 6; i++){
+		for (int i = 1; i <= 6; i++) {
 			this.decrStackSize(i, 1);
 		}
 		if (this.whats_cooking.requiresBowl()) {
@@ -159,26 +153,27 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 		}
 	}
 
-	private Dish _whatsCooking(){
+	private Dish _whatsCooking() {
 		// ok what is getting cooked:
-		return this.getVessel().getDishes().findMatchingDish((IInventory)this, 1, 6, this.hasBowl(), this.hasWater());
+		return this.getVessel().getDishes().findMatchingDish((IInventory) this, 1, 6, this.hasBowl(), this.hasWater());
 	}
 
 	public boolean hasBowl() {
 		return this.contents[8] != null && this.contents[8].stackSize > 0 && this.contents[8].getItem() == Items.BOWL;
 	}
+
 	public boolean hasWater() {
 		return this.hasWorldObj() && (
 				this.worldObj.getBlockState(this.pos.add(1, 0, 0)).getBlock() == Cookery.water_basin
-				|| this.worldObj.getBlockState(this.pos.add(-1, 0, 0)).getBlock() == Cookery.water_basin
-				|| this.worldObj.getBlockState(this.pos.add(0, 0, 1)).getBlock() == Cookery.water_basin
-				|| this.worldObj.getBlockState(this.pos.add(0, 0, -1)).getBlock() == Cookery.water_basin
-				);
+						|| this.worldObj.getBlockState(this.pos.add(-1, 0, 0)).getBlock() == Cookery.water_basin
+						|| this.worldObj.getBlockState(this.pos.add(0, 0, 1)).getBlock() == Cookery.water_basin
+						|| this.worldObj.getBlockState(this.pos.add(0, 0, -1)).getBlock() == Cookery.water_basin
+		);
 	}
 
 	// force the stove block below us to light up (or turn off)
-	private void _didBurningChange (final boolean was_burning) {
-		if (was_burning != this.isBurning()) {			
+	private void _didBurningChange(final boolean was_burning) {
+		if (was_burning != this.isBurning()) {
 			final IBlockState stove_state = this.worldObj.getBlockState(pos);
 			if (stove_state.getBlock() == Cookery.stove) {
 				this.worldObj.setBlockState(this.pos, stove_state.withProperty(BlockStove.ON, this.isBurning()));
@@ -190,10 +185,10 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 		}
 	}
 
-	private boolean _debug_update(){
+	private boolean _debug_update() {
 		if (
-				(this.isBurning() && (this.burn_time % 50 < 2)) 
-				|| (this.cook_time > 0 && this.cook_time % 50 < 2) 
+				(this.isBurning() && (this.burn_time % 50 < 2))
+						|| (this.cook_time > 0 && this.cook_time % 50 < 2)
 				) {
 			//System.out.format(" = = = =\n");
 			//System.out.format("BURNTIME: %d\n", this.burn_time);	
@@ -203,8 +198,8 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 		return false;
 	}
 
-	private void _debug_update_end(boolean marked){
-		if (this.isBurning() && (this.burn_time + 1) % 50 < 3 ){
+	private void _debug_update_end(boolean marked) {
+		if (this.isBurning() && (this.burn_time + 1) % 50 < 3) {
 			//System.out.format("BURNTIME: %d\n", this.burn_time);	
 		}
 		if (this.cook_time > 0 && (this.cook_time + 1) % 50 < 3) {
@@ -229,7 +224,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 			// after the burn counter has had a chance decrement, then we can deal with a non-burning oven.
 			if (!this.isBurning() && fuel_value > 0) {
 				//System.out.format(" START FIRE: %d -> %s \n", this.burn_time, this.getFuelValue(this.contents[0]));
-				this.burn_time = fuel_value; 
+				this.burn_time = fuel_value;
 				this.initial_burn_time = this.burn_time;
 				this.decrStackSize(0, 1);
 				this.markDirty();
@@ -251,7 +246,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 			if (this.isBurning()) {
 				//System.out.format("burn...");
 				// if there is viable input:
-				if ( this.whats_cooking != null){
+				if (this.whats_cooking != null) {
 					//System.out.format(" cooking -- %s -- %d/%d \n", this.whats_cooking, this.cook_time, this.cook_time_goal);
 					// increment the cooking timer and check if the cooking is done
 					if (this.cook_time++ >= this.cook_time_goal) {
@@ -279,9 +274,9 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 						// existing output is a bit tricker:
 						else if ( // stupid way of saying "can these stacks be merged"
 								output.isStackable()
-								&& output.isItemEqual(result)
-								&& ItemStack.areItemStackTagsEqual(output, result) // wuuuut
-								&& output.stackSize + result.stackSize <= this.getInventoryStackLimit()
+										&& output.isItemEqual(result)
+										&& ItemStack.areItemStackTagsEqual(output, result) // wuuuut
+										&& output.stackSize + result.stackSize <= this.getInventoryStackLimit()
 								) {
 							this._consumeIngredients();
 							output.stackSize += result.stackSize;
@@ -290,29 +285,30 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 						}
 
 						// overflow?? do nothing for now but it might be funny to drop overflowing food on the ground huehue
-						else {	
-						}				
+						else {
+						}
 					}
 				}
 			}
 			this._debug_update_end(debug); // wat changed??
 		}
-	}	
+	}
 
 	/**
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
-	public void setInventorySlotContents(final int index, final ItemStack stack)
-	{
+	public void setInventorySlotContents(final int index, final ItemStack stack) {
 		this.contents[index] = stack;
 		this.markDirty();
 	}
 
 	@Override
-	public void openInventory(final EntityPlayer player) {}
+	public void openInventory(final EntityPlayer player) {
+	}
 
 	@Override
-	public void closeInventory(final EntityPlayer player) {}
+	public void closeInventory(final EntityPlayer player) {
+	}
 
 	@Override
 	public boolean isItemValidForSlot(final int index, final ItemStack stack) {
@@ -320,8 +316,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 		return false;
 	}
 
-	public Container createContainer(final InventoryPlayer playerInventory, final EntityPlayer player)
-	{
+	public Container createContainer(final InventoryPlayer playerInventory, final EntityPlayer player) {
 		return new ContainerStove(playerInventory, this);
 	}
 
@@ -335,12 +330,10 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	}
 
 	@Override
-	public ItemStack decrStackSize(final int index, final int count) { 
-		if (this.contents[index] != null)
-		{
+	public ItemStack decrStackSize(final int index, final int count) {
+		if (this.contents[index] != null) {
 			ItemStack stack = this.contents[index].splitStack(Math.min(count, this.contents[index].stackSize));
-			if (this.contents[index].stackSize == 0)
-			{
+			if (this.contents[index].stackSize == 0) {
 				this.contents[index] = null;
 			}
 			this.markDirty();
@@ -350,51 +343,58 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	}
 
 	@Override
-	public int getInventoryStackLimit() {return 64;}
+	public int getInventoryStackLimit() {
+		return 64;
+	}
 
 	// TODO: this should actually make sure the player is close enough.
 	@Override
-	public boolean isUseableByPlayer(final EntityPlayer player) { return true; }
+	public boolean isUseableByPlayer(final EntityPlayer player) {
+		return true;
+	}
 
 
 	//ewww. not sure if this is even required....
 	// update: yeash its used by the container i guess
-	public int getField(final int id)
-	{
-		switch (id)
-		{
-		case 0:
-			return this.burn_time;
-		case 1:
-			return this.initial_burn_time;
-		case 2:
-			return this.cook_time;
-		case 3:
-			return this.cook_time_goal;
-		default:
-			return 0;
+	public int getField(final int id) {
+		switch (id) {
+			case 0:
+				return this.burn_time;
+			case 1:
+				return this.initial_burn_time;
+			case 2:
+				return this.cook_time;
+			case 3:
+				return this.cook_time_goal;
+			default:
+				return 0;
 		}
 	}
-	public void setField(final int id, final int value)
-	{   
-		switch (id)
-		{
-		case 0:
-			this.burn_time= value;
-			break;
-		case 1:
-			this.initial_burn_time = value;
-			break;
-		case 2:
-			this.cook_time = value;
-			break;
-		case 3:
-			this.cook_time_goal = value;
-			break;
-		}
-	};
 
-	public int getFieldCount(){return 4;};
+	public void setField(final int id, final int value) {
+		switch (id) {
+			case 0:
+				this.burn_time = value;
+				break;
+			case 1:
+				this.initial_burn_time = value;
+				break;
+			case 2:
+				this.cook_time = value;
+				break;
+			case 3:
+				this.cook_time_goal = value;
+				break;
+		}
+	}
+
+	;
+
+	public int getFieldCount() {
+		return 4;
+	}
+
+	;
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
@@ -402,6 +402,6 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 		final ItemStack i = this.contents[index];
 		this.contents[index] = null;
 		return i;
-	}	
+	}
 
 }

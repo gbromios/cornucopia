@@ -2,11 +2,9 @@ package com.gb.cornucopia.cookery.presser;
 
 import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cuisine.Cuisine;
-import com.gb.cornucopia.cuisine.Ingredient;
 import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.ItemVeggieSeed;
 import com.gb.cornucopia.veggie.Veggie;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,85 +16,96 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 
-public class TileEntityPresser extends TileEntity implements ITickable, IInventory  {
+public class TileEntityPresser extends TileEntity implements ITickable, IInventory {
 	private final ItemStack[] contents = new ItemStack[2];
 
 	@Override
-	public String getName() { return "presser"; }
+	public String getName() {
+		return "presser";
+	}
 
 	@Override
-	public boolean hasCustomName() { return false; }
+	public boolean hasCustomName() {
+		return false;
+	}
 
 	@Override
-	public ITextComponent getDisplayName() { return new TextComponentString("presser"); }
+	public ITextComponent getDisplayName() {
+		return new TextComponentString("presser");
+	}
 
 	@Override
-	public int getSizeInventory() {	return 2; }
+	public int getSizeInventory() {
+		return 2;
+	}
 
 	@Override
-	public void update() {}
+	public void update() {
+	}
 
 	@Override
 	public boolean isItemValidForSlot(final int index, final ItemStack stack) {
 		return false;
 	}
 
-	public Container createContainer(final InventoryPlayer playerInventory, final EntityPlayer player)
-	{
-		return new ContainerPresser(playerInventory, (IInventory)this);
+	public Container createContainer(final InventoryPlayer playerInventory, final EntityPlayer player) {
+		return new ContainerPresser(playerInventory, (IInventory) this);
 	}
 
 	@Override
-	public int getField(final int id) { return 0; }
+	public int getField(final int id) {
+		return 0;
+	}
 
 	@Override
-	public void setField(final int id, int value) {}
+	public void setField(final int id, int value) {
+	}
 
 	@Override
-	public int getFieldCount() { return 0; }
+	public int getFieldCount() {
+		return 0;
+	}
 
 	@Override
 	public void clear() {
-		for (int i = 0; i < this.contents.length; ++i)
-		{
+		for (int i = 0; i < this.contents.length; ++i) {
 			this.contents[i] = null;
 		}
 	}
 
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState){
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
 		return (oldState.getBlock() != newState.getBlock());
 
 	}
-	
-	private boolean hasOrEmpty(Item i){
+
+	private boolean hasOrEmpty(Item i) {
 		return this.contents[1] == null || this.contents[1].getItem() == i;
 	}
 
 	public boolean canPress(Item i) {
-		return ( i == Bees.honeycomb && this.hasOrEmpty(Bees.honey_raw) )
-				|| ( i == Fruit.olive.raw && this.hasOrEmpty(Cuisine.olive_oil) )
-				|| ( Cuisine.hathJuice(i) && this.hasOrEmpty(Cuisine.getJuice(i)) )
-				|| ( i == Items.MILK_BUCKET && this.hasOrEmpty(Cuisine.butter) )
-				|| ( i == Veggie.peanut.raw && this.hasOrEmpty(Cuisine.canola_oil) )
-				|| ( i == Cuisine.pasta_dough && this.hasOrEmpty(Cuisine.fresh_pasta) )
-				|| ( i == Veggie.soy.raw && this.hasOrEmpty(Cuisine.tofu) )
-				|| ( i == Items.WHEAT_SEEDS && this.hasOrEmpty(Cuisine.canola_oil) )
-				|| ( i instanceof ItemVeggieSeed && this.hasOrEmpty(Cuisine.canola_oil) )
+		return (i == Bees.honeycomb && this.hasOrEmpty(Bees.honey_raw))
+				|| (i == Fruit.olive.raw && this.hasOrEmpty(Cuisine.olive_oil))
+				|| (Cuisine.hathJuice(i) && this.hasOrEmpty(Cuisine.getJuice(i)))
+				|| (i == Items.MILK_BUCKET && this.hasOrEmpty(Cuisine.butter))
+				|| (i == Veggie.peanut.raw && this.hasOrEmpty(Cuisine.canola_oil))
+				|| (i == Cuisine.pasta_dough && this.hasOrEmpty(Cuisine.fresh_pasta))
+				|| (i == Veggie.soy.raw && this.hasOrEmpty(Cuisine.tofu))
+				|| (i == Items.WHEAT_SEEDS && this.hasOrEmpty(Cuisine.canola_oil))
+				|| (i instanceof ItemVeggieSeed && this.hasOrEmpty(Cuisine.canola_oil))
 				;
 	}
-	
-	public boolean canPress(){
-		if (!this.hasWorldObj() || this.worldObj.isRemote){
+
+	public boolean canPress() {
+		if (!this.hasWorldObj() || this.worldObj.isRemote) {
 			return false;
 		} else if (this.contents[0] == null) {
 			return true; // so players can see how it works without loading it up
@@ -106,46 +115,46 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		return this.canPress(i);
 	}
 
-	public void press(Item output, int ratio, Item byproduct, int byproduct_ratio){
+	public void press(Item output, int ratio, Item byproduct, int byproduct_ratio) {
 		final ItemStack in_stack = this.contents[0]; // already null checked in press()
 		final ItemStack out_stack = this.contents[1] != null ? this.contents[1] : new ItemStack(output, 0);
 
 		final int can_make = Math.min(in_stack.stackSize / ratio, out_stack.getMaxStackSize() - out_stack.stackSize);
-		if ( can_make == 0 ) {
+		if (can_make == 0) {
 			// inputs drop out for certain recipes
-			this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj,  this.pos.getX() + .5,  this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
+			this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
 			this.contents[0] = null;
 			return;
-		} else if (contents[1] == null)  {
+		} else if (contents[1] == null) {
 			contents[1] = out_stack; // re assign if we needed a new stack
 		}
 
 		final int ingredients_needed = can_make * ratio;
 
-		if (byproduct != null){
+		if (byproduct != null) {
 			this.contents[0] = byproduct != null ? new ItemStack(byproduct, ingredients_needed / byproduct_ratio) : null;
 		} else {
 			this.contents[0] = null;
 		}
-		
+
 		out_stack.stackSize += can_make;
 		in_stack.stackSize -= ingredients_needed;
-		
+
 		if (in_stack.stackSize > 0) {
-			this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj,  this.pos.getX() + .5,  this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
+			this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
 		}
 	}
 
-	public void press(Item output, int ratio, Item byproduct){
+	public void press(Item output, int ratio, Item byproduct) {
 		press(output, ratio, byproduct, 1);
 	}
 
-	public void press(Item output, int ratio){
+	public void press(Item output, int ratio) {
 		press(output, ratio, null, 1);
 	}
 
-	public void press(){
-		if (!this.hasWorldObj() || this.worldObj.isRemote || !this.canPress() || this.contents[0] == null){
+	public void press() {
+		if (!this.hasWorldObj() || this.worldObj.isRemote || !this.canPress() || this.contents[0] == null) {
 			return;
 		}
 		final Item i = this.contents[0].getItem();
@@ -173,10 +182,10 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		} else if (Cuisine.hathJuice(i)) {
 			press(Cuisine.getJuice(i), 9); // experimenting with non po2
 
-		}  else if (i == Cuisine.pasta_dough) {
+		} else if (i == Cuisine.pasta_dough) {
 			press(Cuisine.fresh_pasta, 1); // experimenting with non po2
 
-		} 
+		}
 	}
 
 	@Override
@@ -185,31 +194,25 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	}
 
 	@Override
-	public void writeToNBT(final NBTTagCompound parentNBTTagCompound)
-	{	
-		super.writeToNBT(parentNBTTagCompound); // The super call is required to save the tiles location
+	public NBTTagCompound writeToNBT(final NBTTagCompound compound) {
 		final ItemStack in_stack = this.contents[0];
 		if (in_stack != null && in_stack.getItem() != null) {
 			final NBTTagCompound in_tag = new NBTTagCompound();
 			in_stack.writeToNBT(in_tag);
-			parentNBTTagCompound.setTag("in", in_tag);
-		} //else {
-		//parentNBTTagCompound.setTag("in", null);
-		//}
+			compound.setTag("in", in_tag);
+		}
 
 		final ItemStack out_stack = this.contents[1];
 		if (out_stack != null && out_stack.getItem() != null) {
 			final NBTTagCompound out_tag = new NBTTagCompound();
 			out_stack.writeToNBT(out_tag);
-			parentNBTTagCompound.setTag("out", out_tag);
-		} //else {
-		//parentNBTTagCompound.setTag("out", null);
-		//}
+			compound.setTag("out", out_tag);
+		}
+		return super.writeToNBT(compound);
 	}
 
 	@Override
-	public void readFromNBT(final NBTTagCompound parentNBTTagCompound)
-	{
+	public void readFromNBT(final NBTTagCompound parentNBTTagCompound) {
 		super.readFromNBT(parentNBTTagCompound); // The super call is required to load the tiles location
 		final NBTTagCompound in_tag = parentNBTTagCompound.getCompoundTag("in");
 		if (in_tag != null) {
@@ -227,10 +230,12 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	}
 
 	@Override
-	public int getInventoryStackLimit() {return 64;}
+	public int getInventoryStackLimit() {
+		return 64;
+	}
 
 	@Override
-	public boolean isUseableByPlayer(final EntityPlayer player) {	
+	public boolean isUseableByPlayer(final EntityPlayer player) {
 		return player.getDistanceSq(this.pos) < 6;
 	}
 
@@ -240,12 +245,10 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	}
 
 	@Override
-	public ItemStack decrStackSize(final int index, final int count) { 
-		if (this.contents[index] != null)
-		{
+	public ItemStack decrStackSize(final int index, final int count) {
+		if (this.contents[index] != null) {
 			final ItemStack stack = this.contents[index].splitStack(Math.min(count, this.contents[index].stackSize));
-			if (this.contents[index].stackSize == 0)
-			{
+			if (this.contents[index].stackSize == 0) {
 				this.contents[index] = null;
 			}
 			this.markDirty();
@@ -254,12 +257,10 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		return null;
 	}
 
-	public void setInventorySlotContents(final int index, final ItemStack stack)
-	{
+	public void setInventorySlotContents(final int index, final ItemStack stack) {
 		this.contents[index] = stack;
 
-		if (stack != null && stack.stackSize > this.getInventoryStackLimit())
-		{
+		if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
 			stack.stackSize = this.getInventoryStackLimit();
 		}
 
@@ -267,11 +268,13 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	}
 
 	@Override
-	public void openInventory(final EntityPlayer player) {}
+	public void openInventory(final EntityPlayer player) {
+	}
 
 	@Override
-	public void closeInventory(final EntityPlayer player) {}
-	
+	public void closeInventory(final EntityPlayer player) {
+	}
+
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
 		// TODO Auto-generated method stub
@@ -279,5 +282,5 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		this.contents[index] = null;
 		return i;
 	}
-	
+
 }

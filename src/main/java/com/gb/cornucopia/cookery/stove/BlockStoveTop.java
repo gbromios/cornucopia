@@ -1,10 +1,7 @@
 package com.gb.cornucopia.cookery.stove;
 
-import java.util.List;
-
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.Vessel;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -14,80 +11,70 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 // inventory 
 
-public class BlockStoveTop extends Block{
+public class BlockStoveTop extends Block {
 	public final String name;
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyEnum VESSEL = PropertyEnum.create("vessel", Vessel.class);
 
-	public BlockStoveTop()
-	{
+	public BlockStoveTop() {
 		super(Material.PLANTS);
 		this.name = "cookery_stovetop";
 		this.setUnlocalizedName(this.name);
-		this.setHardness(0.5F);
-
+		this.setRegistryName(this.name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(VESSEL, Vessel.NONE));
-		GameRegistry.registerBlock(this, this.name);
+		this.setHardness(0.5F);
+		GameRegistry.register(this);
 	}
 
 	@Override
-	public boolean isOpaqueCube(){
-		return false;
-	}
-	@Override
-	public boolean isFullCube(){
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(final World world, final BlockPos pos)
-	{
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	public boolean canPlaceBlockAt(final World world, final BlockPos pos) {
 		// this block never exists except on top of a stove. also how the fuck did you get this in your inventory
-		return false; 
+		return false;
 	}
 
 	@Override
-	public void setBlockBoundsBasedOnState(final IBlockAccess world, final BlockPos pos){
-		//final EnumFacing f = (EnumFacing)world.getBlockState(pos).getValue(FACING);
-		final IBlockState state = world.getBlockState(pos);
-		if (state.getBlock() != Cookery.stovetop) { return; }
-
-
-		switch((Vessel)state.getValue(VESSEL)) {
-		case POT:
-			this.setBlockBounds(0.25F, 0F, 0.25F, 0.75F, 0.5F, 0.75F);
-			break;
-		case PAN:
-			this.setBlockBounds(0.25F, 0F, 0.25F, 0.75F, 0.5F, 0.75F);
-			break;
-		case NONE: default:
-			if (world.getBlockState(pos.down()).getBlock() != Cookery.stove) { return; } // just bail to avoid a possible null >__>
-			switch ((EnumFacing)world.getBlockState(pos.down()).getValue(FACING)) {
-			case NORTH:	case SOUTH:
-				this.setBlockBounds(0.25F, 0F, 0.1875F, 0.75F, 0.0625F, 0.8125F);
-				break;
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		switch ((Vessel) state.getValue(VESSEL)) {
+			case POT:
+				return new AxisAlignedBB(0.25F, 0F, 0.25F, 0.75F, 0.5F, 0.75F);
+			case PAN:
+				return new AxisAlignedBB(0.25F, 0F, 0.25F, 0.75F, 0.5F, 0.75F);
+			case NONE:
 			default:
-				this.setBlockBounds(0.1875F, 0F, 0.25F, 0.8125F, 0.0625F, 0.75F);		
-			}	
-			break;
-
+				switch ((EnumFacing) source.getBlockState(pos.down()).getValue(FACING)) {
+					case NORTH:
+					case SOUTH:
+						return new AxisAlignedBB(0.25F, 0F, 0.1875F, 0.75F, 0.0625F, 0.8125F);
+					default:
+						return new AxisAlignedBB(0.1875F, 0F, 0.25F, 0.8125F, 0.0625F, 0.75F);
+				}
 		}
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player,  EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ)
-	{
+	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
 		// defer activations to the stove below.
 		// not too concerned about the edge case of the wrong block type... those can get right clicked too
 		final IBlockState stove_state = world.getBlockState(pos.down());
@@ -95,16 +82,15 @@ public class BlockStoveTop extends Block{
 	}
 
 	@Override
-	public void onNeighborBlockChange(final World world, final BlockPos pos, final IBlockState state, final Block neighborBlock){
-		if (world.getBlockState(pos.down()).getBlock() != Cookery.stove){
-			this.dropBlockAsItem(world, pos, state, 0);
-			world.setBlockToAir(pos);
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+		if (worldIn.getBlockState(pos.down()).getBlock() != Cookery.stove) {
+			this.dropBlockAsItem(worldIn, pos, state, 0);
+			worldIn.setBlockToAir(pos);
 		}
 	}
 
 	@Override
-	public void onBlockDestroyedByPlayer(final World world, final BlockPos pos, final IBlockState state)
-	{
+	public void onBlockDestroyedByPlayer(final World world, final BlockPos pos, final IBlockState state) {
 		// this can happen when removing the block in creative mode.
 		if (world.getBlockState(pos.down()).getBlock() != Cookery.stove) {
 			this.dropBlockAsItem(world, pos, state, 0);
@@ -116,10 +102,10 @@ public class BlockStoveTop extends Block{
 
 	@Override
 	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
-		final Vessel v = (Vessel)state.getValue(VESSEL);
+		final Vessel v = (Vessel) state.getValue(VESSEL);
 		final List<ItemStack> drop_stacks = new java.util.ArrayList<ItemStack>();
 		if (v != Vessel.NONE) {
-			drop_stacks.add(new ItemStack(v.getItem()));	
+			drop_stacks.add(new ItemStack(v.getItem()));
 		}
 		return drop_stacks;
 
@@ -138,33 +124,29 @@ public class BlockStoveTop extends Block{
 	}*/
 
 	@Override
-	public IBlockState getStateFromMeta(final int meta)
-	{
+	public IBlockState getStateFromMeta(final int meta) {
 
 		return this.getDefaultState().withProperty(VESSEL, Vessel.values()[meta & 7]);
 	}
 
 	@Override
-	public IBlockState getActualState(final IBlockState state, final IBlockAccess world, final BlockPos pos)
-	{
+	public IBlockState getActualState(final IBlockState state, final IBlockAccess world, final BlockPos pos) {
 		IBlockState stove = world.getBlockState(pos.down());
 		if (stove.getBlock() == Cookery.stove) {
 			return state.withProperty(FACING, stove.getValue(FACING));
 		} else {
 			return state;
 		}
-	}	
-
-	@Override
-	public int getMetaFromState(final IBlockState state)
-	{
-		return ((Vessel)state.getValue(VESSEL)).meta; 
 	}
 
 	@Override
-	protected BlockStateContainer createBlockState()
-	{
-		return new BlockStateContainer(this, new IProperty[] {VESSEL, FACING});
+	public int getMetaFromState(final IBlockState state) {
+		return ((Vessel) state.getValue(VESSEL)).meta;
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[]{VESSEL, FACING});
 	}
 
 }
