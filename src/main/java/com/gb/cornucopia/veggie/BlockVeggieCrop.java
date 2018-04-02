@@ -4,9 +4,11 @@ import com.gb.cornucopia.InvModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -84,6 +86,14 @@ public class BlockVeggieCrop extends BlockCrops {
 			}
 		}
 		return ret;
+	}
+
+	public IBlockColor getCropColor() {
+		return (state, worldIn, pos, tintIndex) -> tintIndex == 0
+				? (worldIn != null && pos != null
+				? BiomeColorHelper.getFoliageColorAtPos(worldIn, pos)
+				: ColorizerFoliage.getFoliageColorBasic())
+				: -1;
 	}
 
 	private boolean shouldGrow(World world, BlockPos pos, Random rand) {

@@ -3,6 +3,7 @@ package com.gb.cornucopia.fruit;
 import com.gb.cornucopia.CornuCopia;
 import com.gb.util.WeightedArray;
 import net.minecraft.block.BlockPlanks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -99,6 +100,7 @@ public class Fruit {
 	public static void init() {
 		for (Fruit f : fruitMap.values()) {
 			f.leaf.setGraphicsLevel(true);
+			Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(f.leaf.getLeafColor(), f.leaf);
 		}
 	}
 

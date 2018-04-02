@@ -2,6 +2,7 @@ package com.gb.cornucopia.veggie;
 
 import com.gb.cornucopia.CornuCopia;
 import com.gb.util.WeightedArray;
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -151,6 +152,10 @@ public class Veggie {
 	}
 
 	public static void init() {
+		for (Veggie v : vegMap.values()) {
+			Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(v.wild.getWildColor(), v.wild);
+			Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(v.crop.getCropColor(), v.crop);
+		}
 	}
 
 	private static final WeightedArray<Veggie> jungleVeggies = new WeightedArray<>();
