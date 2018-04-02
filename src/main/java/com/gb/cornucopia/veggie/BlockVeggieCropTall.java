@@ -42,16 +42,16 @@ public class BlockVeggieCropTall extends BlockVeggieCrop {
 			// stalk's age is veggie's age - 4
 			// for growing taller than one, will probably want to shift this to onNeighborChange
 			world.setBlockState(pos.down(), this.stalk.getDefaultState().withProperty(
-					BlockVeggieStalk.AGE, (Integer) new_state.getValue(AGE) - 4
-			));
+					BlockVeggieStalk.AGE, (Integer) new_state.getValue(AGE) - 4));
 			return;
 		}
 
 		// for a crop on the ground, hitting age 4 (i.e. the get taller age)  
-		if ((Integer) new_state.getValue(AGE) == 4) {
+		if (new_state.getValue(AGE) >= 4) {
 			if (world.isAirBlock(pos.up())) {
 				world.setBlockState(pos.up(), new_state);
-				world.setBlockState(pos, this.stalk.getDefaultState());
+				world.setBlockState(pos, this.stalk.getDefaultState().withProperty(
+						BlockVeggieStalk.AGE, (Integer) new_state.getValue(AGE) - 4));
 			}
 			// if the block above is not air, roll this veggie back to its starting age >:C
 			else {
