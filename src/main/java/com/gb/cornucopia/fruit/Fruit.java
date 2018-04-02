@@ -49,9 +49,9 @@ public class Fruit {
 		this.sapling = sapling;
 		this.raw = raw;
 
-		this.crop.setLeaf(this.leaf).setDrops(this.raw, this.sapling);
-		this.leaf.setGrows(this.crop);
 		this.sapling.setTreeStates(wood, this.leaf.getDefaultState());
+		this.leaf.setGrows(this.crop);
+		this.crop.setLeaf(this.leaf).setDrops(this.raw, this.sapling);
 		fruitMap.put(name, this);
 	}
 

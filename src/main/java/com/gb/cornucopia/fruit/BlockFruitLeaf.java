@@ -2,6 +2,7 @@ package com.gb.cornucopia.fruit;
 
 import com.gb.cornucopia.InvModel;
 import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -37,12 +38,8 @@ public class BlockFruitLeaf extends BlockLeaves {
 		InvModel.add(this, "minecraft");
 	}
 
-	public EnumType getWoodType(int meta) {
+	public BlockPlanks.EnumType getWoodType(int meta) {
 		return EnumType.OAK;
-	}
-
-	public void makeSaplings(World world, BlockPos pos) {
-
 	}
 
 	public void setGrows(BlockFruitCrop crop) {
@@ -128,7 +125,7 @@ public class BlockFruitLeaf extends BlockLeaves {
 
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		return new ArrayList<ItemStack>();
+		return new ArrayList<>();
 	}
 
 	@Override
@@ -138,6 +135,6 @@ public class BlockFruitLeaf extends BlockLeaves {
 
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
-		return new ArrayList<ItemStack>();
+		return new ArrayList<>();
 	}
 }

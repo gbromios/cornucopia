@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 
-@Mod(modid = CornuCopia.MODID, version = CornuCopia.VERSION)
+@Mod(name = CornuCopia.NAME, modid = CornuCopia.MODID, version = CornuCopia.VERSION)
 public class CornuCopia {
 	public static final String NAME = "CornuCopia";
 	public static final String MODID = "cornucopia";

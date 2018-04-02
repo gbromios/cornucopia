@@ -58,13 +58,13 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 
 	@Override
 	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient) {
-		return (Integer) state.getValue(AGE) <= 3;
+		return state.getValue(AGE) <= 3;
 	}
 
 	@Override
 	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state) {
 		// bonemeal makes fruit not drop saplings, but that had to be handled in onBlockActivate
-		return (int) state.getValue(AGE) < 3;
+		return state.getValue(AGE) < 3;
 	}
 
 	@Override
@@ -85,11 +85,11 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 
 	@Override
 	public java.util.List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		final List<ItemStack> ret = new ArrayList<ItemStack>();
-		if ((Boolean) state.getValue(DROP_SAPLING)) {
+		final List<ItemStack> ret = new ArrayList<>();
+		if (state.getValue(DROP_SAPLING)) {
 			ret.add(new ItemStack(this.sapling));
 		}
-		if ((Integer) state.getValue(AGE) == 3) {
+		if (state.getValue(AGE) == 3) {
 
 			ret.add(new ItemStack(this.raw));
 			ret.add(new ItemStack(this.raw));
@@ -118,12 +118,12 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
 		if (!(worldIn.getBlockState(pos.up()).getBlock() instanceof BlockLeaves)) {
-			if ((Integer) state.getValue(AGE) == 3) {
+			if (state.getValue(AGE) == 3) {
 
 				spawnAsEntity(worldIn, pos, new ItemStack(this.raw));
 				spawnAsEntity(worldIn, pos, new ItemStack(this.raw));
 			}
-			if ((Boolean) state.getValue(DROP_SAPLING)) {
+			if (state.getValue(DROP_SAPLING)) {
 				spawnAsEntity(worldIn, pos, new ItemStack(this.sapling));
 			}
 			worldIn.setBlockToAir(pos);
@@ -145,6 +145,6 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((Integer) state.getValue(AGE) | ((Boolean) state.getValue(DROP_SAPLING) ? 4 : 0));
+		return (state.getValue(AGE) | (state.getValue(DROP_SAPLING) ? 4 : 0));
 	}
 }
