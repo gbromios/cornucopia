@@ -7,6 +7,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.ColorizerGrass;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Random;
 
 public class BlockVeggieCrop extends BlockCrops {
+	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.9D, 0.1125D, 0.9D), new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.9D, 0.225D, 0.9D), new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.9D, 0.3375D, 0.9D), new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.9D, 0.45D, 0.9D), new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.9D, 0.5625D, 0.9D), new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.9D, 0.675D, 0.9D), new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.9D, 0.7875D, 0.9D), new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.9D, 0.9D, 0.9D)};
 	private ItemVeggieSeed seed;
 	private ItemVeggieRaw raw;
 	public final String name;
@@ -94,6 +96,10 @@ public class BlockVeggieCrop extends BlockCrops {
 				? BiomeColorHelper.getFoliageColorAtPos(worldIn, pos)
 				: ColorizerFoliage.getFoliageColorBasic())
 				: -1;
+	}
+
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return CROPS_AABB[(Integer) state.getValue(this.getAgeProperty())];
 	}
 
 	private boolean shouldGrow(World world, BlockPos pos, Random rand) {

@@ -10,12 +10,16 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockVeggieStalk extends BlockBush implements IGrowable {
+	private static final AxisAlignedBB STALK_AABB = new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.9D, 1.0D, 0.9D);
+
 	public final String name;
 	public final BlockVeggieCropTall crop;
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
@@ -55,6 +59,10 @@ public class BlockVeggieStalk extends BlockBush implements IGrowable {
 			// exact same as the parent but don't drop anything :I
 			world.setBlockToAir(pos);
 		}
+	}
+
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return STALK_AABB;
 	}
 
 	@Override
