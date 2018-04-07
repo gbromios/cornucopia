@@ -1,5 +1,5 @@
 # cornucopia
-#### Enhanced Cooking and Agriculture for Wilson SMP (Minecraft 1.8)
+#### Enhanced Cooking and Agriculture for Sundered SMP (Minecraft 1.12.2)
 
 (readme updated 2016-JUL-7)
 
@@ -7,11 +7,11 @@ Originally I set out to update Pam's HarvestCraft for 1.8 so we could use it on 
 
 Given the breadth of changes required to upgrade from 1.7 to 1.8, it quickly became apparent that it would be faster and easier to re-implement the entire thing from scratch. It's gone quite well, and starting fresh allowed me to add and change functionality 
 
-The underlying ethos of CornuCopia is that of WilsonSMP: to add depth of gameplay and aesthetics without over-complicated mechanics that detract from the general feel of vanilla.
+The underlying ethos of CornuCopia is that of Sundered SMP: to add depth of gameplay and aesthetics without over-complicated mechanics that detract from the general feel of vanilla.
 
 art assets at a good baseline for release, though sometime in the next month, I would like to work with enzer to improve the crop art
 
-I've got a list of crafting recipes for wilson, but I'd prefer if only a small number were made available at launch. Part of the fun of this mod (i hope) will be discovering what's possible.
+I've got a list of crafting recipes, but I'd prefer if only a small number were made available at launch. Part of the fun of this mod (i hope) will be discovering what's possible.
 
 Without further ado:
 
