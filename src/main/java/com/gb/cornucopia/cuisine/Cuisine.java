@@ -1,20 +1,13 @@
 package com.gb.cornucopia.cuisine;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
-import com.gb.cornucopia.cookery.Cookery;
-import com.gb.cornucopia.cookery.Vessel;
+import com.gb.cornucopia.cheese.Cheese;
 import com.gb.cornucopia.cuisine.dish.Dish;
 import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggie;
 import com.gb.util.WeightedArray;
 import com.google.common.collect.Lists;
-
-import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,13 +15,17 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class Cuisine {
 	// intermediate food items
 	public static ItemCuisine flour;
 	public static ItemCuisine corn_flour;
 	public static ItemCuisine soda; // as in sodium bicarbonate
 	public static ItemCuisine salt; // table salt
-	public static ItemCuisine vinegar;	
+	public static ItemCuisine vinegar;
 	public static ItemCuisine mash;
 	public static ItemCuisine anchovy;
 	public static ItemCuisine pickle;
@@ -40,7 +37,7 @@ public class Cuisine {
 	public static ItemCuisine fresh_pasta;
 	public static ItemCuisine peanut_butter;
 	public static ItemCuisine olive_oil;
-	
+
 	public static ItemCuisine carrot_juice;
 	public static ItemCuisine melon_juice;
 	public static ItemCuisine apple_juice;
@@ -65,7 +62,7 @@ public class Cuisine {
 	public static ItemCuisine tomato_juice;
 	public static ItemCuisine grape_juice;
 	private static final HashMap<Item, Item> juice_map = new HashMap<>();
-	
+
 	public static ItemCuisine butter;
 	public static ItemCuisine canola_oil;
 	public static ItemCuisine tofu;
@@ -129,21 +126,23 @@ public class Cuisine {
 
 	public static final WeightedArray<Item> spice_drops = new WeightedArray<>();
 	public static final WeightedArray<Item> herb_drops = new WeightedArray<>();
-	
+
 	public static Item rock_salt;
 
 	// i.e. inedible stables OR placeholders
-	private static ItemCuisine _generic(String name){ return new ItemCuisine(name, 0, 0F); }
+	private static ItemCuisine _generic(String name) {
+		return new ItemCuisine(name, 0, 0F);
+	}
 
-	public static void preInit(){		
+	public static void preInit() {
 		// wut
 		rock_salt = new Item();
 		rock_salt.setUnlocalizedName("cuisine_rock_salt");
-		GameRegistry.registerItem(rock_salt, "cuisine_rock_salt");
+		rock_salt.setRegistryName("cuisine_rock_salt");
 		rock_salt.setCreativeTab(CornuCopia.tabCuisine);
-		InvModel.add(rock_salt, "cuisine_rock_salt");
-		
-		
+		InvModel.add(rock_salt);
+
+
 		flour = _generic("flour");
 		corn_flour = _generic("corn_flour");
 		soda = _generic("soda");
@@ -160,7 +159,7 @@ public class Cuisine {
 		fresh_pasta = _generic("fresh_pasta");
 		peanut_butter = new ItemCuisine("peanut_butter", 2, 0.75F);
 		olive_oil = new ItemCuisine("olive_oil", 1, 0.5F);
-		
+
 		carrot_juice = new ItemCuisine("carrot_juice", 2, 0.15F);
 		apple_juice = new ItemCuisine("apple_juice", 2, 0.15F);
 		melon_juice = new ItemCuisine("melon_juice", 2, 0.15F);
@@ -182,7 +181,7 @@ public class Cuisine {
 		strawberry_juice = new ItemCuisine("strawberry_juice", 2, 0.15F);
 		tomato_juice = new ItemCuisine("tomato_juice", 2, 0.15F);
 		grape_juice = new ItemCuisine("grape_juice", 2, 0.15F);
-		
+
 		lime_juice = _generic("lime_juice");
 		lemon_juice = _generic("lemon_juice");
 
@@ -191,7 +190,7 @@ public class Cuisine {
 		tofu = new ItemCuisine("tofu", 3, 0.25F);
 
 		roast_coffee = _generic("roast_coffee");
-		dried_tea    = _generic("dried_tea");
+		dried_tea = _generic("dried_tea");
 
 		mozzarella = new ItemCuisine("mozzarella", 3, 0.3F);
 		fresh_cheese = new ItemCuisine("fresh_cheese", 4, 0.3F);
@@ -205,47 +204,47 @@ public class Cuisine {
 		cheese_sauce = new ItemCuisine("cheese_sauce", 1, 0.12F)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
-				;
+		;
 		red_sauce = new ItemCuisine("red_sauce", 1, 0.12F)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
-				;
+		;
 		popcorn = new ItemCuisine("popcorn", 3, 0.09F)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(16)
-				;
+		;
 
 		// larger meals!
 		cheesy_noodles = new ItemCuisine("cheesy_noodles", 12, 1.2F)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
-				;
+		;
 		spaghetti_bolognese = new ItemCuisine("spaghetti_bolognese", 12, 1.3F)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
-				;
+		;
 		chicken_caesar_salad = new ItemCuisine("chicken_caesar_salad", 11, 1.2F)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
-				;
+		;
 		fish_and_chips = new ItemCuisine("fish_and_chips", 15, 1.6F)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
-				;
+		;
 		caesar_salad = new ItemCuisine("caesar_salad", 8, 0.8F)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
-				;
+		;
 		bruscetta = new ItemCuisine("bruscetta", 6, 0.4F)
 				.setMaxStackSize(8)
-				;
+		;
 		kebab = new ItemCuisine("kebab", 11, 1.0F)
 				.setContainerItem(Items.STICK)
 				.setMaxStackSize(4)
-				;
+		;
 		smoothie = new ItemCuisine("smoothie", 6, 0.6F)
 				.setMaxStackSize(4)
-				;		
+		;
 
 		wine = new ItemLibation("wine");
 		cordial = new ItemLibation("cordial");
@@ -259,21 +258,21 @@ public class Cuisine {
 		bloody_mary = new ItemLibation("bloody_mary");
 
 		spice_drops
-		.add(black_pepper = _generic("black_pepper"), 40)
-		.add(cinnamon = _generic("cinnamon"), 10)
-		.add(chili_powder = _generic("chili_powder"), 10)
-		.add(curry_powder = _generic("curry_powder"), 10)
-		.add(mustard = _generic ("mustard"), 20)
+				.add(black_pepper = _generic("black_pepper"), 40)
+				.add(cinnamon = _generic("cinnamon"), 10)
+				.add(chili_powder = _generic("chili_powder"), 10)
+				.add(curry_powder = _generic("curry_powder"), 10)
+				.add(mustard = _generic("mustard"), 20)
 		;
 
 		herb_drops
-		.add(basil = _generic("basil"), 20)
-		.add(cilantro = _generic("cilantro"), 20)
-		.add(mint = _generic("mint"), 20)
-		.add(oregano = _generic("oregano"), 20)
-		.add(rosemary = _generic("rosemary"), 20)
+				.add(basil = _generic("basil"), 20)
+				.add(cilantro = _generic("cilantro"), 20)
+				.add(mint = _generic("mint"), 20)
+				.add(oregano = _generic("oregano"), 20)
+				.add(rosemary = _generic("rosemary"), 20)
 		;
-		
+
 		juice_map.put(Items.CARROT, Cuisine.carrot_juice);
 		juice_map.put(Items.APPLE, Cuisine.apple_juice);
 		juice_map.put(Items.MELON, Cuisine.melon_juice);
@@ -297,15 +296,15 @@ public class Cuisine {
 		juice_map.put(Veggie.strawberry.raw, Cuisine.strawberry_juice);
 		juice_map.put(Veggie.tomato.raw, Cuisine.tomato_juice);
 		juice_map.put(Veggie.grape.raw, Cuisine.grape_juice);
-
 		;
 
 	}
 
-	public static void init(){
+	public static void init() {
+		GameRegistry.addShapelessRecipe(new ItemStack(Cuisine.fresh_cheese, 8), Cheese.cheese_wheel_young);
 	}
 
-	public static void postInit(){
+	public static void postInit() {
 		// here's where all the recipes and so forth come together. this is the very last module init call.
 		Ingredient.init();
 		Dish.init();
@@ -313,13 +312,13 @@ public class Cuisine {
 		removeVanillaRecipe(new ItemStack(Items.BREAD)); // sorry guys!!!!
 		// how u really make bread tho:
 		GameRegistry.addSmelting(Cuisine.bread_dough, new ItemStack(Items.BREAD), 0.25F);
-		
+
 		removeVanillaRecipe(new ItemStack(Items.CAKE)); // srsly
 		GameRegistry.addSmelting(Cuisine.batter, new ItemStack(Items.CAKE), 0.25F);
-		
+
 		// removeVanillaRecipe(new ItemStack(Items.cookie)); // YOU'RE NEXT
-		
-		
+
+
 		// not quite removing a vanilla recipe:
 		Items.MILK_BUCKET.setMaxStackSize(8);
 
@@ -329,19 +328,16 @@ public class Cuisine {
 
 	}
 
-	private static void removeVanillaRecipe(final ItemStack remove){
-		final List<IRecipe> recipes = (List<IRecipe>)CraftingManager.getInstance().getRecipeList();
+	private static void removeVanillaRecipe(final ItemStack remove) {
+		final List<IRecipe> recipes = (List<IRecipe>) CraftingManager.getInstance().getRecipeList();
 		final ArrayList<IRecipe> recipes_to_remove = Lists.newArrayList();
 
-		for (IRecipe r : recipes)
-		{
-			if (ItemStack.areItemStacksEqual(remove, r.getRecipeOutput()))
-			{
+		for (IRecipe r : recipes) {
+			if (ItemStack.areItemStacksEqual(remove, r.getRecipeOutput())) {
 				recipes_to_remove.add(r);
 			}
 		}
-		for (IRecipe rm : recipes_to_remove)
-		{
+		for (IRecipe rm : recipes_to_remove) {
 			recipes.remove(rm);
 		}
 	}
@@ -349,6 +345,7 @@ public class Cuisine {
 	public static Item getJuice(Item i) {
 		return juice_map.get(i);
 	}
+
 	public static boolean hathJuice(Item i) {
 		return juice_map.containsKey(i);
 	}

@@ -13,7 +13,6 @@ import com.gb.cornucopia.cookery.presser.GuiPresser;
 import com.gb.cornucopia.cookery.stove.ContainerStove;
 import com.gb.cornucopia.cookery.stove.GuiStove;
 import com.gb.cornucopia.cookery.stove.TileEntityStove;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -31,21 +30,16 @@ public class GuiHandler implements IGuiHandler {
 	public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
 		final Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
 		if (block == Cookery.cutting_board) { // cutting board
-			return new ContainerCuttingBoard(player.inventory, world, new BlockPos(x, y ,z));
-		}
-		else if (block == Cookery.stove){
-			return new ContainerStove(player.inventory, (TileEntityStove)world.getTileEntity(new BlockPos(x, y ,z)));
-		}
-		else if (block == Cookery.presser){
-			return new ContainerPresser(player.inventory, (IInventory)world.getTileEntity(new BlockPos(x, y ,z)));
-		}
-		else if (block == Cookery.mill){
-			return new ContainerMill(player.inventory, (IInventory)world.getTileEntity(new BlockPos(x, y ,z)));
-		}
-		else if (block == Bees.apiary){
-			return new ContainerApiary(player.inventory, (IInventory)world.getTileEntity(new BlockPos(x, y ,z)), world, new BlockPos(x, y ,z));
-		}
-		else {
+			return new ContainerCuttingBoard(player.inventory, world, new BlockPos(x, y, z));
+		} else if (block == Cookery.stove) {
+			return new ContainerStove(player.inventory, (TileEntityStove) world.getTileEntity(new BlockPos(x, y, z)));
+		} else if (block == Cookery.presser) {
+			return new ContainerPresser(player.inventory, (IInventory) world.getTileEntity(new BlockPos(x, y, z)));
+		} else if (block == Cookery.mill) {
+			return new ContainerMill(player.inventory, (IInventory) world.getTileEntity(new BlockPos(x, y, z)));
+		} else if (block == Bees.apiary) {
+			return new ContainerApiary(player.inventory, (IInventory) world.getTileEntity(new BlockPos(x, y, z)), world, new BlockPos(x, y, z));
+		} else {
 			throw new RuntimeException("no gui: idk how to server container for this");
 		}
 	}
@@ -53,24 +47,19 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(final int ID, final EntityPlayer player, final World world, int x, int y, int z) {
 		final Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-		
+
 		// i dont think these should be passing in world >___> deal w/ it later TODO
 		if (block == Cookery.cutting_board) {
-			return new GuiCuttingBoard(world, player.inventory, new BlockPos(x,y,z));
-		}
-		else if (block == Cookery.stove){
-			return new GuiStove(player.inventory, (TileEntityStove)world.getTileEntity(new BlockPos(x, y ,z)));
-		}
-		else if (block == Cookery.presser){
-			return new GuiPresser(world, player.inventory, new BlockPos(x, y ,z));
-		}
-		else if (block == Cookery.mill){
-			return new GuiMill(world, player.inventory, new BlockPos(x, y ,z));
-		}
-		else if (block == Bees.apiary){
-			return new GuiApiary(world, player.inventory, new BlockPos(x, y ,z));
-		}
-		else {
+			return new GuiCuttingBoard(world, player.inventory, new BlockPos(x, y, z));
+		} else if (block == Cookery.stove) {
+			return new GuiStove(player.inventory, (TileEntityStove) world.getTileEntity(new BlockPos(x, y, z)));
+		} else if (block == Cookery.presser) {
+			return new GuiPresser(world, player.inventory, new BlockPos(x, y, z));
+		} else if (block == Cookery.mill) {
+			return new GuiMill(world, player.inventory, new BlockPos(x, y, z));
+		} else if (block == Bees.apiary) {
+			return new GuiApiary(world, player.inventory, new BlockPos(x, y, z));
+		} else {
 			throw new RuntimeException("no gui: idk how client container/gui for this");
 		}
 	}

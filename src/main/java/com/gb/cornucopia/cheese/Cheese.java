@@ -1,11 +1,5 @@
 package com.gb.cornucopia.cheese;
 
-import com.gb.cornucopia.cuisine.Cuisine;
-
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
 public class Cheese {
 	public static BlockCheeseAged cheese_wheel_aged;
 	public static BlockCheeseYoung cheese_wheel_young;
