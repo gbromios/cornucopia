@@ -33,8 +33,6 @@ public class CommonProxy {
 	}
 
 	public void init(FMLInitializationEvent e) {
-		Fruit.init();
-		Veggie.init();
 		Bees.init();
 		Cheese.init();
 		Cookery.init();

@@ -8,8 +8,6 @@ import net.minecraft.init.Items;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -96,7 +94,6 @@ public class Fruit {
 		Items.APPLE.setCreativeTab(CornuCopia.tabFruit);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public static void init() {
 		for (Fruit f : fruitMap.values()) {
 			f.leaf.setGraphicsLevel(true);

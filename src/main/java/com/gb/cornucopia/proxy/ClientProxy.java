@@ -1,6 +1,8 @@
 package com.gb.cornucopia.proxy;
 
 import com.gb.cornucopia.InvModel;
+import com.gb.cornucopia.fruit.Fruit;
+import com.gb.cornucopia.veggie.Veggie;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -21,6 +23,8 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(final FMLInitializationEvent e) {
 		super.init(e);
+		Fruit.init();
+		Veggie.init();
 	}
 
 	@Override
