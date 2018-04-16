@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "cornucopia:cutting_board"
+  },
+  "pattern": [
+    "i  ",
+    "sss"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "i": {
+      "item": "ingotIron"
+    },
+    "s": {
+      "item": "slabWood"
+    }
+  }
+}

@@ -168,39 +168,39 @@ public class Fruit {
 	}
 
 	public static Fruit getForBiome(Random r, Biome b) {
-		if (BiomeDictionary.isBiomeOfType(b, Type.COLD)) {
-			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(8) == 0) {
+		if (BiomeDictionary.hasType(b, Type.COLD)) {
+			if (BiomeDictionary.hasType(b, Type.FOREST) && r.nextInt(8) == 0) {
 				return coldFruits.getRandom(r);
 			}
 			return null;
 		}
 
-		if (BiomeDictionary.isBiomeOfType(b, Type.MOUNTAIN)) {
-			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(4) == 0) {
+		if (BiomeDictionary.hasType(b, Type.MOUNTAIN)) {
+			if (BiomeDictionary.hasType(b, Type.FOREST) && r.nextInt(4) == 0) {
 				return mountainFruits.getRandom(r);
 			}
 			return null;
 		}
 
-		if (BiomeDictionary.isBiomeOfType(b, Type.WET)) {
-			if (BiomeDictionary.isBiomeOfType(b, Type.SWAMP) && r.nextInt(8) > 0) {
+		if (BiomeDictionary.hasType(b, Type.WET)) {
+			if (BiomeDictionary.hasType(b, Type.SWAMP) && r.nextInt(8) > 0) {
 				return null;
 			}
 			return jungleFruits.getRandom(r);
 		}
 
-		if (BiomeDictionary.isBiomeOfType(b, Type.FOREST)) {
+		if (BiomeDictionary.hasType(b, Type.FOREST)) {
 			return forestFruits.getRandom(r);
 		}
 
-		if (BiomeDictionary.isBiomeOfType(b, Type.HOT) || BiomeDictionary.isBiomeOfType(b, Type.MESA)) {
+		if (BiomeDictionary.hasType(b, Type.HOT) || BiomeDictionary.hasType(b, Type.MESA)) {
 			if (r.nextInt(2) == 0) {
 				return dryFruits.getRandom(r);
 			}
 			return null;
 		}
 
-		if (BiomeDictionary.isBiomeOfType(b, Type.PLAINS)) {
+		if (BiomeDictionary.hasType(b, Type.PLAINS)) {
 			if (r.nextInt(2) == 0) {
 				return plainsFruits.getRandom(r);
 			}

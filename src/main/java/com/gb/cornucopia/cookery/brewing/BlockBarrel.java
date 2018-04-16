@@ -60,51 +60,49 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 		this.last_age = Math.min(3, Math.max(1, last_stage)); // must be 1, 2, or 3 
 		this.fermentation_time = f_time;
 		this.setDefaultState(super.getDefaultState().withProperty(AGE, 0));
-		GameRegistry.registerTileEntity(TileEntityBarrel.class, "brew_" + name + "_entity");
+		GameRegistry.registerTileEntity(TileEntityBarrel.class, String.format("brew_%s_entity", name));
 
-		if (juice_flag) {
-			// TODO: this is bad sorry
-
-			final String juice = inputs[0] == Cuisine.apple_juice ? "juiceCider" : "juiceCordial";
-			GameRegistry.addRecipe(new ShapedOreRecipe(this, true, new Object[]{
-					" S ", "JJJ", " B ",
-					'S', Blocks.WOODEN_SLAB,
-					'B', Cookery.empty_barrel,
-					'J', juice
-			}));
-
-		} else {
-
-			if (inputs.length == 1) {
-				GameRegistry.addShapedRecipe(new ItemStack(this),
-						" S ", " I ", " B ",
-						'S', Blocks.WOODEN_SLAB,
-						'B', Cookery.empty_barrel,
-						'I', inputs[0]
-				);
-			} else if (inputs.length == 2) {
-				GameRegistry.addShapedRecipe(new ItemStack(this),
-						" S ", "JI ", " B ",
-						'S', Blocks.WOODEN_SLAB,
-						'B', Cookery.empty_barrel,
-						'I', inputs[0],
-						'J', inputs[1]
-				);
-			} else if (inputs.length == 3) {
-				GameRegistry.addShapedRecipe(new ItemStack(this),
-						" S ", "JIK", " B ",
-						'S', Blocks.WOODEN_SLAB,
-						'B', Cookery.empty_barrel,
-						'I', inputs[0],
-						'J', inputs[1],
-						'K', inputs[2]
-				);
-			} else {
-				throw new RuntimeException(String.format("invalid recipe for %s barrel- needs 1, 2 or 3 inputs\n%s\n", name, inputs));
-			}
-		}
-
-
+//		if (juice_flag) { TODO fix these recipes
+//			// TODO: this is bad sorry
+//
+//			final String juice = inputs[0] == Cuisine.apple_juice ? "juiceCider" : "juiceCordial";
+//			GameRegistry.addRecipe(new ShapedOreRecipe(this, true, new Object[]{
+//					" S ", "JJJ", " B ",
+//					'S', Blocks.WOODEN_SLAB,
+//					'B', Cookery.empty_barrel,
+//					'J', juice
+//			}));
+//
+//		} else {
+//
+//			if (inputs.length == 1) {
+//				GameRegistry.addShapedRecipe(new ItemStack(this),
+//						" S ", " I ", " B ",
+//						'S', Blocks.WOODEN_SLAB,
+//						'B', Cookery.empty_barrel,
+//						'I', inputs[0]
+//				);
+//			} else if (inputs.length == 2) {
+//				GameRegistry.addShapedRecipe(new ItemStack(this),
+//						" S ", "JI ", " B ",
+//						'S', Blocks.WOODEN_SLAB,
+//						'B', Cookery.empty_barrel,
+//						'I', inputs[0],
+//						'J', inputs[1]
+//				);
+//			} else if (inputs.length == 3) {
+//				GameRegistry.addShapedRecipe(new ItemStack(this),
+//						" S ", "JIK", " B ",
+//						'S', Blocks.WOODEN_SLAB,
+//						'B', Cookery.empty_barrel,
+//						'I', inputs[0],
+//						'J', inputs[1],
+//						'K', inputs[2]
+//				);
+//			} else {
+//				throw new RuntimeException(String.format("invalid recipe for %s barrel- needs 1, 2 or 3 inputs\n%s\n", name, inputs));
+//			}
+//		}
 	}
 
 	public boolean fermented(long t) {
@@ -133,7 +131,7 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		//world.setBlockState(pos, state.withProperty(AGE, ((int)state.getValue(AGE) + 1) % 16 ));
 		//return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
 		return false;

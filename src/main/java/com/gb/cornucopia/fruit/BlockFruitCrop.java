@@ -68,10 +68,10 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		// not your normal bonemeal activatation...
-		if (!world.isRemote && EnumDyeColor.byDyeDamage(stack.getItemDamage()) == EnumDyeColor.WHITE) {
-			world.setBlockState(pos, state.withProperty(DROP_SAPLING, false));
+		if (!worldIn.isRemote && EnumDyeColor.byDyeDamage(playerIn.getHeldItem(hand).getItemDamage()) == EnumDyeColor.WHITE) {
+			worldIn.setBlockState(pos, state.withProperty(DROP_SAPLING, false));
 		}
 		return false;
 	}
@@ -116,17 +116,17 @@ public class BlockFruitCrop extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-		if (!(worldIn.getBlockState(pos.up()).getBlock() instanceof BlockLeaves)) {
-			if (state.getValue(AGE) == 3) {
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+		if (!(world.getBlockState(pos.up()).getBlock() instanceof BlockLeaves)) {
+			if (((World) world).getBlockState(pos).getValue(AGE) == 3) {
 
-				spawnAsEntity(worldIn, pos, new ItemStack(this.raw));
-				spawnAsEntity(worldIn, pos, new ItemStack(this.raw));
+				spawnAsEntity((World) world, pos, new ItemStack(this.raw));
+				spawnAsEntity((World) world, pos, new ItemStack(this.raw));
 			}
-			if (state.getValue(DROP_SAPLING)) {
-				spawnAsEntity(worldIn, pos, new ItemStack(this.sapling));
+			if (((World) world).getBlockState(pos).getValue(DROP_SAPLING)) {
+				spawnAsEntity((World) world, pos, new ItemStack(this.sapling));
 			}
-			worldIn.setBlockToAir(pos);
+			((World) world).setBlockToAir(pos);
 		}
 	}
 

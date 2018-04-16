@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "cornucopia:water_basin"
+  },
+  "pattern": [
+    "c c",
+    "cbc",
+    "ccc"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "c": {
+      "item": "minecraft:cobblestone"
+    },
+    "b": {
+      "item": "minecraft:bucket"
+    }
+  }
+}

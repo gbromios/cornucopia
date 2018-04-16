@@ -17,7 +17,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(final FMLPreInitializationEvent e) {
 		super.preInit(e);
-		InvModel.register();
 	}
 
 	@Override

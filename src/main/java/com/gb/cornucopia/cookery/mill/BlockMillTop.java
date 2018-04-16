@@ -48,15 +48,15 @@ public class BlockMillTop extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote) {
-			TileEntity mill = world.getTileEntity(pos.down());
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (!worldIn.isRemote) {
+			TileEntity mill = worldIn.getTileEntity(pos.down());
 			if (mill instanceof TileEntityMill && ((TileEntityMill) mill).mill()) {
-				world.playSound(playerIn, pos, SoundEvents.BLOCK_GRAVEL_BREAK, SoundCategory.BLOCKS, 0.3f, 0.9f);
+				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_GRAVEL_BREAK, SoundCategory.BLOCKS, 0.3f, 0.9f);
 				final Integer progress = ((Integer) state.getValue(PROGRESS) + 1) % 4;
-				world.setBlockState(pos, state.withProperty(PROGRESS, progress));
-				world.setBlockState(pos.down(), world.getBlockState(pos.down()).withProperty(PROGRESS, progress));
-				world.notifyBlockUpdate(pos.down(), state, getDefaultState(), 3);
+				worldIn.setBlockState(pos, state.withProperty(PROGRESS, progress));
+				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).withProperty(PROGRESS, progress));
+				worldIn.notifyBlockUpdate(pos.down(), state, getDefaultState(), 3);
 			}
 
 		}
@@ -89,10 +89,10 @@ public class BlockMillTop extends Block {
 	}
 
 	@Override
-	public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn) {
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
 		// if our underlying mill goes away, so do we
-		if (worldIn.getBlockState(pos.down()).getBlock() != Cookery.mill) {
-			worldIn.setBlockToAir(pos);
+		if (world.getBlockState(pos.down()).getBlock() != Cookery.mill) {
+			((World) world).setBlockToAir(pos);
 		}
 	}
 

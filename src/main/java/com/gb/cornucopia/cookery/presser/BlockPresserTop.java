@@ -48,9 +48,9 @@ public class BlockPresserTop extends Block {
 
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer playerIn, final EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		final Integer progress = (Integer) state.getValue(PROGRESS);
-		final TileEntityPresser presser = (TileEntityPresser) world.getTileEntity(pos.down());
+		final TileEntityPresser presser = (TileEntityPresser) worldIn.getTileEntity(pos.down());
 
 		if (progress == 7 || !presser.canPress()) {
 			//return false;
@@ -60,8 +60,8 @@ public class BlockPresserTop extends Block {
 			// trigger the pressing
 			presser.press();
 		}
-		world.setBlockState(pos, state.withProperty(PROGRESS, progress + 1));
-		world.notifyBlockUpdate(pos.down(), state, getDefaultState(), 3);
+		worldIn.setBlockState(pos, state.withProperty(PROGRESS, progress + 1));
+		worldIn.notifyBlockUpdate(pos.down(), state, getDefaultState(), 3);
 		return true;
 	}
 
@@ -106,9 +106,9 @@ public class BlockPresserTop extends Block {
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-		if (worldIn.getBlockState(pos.down()).getBlock() != Cookery.presser) {
-			worldIn.setBlockToAir(pos);
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+		if (world.getBlockState(pos.down()).getBlock() != Cookery.presser) {
+			((World) world).setBlockToAir(pos);
 		}
 	}
 

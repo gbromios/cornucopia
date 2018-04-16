@@ -7,6 +7,7 @@ import com.gb.cornucopia.fruit.Fruit;
 import com.gb.cornucopia.veggie.Veggie;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class CornucopiaTabs {
 
@@ -16,8 +17,8 @@ public class CornucopiaTabs {
 		}
 
 		@Override
-		public Item getTabIconItem() {
-			return Bees.queen;
+		public ItemStack getTabIconItem() {
+			return new ItemStack(Bees.queen);
 		}
 	}
 
@@ -27,8 +28,8 @@ public class CornucopiaTabs {
 		}
 
 		@Override
-		public Item getTabIconItem() {
-			return Item.getItemFromBlock(Cookery.cutting_board);
+		public ItemStack getTabIconItem() {
+			return new ItemStack(Item.getItemFromBlock(Cookery.cutting_board));
 		}
 	}
 
@@ -38,8 +39,8 @@ public class CornucopiaTabs {
 		}
 
 		@Override
-		public Item getTabIconItem() {
-			return Cuisine.bread_dough;
+		public ItemStack getTabIconItem() {
+			return new ItemStack(Cuisine.bread_dough);
 		}
 	}
 
@@ -49,8 +50,8 @@ public class CornucopiaTabs {
 		}
 
 		@Override
-		public Item getTabIconItem() {
-			return Fruit.peach.raw;
+		public ItemStack getTabIconItem() {
+			return new ItemStack(Fruit.peach.raw);
 		}
 	}
 
@@ -60,8 +61,8 @@ public class CornucopiaTabs {
 		}
 
 		@Override
-		public Item getTabIconItem() {
-			return Veggie.asparagus.raw;
+		public ItemStack getTabIconItem() {
+			return new ItemStack(Veggie.asparagus.raw);
 		}
 	}
 }

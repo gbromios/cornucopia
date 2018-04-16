@@ -47,6 +47,15 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		return 2;
 	}
 
+	public boolean isEmpty() {
+		for (ItemStack itemstack : this.contents) {
+			if (!itemstack.isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public void update() {
 	}
@@ -105,7 +114,7 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	}
 
 	public boolean canPress() {
-		if (!this.hasWorldObj() || this.worldObj.isRemote) {
+		if (!this.hasWorld() || this.world.isRemote) {
 			return false;
 		} else if (this.contents[0] == null) {
 			return true; // so players can see how it works without loading it up
@@ -119,10 +128,10 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		final ItemStack in_stack = this.contents[0]; // already null checked in press()
 		final ItemStack out_stack = this.contents[1] != null ? this.contents[1] : new ItemStack(output, 0);
 
-		final int can_make = Math.min(in_stack.stackSize / ratio, out_stack.getMaxStackSize() - out_stack.stackSize);
+		final int can_make = Math.min(in_stack.getCount() / ratio, out_stack.getMaxStackSize() - out_stack.getCount());
 		if (can_make == 0) {
 			// inputs drop out for certain recipes
-			this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
+			this.world.spawnEntity(new EntityItem(this.world, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
 			this.contents[0] = null;
 			return;
 		} else if (contents[1] == null) {
@@ -137,11 +146,11 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 			this.contents[0] = null;
 		}
 
-		out_stack.stackSize += can_make;
-		in_stack.stackSize -= ingredients_needed;
+		out_stack.grow(can_make);
+		in_stack.shrink(ingredients_needed);
 
-		if (in_stack.stackSize > 0) {
-			this.worldObj.spawnEntityInWorld(new EntityItem(this.worldObj, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
+		if (in_stack.getCount() > 0) {
+			this.world.spawnEntity(new EntityItem(this.world, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
 		}
 	}
 
@@ -154,7 +163,7 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	}
 
 	public void press() {
-		if (!this.hasWorldObj() || this.worldObj.isRemote || !this.canPress() || this.contents[0] == null) {
+		if (!this.hasWorld() || this.world.isRemote || !this.canPress() || this.contents[0] == null) {
 			return;
 		}
 		final Item i = this.contents[0].getItem();
@@ -216,14 +225,14 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		super.readFromNBT(parentNBTTagCompound); // The super call is required to load the tiles location
 		final NBTTagCompound in_tag = parentNBTTagCompound.getCompoundTag("in");
 		if (in_tag != null) {
-			this.contents[0] = ItemStack.loadItemStackFromNBT(in_tag);
+			this.contents[0] = new ItemStack(in_tag);
 		} else {
 			this.contents[0] = null;
 		}
 
 		final NBTTagCompound out_tag = parentNBTTagCompound.getCompoundTag("out");
 		if (out_tag != null) {
-			this.contents[1] = ItemStack.loadItemStackFromNBT(out_tag);
+			this.contents[1] = new ItemStack(out_tag);
 		} else {
 			this.contents[1] = null;
 		}
@@ -235,7 +244,7 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	}
 
 	@Override
-	public boolean isUseableByPlayer(final EntityPlayer player) {
+	public boolean isUsableByPlayer(EntityPlayer player) {
 		return player.getDistanceSq(this.pos) < 6;
 	}
 
@@ -247,8 +256,8 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	@Override
 	public ItemStack decrStackSize(final int index, final int count) {
 		if (this.contents[index] != null) {
-			final ItemStack stack = this.contents[index].splitStack(Math.min(count, this.contents[index].stackSize));
-			if (this.contents[index].stackSize == 0) {
+			final ItemStack stack = this.contents[index].splitStack(Math.min(count, this.contents[index].getCount()));
+			if (this.contents[index].getCount() == 0) {
 				this.contents[index] = null;
 			}
 			this.markDirty();
@@ -260,8 +269,8 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	public void setInventorySlotContents(final int index, final ItemStack stack) {
 		this.contents[index] = stack;
 
-		if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
-			stack.stackSize = this.getInventoryStackLimit();
+		if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
+			stack.setCount(this.getInventoryStackLimit());
 		}
 
 		this.markDirty();

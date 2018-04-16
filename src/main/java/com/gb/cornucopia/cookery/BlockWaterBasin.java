@@ -40,13 +40,12 @@ public class BlockWaterBasin extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-
-		if (world.isRemote || player.inventory.getCurrentItem() == null) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (worldIn.isRemote || playerIn.inventory.getCurrentItem() == null) {
 			return true;
 		}
 
-		final Item held_item = player.inventory.getCurrentItem().getItem();
+		final Item held_item = playerIn.inventory.getCurrentItem().getItem();
 		ItemStack filled_container = null;
 
 		if (held_item == Items.GLASS_BOTTLE) {
@@ -57,17 +56,17 @@ public class BlockWaterBasin extends Block {
 			return true;
 		}
 
-		if (!player.inventory.addItemStackToInventory(filled_container)) {
-			//world.spawnEntityInWorld(new EntityItem(world, , water_bucket));
-			Block.spawnAsEntity(world, pos, filled_container);
-
-		} else if (player instanceof EntityPlayerMP) {
-			((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
+		if (!playerIn.inventory.addItemStackToInventory(filled_container)) {
+			//worldIn.spawnEntityInWorld(new EntityItem(worldIn, , water_bucket));
+			Block.spawnAsEntity(worldIn, pos, filled_container);
+		} else if (playerIn instanceof EntityPlayerMP) {
+			((EntityPlayerMP) playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
 		}
 
 		// ....wat
-		if (--(player.inventory.getCurrentItem().stackSize) <= 0) {
-			player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+		playerIn.inventory.getCurrentItem().shrink(1);
+		if (playerIn.inventory.getCurrentItem().getCount() <= 0) {
+			playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, (ItemStack) null);
 		}
 
 		return true;

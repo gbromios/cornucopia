@@ -41,9 +41,9 @@ public class BlockApiary extends Block implements ITileEntityProvider {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, EnumHand hand, ItemStack stack, final EnumFacing side, final float x, final float y, final float z) {
-		if (!world.isRemote) {
-			player.openGui(CornuCopia.instance, 420, world, pos.getX(), pos.getY(), pos.getZ());
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (!worldIn.isRemote) {
+			playerIn.openGui(CornuCopia.instance, 420, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 

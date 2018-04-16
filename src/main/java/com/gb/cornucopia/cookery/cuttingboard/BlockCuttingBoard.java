@@ -3,6 +3,7 @@ package com.gb.cornucopia.cookery.cuttingboard;
 import com.gb.cornucopia.CornuCopia;
 import com.gb.cornucopia.InvModel;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -18,13 +19,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class BlockCuttingBoard extends Block {
 	protected static final AxisAlignedBB[] BOARD_AABB = new AxisAlignedBB[]{
 			new AxisAlignedBB(0.0625F, 0.0F, 0.125F, 0.9375F, 0.0625F, 0.875F),
 			new AxisAlignedBB(0.125F, 0.0F, 0.0625F, 0.875F, 0.0625F, 0.9375F)
 	};
 
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public final String name;
 
 	public BlockCuttingBoard() {
@@ -39,57 +42,44 @@ public class BlockCuttingBoard extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, EnumHand hand, ItemStack stack, final EnumFacing side, final float x, final float y, final float z) {
-		if (!world.isRemote) {
-			player.openGui(CornuCopia.instance, 420, world, pos.getX(), pos.getY(), pos.getZ());
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (!worldIn.isRemote) {
+			playerIn.openGui(CornuCopia.instance, 420, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 
 	}
 
 	@Override
-	public void neighborChanged(final IBlockState state, final World worldIn, final BlockPos pos, final Block blockIn) {
-		if (!this.canBlockStay(worldIn, pos)) {
-			this.dropBlockAsItem(worldIn, pos, state, 0);
-			worldIn.setBlockToAir(pos);
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+		if (!this.canBlockStay(world, pos)) {
+			this.dropBlockAsItem((World) world, pos, world.getBlockState(pos), 0);
+			((World) world).setBlockToAir(pos);
 		}
 	}
 
-	protected boolean canBlockStay(final IBlockAccess world, final BlockPos pos) {
+	protected boolean canBlockStay(IBlockAccess world, BlockPos pos) {
 		return world.isSideSolid(pos.down(), EnumFacing.UP, true);
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(final World world, final BlockPos pos) {
+	public boolean canPlaceBlockAt(World world, BlockPos pos) {
 		return world.isSideSolid(pos.down(), EnumFacing.UP, true);
 	}
 
-
 	@Override
-	public IBlockState onBlockPlaced(final World world, final BlockPos pos, final EnumFacing facing, final float hitX, final float hitY, final float hitZ, final int meta, final EntityLivingBase placer) {
+	@Nonnull
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
 		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
-	public boolean isFullCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		final EnumFacing facing = state.getValue(FACING);
-		return (facing == EnumFacing.NORTH || facing == EnumFacing.SOUTH)
-				? BOARD_AABB[0]
-				: BOARD_AABB[1];
+		return (state.getValue(FACING).getAxis() == EnumFacing.Axis.X) ? BOARD_AABB[0] : BOARD_AABB[1];
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(final int meta) {
+	public IBlockState getStateFromMeta(int meta) {
 		// must be horizontal
 		final EnumFacing facing = EnumFacing.getFront(meta).getAxis() == EnumFacing.Axis.Y
 				? EnumFacing.NORTH
@@ -99,7 +89,7 @@ public class BlockCuttingBoard extends Block {
 	}
 
 	@Override
-	public int getMetaFromState(final IBlockState state) {
+	public int getMetaFromState(IBlockState state) {
 		return ((EnumFacing) state.getValue(FACING)).getIndex();
 	}
 

@@ -50,15 +50,12 @@ public class TileEntityBarrel extends TileEntity implements ITickable {
 
 	@Override
 	public void update() {
-		if (this.hasWorldObj() && !this.worldObj.isRemote) {
-			if (this.ticks-- > 0) {
-				return; // long timescales so don't need to check every frame.
-			}
+		if (this.hasWorld() && !this.world.isRemote) {
+			if (this.ticks-- > 0) return;
 			this.ticks = 100;
 
-			final IBlockState state = this.worldObj.getBlockState(this.getPos());
+			final IBlockState state = this.world.getBlockState(this.getPos());
 			final int age = (int) state.getValue(BlockBarrel.AGE);
-
 
 			final long s = System.currentTimeMillis();
 			final long t = s - this.born;
@@ -68,13 +65,9 @@ public class TileEntityBarrel extends TileEntity implements ITickable {
 			if (age >= ((BlockBarrel) state.getBlock()).last_age) {
 				return;
 			}
-
-
 			if (((BlockBarrel) state.getBlock()).fermented(t)) {
-				this.worldObj.setBlockState(this.pos, state.withProperty(BlockBarrel.AGE, age + 1));
+				this.world.setBlockState(this.pos, state.withProperty(BlockBarrel.AGE, age + 1));
 			}
-
-
 		}
 	}
 }

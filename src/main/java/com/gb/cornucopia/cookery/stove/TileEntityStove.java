@@ -42,7 +42,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 		for (int i = 0; i < 9; i++) {
 			final NBTTagCompound item = items.getCompoundTagAt(i);
 			if (item != null) {
-				this.contents[i] = ItemStack.loadItemStackFromNBT(item);
+				this.contents[i] = new ItemStack(item);
 			} else {
 				this.contents[i] = null;
 			}
@@ -123,6 +123,15 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 		return 9;
 	}
 
+	public boolean isEmpty() {
+		for (ItemStack itemstack : this.contents) {
+			if (!itemstack.isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public ItemStack getStackInSlot(final int index) {
 		return this.contents[index];
@@ -134,7 +143,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	}
 
 	public Vessel getVessel() {
-		return BlockStove.getVessel(this.worldObj, this.pos);
+		return BlockStove.getVessel(this.world, this.pos);
 	}
 
 	// different, more specific than markDirty();
@@ -159,24 +168,24 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	}
 
 	public boolean hasBowl() {
-		return this.contents[8] != null && this.contents[8].stackSize > 0 && this.contents[8].getItem() == Items.BOWL;
+		return this.contents[8] != null && this.contents[8].getCount() > 0 && this.contents[8].getItem() == Items.BOWL;
 	}
 
 	public boolean hasWater() {
-		return this.hasWorldObj() && (
-				this.worldObj.getBlockState(this.pos.add(1, 0, 0)).getBlock() == Cookery.water_basin
-						|| this.worldObj.getBlockState(this.pos.add(-1, 0, 0)).getBlock() == Cookery.water_basin
-						|| this.worldObj.getBlockState(this.pos.add(0, 0, 1)).getBlock() == Cookery.water_basin
-						|| this.worldObj.getBlockState(this.pos.add(0, 0, -1)).getBlock() == Cookery.water_basin
+		return this.hasWorld() && (
+				this.world.getBlockState(this.pos.add(1, 0, 0)).getBlock() == Cookery.water_basin
+						|| this.world.getBlockState(this.pos.add(-1, 0, 0)).getBlock() == Cookery.water_basin
+						|| this.world.getBlockState(this.pos.add(0, 0, 1)).getBlock() == Cookery.water_basin
+						|| this.world.getBlockState(this.pos.add(0, 0, -1)).getBlock() == Cookery.water_basin
 		);
 	}
 
 	// force the stove block below us to light up (or turn off)
 	private void _didBurningChange(final boolean was_burning) {
 		if (was_burning != this.isBurning()) {
-			final IBlockState stove_state = this.worldObj.getBlockState(pos);
+			final IBlockState stove_state = this.world.getBlockState(pos);
 			if (stove_state.getBlock() == Cookery.stove) {
-				this.worldObj.setBlockState(this.pos, stove_state.withProperty(BlockStove.ON, this.isBurning()));
+				this.world.setBlockState(this.pos, stove_state.withProperty(BlockStove.ON, this.isBurning()));
 			}
 			// if the fire has just gone out this tick without being re-lit, the cooking is over :(
 			if (was_burning) {
@@ -209,7 +218,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 
 	@Override
 	public void update() {
-		if (!this.worldObj.isRemote) {
+		if (!this.world.isRemote) {
 			final boolean debug = this._debug_update();
 
 			// before we tick down, so we can track wether the ON state should change this tick
@@ -276,10 +285,10 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 								output.isStackable()
 										&& output.isItemEqual(result)
 										&& ItemStack.areItemStackTagsEqual(output, result) // wuuuut
-										&& output.stackSize + result.stackSize <= this.getInventoryStackLimit()
+										&& output.getCount() + result.getCount() <= this.getInventoryStackLimit()
 								) {
 							this._consumeIngredients();
-							output.stackSize += result.stackSize;
+							output.grow(result.getCount());
 							this.markInputChanged();
 							this.cook_time = 0;
 						}
@@ -332,8 +341,8 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	@Override
 	public ItemStack decrStackSize(final int index, final int count) {
 		if (this.contents[index] != null) {
-			ItemStack stack = this.contents[index].splitStack(Math.min(count, this.contents[index].stackSize));
-			if (this.contents[index].stackSize == 0) {
+			ItemStack stack = this.contents[index].splitStack(Math.min(count, this.contents[index].getCount()));
+			if (this.contents[index].getCount() == 0) {
 				this.contents[index] = null;
 			}
 			this.markDirty();
@@ -349,7 +358,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 
 	// TODO: this should actually make sure the player is close enough.
 	@Override
-	public boolean isUseableByPlayer(final EntityPlayer player) {
+	public boolean isUsableByPlayer(final EntityPlayer player) {
 		return true;
 	}
 

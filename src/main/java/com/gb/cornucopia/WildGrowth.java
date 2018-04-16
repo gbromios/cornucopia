@@ -94,9 +94,9 @@ public class WildGrowth {
 		//System.out.format("		(cleared to )\n ", this.grew_last.size());
 	}
 
-	private boolean offCooldown(Chunk c, Integer time) {
-		final int x = c.xPosition;
-		final int z = c.zPosition;
+	private boolean offCooldown(Chunk chunk, Integer time) {
+		final int x = chunk.x;
+		final int z = chunk.z;
 		if (!grew_last.contains(x, z) || time - grew_last.get(x, z) > Settings.wild_growth_cooldown) {
 			grew_last.put(x, z, time);
 			return true;
@@ -106,33 +106,33 @@ public class WildGrowth {
 	}
 
 	@SubscribeEvent
-	public void onWorldLoad(WorldEvent.Load e) {
+	public void onWorldLoad(WorldEvent.Load event) {
 		this.read();
 	}
 
 	@SubscribeEvent
-	public void onWorldUnload(WorldEvent.Save e) {
+	public void onWorldUnload(WorldEvent.Save event) {
 		this.write();
 	}
 
 	@SubscribeEvent
-	public void onChunkLoad(ChunkEvent.Load e) {
-		if (e.getWorld().isRemote) {
+	public void onChunkLoad(ChunkEvent.Load event) {
+		if (event.getWorld().isRemote) {
 			return;
 		}
 		if (!Settings.wild_fruit_spawn && !Settings.wild_veggie_spawn && !Settings.wild_bee_spawn) {
 			return;
 		}
-		if (this.offCooldown(e.getChunk(), (int) e.getWorld().getWorldTime())) {
+		if (this.offCooldown(event.getChunk(), (int) event.getWorld().getWorldTime())) {
 			// chunk has a chance to spawn a random veggie
 			if (Settings.wild_fruit_spawn && RANDOM.nextInt(Settings.wild_fruit_spawn_chance) == 0) {
-				this.growAFruit(e.getChunk(), e.getWorld());
+				this.growAFruit(event.getChunk(), event.getWorld());
 			}
 			if (Settings.wild_veggie_spawn && RANDOM.nextInt(Settings.wild_veggie_spawn_chance) == 0) {
-				this.growAVeggie(e.getChunk(), e.getWorld());
+				this.growAVeggie(event.getChunk(), event.getWorld());
 			}
 			if (Settings.wild_bee_spawn && RANDOM.nextInt(Settings.wild_bee_spawn_chance) == 0) {
-				this.growABees(e.getChunk(), e.getWorld());
+				this.growABees(event.getChunk(), event.getWorld());
 			}
 		}
 
@@ -142,31 +142,31 @@ public class WildGrowth {
 			last_cleaned = 0;
 			//System.out.format("		(wild growth cache has %d)\n ", this.grew_last.size());
 			if (grew_last.size() > MAXCHUNKS) {
-				this.clear((int) e.getWorld().getWorldTime());
+				this.clear((int) event.getWorld().getWorldTime());
 			}
 		}
 	}
 
-	private void growAFruit(Chunk c, World w) {
-		final int x = 16 * c.xPosition + RANDOM.nextInt(16);
-		final int z = 16 * c.zPosition + RANDOM.nextInt(16);
+	private void growAFruit(Chunk chunk, World world) {
+		final int x = 16 * chunk.x + RANDOM.nextInt(16);
+		final int z = 16 * chunk.z + RANDOM.nextInt(16);
 		;
 
-		final int yMin = c.getHeightValue(x & 15, z & 15) - 20;
-		int y = c.getHeightValue(x & 15, z & 15);
+		final int yMin = chunk.getHeightValue(x & 15, z & 15) - 20;
+		int y = chunk.getHeightValue(x & 15, z & 15);
 		// don't bother searching too low
 		while (--y > yMin) {
 			final BlockPos pos = new BlockPos(x, y, z);
-			final IBlockState leaf = w.getBlockState(pos.up());
-			//System.out.format("		......%s ? %s ____ %s\n ", pos, w.getBlockState(pos), leaf);
+			final IBlockState leaf = world.getBlockState(pos.up());
+			//System.out.format("		......%s ? %s ____ %s\n ", pos, world.getBlockState(pos), leaf);
 
-			if ((leaf.getBlock() == Blocks.LEAVES || leaf.getBlock() == Blocks.LEAVES2) && w.isAirBlock(pos)) {
-				final Biome b = w.getBiomeGenForCoords(pos);
+			if ((leaf.getBlock() == Blocks.LEAVES || leaf.getBlock() == Blocks.LEAVES2) && world.isAirBlock(pos)) {
+				final Biome b = world.getBiome(pos);
 				final Fruit f = Fruit.getForBiome(RANDOM, b);
 				if (f == null) {
 					return;
 				}
-				w.setBlockState(pos, f.crop.getDefaultState()
+				world.setBlockState(pos, f.crop.getDefaultState()
 						.withProperty(BlockFruitCrop.DROP_SAPLING, true)
 						.withProperty(BlockFruitCrop.AGE, 3)
 				);
@@ -177,43 +177,43 @@ public class WildGrowth {
 
 	}
 
-	private void growABees(Chunk c, World w) {
-		final int x = 16 * c.xPosition + RANDOM.nextInt(16);
-		final int z = 16 * c.zPosition + RANDOM.nextInt(16);
+	private void growABees(Chunk chunk, World world) {
+		final int x = 16 * chunk.x + RANDOM.nextInt(16);
+		final int z = 16 * chunk.z + RANDOM.nextInt(16);
 		;
-		final int yMin = c.getHeightValue(x & 15, z & 15) - 12;
-		int y = c.getHeightValue(x & 15, z & 15);
+		final int yMin = chunk.getHeightValue(x & 15, z & 15) - 12;
+		int y = chunk.getHeightValue(x & 15, z & 15);
 
 		// don't bother searching too low
 		while (--y > yMin) {
 			final BlockPos pos = new BlockPos(x, y, z);
-			final IBlockState leaf = w.getBlockState(pos.up());
-			//System.out.format("		......%s ? %s ____ %s\n ", pos, w.getBlockState(pos), leaf);
+			final IBlockState leaf = world.getBlockState(pos.up());
+			//System.out.format("		......%s ? %s ____ %s\n ", pos, world.getBlockState(pos), leaf);
 
-			if ((leaf.getBlock() == Blocks.LEAVES || leaf.getBlock() == Blocks.LEAVES2) && w.isAirBlock(pos)) {
-				w.setBlockState(pos, Bees.hive.getDefaultState());
-				//System.out.format(" BEES @ %s = %s \n ", pos, w.getBlockState(pos), leaf);
+			if ((leaf.getBlock() == Blocks.LEAVES || leaf.getBlock() == Blocks.LEAVES2) && world.isAirBlock(pos)) {
+				world.setBlockState(pos, Bees.hive.getDefaultState());
+				//System.out.format(" BEES @ %s = %s \n ", pos, world.getBlockState(pos), leaf);
 				return;
 			}
 		}
-		//System.out.format("		bees hit %s\n ", w.getBlockState(new BlockPos(x, y, z)));
+		//System.out.format("		bees hit %s\n ", world.getBlockState(new BlockPos(x, y, z)));
 
 	}
 
-	private void growAVeggie(Chunk c, World w) {
+	private void growAVeggie(Chunk chunk, World world) {
 		// account for: temperate forest, cold forest, jungle, plains, arid
-		final int x = 16 * c.xPosition + RANDOM.nextInt(16);
-		final int z = 16 * c.zPosition + RANDOM.nextInt(16);
+		final int x = 16 * chunk.x + RANDOM.nextInt(16);
+		final int z = 16 * chunk.z + RANDOM.nextInt(16);
 		;
-		final int y = c.getHeightValue(x & 15, z & 15);
+		final int y = chunk.getHeightValue(x & 15, z & 15);
 		final BlockPos pos = new BlockPos(x, y, z);
-		final Biome b = w.getBiomeGenForCoords(pos);
+		final Biome b = world.getBiome(pos);
 		final Veggie v = Veggie.getForBiome(RANDOM, b);
 		if (v == null) {
 			return;
 		}
-		if (w.getBlockState(pos.down()).getBlock() == Blocks.GRASS) {
-			w.setBlockState(pos, v.wild.getDefaultState());
+		if (world.getBlockState(pos.down()).getBlock() == Blocks.GRASS) {
+			world.setBlockState(pos, v.wild.getDefaultState());
 		}
 		//System.out.format(" VEG   @ %s \n\n", v == null ? "<>" : v.name);
 	}

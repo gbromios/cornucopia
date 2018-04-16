@@ -73,7 +73,7 @@ public class Veggie {
 		this.wild.setDrops(raw, seed);
 		vegMap.put(name, this);
 
-		GameRegistry.addShapelessRecipe(new ItemStack(seed, 2), raw);
+//		GameRegistry.addShapelessRecipe(new ItemStack(seed, 2), raw); TODO fix this
 	}
 
 	private Veggie(final String name, final BlockVeggieCrop crop, final BlockVeggieWild wild, final ItemVeggieRaw raw) {
@@ -247,42 +247,42 @@ public class Veggie {
 	}
 
 	public static Veggie getForBiome(Random r, Biome b) {
-		if (BiomeDictionary.isBiomeOfType(b, Type.COLD)) {
-			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(4) == 0) {
+		if (BiomeDictionary.hasType(b, Type.COLD)) {
+			if (BiomeDictionary.hasType(b, Type.FOREST) && r.nextInt(4) == 0) {
 				return coldVeggies.getRandom(r);
 			}
 			return null;
 		}
 
-		if (BiomeDictionary.isBiomeOfType(b, Type.MOUNTAIN)) {
-			if (BiomeDictionary.isBiomeOfType(b, Type.FOREST) && r.nextInt(3) == 0) {
+		if (BiomeDictionary.hasType(b, Type.MOUNTAIN)) {
+			if (BiomeDictionary.hasType(b, Type.FOREST) && r.nextInt(3) == 0) {
 				return mountainVeggies.getRandom(r);
 			}
 			return null;
 		}
 
-		if (BiomeDictionary.isBiomeOfType(b, Type.WET)) {
-			if (BiomeDictionary.isBiomeOfType(b, Type.SWAMP) && r.nextInt(3) > 0) {
+		if (BiomeDictionary.hasType(b, Type.WET)) {
+			if (BiomeDictionary.hasType(b, Type.SWAMP) && r.nextInt(3) > 0) {
 				return null;
 			}
 			return jungleVeggies.getRandom(r);
 		}
 
-		if (BiomeDictionary.isBiomeOfType(b, Type.FOREST)) {
+		if (BiomeDictionary.hasType(b, Type.FOREST)) {
 			if (r.nextInt(2) > 0) {
 				return forestVeggies.getRandom(r);
 			}
 			return null;
 		}
 
-		if (BiomeDictionary.isBiomeOfType(b, Type.HOT) || BiomeDictionary.isBiomeOfType(b, Type.MESA)) {
+		if (BiomeDictionary.hasType(b, Type.HOT) || BiomeDictionary.hasType(b, Type.MESA)) {
 			if (r.nextInt(3) > 0) {
 				return dryVeggies.getRandom(r);
 			}
 			return null;
 		}
 
-		if (BiomeDictionary.isBiomeOfType(b, Type.PLAINS)) {
+		if (BiomeDictionary.hasType(b, Type.PLAINS)) {
 			return plainsVeggies.getRandom(r);
 		}
 

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "cornucopia:presser"
+  },
+  "pattern": [
+    "iii",
+    "wpw",
+    "www"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "i": {
+      "item": "ingotIron"
+    },
+    "w": {
+      "item": "plankWood"
+    },
+    "p": {
+      "item": "minecraft:piston"
+    }
+  }
+}

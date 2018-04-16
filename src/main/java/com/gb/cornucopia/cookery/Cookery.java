@@ -84,7 +84,7 @@ public class Cookery {
 
 	public static void init() {
 		initCrafting();
-		initBarrels();
+//		initBarrels(); TODO hella broken right now
 	}
 
 	// finished barrel recipes depend on items that will have been initialized in preInit, so wait until init to create barrels 
@@ -101,59 +101,41 @@ public class Cookery {
 	}
 
 	private static void initCrafting() {
-		// crafting recipes
-		GameRegistry.addShapedRecipe(new ItemStack(water_basin),
-				"S S", "SBS", "SSS",
-				'B', Items.WATER_BUCKET,
-				'S', Blocks.COBBLESTONE
-		);
-
-		GameRegistry.addShapedRecipe(new ItemStack(cutting_board),
-				"I  ", "SSS",
-				'S', Blocks.WOODEN_SLAB,
-				'I', Items.IRON_INGOT
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(presser),
-				"III", "WPW", "WWW",
-				'I', Items.IRON_INGOT,
-				'W', Blocks.PLANKS,
-				'P', Blocks.PISTON
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(mill),
-				"SSS", "WIW", "WWW",
-				'I', Items.IRON_INGOT,
-				'W', Blocks.PLANKS,
-				'S', Blocks.COBBLESTONE
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(stove),
-				"III", "S S", "SSS",
-				'I', Items.IRON_INGOT,
-				'S', Blocks.COBBLESTONE
-		);
-
-		GameRegistry.addShapedRecipe(new ItemStack(pot),
-				"S S", "I I", "III",
-				'I', Items.IRON_INGOT,
-				'S', Items.STICK
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(pan),
-				" II", " II", "S  ",
-				'I', Items.IRON_INGOT,
-				'S', Items.STICK
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(barrel_hoop),
-				" I ", "I I", " I ",
-				'I', Items.IRON_INGOT
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(barrel_stave),
-				" W ", " W ", " W ",
-				'W', Blocks.PLANKS
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(empty_barrel),
-				"SHS", "S S", "SHS",
-				'S', barrel_stave,
-				'H', barrel_hoop
-		);
+//		GameRegistry.addShapedRecipe(new ItemStack(mill),
+//				"SSS", "WIW", "WWW",
+//				'I', Items.IRON_INGOT,
+//				'W', Blocks.PLANKS,
+//				'S', Blocks.COBBLESTONE
+//		);
+//		GameRegistry.addShapedRecipe(new ItemStack(stove),
+//				"III", "S S", "SSS",
+//				'I', Items.IRON_INGOT,
+//				'S', Blocks.COBBLESTONE
+//		);
+//
+//		GameRegistry.addShapedRecipe(new ItemStack(pot),
+//				"S S", "I I", "III",
+//				'I', Items.IRON_INGOT,
+//				'S', Items.STICK
+//		);
+//		GameRegistry.addShapedRecipe(new ItemStack(pan),
+//				" II", " II", "S  ",
+//				'I', Items.IRON_INGOT,
+//				'S', Items.STICK
+//		);
+//		GameRegistry.addShapedRecipe(new ItemStack(barrel_hoop),
+//				" I ", "I I", " I ",
+//				'I', Items.IRON_INGOT
+//		);
+//		GameRegistry.addShapedRecipe(new ItemStack(barrel_stave),
+//				" W ", " W ", " W ",
+//				'W', Blocks.PLANKS
+//		);
+//		GameRegistry.addShapedRecipe(new ItemStack(empty_barrel),
+//				"SHS", "S S", "SHS",
+//				'S', barrel_stave,
+//				'H', barrel_hoop
+//		);
 	}
 
 	public static void postInit() {

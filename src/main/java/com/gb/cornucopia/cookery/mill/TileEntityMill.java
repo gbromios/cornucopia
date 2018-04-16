@@ -45,6 +45,15 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 		return 9;
 	}
 
+	public boolean isEmpty() {
+		for (ItemStack itemstack : this.contents) {
+			if (!itemstack.isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public void update() {
 	}
@@ -91,14 +100,11 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 			return false;
 		}
 		try {
-			if (--this.contents[0].stackSize == 0) {
-				this.contents[0] = null;
-			}
-			if (--this.contents[1].stackSize == 0) {
-				this.contents[1] = null;
-			}
-			if (--this.contents[2].stackSize == 0) {
-				this.contents[2] = null;
+			for (int i = 0; i < 3; i++) {
+				this.contents[i].shrink(1);
+				if (this.contents[i].getCount() == 0) {
+					this.contents[i] = null;
+				}
 			}
 		} catch (NullPointerException e) {
 			// screw whoever broke my sweet machine
@@ -110,7 +116,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 
 		final ItemStack output = this.contents[where];
 		if (output != null) {
-			output.stackSize += drop.stackSize;
+			output.grow(drop.getCount());
 			;
 		} else {
 			this.contents[where] = drop;
@@ -123,20 +129,17 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	}
 
 	private boolean _makePeanutButter() {
-		final ItemStack i = new ItemStack(Cuisine.peanut_butter);
-		final int where = this._canAccept(i);
+		final ItemStack drop = new ItemStack(Cuisine.peanut_butter);
+		final int where = this._canAccept(drop);
 		if (where == -1) {
 			return false;
 		}
 		try {
-			if (--this.contents[0].stackSize == 0) {
-				this.contents[0] = null;
-			}
-			if (--this.contents[1].stackSize == 0) {
-				this.contents[1] = null;
-			}
-			if (--this.contents[2].stackSize == 0) {
-				this.contents[2] = null;
+			for (int i = 0; i < 3; i++) {
+				this.contents[i].shrink(1);
+				if (this.contents[i].getCount() == 0) {
+					this.contents[i] = null;
+				}
 			}
 		} catch (NullPointerException e) {
 			// screw whoever broke my sweet machine
@@ -148,10 +151,9 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 
 		final ItemStack o = this.contents[where];
 		if (o != null) {
-			o.stackSize++;
-			;
+			o.grow(1);
 		} else {
-			this.contents[where] = i;
+			this.contents[where] = drop;
 		}
 		return true;
 	}
@@ -171,15 +173,18 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 			final ItemStack input = contents[i];
 			if (input == null || input.getItem() != Veggie.herb.raw) {
 				continue;
-			} else if (--input.stackSize < 1) {
-				contents[i] = null;
+			} else {
+				input.shrink(1);
+				if (input.getCount() < 1) {
+					contents[i] = null;
+				}
 			}
 
 			final ItemStack output = this.contents[where];
 			if (output == null) {
 				this.contents[where] = drop;
 			} else {
-				output.stackSize++;
+				output.grow(1);
 			}
 			return true;
 		}
@@ -203,14 +208,15 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 				continue;
 			}
 
-			if (--input.stackSize < 1) {
+			input.shrink(1);
+			if (input.getCount() < 1) {
 				contents[i] = null;
 			}
 			final ItemStack output = this.contents[where];
 			if (output == null) {
 				this.contents[where] = drop;
 			} else {
-				output.stackSize++;
+				output.grow(1);
 			}
 			return true;
 		}
@@ -255,7 +261,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 		// drop items in a specific order
 		for (int i : new int[]{7, 6, 8, 4, 3, 4}) {
 			final ItemStack output = this.contents[i];
-			if (output == null || (drop.isItemEqual(output) && drop.stackSize + output.stackSize <= output.getMaxStackSize())) {
+			if (output == null || (drop.isItemEqual(output) && drop.getCount() + output.getCount() <= output.getMaxStackSize())) {
 				return i;
 			}
 		}
@@ -276,7 +282,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 		for (int i = 0; i < 6; i++) {
 			final NBTTagCompound item = items.getCompoundTagAt(i);
 			if (item != null) {
-				this.contents[i] = ItemStack.loadItemStackFromNBT(item);
+				this.contents[i] = new ItemStack(item);
 			} else {
 				this.contents[i] = null;
 			}
@@ -311,7 +317,7 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	}
 
 	@Override
-	public boolean isUseableByPlayer(final EntityPlayer player) {
+	public boolean isUsableByPlayer(final EntityPlayer player) {
 		return player.getDistanceSq(this.pos) < 6;
 	}
 
@@ -323,8 +329,8 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	@Override
 	public ItemStack decrStackSize(final int index, final int count) {
 		if (this.contents[index] != null) {
-			final ItemStack stack = this.contents[index].splitStack(Math.min(count, this.contents[index].stackSize));
-			if (this.contents[index].stackSize == 0) {
+			final ItemStack stack = this.contents[index].splitStack(Math.min(count, this.contents[index].getCount()));
+			if (this.contents[index].getCount() == 0) {
 				this.contents[index] = null;
 			}
 			this.markDirty();
@@ -336,8 +342,8 @@ public class TileEntityMill extends TileEntity implements ITickable, IInventory 
 	public void setInventorySlotContents(final int index, final ItemStack stack) {
 		this.contents[index] = stack;
 
-		if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
-			stack.stackSize = this.getInventoryStackLimit();
+		if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
+			stack.setCount(this.getInventoryStackLimit());
 		}
 
 		this.markDirty();
