@@ -10,7 +10,8 @@
   "type": "forge:ore_shaped",
   "key": {
     "c": {
-      "item": "minecraft:cobblestone"
+      "type": "forge:ore_dict",
+      "ore": "cobblestone"
     },
     "b": {
       "item": "minecraft:bucket"
