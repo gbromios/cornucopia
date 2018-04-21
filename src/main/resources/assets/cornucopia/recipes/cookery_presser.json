@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "cornucopia:presser"
+    "item": "cornucopia:cookery_presser"
   },
   "pattern": [
     "iii",
@@ -10,10 +10,12 @@
   "type": "forge:ore_shaped",
   "key": {
     "i": {
-      "item": "ingotIron"
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
     },
     "w": {
-      "item": "plankWood"
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
     },
     "p": {
       "item": "minecraft:piston"
