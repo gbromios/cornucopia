@@ -55,9 +55,6 @@ public class Bees {
 	}
 
 	public static void init() {
-//		GameRegistry.addShapedRecipe(new ItemStack(apiary), "BSB", "BSB", "BSB", 'B', Blocks.PLANKS, 'S', Blocks.WOODEN_SLAB); TODO fix this
-//		GameRegistry.addShapedRecipe(new ItemStack(tiny_crown), "RRR", "GGG", " R ", 'R', Items.REDSTONE, 'G', Items.GOLD_INGOT);
-//		GameRegistry.addShapedRecipe(new ItemStack(queen), "HCH", "HBH", "RRR", 'C', tiny_crown, 'B', bee, 'R', royal_jelly, 'H', honey_raw);
 	}
 
 	public static void postInit() {

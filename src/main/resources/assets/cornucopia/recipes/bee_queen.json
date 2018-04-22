@@ -1,0 +1,25 @@
+{
+  "type": "forge:ore_shaped",
+  "result": {
+    "item": "cornucopia:bee_queen"
+  },
+  "pattern": [
+    "hch",
+    "hbh",
+    "rrr"
+  ],
+  "key": {
+    "b": {
+      "item": "cornucopia:bee_worker"
+    },
+    "c": {
+      "item": "cornucopia:bee_tiny_crown"
+    },
+    "h": {
+      "item": "cornucopia:bee_honey_raw"
+    },
+    "r": {
+      "item": "cornucopia:bee_royal_jelly"
+    }
+  }
+}

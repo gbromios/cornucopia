@@ -1,20 +1,21 @@
 {
   "type": "forge:ore_shaped",
   "result": {
-    "item": "cornucopia:cookery_cutting_board"
+    "item": "cornucopia:bee_tiny_crown"
   },
   "pattern": [
-    "i  ",
-    "sss"
+    "rrr",
+    "ggg",
+    " r "
   ],
   "key": {
-    "i": {
+    "g": {
       "type": "forge:ore_dict",
-      "ore": "ingotIron"
+      "ore": "ingotGold"
     },
-    "s": {
+    "r": {
       "type": "forge:ore_dict",
-      "ore": "slabWood"
+      "ore": "dustRedstone"
     }
   }
 }

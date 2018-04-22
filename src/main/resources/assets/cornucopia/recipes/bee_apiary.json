@@ -1,16 +1,17 @@
 {
   "type": "forge:ore_shaped",
   "result": {
-    "item": "cornucopia:cookery_cutting_board"
+    "item": "cornucopia:bee_apiary"
   },
   "pattern": [
-    "i  ",
-    "sss"
+    "bsb",
+    "bsb",
+    "bsb"
   ],
   "key": {
-    "i": {
+    "b": {
       "type": "forge:ore_dict",
-      "ore": "ingotIron"
+      "ore": "plankWood"
     },
     "s": {
       "type": "forge:ore_dict",

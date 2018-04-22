@@ -1,11 +1,11 @@
 {
   "type": "forge:ore_shaped",
   "result": {
-    "item": "cornucopia:cookery_presser"
+    "item": "cornucopia:cookery_mill"
   },
   "pattern": [
-    "iii",
-    "wpw",
+    "sss",
+    "wiw",
     "www"
   ],
   "key": {
@@ -17,8 +17,9 @@
       "type": "forge:ore_dict",
       "ore": "plankWood"
     },
-    "p": {
-      "item": "minecraft:piston"
+    "s": {
+      "type": "forge:ore_dict",
+      "ore": "cobblestone"
     }
   }
 }

@@ -1,24 +1,21 @@
 {
   "type": "forge:ore_shaped",
   "result": {
-    "item": "cornucopia:cookery_presser"
+    "item": "cornucopia:cookery_pot"
   },
   "pattern": [
-    "iii",
-    "wpw",
-    "www"
+    "s s",
+    "i i",
+    "iii"
   ],
   "key": {
     "i": {
       "type": "forge:ore_dict",
       "ore": "ingotIron"
     },
-    "w": {
+    "s": {
       "type": "forge:ore_dict",
-      "ore": "plankWood"
-    },
-    "p": {
-      "item": "minecraft:piston"
+      "ore": "stickWood"
     }
   }
 }
