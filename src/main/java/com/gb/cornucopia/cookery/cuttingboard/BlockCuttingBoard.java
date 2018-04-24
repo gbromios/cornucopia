@@ -75,17 +75,24 @@ public class BlockCuttingBoard extends Block {
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		return (state.getValue(FACING).getAxis() == EnumFacing.Axis.X) ? BOARD_AABB[0] : BOARD_AABB[1];
+		return (state.getValue(FACING).getAxis() == EnumFacing.Axis.Z) ? BOARD_AABB[0] : BOARD_AABB[1];
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		// must be horizontal
-		final EnumFacing facing = EnumFacing.getFront(meta).getAxis() == EnumFacing.Axis.Y
-				? EnumFacing.NORTH
-				: EnumFacing.getFront(meta);
-		;
+		final EnumFacing facing = EnumFacing.getHorizontal(meta);
 		return getDefaultState().withProperty(FACING, facing);
+	}
+
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
 	}
 
 	@Override
