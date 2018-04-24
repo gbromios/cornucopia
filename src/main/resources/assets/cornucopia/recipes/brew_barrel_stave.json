@@ -1,0 +1,17 @@
+{
+  "type": "forge:ore_shaped",
+  "result": {
+    "item": "cornucopia:brew_barrel_stave"
+  },
+  "pattern": [
+    "w",
+    "w",
+    "w"
+  ],
+  "key": {
+    "w": {
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    }
+  }
+}

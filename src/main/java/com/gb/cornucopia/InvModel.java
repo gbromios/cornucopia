@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.ArrayList;
 
@@ -44,16 +44,21 @@ public class InvModel {
 		add(itemBlock, block, 0, null);
 	}
 
-	public static void register() {
+	public static void registerItems(IForgeRegistry<Item> registry) {
 		for (InvModel model : models) {
-			if (model.block != null) {
-				GameRegistry.register(model.block);
-			}
-			if (model.item != null) {
-				GameRegistry.register(model.item);
-				CornuCopia.proxy.registerItemRenderer(model.item, model.meta, model.name);
-			}
+			if (model.item != null) registry.register(model.item);
 		}
+	}
 
+	public static void registerItemModels() {
+		for (InvModel model : models) {
+			if (model.item != null) CornuCopia.proxy.registerItemRenderer(model.item, model.meta, model.name);
+		}
+	}
+
+	public static void registerBlocks(IForgeRegistry<Block> registry) {
+		for (InvModel model : models) {
+			if (model.block != null) registry.register(model.block);
+		}
 	}
 }

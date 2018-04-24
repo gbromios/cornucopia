@@ -83,8 +83,7 @@ public class Cookery {
 	}
 
 	public static void init() {
-		initCrafting();
-		initBarrels();
+//		initBarrels(); TODO hella broken right now
 	}
 
 	// finished barrel recipes depend on items that will have been initialized in preInit, so wait until init to create barrels 
@@ -98,62 +97,6 @@ public class Cookery {
 		mead_barrel = new BlockBarrel("mead", 1, new ItemStack[]{new ItemStack(Cuisine.mead, 2)}, new Item[]{Bees.honey_raw, Bees.honey_raw, Bees.honey_raw}, false);
 		cheese_barrel = new BlockBarrel("cheese", 1, new ItemStack[]{new ItemStack(Item.getItemFromBlock(Cheese.cheese_wheel_young))}, new Item[]{Items.MILK_BUCKET, Items.MILK_BUCKET, Items.MILK_BUCKET}, (int) 1.8e+6, false); // 30 minutes
 		vinegar_barrel = new BlockBarrel("vinegar", 1, new ItemStack[]{new ItemStack(Cuisine.vinegar, 4)}, new Item[]{Cuisine.wine}, (int) 1.2e+6, false); // 20 minutes
-	}
-
-	private static void initCrafting() {
-		// crafting recipes
-		GameRegistry.addShapedRecipe(new ItemStack(water_basin),
-				"S S", "SBS", "SSS",
-				'B', Items.WATER_BUCKET,
-				'S', Blocks.COBBLESTONE
-		);
-
-		GameRegistry.addShapedRecipe(new ItemStack(cutting_board),
-				"I  ", "SSS",
-				'S', Blocks.WOODEN_SLAB,
-				'I', Items.IRON_INGOT
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(presser),
-				"III", "WPW", "WWW",
-				'I', Items.IRON_INGOT,
-				'W', Blocks.PLANKS,
-				'P', Blocks.PISTON
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(mill),
-				"SSS", "WIW", "WWW",
-				'I', Items.IRON_INGOT,
-				'W', Blocks.PLANKS,
-				'S', Blocks.COBBLESTONE
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(stove),
-				"III", "S S", "SSS",
-				'I', Items.IRON_INGOT,
-				'S', Blocks.COBBLESTONE
-		);
-
-		GameRegistry.addShapedRecipe(new ItemStack(pot),
-				"S S", "I I", "III",
-				'I', Items.IRON_INGOT,
-				'S', Items.STICK
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(pan),
-				" II", " II", "S  ",
-				'I', Items.IRON_INGOT,
-				'S', Items.STICK
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(barrel_hoop),
-				" I ", "I I", " I ",
-				'I', Items.IRON_INGOT
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(barrel_stave),
-				" W ", " W ", " W ",
-				'W', Blocks.PLANKS
-		);
-		GameRegistry.addShapedRecipe(new ItemStack(empty_barrel),
-				"SHS", "S S", "SHS",
-				'S', barrel_stave,
-				'H', barrel_hoop
-		);
 	}
 
 	public static void postInit() {

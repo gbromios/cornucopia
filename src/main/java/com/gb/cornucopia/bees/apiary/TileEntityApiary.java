@@ -38,7 +38,7 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 
 	@Override
 	public void update() {
-		if (!this.hasWorldObj()) return;
+		if (!this.hasWorld()) return;
 		final World world = this.getWorld();
 		if (world.isRemote) return;
 
@@ -88,7 +88,7 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 			// then look for plain wax:
 			for (int i = 2; i < 9; i++) {
 				if (this.contents[i].getItem() == Bees.waxcomb) {
-					this.contents[i].setItem(Bees.honeycomb);
+					this.contents[i] = new ItemStack(Bees.honeycomb);
 					//System.out.format("    make a honey comb\n");
 					return;
 				}
@@ -109,8 +109,8 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 						this.contents[i] = null;
 
 					}
-					this.contents[6].setItem(Bees.royal_jelly);
-					this.contents[1].stackSize = 8;
+					this.contents[6] = new ItemStack(Bees.royal_jelly);
+					this.contents[1].setCount(8);
 
 					return;
 				}
@@ -141,13 +141,14 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 		final ItemStack workers = this.contents[1];
 
 		if (food < -4) {
-			if (--workers.stackSize < 8) {
-				workers.stackSize = 8;
+			workers.shrink(1);
+			if (workers.getCount() < 8) {
+				workers.setCount(8);
 			}
 			return false;
 		} else if (food > 4 && this.hasQueen() && RANDOM.nextInt((12 - Math.min(food, 11)) * (1 + (2 * this.getNeighboringApiaries()))) == 0) {
 			//System.out.format("   bees grew! :)\n");
-			workers.stackSize = Math.min(workers.stackSize + 1, workers.getMaxStackSize());
+			workers.setCount(Math.min(workers.getCount() + 1, workers.getMaxStackSize()));
 		}
 		return true;
 	}
@@ -173,7 +174,7 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 		//System.out.format("%s => %s : (%s / %s)\n",pos, fpos, rs, d);
 		if (rs < 2.0) {
 
-			if ((this.worldObj.isAirBlock(fpos) || this.worldObj.getBlockState(fpos).getBlock() == Blocks.TALLGRASS) && this.worldObj.getBlockState(fpos.down()).getBlock() == Blocks.GRASS && RANDOM.nextInt(80) < this.beeCount()) {
+			if ((this.world.isAirBlock(fpos) || this.world.getBlockState(fpos).getBlock() == Blocks.TALLGRASS) && this.world.getBlockState(fpos.down()).getBlock() == Blocks.GRASS && RANDOM.nextInt(80) < this.beeCount()) {
 				// stop growing if there are 48 flowers in the vicinity (don't grow at all if there's no flowwers :()
 				if (this.flower_score > 48 || this.flower_survey.size() < 1) {
 					return;
@@ -181,19 +182,19 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 				IBlockState b = this.flower_survey.get(RANDOM.nextInt(this.flower_survey.size()));
 				//public void placeAt(World worldIn, BlockPos lowerPos, BlockDoublePlant.EnumPlantType variant, int flags)
 
-				this.worldObj.setBlockState(fpos, b, 0);
+				this.world.setBlockState(fpos, b, 0);
 				if (b.getBlock() instanceof BlockDoublePlant) {
-					Blocks.DOUBLE_PLANT.placeAt(worldObj, fpos, (EnumPlantType) b.getValue(BlockDoublePlant.VARIANT), 2);
+					Blocks.DOUBLE_PLANT.placeAt(world, fpos, (EnumPlantType) b.getValue(BlockDoublePlant.VARIANT), 2);
 				}
-				this.worldObj.notifyBlockUpdate(fpos, this.worldObj.getBlockState(fpos), this.worldObj.getBlockState(fpos), 3);
+				this.world.notifyBlockUpdate(fpos, this.world.getBlockState(fpos), this.world.getBlockState(fpos), 3);
 			}
 
 			// royal flower!
 			final BlockPos rpos = this.pos.add(RANDOM.nextInt(5) - 2, 0, RANDOM.nextInt(5) - 2);
 			if (this.beeCount() == 64 && this.flower_score > 16 && !this.nearRoyalBloom() && RANDOM.nextInt(this.hasQueen() ? 512 : 1024) == 0) {
-				if ((this.worldObj.isAirBlock(rpos) || this.worldObj.getBlockState(rpos).getBlock() == Blocks.TALLGRASS || this.worldObj.getBlockState(rpos).getBlock() instanceof BlockFlower) && this.worldObj.getBlockState(rpos.down()).getBlock() == Blocks.GRASS) {
-					this.worldObj.setBlockState(rpos, Bees.royal_bloom.getDefaultState(), 0);
-					this.worldObj.notifyBlockUpdate(fpos, this.worldObj.getBlockState(fpos), this.worldObj.getBlockState(fpos), 3);
+				if ((this.world.isAirBlock(rpos) || this.world.getBlockState(rpos).getBlock() == Blocks.TALLGRASS || this.world.getBlockState(rpos).getBlock() instanceof BlockFlower) && this.world.getBlockState(rpos.down()).getBlock() == Blocks.GRASS) {
+					this.world.setBlockState(rpos, Bees.royal_bloom.getDefaultState(), 0);
+					this.world.notifyBlockUpdate(fpos, this.world.getBlockState(fpos), this.world.getBlockState(fpos), 3);
 				}
 			}
 		}
@@ -234,7 +235,7 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 	}
 
 	public int beeCount() {
-		return contents[1] == null ? 0 : contents[1].stackSize;
+		return contents[1] == null ? 0 : contents[1].getCount();
 	}
 
 	// for writing to nbt
@@ -339,13 +340,22 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 		return 9;
 	}
 
+	public boolean isEmpty() {
+		for (ItemStack itemstack : this.contents) {
+			if (!itemstack.isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public int getInventoryStackLimit() {
 		return 64;
 	}
 
 	@Override
-	public boolean isUseableByPlayer(final EntityPlayer player) {
+	public boolean isUsableByPlayer(final EntityPlayer player) {
 		return player.getDistanceSq(this.pos) < 6;
 	}
 
@@ -360,8 +370,8 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 	@Override
 	public ItemStack decrStackSize(final int index, final int count) {
 		if (this.contents[index] != null) {
-			final ItemStack itemstack = this.contents[index].splitStack(Math.min(count, this.contents[index].stackSize));
-			if (this.contents[index].stackSize == 0) {
+			final ItemStack itemstack = this.contents[index].splitStack(Math.min(count, this.contents[index].getCount()));
+			if (this.contents[index].getCount() == 0) {
 				this.contents[index] = null;
 			}
 			this.markDirty();
@@ -376,8 +386,8 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 	public void setInventorySlotContents(final int index, final ItemStack stack) {
 		this.contents[index] = stack;
 
-		if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
-			stack.stackSize = this.getInventoryStackLimit();
+		if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
+			stack.setCount(this.getInventoryStackLimit());
 		}
 
 		this.markDirty();
@@ -398,7 +408,7 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 	}
 
 	public Container createContainer(final InventoryPlayer playerInventory, final EntityPlayer player) {
-		return new ContainerApiary(playerInventory, this, this.worldObj, this.pos);
+		return new ContainerApiary(playerInventory, this, this.world, this.pos);
 	}
 
 	@Override

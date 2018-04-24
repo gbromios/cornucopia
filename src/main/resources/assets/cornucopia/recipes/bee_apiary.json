@@ -1,0 +1,21 @@
+{
+  "type": "forge:ore_shaped",
+  "result": {
+    "item": "cornucopia:bee_apiary"
+  },
+  "pattern": [
+    "bsb",
+    "bsb",
+    "bsb"
+  ],
+  "key": {
+    "b": {
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    },
+    "s": {
+      "type": "forge:ore_dict",
+      "ore": "slabWood"
+    }
+  }
+}

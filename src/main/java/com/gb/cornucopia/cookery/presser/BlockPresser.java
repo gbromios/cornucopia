@@ -78,13 +78,13 @@ public class BlockPresser extends Block implements ITileEntityProvider {
 
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, final ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-		if (world.getBlockState(pos.up()).getBlock() == Cookery.pressertop) {
-			world.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(PROGRESS, 0));
-			world.notifyBlockUpdate(pos.up(), state, getDefaultState(), 3);
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (worldIn.getBlockState(pos.up()).getBlock() == Cookery.pressertop) {
+			worldIn.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(PROGRESS, 0));
+			worldIn.notifyBlockUpdate(pos.up(), state, getDefaultState(), 3);
 		}
-		if (!world.isRemote) {
-			player.openGui(CornuCopia.instance, 420, world, pos.getX(), pos.getY(), pos.getZ());
+		if (!worldIn.isRemote) {
+			playerIn.openGui(CornuCopia.instance, 420, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}
@@ -121,10 +121,9 @@ public class BlockPresser extends Block implements ITileEntityProvider {
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-		//System.out.println("...");
-		if (worldIn.isAirBlock(pos.up())) {
-			worldIn.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, state.getValue(FACING)));
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+		if (world.isAirBlock(pos.up())) {
+			((World) world).setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, world.getBlockState(pos).getValue(FACING)));
 		}
 	}
 

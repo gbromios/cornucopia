@@ -100,9 +100,9 @@ public class BlockVeggieWild extends BlockBush implements IPlantable {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-		//Block.spawnAsEntity(world, pos, new ItemStack(this));
-		//world.setBlockToAir(pos);
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		//Block.spawnAsEntity(worldIn, pos, new ItemStack(this));
+		//worldIn.setBlockToAir(pos);
 		return false;
 	}
 

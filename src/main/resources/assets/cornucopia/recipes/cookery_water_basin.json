@@ -1,0 +1,20 @@
+{
+  "type": "forge:ore_shaped",
+  "result": {
+    "item": "cornucopia:cookery_water_basin"
+  },
+  "pattern": [
+    "c c",
+    "cbc",
+    "ccc"
+  ],
+  "key": {
+    "c": {
+      "type": "forge:ore_dict",
+      "ore": "cobblestone"
+    },
+    "b": {
+      "item": "minecraft:bucket"
+    }
+  }
+}

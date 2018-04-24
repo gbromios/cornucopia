@@ -114,7 +114,7 @@ public class BlockStove extends Block implements ITileEntityProvider {
 		if (stove instanceof TileEntityStove) {
 			Vessel v = BlockStove.getVessel(world, pos);
 			if (v != Vessel.NONE) {
-				world.spawnEntityInWorld(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(v.getItem())));
+				world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(v.getItem())));
 				world.setBlockToAir(pos.up());
 			}
 			InventoryHelper.dropInventoryItems(world, pos, (TileEntityStove) stove);

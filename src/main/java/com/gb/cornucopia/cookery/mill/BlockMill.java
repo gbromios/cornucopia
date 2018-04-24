@@ -40,13 +40,11 @@ public class BlockMill extends Block implements ITileEntityProvider {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-		if (!world.isRemote) {
-			player.openGui(CornuCopia.instance, 420, world, pos.getX(), pos.getY(), pos.getZ());
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (!worldIn.isRemote) {
+			playerIn.openGui(CornuCopia.instance, 420, worldIn, pos.getX(), pos.getY(), pos.getZ());
 			//world.setBlockState(pos, state.withProperty(PROGRESS, ((int)state.getValue(PROGRESS) + 1) % 16 ));
 		}
-
-
 		return true;
 	}
 
@@ -89,12 +87,13 @@ public class BlockMill extends Block implements ITileEntityProvider {
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-		if (worldIn.getBlockState(pos.up()).getBlock() != Cookery.milltop) {
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+		IBlockState state = world.getBlockState(pos);
+		if (world.getBlockState(pos.up()).getBlock() != Cookery.milltop) {
 			// breaking the handle
-			this.dropBlockAsItem(worldIn, pos, state, 0);
-			this.breakBlock(worldIn, pos, state);
-			worldIn.setBlockToAir(pos);
+			this.dropBlockAsItem((World) world, pos, state, 0);
+			this.breakBlock((World) world, pos, state);
+			((World) world).setBlockToAir(pos);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.gb.cornucopia.cookery.stove;
 
+import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.Vessel;
 import net.minecraft.block.Block;
@@ -17,7 +18,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class BlockStoveTop extends Block {
 		this.setRegistryName(this.name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(VESSEL, Vessel.NONE));
 		this.setHardness(0.5F);
-		GameRegistry.register(this);
+		InvModel.add(this);
 	}
 
 	@Override
@@ -74,18 +74,18 @@ public class BlockStoveTop extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, EnumHand hand, ItemStack stack, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		// defer activations to the stove below.
 		// not too concerned about the edge case of the wrong block type... those can get right clicked too
-		final IBlockState stove_state = world.getBlockState(pos.down());
-		return stove_state.getBlock().onBlockActivated(world, pos.down(), stove_state, player, hand, stack, side, hitX, hitY, hitZ);
+		final IBlockState stove_state = worldIn.getBlockState(pos.down());
+		return stove_state.getBlock().onBlockActivated(worldIn, pos.down(), stove_state, playerIn, hand, facing, hitX, hitY, hitZ);
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-		if (worldIn.getBlockState(pos.down()).getBlock() != Cookery.stove) {
-			this.dropBlockAsItem(worldIn, pos, state, 0);
-			worldIn.setBlockToAir(pos);
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+		if (world.getBlockState(pos.down()).getBlock() != Cookery.stove) {
+			this.dropBlockAsItem((World) world, pos, world.getBlockState(pos), 0);
+			((World) world).setBlockToAir(pos);
 		}
 	}
 

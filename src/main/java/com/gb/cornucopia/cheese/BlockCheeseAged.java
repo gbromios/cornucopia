@@ -49,7 +49,7 @@ public class BlockCheeseAged extends Block {
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(final World world, final BlockPos pos) {
+	public boolean canPlaceBlockAt(World world, BlockPos pos) {
 		return world.isSideSolid(pos.down(), EnumFacing.UP, true);
 	}
 
@@ -59,7 +59,7 @@ public class BlockCheeseAged extends Block {
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(final int meta) {
+	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(TAKEN, meta & 7);
 	}
 
@@ -69,7 +69,7 @@ public class BlockCheeseAged extends Block {
 	}
 
 	@Override
-	public int getMetaFromState(final IBlockState state) {
+	public int getMetaFromState(IBlockState state) {
 		return state.getValue(TAKEN);
 	}
 
@@ -87,18 +87,18 @@ public class BlockCheeseAged extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (world.isRemote) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (worldIn.isRemote) {
 			return true;
 		}
 
 		final int taken = state.getValue(TAKEN) + 1;
 		if (taken < 8) {
-			world.setBlockState(pos, state.withProperty(TAKEN, taken));
+			worldIn.setBlockState(pos, state.withProperty(TAKEN, taken));
 		} else {
-			world.setBlockToAir(pos);
+			worldIn.setBlockToAir(pos);
 		}
-		world.spawnEntityInWorld(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(Cuisine.aged_cheese)));
+		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(Cuisine.aged_cheese)));
 		return true;
 	}
 

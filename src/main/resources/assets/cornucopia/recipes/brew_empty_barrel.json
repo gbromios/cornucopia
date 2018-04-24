@@ -1,0 +1,19 @@
+{
+  "type": "forge:ore_shaped",
+  "result": {
+    "item": "cornucopia:brew_empty_barrel"
+  },
+  "pattern": [
+    "shs",
+    "s s",
+    "shs"
+  ],
+  "key": {
+    "s": {
+      "item": "cornucopia:brew_barrel_stave"
+    },
+    "h": {
+      "item": "cornucopia:brew_barrel_hoop"
+    }
+  }
+}

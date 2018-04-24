@@ -57,7 +57,7 @@ public class ContainerMill extends Container{
 				return null;
 			}
 
-			if (stack.stackSize == 0)
+			if (stack.getCount() == 0)
 			{
 				slot.putStack((ItemStack)null);
 			}

@@ -28,8 +28,8 @@ public class GuiApiary extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY)
 	{
-		this.fontRendererObj.drawString("Hive", 20, 6, 4210752);
-		this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
+		this.fontRenderer.drawString("Hive", 20, 6, 4210752);
+		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
 	}
 
 	@Override

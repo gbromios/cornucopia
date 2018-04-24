@@ -13,7 +13,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.ForgeRegistry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -301,7 +303,7 @@ public class Cuisine {
 	}
 
 	public static void init() {
-		GameRegistry.addShapelessRecipe(new ItemStack(Cuisine.fresh_cheese, 8), Cheese.cheese_wheel_young);
+//		GameRegistry.addShapelessRecipe(new ItemStack(Cuisine.fresh_cheese, 8), Cheese.cheese_wheel_young);
 	}
 
 	public static void postInit() {
@@ -324,12 +326,12 @@ public class Cuisine {
 
 		// rock salt is dropped by mining deep in the earth, turns into 8x table salt
 		// might make this a mill recipe, but for now just leave it vanilla crafting
-		GameRegistry.addShapelessRecipe(new ItemStack(Cuisine.salt, 16), Cuisine.rock_salt);
+//		GameRegistry.addShapelessRecipe(new ItemStack(Cuisine.salt, 16), Cuisine.rock_salt);
 
 	}
 
 	private static void removeVanillaRecipe(final ItemStack remove) {
-		final List<IRecipe> recipes = (List<IRecipe>) CraftingManager.getInstance().getRecipeList();
+		final List<IRecipe> recipes = Lists.newArrayList(ForgeRegistries.RECIPES);
 		final ArrayList<IRecipe> recipes_to_remove = Lists.newArrayList();
 
 		for (IRecipe r : recipes) {

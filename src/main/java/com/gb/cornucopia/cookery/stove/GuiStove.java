@@ -67,7 +67,7 @@ public class GuiStove extends GuiContainer {
 			}
 		}
 
-		this.fontRendererObj.drawString(tooltip, 20, 6, 4210752);
+		this.fontRenderer.drawString(tooltip, 20, 6, 4210752);
 	}
 
 

@@ -1,7 +1,11 @@
 package com.gb.cornucopia;
 
 import com.gb.cornucopia.proxy.CommonProxy;
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -9,6 +13,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 
 @Mod(name = CornuCopia.NAME, modid = CornuCopia.MODID, version = CornuCopia.VERSION)
@@ -48,5 +53,24 @@ public class CornuCopia {
 
 	@EventHandler
 	public void serverLoad(final FMLServerStartingEvent event) {
+	}
+
+	@Mod.EventBusSubscriber
+	public static class RegistrationHandler {
+
+		@SubscribeEvent
+		public static void registerItems(RegistryEvent.Register<Item> event) {
+			InvModel.registerItems(event.getRegistry());
+		}
+
+		@SubscribeEvent
+		public static void registerItems(ModelRegistryEvent event) {
+			InvModel.registerItemModels();
+		}
+
+		@SubscribeEvent
+		public static void registerBlocks(RegistryEvent.Register<Block> event) {
+			InvModel.registerBlocks(event.getRegistry());
+		}
 	}
 }
