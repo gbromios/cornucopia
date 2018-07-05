@@ -12,21 +12,20 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 
 version = "1.2.6"
-
 group= "com.gb.cornucopia"
 archivesBaseName = "cornucopia"
+
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
 
 minecraft {
     version = "1.12.2-14.23.2.2654"
     runDir = "run"
-    
+
     mappings = "snapshot_20171003"
     // makeObfSourceJar = false 
-}
-
-compileJava {
-	sourceCompatibility = 1.8
-	targetCompatibility = 1.8
 }
 
 dependencies {
@@ -53,8 +52,7 @@ dependencies {
 
 }
 
-processResources
-{
+processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
@@ -67,7 +65,7 @@ processResources
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
         
-    // copy everything else, thats not the mcmod.info
+    // copy everything else except the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }

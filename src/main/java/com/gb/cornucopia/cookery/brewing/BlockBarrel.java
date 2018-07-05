@@ -15,6 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -55,54 +56,51 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 		if (drops.length != last_stage) {
 			throw new RuntimeException(String.format("invalid drops for %s barrel-  must be = to number of stages %d \n %s\n", name, last_stage, drops));
 		}
-		this.drops = drops.clone();
-		this.inputs = inputs.clone();
+		this.drops = drops;
+		this.inputs = inputs;
 		this.last_age = Math.min(3, Math.max(1, last_stage)); // must be 1, 2, or 3 
 		this.fermentation_time = f_time;
 		this.setDefaultState(super.getDefaultState().withProperty(AGE, 0));
-		GameRegistry.registerTileEntity(TileEntityBarrel.class, String.format("brew_%s_entity", name));
+		addRecipe(juice_flag);
+	}
 
-//		if (juice_flag) { TODO fix these recipes
-//			// TODO: this is bad sorry
-//
-//			final String juice = inputs[0] == Cuisine.apple_juice ? "juiceCider" : "juiceCordial";
-//			GameRegistry.addRecipe(new ShapedOreRecipe(this, true, new Object[]{
-//					" S ", "JJJ", " B ",
-//					'S', Blocks.WOODEN_SLAB,
-//					'B', Cookery.empty_barrel,
-//					'J', juice
-//			}));
-//
-//		} else {
-//
-//			if (inputs.length == 1) {
-//				GameRegistry.addShapedRecipe(new ItemStack(this),
-//						" S ", " I ", " B ",
-//						'S', Blocks.WOODEN_SLAB,
-//						'B', Cookery.empty_barrel,
-//						'I', inputs[0]
-//				);
-//			} else if (inputs.length == 2) {
-//				GameRegistry.addShapedRecipe(new ItemStack(this),
-//						" S ", "JI ", " B ",
-//						'S', Blocks.WOODEN_SLAB,
-//						'B', Cookery.empty_barrel,
-//						'I', inputs[0],
-//						'J', inputs[1]
-//				);
-//			} else if (inputs.length == 3) {
-//				GameRegistry.addShapedRecipe(new ItemStack(this),
-//						" S ", "JIK", " B ",
-//						'S', Blocks.WOODEN_SLAB,
-//						'B', Cookery.empty_barrel,
-//						'I', inputs[0],
-//						'J', inputs[1],
-//						'K', inputs[2]
-//				);
-//			} else {
-//				throw new RuntimeException(String.format("invalid recipe for %s barrel- needs 1, 2 or 3 inputs\n%s\n", name, inputs));
-//			}
-//		}
+	public void addRecipe(boolean juice_flag) {
+		if (juice_flag) {
+			final String juice = inputs[0] == Cuisine.apple_juice ? "juiceCider" : "juiceCordial";
+			GameRegistry.addShapedRecipe(this.getRegistryName(), new ResourceLocation(""), new ItemStack(this),
+					" S ", "JJJ", " B ",
+					'S', Blocks.WOODEN_SLAB,
+					'B', Cookery.empty_barrel,
+					'J', juice);
+		} else {
+			if (inputs.length == 1) {
+				GameRegistry.addShapedRecipe(this.getRegistryName(), new ResourceLocation(""), new ItemStack(this),
+						" S ", " I ", " B ",
+						'S', Blocks.WOODEN_SLAB,
+						'B', Cookery.empty_barrel,
+						'I', inputs[0]
+				);
+			} else if (inputs.length == 2) {
+				GameRegistry.addShapedRecipe(this.getRegistryName(), new ResourceLocation(""), new ItemStack(this),
+						" S ", "JI ", " B ",
+						'S', Blocks.WOODEN_SLAB,
+						'B', Cookery.empty_barrel,
+						'I', inputs[0],
+						'J', inputs[1]
+				);
+			} else if (inputs.length == 3) {
+				GameRegistry.addShapedRecipe(this.getRegistryName(), new ResourceLocation(""), new ItemStack(this),
+						" S ", "JIK", " B ",
+						'S', Blocks.WOODEN_SLAB,
+						'B', Cookery.empty_barrel,
+						'I', inputs[0],
+						'J', inputs[1],
+						'K', inputs[2]
+				);
+			} else {
+				throw new RuntimeException(String.format("invalid recipe for %s barrel- needs 1, 2 or 3 inputs\n%s\n", name, inputs));
+			}
+		}
 	}
 
 	public boolean fermented(long t) {
@@ -111,13 +109,13 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 
 	public boolean isRipe(IBlockState state) {
 		// stage >= 1
-		return (int) state.getValue(AGE) >= 1;
+		return state.getValue(AGE) >= 1;
 	}
 
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[]{AGE, AXIS, UNDER_BARREL});
+		return new BlockStateContainer(this, AGE, AXIS, UNDER_BARREL);
 	}
 
 	@Override
@@ -127,7 +125,7 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 
 	@Override
 	public int getMetaFromState(final IBlockState state) {
-		return (Integer) state.getValue(AGE) | super.getMetaFromState(state);
+		return state.getValue(AGE) | super.getMetaFromState(state);
 	}
 
 	@Override
@@ -140,8 +138,8 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		final List<ItemStack> drops = new ArrayList<>();
-		if ((int) state.getValue(AGE) > 0) {
-			drops.add(this.drops[(int) state.getValue(AGE) - 1].copy());
+		if (state.getValue(AGE) > 0) {
+			drops.add(this.drops[state.getValue(AGE) - 1].copy());
 			drops.add(new ItemStack(Cookery.empty_barrel));
 			for (Item i : this.inputs) {
 				if (i.hasContainerItem()) {
@@ -156,12 +154,10 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 
 	}
 
-	;
-
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, final BlockPos pos, Random rand) {
-		final int age = (int) stateIn.getValue(AGE);
+		final int age = stateIn.getValue(AGE);
 
 		if (age >= rand.nextFloat() * 3) {
 			double pX = pos.getX() + 0.5;

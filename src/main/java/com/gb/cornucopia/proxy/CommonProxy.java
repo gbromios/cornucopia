@@ -25,8 +25,8 @@ public class CommonProxy {
 		Veggie.preInit();
 		Bees.preInit();
 		Cheese.preInit(); // not sure where cheese will go in order tbh;
-		Cookery.preInit();
 		Cuisine.preInit();
+		Cookery.preInit();
 
 		// testing shelf
 		//BlockShelf.preInit();

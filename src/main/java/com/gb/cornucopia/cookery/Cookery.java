@@ -6,6 +6,7 @@ import com.gb.cornucopia.bees.Bees;
 import com.gb.cornucopia.cheese.Cheese;
 import com.gb.cornucopia.cookery.brewing.BlockBarrel;
 import com.gb.cornucopia.cookery.brewing.BlockBarrelEmpty;
+import com.gb.cornucopia.cookery.brewing.TileEntityBarrel;
 import com.gb.cornucopia.cookery.cuttingboard.BlockCuttingBoard;
 import com.gb.cornucopia.cookery.mill.BlockMill;
 import com.gb.cornucopia.cookery.mill.BlockMillTop;
@@ -15,7 +16,6 @@ import com.gb.cornucopia.cookery.stove.BlockStove;
 import com.gb.cornucopia.cookery.stove.BlockStoveTop;
 import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.veggie.Veggie;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -80,14 +80,6 @@ public class Cookery {
 		InvModel.add(barrel_stave);
 
 		empty_barrel = new BlockBarrelEmpty("empty");
-	}
-
-	public static void init() {
-//		initBarrels(); TODO hella broken right now
-	}
-
-	// finished barrel recipes depend on items that will have been initialized in preInit, so wait until init to create barrels 
-	private static void initBarrels() {
 		wine_barrel = new BlockBarrel("wine", 1, new ItemStack[]{new ItemStack(Cuisine.wine, 2)}, new Item[]{Cuisine.grape_juice, Cuisine.grape_juice, Cuisine.grape_juice}, false);
 		cider_barrel = new BlockBarrel("cider", 1, new ItemStack[]{new ItemStack(Cuisine.cider, 2)}, new Item[]{Cuisine.apple_juice, Cuisine.apple_juice, Cuisine.apple_juice}, true);
 		cordial_barrel = new BlockBarrel("cordial", 1, new ItemStack[]{new ItemStack(Cuisine.cordial, 2)}, new Item[]{Cuisine.blueberry_juice, Cuisine.blueberry_juice, Cuisine.blueberry_juice}, true);
@@ -97,7 +89,11 @@ public class Cookery {
 		mead_barrel = new BlockBarrel("mead", 1, new ItemStack[]{new ItemStack(Cuisine.mead, 2)}, new Item[]{Bees.honey_raw, Bees.honey_raw, Bees.honey_raw}, false);
 		cheese_barrel = new BlockBarrel("cheese", 1, new ItemStack[]{new ItemStack(Item.getItemFromBlock(Cheese.cheese_wheel_young))}, new Item[]{Items.MILK_BUCKET, Items.MILK_BUCKET, Items.MILK_BUCKET}, (int) 1.8e+6, false); // 30 minutes
 		vinegar_barrel = new BlockBarrel("vinegar", 1, new ItemStack[]{new ItemStack(Cuisine.vinegar, 4)}, new Item[]{Cuisine.wine}, (int) 1.2e+6, false); // 20 minutes
+
+		GameRegistry.registerTileEntity(TileEntityBarrel.class, String.format("brew_barrel_entity"));
 	}
+
+	public static void init() {}
 
 	public static void postInit() {
 	}

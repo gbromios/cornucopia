@@ -6,6 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -73,7 +75,7 @@ public class Veggie {
 		this.wild.setDrops(raw, seed);
 		vegMap.put(name, this);
 
-//		GameRegistry.addShapelessRecipe(new ItemStack(seed, 2), raw); TODO fix this
+		GameRegistry.addShapelessRecipe(this.seed.getRegistryName(), null, new ItemStack(seed, 2), Ingredient.fromItem(raw));
 	}
 
 	private Veggie(final String name, final BlockVeggieCrop crop, final BlockVeggieWild wild, final ItemVeggieRaw raw) {
