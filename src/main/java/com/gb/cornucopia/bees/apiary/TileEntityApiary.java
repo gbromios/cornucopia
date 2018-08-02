@@ -5,12 +5,7 @@ import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockDoublePlant.EnumPlantType;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -21,21 +16,38 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TileEntityApiary extends TileEntity implements ITickable, IInventory {
+public class TileEntityApiary extends TileEntity implements ITickable {
 	public static final int TICK_PERIOD = 20 * 30; //tick 2x per minute, because it might be kind of expensive >__>
 	public static final Random RANDOM = new Random();
-	private final ItemStack[] contents = new ItemStack[9]; // 0 = queen slot, 1 = worker slot, 2-8 are the honeycombs
+
+	// 0 = queen slot, 1 = worker slot, 2-8 are the honeycombs*/
+	public ItemStackHandler inventory = new ItemStackHandler(9);
+
 	private int ticks = 0;
 	private ArrayList<IBlockState> flower_survey = new ArrayList<>();
 	private int flower_score = 0;
 
 	//System.out.format("\n");
 
+	@Override
+	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
 
+	@Nullable
+	@Override
+	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)inventory : super.getCapability(capability, facing);
+	}
 	@Override
 	public void update() {
 		if (!this.hasWorld()) return;
@@ -50,8 +62,8 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 		this.ticks = 0;
 		//System.out.format("\n   ===   TICKING!   ===\n");
 
-		// no bees???? nothing I can do
-		if (this.contents[1] == null) {
+		// no bees???? nothing I can do, slot 1 is bees
+		if (inventory.getStackInSlot(1).isEmpty()) {
 			return;
 		}
 
@@ -78,8 +90,8 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 		if (RANDOM.nextInt(128) < grow_chance) {
 			// look for empties first:
 			for (int i = 2; i < 9; i++) {
-				if (this.contents[i] == null) {
-					this.contents[i] = (new ItemStack(Bees.waxcomb));
+				if (inventory.getStackInSlot(i).isEmpty()) {
+					inventory.setStackInSlot(i, new ItemStack(Bees.waxcomb));
 					//System.out.format("    make a wax\n");
 					return;
 				}
@@ -87,8 +99,8 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 
 			// then look for plain wax:
 			for (int i = 2; i < 9; i++) {
-				if (this.contents[i].getItem() == Bees.waxcomb) {
-					this.contents[i] = new ItemStack(Bees.honeycomb);
+				if (inventory.getStackInSlot(i).getItem() == Bees.waxcomb) {
+					inventory.setStackInSlot(i, new ItemStack(Bees.honeycomb));
 					//System.out.format("    make a honey comb\n");
 					return;
 				}
@@ -98,7 +110,7 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 			// if there's a queen in the queen slot and slot 6 is not already jelly
 			// AND you've got a royal flower AAAND you're really lucky...
 			if (
-					this.contents[6].getItem() != Bees.royal_jelly
+					inventory.getStackInSlot(6).getItem() != Bees.royal_jelly
 							&& this.beeCount() == 64
 							&& this.nearRoyalBloom()
 							&& RANDOM.nextInt(64) == 0) {
@@ -106,13 +118,11 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 				if (this.hasQueen() || RANDOM.nextInt(32) == 0) {
 					// royal jelly comes at a heavy price though. it uses up most of the honey, and the bee population will suffer
 					for (int i : new int[]{2, 3, 4, 5, 7, 8}) { // outer comb slots
-						this.contents[i] = null;
+						inventory.getStackInSlot(i).setCount(0);
 
 					}
-					this.contents[6] = new ItemStack(Bees.royal_jelly);
-					this.contents[1].setCount(8);
-
-					return;
+					inventory.setStackInSlot(6, new ItemStack(Bees.royal_jelly));
+					inventory.getStackInSlot(1).setCount(8);
 				}
 			}
 		}
@@ -133,12 +143,11 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 		return n - 1;
 	}
 
-
 	private boolean feedBees() {
 		final int food = this.flower_score - (this.beeCount() / 4);
 		//System.out.format("%d food\n", food);
 
-		final ItemStack workers = this.contents[1];
+		final ItemStack workers = inventory.getStackInSlot(1);
 
 		if (food < -4) {
 			workers.shrink(1);
@@ -228,17 +237,16 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 		}
 		return density;
 	}
-
 	public boolean hasQueen() {
-		// theoretically slot permissions means we don't need to check the item
-		return contents[0] != null;
+		// theoretically slot permissions means we don't need to check the item, slot 0 is queen
+		return !inventory.getStackInSlot(0).isEmpty();
 	}
 
 	public int beeCount() {
-		return contents[1] == null ? 0 : contents[1].getCount();
+		return inventory.getStackInSlot(1).getCount();
 	}
 
-	// for writing to nbt
+/*	// for writing to nbt
 	public int[] combSlots() {
 		final int[] a = new int[7];
 
@@ -263,14 +271,14 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 		}
 
 		return a;
-	}
+	}*/
 
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.getNbtCompound());
 	}
 
-	@Override
+	/*@Override
 	public NBTTagCompound writeToNBT(final NBTTagCompound parentNBTTagCompound) {
 		parentNBTTagCompound.setBoolean("hasQueen", this.hasQueen());
 		parentNBTTagCompound.setInteger("beeCount", this.beeCount());
@@ -318,9 +326,21 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 					this.contents[i] = null;
 			}
 		}
+	}*/
+
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		compound.setTag("inventory", inventory.serializeNBT());
+		return super.writeToNBT(compound);
 	}
 
+
 	@Override
+	public void readFromNBT(NBTTagCompound compound) {
+		inventory.deserializeNBT(compound.getCompoundTag("inventory"));
+		super.readFromNBT(compound);
+	}
+
+/*	@Override
 	public String getName() {
 		return "apiary";
 	}
@@ -328,14 +348,14 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 	@Override
 	public boolean hasCustomName() {
 		return false;
-	}
+	}*/
 
-	@Override
+/*	@Override
 	public ITextComponent getDisplayName() {
 		return new TextComponentString("apiary");
-	}
+	}*/
 
-	@Override
+/*	@Override
 	public int getSizeInventory() {
 		return 9;
 	}
@@ -347,9 +367,9 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 			}
 		}
 		return true;
-	}
+	}*/
 
-	@Override
+/*	@Override
 	public int getInventoryStackLimit() {
 		return 64;
 	}
@@ -357,9 +377,9 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 	@Override
 	public boolean isUsableByPlayer(final EntityPlayer player) {
 		return player.getDistanceSq(this.pos) < 6;
-	}
+	}*/
 
-	@Override
+/*	@Override
 	public ItemStack getStackInSlot(final int index) {
 		// 0 - queen
 		// 1 - workers
@@ -378,12 +398,12 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 			return itemstack;
 		}
 		return null;
-	}
+	}*/
 
 	/**
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
-	public void setInventorySlotContents(final int index, final ItemStack stack) {
+/*	public void setInventorySlotContents(final int index, final ItemStack stack) {
 		this.contents[index] = stack;
 
 		if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
@@ -391,9 +411,9 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 		}
 
 		this.markDirty();
-	}
+	}*/
 
-	@Override
+/*	@Override
 	public void openInventory(final EntityPlayer player) {
 	}
 
@@ -438,6 +458,6 @@ public class TileEntityApiary extends TileEntity implements ITickable, IInventor
 	public ItemStack removeStackFromSlot(int arg0) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 }
