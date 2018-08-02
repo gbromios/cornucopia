@@ -15,7 +15,6 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.ForgeRegistry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -217,34 +216,34 @@ public class Cuisine {
 		;
 
 		// larger meals!
-		cheesy_noodles = new ItemCuisine("cheesy_noodles", 12, 1.2F)
+		cheesy_noodles = new ItemCuisine("cheesy_noodles", 12, 1.2F, 1)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 		;
-		spaghetti_bolognese = new ItemCuisine("spaghetti_bolognese", 12, 1.3F)
+		spaghetti_bolognese = new ItemCuisine("spaghetti_bolognese", 12, 1.3F, 1)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 		;
-		chicken_caesar_salad = new ItemCuisine("chicken_caesar_salad", 11, 1.2F)
+		chicken_caesar_salad = new ItemCuisine("chicken_caesar_salad", 11, 1.2F, 1)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 		;
-		fish_and_chips = new ItemCuisine("fish_and_chips", 15, 1.6F)
+		fish_and_chips = new ItemCuisine("fish_and_chips", 15, 1.6F, 1)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 		;
-		caesar_salad = new ItemCuisine("caesar_salad", 8, 0.8F)
+		caesar_salad = new ItemCuisine("caesar_salad", 8, 0.8F, 1)
 				.setContainerItem(Items.BOWL)
 				.setMaxStackSize(4)
 		;
-		bruscetta = new ItemCuisine("bruscetta", 6, 0.4F)
+		bruscetta = new ItemCuisine("bruscetta", 6, 0.4F, 1)
 				.setMaxStackSize(8)
 		;
-		kebab = new ItemCuisine("kebab", 11, 1.0F)
+		kebab = new ItemCuisine("kebab", 11, 1.0F, 1)
 				.setContainerItem(Items.STICK)
 				.setMaxStackSize(4)
 		;
-		smoothie = new ItemCuisine("smoothie", 6, 0.6F)
+		smoothie = new ItemCuisine("smoothie", 6, 0.6F, 1)
 				.setMaxStackSize(4)
 		;
 

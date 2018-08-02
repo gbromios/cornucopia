@@ -221,7 +221,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 		if (!this.world.isRemote) {
 			final boolean debug = this._debug_update();
 
-			// before we tick down, so we can track wether the ON state should change this tick
+			// before we tick down, so we can track whether the ON state should change this tick
 			final boolean was_burning = this.isBurning();
 			if (this.isBurning()) {
 				this.burn_time--;
