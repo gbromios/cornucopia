@@ -11,6 +11,7 @@ import com.gb.cornucopia.cookery.mill.ContainerMill;
 import com.gb.cornucopia.cookery.mill.GuiMill;
 import com.gb.cornucopia.cookery.presser.ContainerPresser;
 import com.gb.cornucopia.cookery.presser.GuiPresser;
+import com.gb.cornucopia.cookery.presser.TileEntityPresser;
 import com.gb.cornucopia.cookery.stove.ContainerStove;
 import com.gb.cornucopia.cookery.stove.GuiStove;
 import com.gb.cornucopia.cookery.stove.TileEntityStove;
@@ -25,12 +26,15 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 public class GuiHandler implements IGuiHandler {
 
 	public static final int APIARY = 0;
+	public static final int PRESSER = 1;
 
 	@Override
 	public Container getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
 		switch (ID) {
 			case APIARY:
 				return new ContainerApiary(player.inventory, (TileEntityApiary)world.getTileEntity(new BlockPos(x, y, z)));
+			case PRESSER:
+				return new ContainerPresser(player.inventory, (TileEntityPresser)world.getTileEntity(new BlockPos(x, y, z)));
 			default:
 				return null;
 
@@ -57,6 +61,8 @@ public class GuiHandler implements IGuiHandler {
 		switch (ID) {
 			case APIARY:
 				return new GuiApiary(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
+			case PRESSER:
+				return new GuiPresser(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
 			default:
 				return null;
 		}

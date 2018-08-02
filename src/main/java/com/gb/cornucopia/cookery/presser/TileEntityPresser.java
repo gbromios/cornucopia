@@ -18,16 +18,22 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
-public class TileEntityPresser extends TileEntity implements ITickable, IInventory {
-	private final ItemStack[] contents = new ItemStack[2];
+import javax.annotation.Nullable;
 
-	@Override
+public class TileEntityPresser extends TileEntity implements ITickable {
+	public ItemStackHandler inventory = new ItemStackHandler(2);
+
+/*	@Override
 	public String getName() {
 		return "presser";
 	}
@@ -46,21 +52,13 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	public int getSizeInventory() {
 		return 2;
 	}
-
-	public boolean isEmpty() {
-		for (ItemStack itemstack : this.contents) {
-			if (!itemstack.isEmpty()) {
-				return false;
-			}
-		}
-		return true;
-	}
+	*/
 
 	@Override
 	public void update() {
 	}
 
-	@Override
+	/*@Override
 	public boolean isItemValidForSlot(final int index, final ItemStack stack) {
 		return false;
 	}
@@ -88,7 +86,7 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		for (int i = 0; i < this.contents.length; ++i) {
 			this.contents[i] = null;
 		}
-	}
+	}*/
 
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
@@ -97,7 +95,7 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	}
 
 	private boolean hasOrEmpty(Item i) {
-		return this.contents[1] == null || this.contents[1].getItem() == i;
+		return inventory.getStackInSlot(1).isEmpty() || inventory.getStackInSlot(1).getItem() == i;
 	}
 
 	public boolean canPress(Item i) {
@@ -113,28 +111,50 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 				;
 	}
 
+	public static boolean pressable(Item i) {
+		return (i == Bees.honeycomb)
+				|| (i == Fruit.olive.raw)
+				|| (Cuisine.hathJuice(i))
+				|| (i == Items.MILK_BUCKET)
+				|| (i == Veggie.peanut.raw)
+				|| (i == Cuisine.pasta_dough)
+				|| (i == Veggie.soy.raw)
+				|| (i == Items.WHEAT_SEEDS)
+				|| (i instanceof ItemVeggieSeed)
+				;
+	}
+
 	public boolean canPress() {
 		if (!this.hasWorld() || this.world.isRemote) {
 			return false;
-		} else if (this.contents[0] == null) {
+		} else if (inventory.getStackInSlot(0).isEmpty()) {
 			return true; // so players can see how it works without loading it up
 		}
 
-		final Item i = this.contents[0].getItem();
+		final Item i = inventory.getStackInSlot(0).getItem();
 		return this.canPress(i);
 	}
 
 	public void press(Item output, int ratio, Item byproduct, int byproduct_ratio) {
-		final ItemStack in_stack = this.contents[0]; // already null checked in press()
-		final ItemStack out_stack = this.contents[1] != null ? this.contents[1] : new ItemStack(output, 0);
+
+		if (inventory.getStackInSlot(0).getCount() > 2 && inventory.getStackInSlot(1).isEmpty()) {
+			inventory.getStackInSlot(0).splitStack(2);
+			inventory.setStackInSlot(1, new ItemStack(output, 1));
+		}
+		if (inventory.getStackInSlot(0).getCount() > 2 && inventory.getStackInSlot(1).getItem()==output) {
+			inventory.getStackInSlot(0).splitStack(2);
+			inventory.getStackInSlot(1).grow(1);
+		}
+/*		final ItemStack in_stack = inventory.getStackInSlot(0); // already null checked in press()
+		final ItemStack out_stack = !inventory.getStackInSlot(1).isEmpty() ? inventory.getStackInSlot(1) : new ItemStack(output, 0);
 
 		final int can_make = Math.min(in_stack.getCount() / ratio, out_stack.getMaxStackSize() - out_stack.getCount());
 		if (can_make == 0) {
 			// inputs drop out for certain recipes
 			this.world.spawnEntity(new EntityItem(this.world, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
-			this.contents[0] = null;
+			inventory.getStackInSlot(0).setCount(0);
 			return;
-		} else if (contents[1] == null) {
+		} else if (inventory.getStackInSlot(1).isEmpty()) {
 			contents[1] = out_stack; // re assign if we needed a new stack
 		}
 
@@ -143,7 +163,7 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		if (byproduct != null) {
 			this.contents[0] = byproduct != null ? new ItemStack(byproduct, ingredients_needed / byproduct_ratio) : null;
 		} else {
-			this.contents[0] = null;
+			inventory.getStackInSlot(0).setCount(0);
 		}
 
 		out_stack.grow(can_make);
@@ -151,7 +171,7 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 
 		if (in_stack.getCount() > 0) {
 			this.world.spawnEntity(new EntityItem(this.world, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
-		}
+		}*/
 	}
 
 	public void press(Item output, int ratio, Item byproduct) {
@@ -163,10 +183,10 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	}
 
 	public void press() {
-		if (!this.hasWorld() || this.world.isRemote || !this.canPress() || this.contents[0] == null) {
+		if (!this.hasWorld() || this.world.isRemote || !this.canPress() || inventory.getStackInSlot(0).isEmpty()) {
 			return;
 		}
-		final Item i = this.contents[0].getItem();
+		final Item i = inventory.getStackInSlot(0).getItem();
 		if (i == Bees.honeycomb) {
 			press(Bees.honey_raw, 2, Bees.waxcomb);
 
@@ -203,24 +223,35 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 	}
 
 	@Override
+	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
+
+	@Nullable
+	@Override
+	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)inventory : super.getCapability(capability, facing);
+	}
+
+/*	@Override
 	public NBTTagCompound writeToNBT(final NBTTagCompound compound) {
-		final ItemStack in_stack = this.contents[0];
+		final ItemStack in_stack = inventory.getStackInSlot(0);
 		if (in_stack != null && in_stack.getItem() != null) {
 			final NBTTagCompound in_tag = new NBTTagCompound();
 			in_stack.writeToNBT(in_tag);
 			compound.setTag("in", in_tag);
 		}
 
-		final ItemStack out_stack = this.contents[1];
+		final ItemStack out_stack = inventory.getStackInSlot(1);
 		if (out_stack != null && out_stack.getItem() != null) {
 			final NBTTagCompound out_tag = new NBTTagCompound();
 			out_stack.writeToNBT(out_tag);
 			compound.setTag("out", out_tag);
 		}
 		return super.writeToNBT(compound);
-	}
+	}*/
 
-	@Override
+/*	@Override
 	public void readFromNBT(final NBTTagCompound parentNBTTagCompound) {
 		super.readFromNBT(parentNBTTagCompound); // The super call is required to load the tiles location
 		final NBTTagCompound in_tag = parentNBTTagCompound.getCompoundTag("in");
@@ -236,9 +267,22 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		} else {
 			this.contents[1] = null;
 		}
+	}*/
+
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		compound.setTag("inventory", inventory.serializeNBT());
+		return super.writeToNBT(compound);
 	}
 
+
 	@Override
+	public void readFromNBT(NBTTagCompound compound) {
+		inventory.deserializeNBT(compound.getCompoundTag("inventory"));
+		super.readFromNBT(compound);
+	}
+
+
+	/*@Override
 	public int getInventoryStackLimit() {
 		return 64;
 	}
@@ -291,5 +335,5 @@ public class TileEntityPresser extends TileEntity implements ITickable, IInvento
 		this.contents[index] = null;
 		return i;
 	}
-
+*/
 }

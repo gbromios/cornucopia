@@ -1,14 +1,21 @@
 package com.gb.cornucopia.cookery.presser;
 
+import com.gb.cornucopia.bees.apiary.TileEntityApiary;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class ContainerPresser extends Container{
-	public ContainerPresser(final InventoryPlayer playerInventory, final IInventory presserInventory) {
+	public ContainerPresser(InventoryPlayer playerInventory, TileEntityPresser presser) {
+
+		IItemHandler presserInventory = presser.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
+
 		this.addSlotToContainer(new SlotPresser(presserInventory, 0, 80, 20, true));
 		this.addSlotToContainer(new SlotPresser(presserInventory, 1, 80, 45, false)); 
 

@@ -4,6 +4,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
@@ -15,13 +16,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class GuiPresser extends GuiContainer {
 	// copies GuiCrafting -- change later
 	private ResourceLocation textures = new ResourceLocation("cornucopia:textures/gui/container/cookery_presser.png");
+	private InventoryPlayer playerInv;
 
-	public GuiPresser(final World world, final InventoryPlayer player, final BlockPos pos) {
+	public GuiPresser(Container container, InventoryPlayer playerInv) {
 		// will this crash if the wrong kind of tile entity is there? probably lol
-		super(new ContainerPresser(player, (IInventory)world.getTileEntity(pos)));
+		super(container);
+		this.playerInv = playerInv;
 		// find out for sure!!
-		if (!(world.getTileEntity(pos) instanceof TileEntityPresser)){
-		}		
 	}
 
 	@Override
