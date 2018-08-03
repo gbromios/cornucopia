@@ -14,15 +14,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiPresser extends GuiContainer {
-	// copies GuiCrafting -- change later
+
 	private ResourceLocation textures = new ResourceLocation("cornucopia:textures/gui/container/cookery_presser.png");
 	private InventoryPlayer playerInv;
 
 	public GuiPresser(Container container, InventoryPlayer playerInv) {
-		// will this crash if the wrong kind of tile entity is there? probably lol
 		super(container);
 		this.playerInv = playerInv;
-		// find out for sure!!
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
@@ -13,15 +14,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiMill extends GuiContainer {
-	// copies GuiCrafting -- change later
 	private ResourceLocation textures = new ResourceLocation("cornucopia:textures/gui/container/cookery_mill.png");
+	private InventoryPlayer playerInv;
 
-	public GuiMill(final World world, final InventoryPlayer player, final BlockPos pos) {
-		// will this crash if the wrong kind of tile entity is there? probably lol
-		super(new ContainerMill(player, (IInventory)world.getTileEntity(pos)));
-		// find out for sure!!
-		if (!(world.getTileEntity(pos) instanceof TileEntityMill)){
-		}		
+	public GuiMill(Container container, final InventoryPlayer playerInv) {
+		super(container);
+		this.playerInv = playerInv;
 	}
 
 	@Override

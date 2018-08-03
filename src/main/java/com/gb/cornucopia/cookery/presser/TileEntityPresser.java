@@ -33,27 +33,6 @@ import javax.annotation.Nullable;
 public class TileEntityPresser extends TileEntity implements ITickable {
 	public ItemStackHandler inventory = new ItemStackHandler(2);
 
-/*	@Override
-	public String getName() {
-		return "presser";
-	}
-
-	@Override
-	public boolean hasCustomName() {
-		return false;
-	}
-
-	@Override
-	public ITextComponent getDisplayName() {
-		return new TextComponentString("presser");
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return 2;
-	}
-	*/
-
 	@Override
 	public void update() {
 	}

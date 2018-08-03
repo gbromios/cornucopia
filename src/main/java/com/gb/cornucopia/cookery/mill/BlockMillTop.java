@@ -51,8 +51,8 @@ public class BlockMillTop extends Block {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
 			TileEntity mill = worldIn.getTileEntity(pos.down());
-			if (mill instanceof TileEntityMill && ((TileEntityMill) mill).mill()) {
-				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_GRAVEL_BREAK, SoundCategory.BLOCKS, 0.3f, 0.9f);
+			if (mill instanceof TileEntityMill && ((TileEntityMill) mill).can_mill()) {
+				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_CLOTH_BREAK, SoundCategory.BLOCKS, 0.3f, 0.9f);
 				final Integer progress = ((Integer) state.getValue(PROGRESS) + 1) % 4;
 				worldIn.setBlockState(pos, state.withProperty(PROGRESS, progress));
 				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).withProperty(PROGRESS, progress));
