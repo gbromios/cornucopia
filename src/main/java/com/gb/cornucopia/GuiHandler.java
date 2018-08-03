@@ -29,6 +29,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int APIARY = 0;
 	public static final int PRESSER = 1;
 	public static final int MILL = 2;
+	public static final int STOVE = 3;
 
 	@Override
 	public Container getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
@@ -39,6 +40,8 @@ public class GuiHandler implements IGuiHandler {
 				return new ContainerPresser(player.inventory, (TileEntityPresser)world.getTileEntity(new BlockPos(x, y, z)));
 			case MILL:
 				return new ContainerMill(player.inventory, (TileEntityMill)world.getTileEntity(new BlockPos(x, y, z)));
+			case STOVE:
+				return new ContainerStove(player.inventory, (TileEntityStove)world.getTileEntity(new BlockPos(x, y, z)));
 			default:
 				return null;
 
@@ -69,6 +72,8 @@ public class GuiHandler implements IGuiHandler {
 				return new GuiPresser(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
 			case MILL:
 				return new GuiMill(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
+			case STOVE:
+				return new GuiStove(getServerGuiElement(ID, player, world, x, y, z), player.inventory, (TileEntityStove) world.getTileEntity(new BlockPos(x, y, z)));
 			default:
 				return null;
 		}

@@ -63,13 +63,14 @@ public class BlockStoveTop extends Block {
 				return new AxisAlignedBB(0.25F, 0F, 0.25F, 0.75F, 0.5F, 0.75F);
 			case NONE:
 			default:
-				switch ((EnumFacing) source.getBlockState(pos.down()).getValue(FACING)) {
+				//block below may be air which has no facing, causing crash
+/*				switch (source.getBlockState(pos.down()).getValue(FACING)) {
 					case NORTH:
 					case SOUTH:
 						return new AxisAlignedBB(0.25F, 0F, 0.1875F, 0.75F, 0.0625F, 0.8125F);
-					default:
+					default:*/
 						return new AxisAlignedBB(0.1875F, 0F, 0.25F, 0.8125F, 0.0625F, 0.75F);
-				}
+
 		}
 	}
 

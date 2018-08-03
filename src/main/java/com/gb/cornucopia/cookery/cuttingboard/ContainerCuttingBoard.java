@@ -8,8 +8,11 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 
 public class ContainerCuttingBoard extends Container {
@@ -21,12 +24,14 @@ public class ContainerCuttingBoard extends Container {
 	private Dish currentRecipe = null;
 
 	public ContainerCuttingBoard(InventoryPlayer player, World world, BlockPos pos) {
+
 		this.world = world;
 		this.pos = pos;
 		// 0 = output
 		this.addSlotToContainer(new SlotCuttingBoardOutput(this.craftMatrix, this.craftResult, this.bowl, this, 0, 123, 35));
 		// 1 = bowls
-		this.addSlotToContainer(new SlotBowls(this.bowl, this, 0, 123, 55));
+		//TODO Put bowl back once stove gui crap working
+		/*this.addSlotToContainer(new SlotBowls(this.bowl, 0, 123, 55));*/
 
 		// 2 - 10 crafting matrix
 		int i;
@@ -85,11 +90,11 @@ public class ContainerCuttingBoard extends Container {
 
 	//matrix will always just be this.craftMatrix afaict
 	public void onCraftMatrixChanged(IInventory matrix) {
-		//if (this.world.isRemote) {return;}
+/*		//if (this.world.isRemote) {return;}
 		//this.craftResult.setInventorySlotContents(0, this.dishRegistry.findMatchingDish(this.craftMatrix).getItem());
 		final Dish d = Dish.cutting_board.findMatchingDish(this.craftMatrix, this.hasBowl(), this.hasWater());
 		this.craftResult.setInventorySlotContents(0, d == null ? null : d.getItem());
-		this.currentRecipe = d;
+		this.currentRecipe = d;*/
 	}
 
 	boolean requiresBowl() {

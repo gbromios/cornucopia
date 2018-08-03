@@ -1,12 +1,11 @@
 package com.gb.cornucopia.cookery.stove;
 
-import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.Vessel;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -15,12 +14,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class GuiStove extends GuiContainer {
 	private ResourceLocation textures = new ResourceLocation("cornucopia:textures/gui/container/cookery_stove.png");
 	//private static final ResourceLocation textures = new ResourceLocation("textures/gui/container/furnace.png");
-	private final TileEntityStove stove;
+	private InventoryPlayer playerInv;
+	private TileEntityStove stove;
 	private int frames = 0;
 
-	public GuiStove(InventoryPlayer player, TileEntityStove stove) {
-		// TODO Auto-generated constructor stub
-		super(new ContainerStove(player, stove));
+	public GuiStove(Container container, final InventoryPlayer playerInv, TileEntityStove stove) {
+		super(container);
+		this.playerInv = playerInv;
 		this.stove = stove;
 
 	}
@@ -50,14 +50,14 @@ public class GuiStove extends GuiContainer {
 
 		}
 
-		else if (( mouseX - x0 > 22 && mouseX - x0 < 41 ) && ( mouseY - y0 > 35 && mouseY - y0 < 54 )) {
+/*		else if (( mouseX - x0 > 22 && mouseX - x0 < 41 ) && ( mouseY - y0 > 35 && mouseY - y0 < 54 )) {
 			tooltip = this.stove.hasBowl() ? "Bowls" : "Out of Bowls";
-		}
+		}*/
 
 		else if (( mouseX - x0 > 22 && mouseX - x0 < 41 ) && ( mouseY - y0 > 53 && mouseY - y0 < 72 )) {
 			tooltip = this.stove.hasWater() ? "Water Available" : "No Water";
 		} else if (( mouseX - x0 > 79 && mouseX - x0 < 96 ) && ( mouseY - y0 > 53 && mouseY - y0 < 72 )) {
-			tooltip = "Fuel;";
+			tooltip = "Fuel";
 		} else if ( mouseY - y0 > 53 && mouseY - y0 < 64 ) {
 			if ( mouseX - x0 > 64 && mouseX - x0 < 114 ) {
 				tooltip = this.stove.isBurning() ? String.format("Remaining Fuel: %d%%", this.pixel_progress(100, this.stove.getField(0), this.stove.getField(1))) : "Not Burning";
@@ -84,7 +84,11 @@ public class GuiStove extends GuiContainer {
 
 		if (this.stove.isBurning())
 		{
-			int burn_pixels = this.pixel_progress(11, this.stove.getField(1) - this.stove.getField(0), this.stove.getField(1) ); // fuel burn completeion in pixels?
+			/*int burn_pixels = this.pixel_progress(11, this.stove.getField(1) - this.stove.getField(0), this.stove.getField(1) ); // fuel burn completion in pixels?*/
+			//TODO replace below with above when you get it working
+			int burn_pixels = this.stove.getField(1) - this.stove.getField(0);
+			System.out.println("my burn pixels are: " + burn_pixels);
+
 			this.drawTexturedModalRect(
 					x + 66,   // x
 					y + 55 + burn_pixels,   // y

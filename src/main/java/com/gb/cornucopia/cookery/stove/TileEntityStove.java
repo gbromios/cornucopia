@@ -15,15 +15,22 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
-public class TileEntityStove extends TileEntity implements ITickable, IInventory {
-	private final ItemStack[] contents = new ItemStack[9]; // 0 = fuel, 1-6 input, 7 output
+import javax.annotation.Nullable;
+
+public class TileEntityStove extends TileEntity implements ITickable {
+	public ItemStackHandler inventory = new ItemStackHandler(8); // 0 = fuel, 1-6 input, 7 output, 8 bowls, 9 vessel slot
 
 	private int burn_time = 0; // time left burning current fuel: ticks DOWN every update
 	private int initial_burn_time = 1; // max burn time of the item currently used for fuel
@@ -34,61 +41,6 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	private Dish whats_cooking = null; // storing this field lets us avoid calculating recipes unless there's a chance it's changed (i.e. changed input i.e. inventory slots )
 	private boolean input_changed = false; // set this to true when fucking with the input slots, check in every update and
 
-	@Override
-	public void readFromNBT(final NBTTagCompound compound) {
-		//System.out.println("read from nbt: " + compound.toString());
-		super.readFromNBT(compound);
-		final NBTTagList items = compound.getTagList("items", Constants.NBT.TAG_COMPOUND);
-		for (int i = 0; i < 9; i++) {
-			final NBTTagCompound item = items.getCompoundTagAt(i);
-			if (item != null) {
-				this.contents[i] = new ItemStack(item);
-			} else {
-				this.contents[i] = null;
-			}
-		}
-		this.markInputChanged();
-
-		// TODO: maybe what's cooking is not working? does that need saved?
-		// I hope not, because saving dishes to nbt would suck ASS
-
-		this.burn_time = compound.getInteger("burn_time");
-		this.initial_burn_time = compound.getInteger("initial_burn_time");
-
-		this.cook_time = compound.getInteger("cook_time");
-		this.cook_time_goal = compound.getInteger("cook_time_goal");
-
-
-		//final String s = String.format("Stove_B%d/%d_C%d/%d", this.burn_time, this.initial_burn_time, this.cook_time, this.cook_time_goal);
-		//System.out.println("...now I'm like: " + s);
-		//if (compound.hasKey("CustomName", 8))
-		//{
-		//this.custom_name = compound.getString("CustomName");
-		//}
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound compound) {
-		compound.setInteger("burn_time", this.burn_time);
-		compound.setInteger("initial_burn_time", this.initial_burn_time);
-		compound.setInteger("cook_time", this.cook_time);
-		compound.setInteger("cook_time_goal", this.cook_time_goal);
-
-		NBTTagList items = new NBTTagList();
-		for (int i = 0; i < 9; i++) {
-			final ItemStack s = this.contents[i];
-			final NBTTagCompound input_tag = new NBTTagCompound();
-			if (s != null) {
-				s.writeToNBT(input_tag);
-			}
-			items.appendTag(input_tag);
-		}
-		compound.setTag("items", items);
-		//if (this.hasCustomName()){ compound.setString("CustomName", "whatever"); }
-		//System.out.println("wrote nbt: " + compound.toString());
-
-		return super.writeToNBT(compound);
-	}
 
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
@@ -102,41 +54,37 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 		this.readFromNBT(pkt.getNbtCompound());
 	}
 
+	@Override
+	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
+
+	@Nullable
+	@Override
+	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)inventory : super.getCapability(capability, facing);
+	}
+
+
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		compound.setTag("inventory", inventory.serializeNBT());
+        this.burn_time = compound.getInteger("BurnTime");
+        this.cook_time = compound.getInteger("CookTime");
+        this.cook_time_goal = compound.getInteger("CookTimeGoal");
+		return super.writeToNBT(compound);
+
+	}
+
 
 	@Override
-	public String getName() {
-		return "stove";
+	public void readFromNBT(NBTTagCompound compound) {
+		inventory.deserializeNBT(compound.getCompoundTag("inventory"));
+        compound.setInteger("BurnTime", (short)this.burn_time);
+        compound.setInteger("CookTime", (short)this.cook_time);
+        compound.setInteger("CookTimeGoal", (short)this.cook_time_goal);
+		super.readFromNBT(compound);
 	}
 
-	@Override
-	public boolean hasCustomName() {
-		return false;
-	}
-
-	@Override
-	public ITextComponent getDisplayName() {
-		return new TextComponentString("stove");
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return 9;
-	}
-
-	public boolean isEmpty() {
-		for (ItemStack itemstack : this.contents) {
-			if (!itemstack.isEmpty()) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(final int index) {
-		return this.contents[index];
-
-	}
 
 	public boolean isBurning() {
 		return this.burn_time > 0;
@@ -154,21 +102,25 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 
 	private void _consumeIngredients() {
 		for (int i = 1; i <= 6; i++) {
-			this.decrStackSize(i, 1);
+			inventory.getStackInSlot(i).shrink(1);
 		}
 		if (this.whats_cooking.requiresBowl()) {
 			// i hope i can get away with this >__>
-			this.decrStackSize(8, 1);
+			inventory.getStackInSlot(8).shrink(1);
 		}
 	}
 
 	private Dish _whatsCooking() {
 		// ok what is getting cooked:
-		return this.getVessel().getDishes().findMatchingDish((IInventory) this, 1, 6, this.hasBowl(), this.hasWater());
+
+        return Dish.grill.findMatchingDish(inventory, false, true);
+
+        //TODO put this logic back at some point
+		/*return this.getVessel().getDishes().findMatchingDish((IInventory) this, 1, 6, this.hasBowl(), this.hasWater());*/
 	}
 
 	public boolean hasBowl() {
-		return this.contents[8] != null && this.contents[8].getCount() > 0 && this.contents[8].getItem() == Items.BOWL;
+		return !inventory.getStackInSlot(8).isEmpty() && inventory.getStackInSlot(8).getCount() > 0 && inventory.getStackInSlot(8).getItem() == Items.BOWL;
 	}
 
 	public boolean hasWater() {
@@ -228,14 +180,14 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 			}
 
 			// stove cooks for longer than a normal furnace
-			int fuel_value = 8 * net.minecraftforge.fml.common.registry.GameRegistry.getFuelValue(this.contents[0]);
+			int fuel_value = 8 * TileEntityFurnace.getItemBurnTime(inventory.getStackInSlot(0));
 
 			// after the burn counter has had a chance decrement, then we can deal with a non-burning oven.
 			if (!this.isBurning() && fuel_value > 0) {
-				//System.out.format(" START FIRE: %d -> %s \n", this.burn_time, this.getFuelValue(this.contents[0]));
+				//System.out.format(" START FIRE: %d -> %s \n", this.burn_time, this.getFuelValue(inventory.getStackInSlot(0)));
 				this.burn_time = fuel_value;
 				this.initial_burn_time = this.burn_time;
-				this.decrStackSize(0, 1);
+				inventory.getStackInSlot(0).shrink(1);
 				this.markDirty();
 			}
 
@@ -268,15 +220,15 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 
 						// cooking time is done
 						final ItemStack result = this.whats_cooking.getItem();
-						final ItemStack output = this.contents[7];
+						final ItemStack output = inventory.getStackInSlot(7);
 
-						if (output == null) {
+						if (output.isEmpty()) {
 							// take one thing out of each slot in the crafting input
 							this._consumeIngredients();
 							this.markInputChanged();
 
 							// if there's no output stack, put one there.
-							this.contents[7] = this.whats_cooking.getItem();
+							inventory.setStackInSlot(7, this.whats_cooking.getItem());
 							this.cook_time = 0; //reset the cooking timer. theoretically, a changed input grid should take care of it but whatever?
 						}
 
@@ -285,7 +237,7 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 								output.isStackable()
 										&& output.isItemEqual(result)
 										&& ItemStack.areItemStackTagsEqual(output, result) // wuuuut
-										&& output.getCount() + result.getCount() <= this.getInventoryStackLimit()
+										&& output.getCount() + result.getCount() <= inventory.getStackInSlot(7).getMaxStackSize()
 								) {
 							this._consumeIngredients();
 							output.grow(result.getCount());
@@ -306,58 +258,16 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 	/**
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
-	public void setInventorySlotContents(final int index, final ItemStack stack) {
-		this.contents[index] = stack;
-		this.markDirty();
-	}
 
-	@Override
-	public void openInventory(final EntityPlayer player) {
-	}
-
-	@Override
-	public void closeInventory(final EntityPlayer player) {
-	}
-
-	@Override
-	public boolean isItemValidForSlot(final int index, final ItemStack stack) {
-		// afaict this doesn't do shit???
-		return false;
-	}
-
-	public Container createContainer(final InventoryPlayer playerInventory, final EntityPlayer player) {
-		return new ContainerStove(playerInventory, this);
-	}
 
 	// i think this is obsolete~?
 	//public DishRegistry getDishes(){
 	//return DishRegistry.byID(((Vessel)this.worldObj.getBlockState(this.pos).getValue(BlockStoveTop.VESSEL)).meta);	
 	//}
 
-	@Override
-	public void clear() {
-	}
-
-	@Override
-	public ItemStack decrStackSize(final int index, final int count) {
-		if (this.contents[index] != null) {
-			ItemStack stack = this.contents[index].splitStack(Math.min(count, this.contents[index].getCount()));
-			if (this.contents[index].getCount() == 0) {
-				this.contents[index] = null;
-			}
-			this.markDirty();
-			return stack;
-		}
-		return null;
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return 64;
-	}
 
 	// TODO: this should actually make sure the player is close enough.
-	@Override
+
 	public boolean isUsableByPlayer(final EntityPlayer player) {
 		return true;
 	}
@@ -395,22 +305,6 @@ public class TileEntityStove extends TileEntity implements ITickable, IInventory
 				this.cook_time_goal = value;
 				break;
 		}
-	}
-
-	;
-
-	public int getFieldCount() {
-		return 4;
-	}
-
-	;
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		// TODO Auto-generated method stub
-		final ItemStack i = this.contents[index];
-		this.contents[index] = null;
-		return i;
 	}
 
 }

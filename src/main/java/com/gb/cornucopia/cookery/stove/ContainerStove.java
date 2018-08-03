@@ -8,18 +8,26 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class ContainerStove extends Container {
-	public final TileEntityStove stoveInventory;
+	/*public final TileEntityStove stoveInventory;*/
 	private int cook_time;
 	private int burn_time;
 	private int burn_time_max;
 	private int initial_cook_time;
+	private TileEntityStove stove;
 
 	public ContainerStove(final InventoryPlayer playerInventory, final TileEntityStove stove) {
-		this.stoveInventory = stove;
+
+		IItemHandler stoveInventory = stove.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
+
+		this.stove = stove;
 		// fuel = 0
 		this.addSlotToContainer(new SlotStoveFuel(stoveInventory, 0, 80, 55));
 
@@ -32,11 +40,14 @@ public class ContainerStove extends Container {
 
 		// output = 7
 		this.addSlotToContainer(new SlotStoveOutput(stoveInventory, 7, 136, 24));
-		// bowls = 8
-		this.addSlotToContainer(new SlotBowls(stove, this, 8, 24, 37));
 
-		// fake slot ~ 45
-		this.addSlotToContainer(new SlotStoveVessel(stove, 44, 24, 19));
+/*
+		// bowls = 8
+		this.addSlotToContainer(new SlotBowls(stoveInventory, 8, 24, 37));
+
+		// fake slot ~ 9
+		this.addSlotToContainer(new SlotStoveVessel(stove, 9, 24, 19));
+*/
 
 
 		// the player
@@ -53,45 +64,78 @@ public class ContainerStove extends Container {
 
 	}
 
+	//TODO Work out why this makes things barf
+/*	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 
 		for (IContainerListener listener : this.listeners) {
-			if (this.cook_time != (int) this.stoveInventory.getField(2)) {
-				updateProgressBar(2, this.stoveInventory.getField(2));
-				this.stoveInventory.markDirty();
+			if (this.cook_time != (int) stove.getField(2)) {
+				updateProgressBar(2, stove.getField(2));
+				stove.markDirty();
 			}
-			if (this.burn_time != (int) this.stoveInventory.getField(0)) {
-				updateProgressBar(0, this.stoveInventory.getField(0));
-				this.stoveInventory.markDirty();
+			if (this.burn_time != (int) stove.getField(0)) {
+				updateProgressBar(0, stove.getField(0));
+				stove.markDirty();
 			}
-			if (this.burn_time_max != (int) this.stoveInventory.getField(1)) {
-				updateProgressBar(1, this.stoveInventory.getField(1));
-				this.stoveInventory.markDirty();
+			if (this.burn_time_max != (int) stove.getField(1)) {
+				updateProgressBar(1, stove.getField(1));
+				stove.markDirty();
 			}
-			if (this.initial_cook_time != (int) this.stoveInventory.getField(3)) {
-				updateProgressBar(3, this.stoveInventory.getField(3));
-				this.stoveInventory.markDirty();
+			if (this.initial_cook_time != (int) stove.getField(3)) {
+				updateProgressBar(3, stove.getField(3));
+				stove.markDirty();
 			}
 		}
-		this.burn_time = this.stoveInventory.getField(0);
-		this.burn_time_max = this.stoveInventory.getField(1);
-		this.cook_time = this.stoveInventory.getField(2);
-		this.initial_cook_time = this.stoveInventory.getField(3);
-	}
+		this.burn_time = stove.getField(0);
+		this.burn_time_max = stove.getField(1);
+		this.cook_time = stove.getField(2);
+		this.initial_cook_time = stove.getField(3);
+	}*/
 
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(final int id, final int data) {
-		this.stoveInventory.setField(id, data);
+		stove.setField(id, data);
 	}
 
 	public boolean canInteractWith(final EntityPlayer playerIn) {
-		return this.stoveInventory.isUsableByPlayer(playerIn);
+		return stove.isUsableByPlayer(playerIn);
 	}
-
 	@Override
 	public ItemStack transferStackInSlot(final EntityPlayer player, final int index) {
-		Slot slot = (Slot) this.inventorySlots.get(index);
+
+		ItemStack itemstack = ItemStack.EMPTY;
+		Slot slot = inventorySlots.get(index);
+
+		if (slot != null && slot.getHasStack()) {
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
+
+			int containerSlots = inventorySlots.size() - player.inventory.mainInventory.size();
+
+			if (index < containerSlots) {
+				if (!this.mergeItemStack(itemstack1, containerSlots, inventorySlots.size(), true)) {
+					return ItemStack.EMPTY;
+				}
+			} else if (!this.mergeItemStack(itemstack1, 0, containerSlots, false)) {
+				return ItemStack.EMPTY;
+			}
+
+			if (itemstack1.getCount() == 0) {
+				slot.putStack(ItemStack.EMPTY);
+			} else {
+				slot.onSlotChanged();
+			}
+			if (itemstack1.getCount() == itemstack.getCount()) {
+				return ItemStack.EMPTY;
+			}
+
+			slot.onTake(player, itemstack1);
+		}
+
+		return itemstack;
+
+/*		Slot slot = (Slot) this.inventorySlots.get(index);
 		if (slot != null && slot.getHasStack()) {
 			final ItemStack stack = slot.getStack();
 			// try to transfer from table -> player
@@ -116,7 +160,7 @@ public class ContainerStove extends Container {
 			//slot.onPickupFromSlot(player, stack);
 			return stack;
 		}
-		return null;
+		return null;*/
 	}
 
 	@Override
@@ -170,14 +214,14 @@ public class ContainerStove extends Container {
 				} else if (capacity < in_stack.getCount()) { // not enough room transfer what items we can and keep looking
 					in_stack.shrink(capacity);
 					slot_stack.grow(capacity);
-					this.stoveInventory.markDirty();
+					stove.markDirty();
 					did_merge = true;
 					continue;
 
 				} else { // there is enough room for the whole input stack
 					slot_stack.grow(in_stack.getCount());
 					in_stack.setCount(0);
-					this.stoveInventory.markDirty();
+					stove.markDirty();
 					return true;
 				}
 			}

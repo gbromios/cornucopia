@@ -12,6 +12,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
 
 /*
  * copied a lot from ShapelessOreRecipe here. it does what I want but not close enough to extend.
@@ -148,13 +149,13 @@ public class Dish {
 
 	public ItemStack getItem(){ return result.copy(); }
 	
-	public boolean matches(final IInventory crafting, int bowlcount, final boolean has_bowl, final boolean has_water)
+	public boolean matches(final IItemHandler crafting, int bowlcount, final boolean has_bowl, final boolean has_water)
 	{
-		return this.matches(crafting, 0, crafting.getSizeInventory(), has_bowl, has_water);
+		return this.matches(crafting, 0, crafting.getSlots(), has_bowl, has_water);
 	}
 	
 
-	public boolean matches(final IInventory crafting, final int min, final int max, final boolean has_bowl, final boolean has_water){
+	public boolean matches(final IItemHandler crafting, final int min, final int max, final boolean has_bowl, final boolean has_water){
 		// container will tell you if you're next to water
 		if (this.requires_water && !has_water) {
 			return false;
@@ -173,7 +174,7 @@ public class Dish {
 		{
 			final ItemStack stack = crafting.getStackInSlot(x);
 
-			if (stack != null)
+			if (!stack.isEmpty())
 			{
 				
 				
