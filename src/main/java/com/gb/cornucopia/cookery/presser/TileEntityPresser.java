@@ -58,36 +58,6 @@ public class TileEntityPresser extends TileEntity implements ITickable {
 	public void update() {
 	}
 
-	/*@Override
-	public boolean isItemValidForSlot(final int index, final ItemStack stack) {
-		return false;
-	}
-
-	public Container createContainer(final InventoryPlayer playerInventory, final EntityPlayer player) {
-		return new ContainerPresser(playerInventory, (IInventory) this);
-	}
-
-	@Override
-	public int getField(final int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(final int id, int value) {
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-		for (int i = 0; i < this.contents.length; ++i) {
-			this.contents[i] = null;
-		}
-	}*/
-
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
 		return (oldState.getBlock() != newState.getBlock());
@@ -137,14 +107,35 @@ public class TileEntityPresser extends TileEntity implements ITickable {
 
 	public void press(Item output, int ratio, Item byproduct, int byproduct_ratio) {
 
-		if (inventory.getStackInSlot(0).getCount() > 2 && inventory.getStackInSlot(1).isEmpty()) {
-			inventory.getStackInSlot(0).splitStack(2);
-			inventory.setStackInSlot(1, new ItemStack(output, 1));
+		ItemStack in_stack = inventory.getStackInSlot(0);
+		ItemStack out_stack = inventory.getStackInSlot(1);
+
+		//returns how many can be made based on ratio and how much space left in output slot
+		final int make_amount = Math.min(in_stack.getCount() / ratio, out_stack.getMaxStackSize() - out_stack.getCount());
+		final int ingredients_needed = make_amount * ratio;
+		System.out.println("make amount: " + make_amount + " and ingredients needed: " + ingredients_needed);
+
+		//stuff can be made and the output slot is empty
+		if (in_stack.getCount() >= ingredients_needed && out_stack.isEmpty()) {
+			in_stack.shrink(ingredients_needed);
+			inventory.setStackInSlot(1, new ItemStack(output, make_amount));
+			if (byproduct != null) {
+				//TODO currently nothing has a byproduct ratio of more than one, this will need to be revisited if that ever becomes the case
+				ItemStack dropped_byproduct = new ItemStack(byproduct, ingredients_needed/byproduct_ratio);
+				this.world.spawnEntity(new EntityItem(this.world, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, dropped_byproduct));
+			}
 		}
-		if (inventory.getStackInSlot(0).getCount() > 2 && inventory.getStackInSlot(1).getItem()==output) {
-			inventory.getStackInSlot(0).splitStack(2);
-			inventory.getStackInSlot(1).grow(1);
+		//stuff can be made and the output slot already has some output items (if has anything else then nothing will happen)
+		if (in_stack.getCount() >= ingredients_needed && out_stack.getItem()==output) {
+			in_stack.shrink(ingredients_needed);
+			out_stack.grow(make_amount);
+			if (byproduct != null) {
+				//TODO currently nothing has a byproduct ratio of more than one, this will need to be revisited if that ever becomes the case
+				ItemStack dropped_byproduct = new ItemStack(byproduct, ingredients_needed/byproduct_ratio);
+				this.world.spawnEntity(new EntityItem(this.world, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, dropped_byproduct));
+			}
 		}
+
 /*		final ItemStack in_stack = inventory.getStackInSlot(0); // already null checked in press()
 		final ItemStack out_stack = !inventory.getStackInSlot(1).isEmpty() ? inventory.getStackInSlot(1) : new ItemStack(output, 0);
 
@@ -160,6 +151,7 @@ public class TileEntityPresser extends TileEntity implements ITickable {
 
 		final int ingredients_needed = can_make * ratio;
 
+	//if the pressing process will make a byproduct, spawn the correct amount in world
 		if (byproduct != null) {
 			this.contents[0] = byproduct != null ? new ItemStack(byproduct, ingredients_needed / byproduct_ratio) : null;
 		} else {
@@ -233,41 +225,6 @@ public class TileEntityPresser extends TileEntity implements ITickable {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)inventory : super.getCapability(capability, facing);
 	}
 
-/*	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound compound) {
-		final ItemStack in_stack = inventory.getStackInSlot(0);
-		if (in_stack != null && in_stack.getItem() != null) {
-			final NBTTagCompound in_tag = new NBTTagCompound();
-			in_stack.writeToNBT(in_tag);
-			compound.setTag("in", in_tag);
-		}
-
-		final ItemStack out_stack = inventory.getStackInSlot(1);
-		if (out_stack != null && out_stack.getItem() != null) {
-			final NBTTagCompound out_tag = new NBTTagCompound();
-			out_stack.writeToNBT(out_tag);
-			compound.setTag("out", out_tag);
-		}
-		return super.writeToNBT(compound);
-	}*/
-
-/*	@Override
-	public void readFromNBT(final NBTTagCompound parentNBTTagCompound) {
-		super.readFromNBT(parentNBTTagCompound); // The super call is required to load the tiles location
-		final NBTTagCompound in_tag = parentNBTTagCompound.getCompoundTag("in");
-		if (in_tag != null) {
-			this.contents[0] = new ItemStack(in_tag);
-		} else {
-			this.contents[0] = null;
-		}
-
-		final NBTTagCompound out_tag = parentNBTTagCompound.getCompoundTag("out");
-		if (out_tag != null) {
-			this.contents[1] = new ItemStack(out_tag);
-		} else {
-			this.contents[1] = null;
-		}
-	}*/
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setTag("inventory", inventory.serializeNBT());
@@ -282,58 +239,12 @@ public class TileEntityPresser extends TileEntity implements ITickable {
 	}
 
 
-	/*@Override
-	public int getInventoryStackLimit() {
-		return 64;
-	}
+	/*
 
 	@Override
 	public boolean isUsableByPlayer(EntityPlayer player) {
 		return player.getDistanceSq(this.pos) < 6;
 	}
 
-	@Override
-	public ItemStack getStackInSlot(final int index) {
-		return contents[index];
-	}
-
-	@Override
-	public ItemStack decrStackSize(final int index, final int count) {
-		if (this.contents[index] != null) {
-			final ItemStack stack = this.contents[index].splitStack(Math.min(count, this.contents[index].getCount()));
-			if (this.contents[index].getCount() == 0) {
-				this.contents[index] = null;
-			}
-			this.markDirty();
-			return stack;
-		}
-		return null;
-	}
-
-	public void setInventorySlotContents(final int index, final ItemStack stack) {
-		this.contents[index] = stack;
-
-		if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
-			stack.setCount(this.getInventoryStackLimit());
-		}
-
-		this.markDirty();
-	}
-
-	@Override
-	public void openInventory(final EntityPlayer player) {
-	}
-
-	@Override
-	public void closeInventory(final EntityPlayer player) {
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		// TODO Auto-generated method stub
-		final ItemStack i = this.contents[index];
-		this.contents[index] = null;
-		return i;
-	}
 */
 }
