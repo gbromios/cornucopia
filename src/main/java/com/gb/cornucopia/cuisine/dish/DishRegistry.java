@@ -24,7 +24,7 @@ public class DishRegistry {
 
 	// currently assumes bowl inventory is size=0 but could easily be changed to e.g. look in player's inventory
 	public Dish findMatchingDish(final IItemHandler cooking_input, final boolean has_bowl, final boolean has_water){
-		return this.findMatchingDish(cooking_input, 0, cooking_input.getSlots(), has_bowl, has_water);
+		return this.findMatchingDish(cooking_input, 1, 7, has_bowl, has_water);
 	}
 	// both indices inclusive		
 	public Dish findMatchingDish(final IItemHandler cooking_input, final int min, final int max, final boolean has_bowl, final boolean has_water){

@@ -1,5 +1,7 @@
 package com.gb.cornucopia;
 
+import com.gb.cornucopia.network.PacketRequestUpdateStove;
+import com.gb.cornucopia.network.PacketUpdateStove;
 import com.gb.cornucopia.proxy.CommonProxy;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,6 +17,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 
 @Mod(name = CornuCopia.NAME, modid = CornuCopia.MODID, version = CornuCopia.VERSION)
@@ -27,6 +31,8 @@ public class CornuCopia {
 	public static CornuCopia instance;
 	public static Settings config;
 
+	public static SimpleNetworkWrapper wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(CornuCopia.MODID);
+
 	@SidedProxy(clientSide = "com.gb.cornucopia.proxy.ClientProxy", serverSide = "com.gb.cornucopia.proxy.ServerProxy")
 	public static CommonProxy proxy;
 
@@ -36,11 +42,16 @@ public class CornuCopia {
 	public static final CreativeTabs tabFruit = new CornucopiaTabs().new FruitCreativeTab();
 	public static final CreativeTabs tabVeggies = new CornucopiaTabs().new VeggieCreativeTab();
 
+	private static byte packetId = 0;
+
 	@EventHandler
 	public void preInit(final FMLPreInitializationEvent e) {
 		CornuCopia.proxy.preInit(e);
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+
+		wrapper.registerMessage(new PacketUpdateStove.Handler(), PacketUpdateStove.class, packetId++, Side.CLIENT);
+		wrapper.registerMessage(new PacketRequestUpdateStove.Handler(), PacketRequestUpdateStove.class, packetId++, Side.SERVER);
 	}
 
 	@EventHandler

@@ -84,10 +84,7 @@ public class GuiStove extends GuiContainer {
 
 		if (this.stove.isBurning())
 		{
-			/*int burn_pixels = this.pixel_progress(11, this.stove.getField(1) - this.stove.getField(0), this.stove.getField(1) ); // fuel burn completion in pixels?*/
-			//TODO replace below with above when you get it working
-			int burn_pixels = this.stove.getField(1) - this.stove.getField(0);
-			System.out.println("my burn pixels are: " + burn_pixels);
+			int burn_pixels = this.pixel_progress(11, this.stove.getField(1) - this.stove.getField(0), this.stove.getField(1) ); // fuel burn completion in pixels?
 
 			this.drawTexturedModalRect(
 					x + 66,   // x

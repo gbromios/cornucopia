@@ -73,7 +73,7 @@ public class GuiHandler implements IGuiHandler {
 			case MILL:
 				return new GuiMill(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
 			case STOVE:
-				return new GuiStove(getServerGuiElement(ID, player, world, x, y, z), player.inventory, (TileEntityStove) world.getTileEntity(new BlockPos(x, y, z)));
+				return new GuiStove(getServerGuiElement(ID, player, world, x, y, z), player.inventory, (TileEntityStove)world.getTileEntity(new BlockPos(x, y, z)));
 			default:
 				return null;
 		}

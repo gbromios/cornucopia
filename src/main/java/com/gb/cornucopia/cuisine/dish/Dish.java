@@ -33,6 +33,7 @@ public class Dish {
 		// REMEMBER BOWL, WATER, DUPES, ITEM1, ITEM2, ... ITEMN, COOK_TIME
 		grill = new DishRegistry()
 			//.add(new Dish(Cuisine.toast, false, false, false, Items.BREAD, 100))
+			.add(new Dish(Items.BREAD, false, false, false, Cuisine.bread_dough, 200))
 			.add(new Dish(Items.COOKED_BEEF, false, false, false, Items.BEEF, 200))
 			.add(new Dish(Items.COOKED_PORKCHOP, false, false, false, Items.PORKCHOP, 200))
 			.add(new Dish(Items.COOKED_CHICKEN, false, false, false, Items.CHICKEN, 200))
@@ -79,8 +80,7 @@ public class Dish {
 			//.add(new Dish(Cuisine.chicken_caesar_salad, false, false, false, Cuisine.caesar_salad, Items.cooked_chicken))
 			.add(new Dish(Cuisine.bloody_mary, false, false, false, Veggie.tomato.raw, Veggie.tomato.raw, Veggie.celery.raw, Cuisine.black_pepper, Cuisine.spirits))
 			//.add(new Dish(Cuisine.bruscetta, false, false, false, Veggie.tomato.raw, Cuisine.olive_oil, Cuisine.basil, Cuisine.toast))
-			.add(new Dish(Cuisine.smoothie, false, false, true, Ingredient.smoothie_base, Ingredient.smoothie_base, Ingredient.sweet_salad, Ingredient.sweet_salad, Ingredient.sweet_salad, Items.SNOWBALL));
-		
+			.add(new Dish(Cuisine.smoothie, false, false, true, Ingredient.smoothie_base, Ingredient.smoothie_base, Ingredient.sweet_salad, Ingredient.sweet_salad, Ingredient.sweet_salad, Items.SNOWBALL))
 			;
 
 	}
@@ -151,11 +151,11 @@ public class Dish {
 	
 	public boolean matches(final IItemHandler crafting, int bowlcount, final boolean has_bowl, final boolean has_water)
 	{
-		return this.matches(crafting, 0, crafting.getSlots(), has_bowl, has_water);
+		return this.matches(crafting, 1, 7, has_bowl, has_water);
 	}
 	
 
-	public boolean matches(final IItemHandler crafting, final int min, final int max, final boolean has_bowl, final boolean has_water){
+	public boolean matches(final IItemHandler crafting, final int min_slot, final int max_slot, final boolean has_bowl, final boolean has_water){
 		// container will tell you if you're next to water
 		if (this.requires_water && !has_water) {
 			return false;
@@ -170,7 +170,7 @@ public class Dish {
 		// bit chufty this one...
 		final HashMap<Item, ArrayList<Ingredient>> counted_as = new HashMap<Item, ArrayList<Ingredient>>();
 		
-		for (int x = min; x <= max; x++)
+		for (int x = min_slot; x <= max_slot; x++)
 		{
 			final ItemStack stack = crafting.getStackInSlot(x);
 
@@ -217,6 +217,7 @@ public class Dish {
 		}
 		return items_required.isEmpty() && ingredients_required.isEmpty();
 	}
+
 	public boolean requiresBowl() {
 		return this.requires_bowl;
 	}
