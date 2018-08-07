@@ -38,13 +38,13 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 	public final int last_age;
 	private final ItemStack[] drops;
-	private final Item[] inputs; // so we know wether to drop container items
+	private final Item[] inputs; // so we know whether to drop container items
 	private final int fermentation_time;
 
-	public static final int DEFUALT_F_TIME = (int) (3.0 * 7.2e+7); // a few days IRL
+	public static final int DEFAULT_F_TIME = (int) (3.0 * 7.2e+7); // a few days IRL
 
 	public BlockBarrel(String name, int last_stage, ItemStack[] drops, Item[] inputs, boolean juice_flag) {
-		this(name, last_stage, drops, inputs, DEFUALT_F_TIME, juice_flag);
+		this(name, last_stage, drops, inputs, DEFAULT_F_TIME, juice_flag);
 	}
 
 	public BlockBarrel(String name, int last_stage, ItemStack[] drops, Item[] inputs, int f_time, final boolean juice_flag) {

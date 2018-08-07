@@ -7,6 +7,7 @@ import com.gb.cornucopia.bees.apiary.TileEntityApiary;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.cuttingboard.ContainerCuttingBoard;
 import com.gb.cornucopia.cookery.cuttingboard.GuiCuttingBoard;
+import com.gb.cornucopia.cookery.cuttingboard.TileEntityCuttingBoard;
 import com.gb.cornucopia.cookery.mill.ContainerMill;
 import com.gb.cornucopia.cookery.mill.GuiMill;
 import com.gb.cornucopia.cookery.mill.TileEntityMill;
@@ -30,6 +31,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int PRESSER = 1;
 	public static final int MILL = 2;
 	public static final int STOVE = 3;
+	public static final int CUTTINGBOARD = 4;
 
 	@Override
 	public Container getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
@@ -42,6 +44,8 @@ public class GuiHandler implements IGuiHandler {
 				return new ContainerMill(player.inventory, (TileEntityMill)world.getTileEntity(new BlockPos(x, y, z)));
 			case STOVE:
 				return new ContainerStove(player.inventory, (TileEntityStove)world.getTileEntity(new BlockPos(x, y, z)));
+			case CUTTINGBOARD:
+				return new ContainerCuttingBoard(player.inventory, (TileEntityCuttingBoard)world.getTileEntity(new BlockPos(x, y, z)));
 			default:
 				return null;
 
@@ -74,6 +78,8 @@ public class GuiHandler implements IGuiHandler {
 				return new GuiMill(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
 			case STOVE:
 				return new GuiStove(getServerGuiElement(ID, player, world, x, y, z), player.inventory, (TileEntityStove)world.getTileEntity(new BlockPos(x, y, z)));
+			case CUTTINGBOARD:
+				return new GuiCuttingBoard(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
 			default:
 				return null;
 		}

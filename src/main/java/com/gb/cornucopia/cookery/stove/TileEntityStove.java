@@ -144,12 +144,6 @@ public class TileEntityStove extends TileEntity implements ITickable {
 
 	private Dish _whatsCooking() {
 		// ok what is getting cooked:
-
-        //return Dish.grill.findMatchingDish(inventory, false, true);
-        // eg looks like:
-		//return new Dish(Items.COOKED_CHICKEN, false, false, false, Items.CHICKEN, 200);
-
-        //TODO put this below logic back at some point:
 		return this.getVessel().getDishes().findMatchingDish(inventory, 1, 6, this.hasBowl(), this.hasWater());
 	}
 

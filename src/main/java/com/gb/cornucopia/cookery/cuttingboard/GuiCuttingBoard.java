@@ -4,6 +4,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -12,11 +13,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiCuttingBoard extends GuiContainer {
-	// copies GuiCrafting -- change later
 	private ResourceLocation textures = new ResourceLocation("textures/gui/container/crafting_table.png");
+	private InventoryPlayer playerInv;
 
-	public GuiCuttingBoard(final World world, final InventoryPlayer player, final BlockPos pos) {
-		super(new ContainerCuttingBoard(player, world, pos));
+	public GuiCuttingBoard(Container container, final InventoryPlayer playerInv) {
+		super(container);
+		this.playerInv = playerInv;
 	}
 
 	@Override
