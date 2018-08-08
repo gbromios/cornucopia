@@ -15,7 +15,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -54,12 +53,6 @@ public class BlockPresser extends Block implements ITileEntityProvider {
 	}
 
 	public void onBlockPlacedBy(final World world, final BlockPos pos, final IBlockState state, final EntityLivingBase placer, final ItemStack stack) {
-		//world.setBlockState(pos, state, 2);
-		//super.onBlockPlacedBy(world, pos, state, placer, stack);
-		//if (this.canPlaceBlockAt(world, pos)) {
-		//	 world.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, state.getValue(FACING)));
-		//}
-
 		if (world.isAirBlock(pos.up())) {
 			world.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, state.getValue(FACING)));
 		}
@@ -67,7 +60,6 @@ public class BlockPresser extends Block implements ITileEntityProvider {
 	}
 
 	public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {
-
 		TileEntity presser = world.getTileEntity(pos);
 		IItemHandler itemHandler= presser.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
 

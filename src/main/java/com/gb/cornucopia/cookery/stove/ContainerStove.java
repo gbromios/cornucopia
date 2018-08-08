@@ -1,14 +1,10 @@
 package com.gb.cornucopia.cookery.stove;
 
-import com.gb.cornucopia.cookery.SlotBowls;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -16,11 +12,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
 public class ContainerStove extends Container {
-	/*public final TileEntityStove stoveInventory;*/
-	private int cook_time;
-	private int burn_time;
-	private int burn_time_max;
-	private int initial_cook_time;
 	private TileEntityStove stove;
 
 	public ContainerStove(final InventoryPlayer playerInventory, final TileEntityStove stove) {
@@ -31,7 +22,7 @@ public class ContainerStove extends Container {
 		// fuel = 0
 		this.addSlotToContainer(new SlotStoveFuel(stoveInventory, 0, 80, 55));
 
-		// crafting grod = 123456
+		// crafting grid = 123456
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 2; j++) {
 				this.addSlotToContainer(new SlotStoveInput(stoveInventory, 1 + (i + j * 3), 62 + i * 18, 19 + j * 18));
@@ -41,13 +32,11 @@ public class ContainerStove extends Container {
 		// output = 7
 		this.addSlotToContainer(new SlotStoveOutput(stoveInventory, 7, 136, 24));
 
-/*
-		// bowls = 8
-		this.addSlotToContainer(new SlotBowls(stoveInventory, 8, 24, 37));
+		/*// bowls = 8
+		this.addSlotToContainer(new SlotBowls(stoveInventory, 8, 24, 37));*/
 
-		// fake slot ~ 9
-		this.addSlotToContainer(new SlotStoveVessel(stove, 9, 24, 19));
-*/
+		/*// fake slot ~ 9
+		this.addSlotToContainer(new SlotStoveVessel(stoveInventory, 9, 24, 19));*/
 
 
 		// the player
@@ -61,37 +50,7 @@ public class ContainerStove extends Container {
 			this.addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
 		}
 
-
 	}
-
-	//TODO Work out why this makes things barf
-/*	@Override
-	public void detectAndSendChanges() {
-		super.detectAndSendChanges();
-
-		for (IContainerListener listener : this.listeners) {
-			if (this.cook_time != (int) stove.getField(2)) {
-				updateProgressBar(2, stove.getField(2));
-				stove.markDirty();
-			}
-			if (this.burn_time != (int) stove.getField(0)) {
-				updateProgressBar(0, stove.getField(0));
-				stove.markDirty();
-			}
-			if (this.burn_time_max != (int) stove.getField(1)) {
-				updateProgressBar(1, stove.getField(1));
-				stove.markDirty();
-			}
-			if (this.initial_cook_time != (int) stove.getField(3)) {
-				updateProgressBar(3, stove.getField(3));
-				stove.markDirty();
-			}
-		}
-		this.burn_time = stove.getField(0);
-		this.burn_time_max = stove.getField(1);
-		this.cook_time = stove.getField(2);
-		this.initial_cook_time = stove.getField(3);
-	}*/
 
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(final int id, final int data) {
@@ -101,6 +60,7 @@ public class ContainerStove extends Container {
 	public boolean canInteractWith(final EntityPlayer playerIn) {
 		return stove.isUsableByPlayer(playerIn);
 	}
+
 	@Override
 	public ItemStack transferStackInSlot(final EntityPlayer player, final int index) {
 
@@ -134,33 +94,6 @@ public class ContainerStove extends Container {
 		}
 
 		return itemstack;
-
-/*		Slot slot = (Slot) this.inventorySlots.get(index);
-		if (slot != null && slot.getHasStack()) {
-			final ItemStack stack = slot.getStack();
-			// try to transfer from table -> player
-			if (index < 9) {
-				if (!this.mergeItemStack(stack, 9, 44, true)) {
-					return null;
-				}
-			}
-			// player -> table
-			else {
-				if (!this.mergeItemStack(stack, 0, 8, false)) {
-					return null;
-				}
-			}
-
-			// if there was a successful merge
-			// all items were merged, clean up slot's stack
-			if (stack.getCount() == 0) {
-				slot.putStack(null);
-				return null;
-			}
-			//slot.onPickupFromSlot(player, stack);
-			return stack;
-		}
-		return null;*/
 	}
 
 	@Override

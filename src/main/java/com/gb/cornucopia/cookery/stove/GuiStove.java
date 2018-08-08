@@ -13,7 +13,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiStove extends GuiContainer {
 	private ResourceLocation textures = new ResourceLocation("cornucopia:textures/gui/container/cookery_stove.png");
-	//private static final ResourceLocation textures = new ResourceLocation("textures/gui/container/furnace.png");
 	private InventoryPlayer playerInv;
 	private TileEntityStove stove;
 	private int frames = 0;

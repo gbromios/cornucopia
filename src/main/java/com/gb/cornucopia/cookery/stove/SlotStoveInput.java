@@ -4,9 +4,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class SlotStoveInput extends SlotItemHandler {
-	/** The player that is using the GUI where this slot resides. */
-	//private final EntityPlayer player;
-	/*private final TileEntityStove stove;*/
+
 	private final IItemHandler itemHandler;
 	private final int index;
 
@@ -20,9 +18,6 @@ public class SlotStoveInput extends SlotItemHandler {
 	
 	@Override
 	public void onSlotChanged(){//(final ItemStack a, final ItemStack b){
-		if (this.getStack() != null) {
-		//System.out.format("SLOT CHANGE!! %d : %s\n", this.slotNumber, this.getStack());
-		}
 		super.onSlotChanged();
 		/*this.stove.markInputChanged();*/
 	}

@@ -3,26 +3,18 @@ package com.gb.cornucopia.cookery.mill;
 import com.gb.cornucopia.cuisine.Cuisine;
 import com.gb.cornucopia.veggie.Veggie;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -56,6 +48,7 @@ public class TileEntityMill extends TileEntity implements ITickable {
 		return -1;
 	}
 
+	//TODO maybe condense these methods based on recipe type ie Flour & Cornflour could be condensed and Spices & Herbs
 	// must have grain is all three slots to craft
 	private boolean _canMakeFlour() {
 		return this.hasInputItem(Items.WHEAT) + this.hasInputItem(Veggie.barley.raw) == 3;
@@ -104,6 +97,32 @@ public class TileEntityMill extends TileEntity implements ITickable {
 			inventory.setStackInSlot(freeSlot, drop);
 		} else {
 			output.grow(1);
+		}
+		return true;
+	}
+
+	// must have raw corn in all three slots to craft
+	private boolean _canMakeCornmeal() {
+		return this.hasInputItem(Veggie.corn.raw) == 3;
+	}
+
+	// 3 raw corn => 2 corn_flour/cornmeal
+	private boolean _makeCornmeal() {
+		final ItemStack drop = new ItemStack(Cuisine.corn_flour, 2);
+		final int freeSlot = this.findOutputSlot(drop);
+		if (freeSlot == -1) {
+			return false;
+		}
+
+		for (int i = 0; i < 3; i++) {
+			inventory.getStackInSlot(i).shrink(1);
+		}
+
+		final ItemStack output = inventory.getStackInSlot(freeSlot);
+		if (output.isEmpty()) {
+			inventory.setStackInSlot(freeSlot, drop);
+		} else {
+			output.grow(2);
 		}
 		return true;
 	}
@@ -180,6 +199,9 @@ public class TileEntityMill extends TileEntity implements ITickable {
 		}
 		if (this._canMakePeanutButter()) {
 			return this._makePeanutButter();
+		}
+		if (this._canMakeCornmeal()) {
+			return this._makeCornmeal();
 		}
 		if (this._canMakeHerbs()) {
 			return this._makeHerbs();

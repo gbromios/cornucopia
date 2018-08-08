@@ -52,7 +52,7 @@ public class Dish {
 			//.add(new Dish(Cuisine.popcorn, true, false, false, Veggie.corn.seed, Veggie.corn.seed, Veggie.corn.seed, Ingredient.fat))
 			//.add(new Dish(Cuisine.spaghetti_bolognese, false, false, false, Ingredient.red_meat, Cuisine.fresh_pasta, Cuisine.aged_cheese, Cuisine.red_sauce, Cuisine.wine, 360))
 			//.add(new Dish(Cuisine.cheesy_noodles, false, true, false, Cuisine.fresh_pasta, Cuisine.cheese_sauce, Ingredient.casserole_veggie, 300))
-			.add(new Dish(Cuisine.red_sauce, true, false, false, Veggie.tomato.raw, Veggie.tomato.raw, Ingredient.fat, Ingredient.seasoning, Ingredient.mirepoix_part, Ingredient.mirepoix_part, Ingredient.kebab_veggie, 240))
+			.add(new Dish(Cuisine.red_sauce, false, false, false, Veggie.tomato.raw, Veggie.tomato.raw, Ingredient.fat, Ingredient.seasoning, Ingredient.kebab_veggie, 240))
 			//.add(new Dish(Cuisine.fish_and_chips, true, false, false, Items.fish, Items.potato, Cuisine.canola_oil, Cuisine.canola_oil, Ingredient.seasoning, Ingredient.dressing ))
 			;
 		
@@ -230,11 +230,6 @@ public class Dish {
 		// if this does ever happen, i know how i can make it usable. i'm just gonna need 
 		// a damn good reason to implement something better than "return new ArrayList<Object>();"
 		throw new RuntimeException("just curious wtf asshole method could be calling this shit. WTF are interfaces even for??????");
-	}*/
-
-	/*public ItemStack[] getRemainingItems(final InventoryCrafting inv)
-	{
-		//return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}*/
 
 

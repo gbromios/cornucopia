@@ -7,11 +7,7 @@ import com.gb.cornucopia.veggie.ItemVeggieSeed;
 import com.gb.cornucopia.veggie.Veggie;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,8 +17,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -77,7 +71,7 @@ public class TileEntityPresser extends TileEntity implements ITickable {
 		if (!this.hasWorld() || this.world.isRemote) {
 			return false;
 		} else if (inventory.getStackInSlot(0).isEmpty()) {
-			return true; // so players can see how it works without loading it up
+			return true; // so players can see that it works without opening gui
 		}
 
 		final Item i = inventory.getStackInSlot(0).getItem();
@@ -114,35 +108,6 @@ public class TileEntityPresser extends TileEntity implements ITickable {
 				this.world.spawnEntity(new EntityItem(this.world, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, dropped_byproduct));
 			}
 		}
-
-/*		final ItemStack in_stack = inventory.getStackInSlot(0); // already null checked in press()
-		final ItemStack out_stack = !inventory.getStackInSlot(1).isEmpty() ? inventory.getStackInSlot(1) : new ItemStack(output, 0);
-
-		final int can_make = Math.min(in_stack.getCount() / ratio, out_stack.getMaxStackSize() - out_stack.getCount());
-		if (can_make == 0) {
-			// inputs drop out for certain recipes
-			this.world.spawnEntity(new EntityItem(this.world, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
-			inventory.getStackInSlot(0).setCount(0);
-			return;
-		} else if (inventory.getStackInSlot(1).isEmpty()) {
-			contents[1] = out_stack; // re assign if we needed a new stack
-		}
-
-		final int ingredients_needed = can_make * ratio;
-
-	//if the pressing process will make a byproduct, spawn the correct amount in world
-		if (byproduct != null) {
-			this.contents[0] = byproduct != null ? new ItemStack(byproduct, ingredients_needed / byproduct_ratio) : null;
-		} else {
-			inventory.getStackInSlot(0).setCount(0);
-		}
-
-		out_stack.grow(can_make);
-		in_stack.shrink(ingredients_needed);
-
-		if (in_stack.getCount() > 0) {
-			this.world.spawnEntity(new EntityItem(this.world, this.pos.getX() + .5, this.pos.getY() + 1, this.pos.getZ() + .5, in_stack));
-		}*/
 	}
 
 	public void press(Item output, int ratio, Item byproduct) {
@@ -210,20 +175,10 @@ public class TileEntityPresser extends TileEntity implements ITickable {
 		return super.writeToNBT(compound);
 	}
 
-
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		inventory.deserializeNBT(compound.getCompoundTag("inventory"));
 		super.readFromNBT(compound);
 	}
 
-
-	/*
-
-	@Override
-	public boolean isUsableByPlayer(EntityPlayer player) {
-		return player.getDistanceSq(this.pos) < 6;
-	}
-
-*/
 }

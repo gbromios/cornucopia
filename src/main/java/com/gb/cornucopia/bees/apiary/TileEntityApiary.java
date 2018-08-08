@@ -13,8 +13,6 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -66,17 +64,14 @@ public class TileEntityApiary extends TileEntity implements ITickable {
 		if (inventory.getStackInSlot(1).isEmpty()) {
 			return;
 		}
-
-
 		flowerSurvey();
+
 		// hungry bees? no soup for u
 		if (this.feedBees()) {
 			produce();
 			cloneFlower();
 		}
-
 		this.markDirty();
-
 	}
 
 	private void produce() {
@@ -237,227 +232,29 @@ public class TileEntityApiary extends TileEntity implements ITickable {
 		}
 		return density;
 	}
-	public boolean hasQueen() {
+	private boolean hasQueen() {
 		// theoretically slot permissions means we don't need to check the item, slot 0 is queen
 		return !inventory.getStackInSlot(0).isEmpty();
 	}
 
-	public int beeCount() {
+	private int beeCount() {
 		return inventory.getStackInSlot(1).getCount();
 	}
-
-/*	// for writing to nbt
-	public int[] combSlots() {
-		final int[] a = new int[7];
-
-		for (int i = 2; i < 9; i++) {
-			// 0 == empty
-			if (contents[i] == null) {
-				a[i - 2] = 0;
-				continue;
-			}
-
-			Item comb = contents[i].getItem();
-			if (comb == Bees.waxcomb) {
-				a[i - 2] = 1;
-			} else if (comb == Bees.honeycomb) {
-				a[i - 2] = 2;
-			} else if (comb == Bees.royal_jelly) {
-				a[i - 2] = 3;
-			} else { // if something else hid here... gtfo!
-				a[i - 2] = 0;
-			}
-
-		}
-
-		return a;
-	}*/
 
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.getNbtCompound());
 	}
 
-	/*@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound parentNBTTagCompound) {
-		parentNBTTagCompound.setBoolean("hasQueen", this.hasQueen());
-		parentNBTTagCompound.setInteger("beeCount", this.beeCount());
-		parentNBTTagCompound.setIntArray("combSlots", this.combSlots());
-		return super.writeToNBT(parentNBTTagCompound); // The super call is required to save the tiles location
-	}
-
-	// This is where you load the data that you saved in writeToNBT
-	@Override
-	public void readFromNBT(final NBTTagCompound parentNBTTagCompound) {
-		super.readFromNBT(parentNBTTagCompound); // The super call is required to load the tiles location
-
-		final boolean hasQueen = parentNBTTagCompound.getBoolean("hasQueen");
-		final int beeCount = parentNBTTagCompound.getInteger("beeCount");
-		final int[] combSlots = parentNBTTagCompound.getIntArray("combSlots");
-
-		// queen bee
-		if (hasQueen) {
-			this.contents[0] = new ItemStack(Bees.queen);
-		} else {
-			this.contents[0] = null;
-		}
-
-		// worker bees
-		if (beeCount > 0) {
-			this.contents[1] = new ItemStack(Bees.bee, Math.min(beeCount, 64));
-		} else {
-			this.contents[1] = null;
-		}
-
-		// honeycomb slots
-		for (int i = 2; i < 9; i++) {
-			switch (combSlots[i - 2]) {
-				case 1:
-					this.contents[i] = new ItemStack(Bees.waxcomb);
-					break;
-				case 2:
-					this.contents[i] = new ItemStack(Bees.honeycomb);
-					break;
-				case 3:
-					this.contents[i] = new ItemStack(Bees.royal_jelly);
-					break;
-				case 0:
-				default:
-					this.contents[i] = null;
-			}
-		}
-	}*/
-
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		compound.setTag("inventory", inventory.serializeNBT());
 		return super.writeToNBT(compound);
 	}
-
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		inventory.deserializeNBT(compound.getCompoundTag("inventory"));
 		super.readFromNBT(compound);
 	}
-
-/*	@Override
-	public String getName() {
-		return "apiary";
-	}
-
-	@Override
-	public boolean hasCustomName() {
-		return false;
-	}*/
-
-/*	@Override
-	public ITextComponent getDisplayName() {
-		return new TextComponentString("apiary");
-	}*/
-
-/*	@Override
-	public int getSizeInventory() {
-		return 9;
-	}
-
-	public boolean isEmpty() {
-		for (ItemStack itemstack : this.contents) {
-			if (!itemstack.isEmpty()) {
-				return false;
-			}
-		}
-		return true;
-	}*/
-
-/*	@Override
-	public int getInventoryStackLimit() {
-		return 64;
-	}
-
-	@Override
-	public boolean isUsableByPlayer(final EntityPlayer player) {
-		return player.getDistanceSq(this.pos) < 6;
-	}*/
-
-/*	@Override
-	public ItemStack getStackInSlot(final int index) {
-		// 0 - queen
-		// 1 - workers
-		// 2-8 - honeycomb output slots
-		return contents[index];
-	}
-
-	@Override
-	public ItemStack decrStackSize(final int index, final int count) {
-		if (this.contents[index] != null) {
-			final ItemStack itemstack = this.contents[index].splitStack(Math.min(count, this.contents[index].getCount()));
-			if (this.contents[index].getCount() == 0) {
-				this.contents[index] = null;
-			}
-			this.markDirty();
-			return itemstack;
-		}
-		return null;
-	}*/
-
-	/**
-	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-	 */
-/*	public void setInventorySlotContents(final int index, final ItemStack stack) {
-		this.contents[index] = stack;
-
-		if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
-			stack.setCount(this.getInventoryStackLimit());
-		}
-
-		this.markDirty();
-	}*/
-
-/*	@Override
-	public void openInventory(final EntityPlayer player) {
-	}
-
-	@Override
-	public void closeInventory(final EntityPlayer player) {
-	}
-
-	@Override
-	public boolean isItemValidForSlot(final int index, final ItemStack stack) {
-		// afaict this doesn't do shit???
-		return false;
-	}
-
-	public Container createContainer(final InventoryPlayer playerInventory, final EntityPlayer player) {
-		return new ContainerApiary(playerInventory, this, this.world, this.pos);
-	}
-
-	@Override
-	public int getField(final int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(final int id, final int value) {
-
-	}
-
-	@Override
-	public int getFieldCount() {
-
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-		for (int i = 0; i < this.contents.length; ++i) {
-			this.contents[i] = null;
-		}
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
 
 }

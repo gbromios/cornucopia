@@ -8,7 +8,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class SlotApiary extends SlotItemHandler{
 
-	private final int iType; // to lazy for an enum or even checking block instances, if this needs to be more complicated it's a trivial change
+	private final int iType; //type of bee that belongs in slot
 	private final IItemHandler itemHandler;
 	private final int index;
 

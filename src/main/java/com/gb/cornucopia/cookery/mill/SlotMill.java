@@ -3,8 +3,6 @@ package com.gb.cornucopia.cookery.mill;
 import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
@@ -33,6 +31,7 @@ public class SlotMill extends SlotItemHandler {
 		return i == Items.WHEAT
 				|| i == Veggie.barley.raw
 				|| i == Veggie.peanut.raw
+				|| i == Veggie.corn.raw
 				|| i == Veggie.spice.raw
 				|| i == Veggie.herb.raw
 				;

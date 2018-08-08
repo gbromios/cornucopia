@@ -2,13 +2,9 @@ package com.gb.cornucopia.cuisine.dish;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.gb.cornucopia.cookery.stove.TileEntityStove;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
-// maps a list of Dishes (i.e. recipes) to a specific cookign vessel/crafting station
+// maps a list of Dishes (i.e. recipes) to a specific cooking vessel/crafting station
 public class DishRegistry {
 	private final ArrayList<Dish> dishes;
 

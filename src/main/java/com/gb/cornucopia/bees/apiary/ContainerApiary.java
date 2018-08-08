@@ -3,12 +3,9 @@ package com.gb.cornucopia.bees.apiary;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
@@ -28,7 +25,7 @@ public class ContainerApiary extends Container {
 		this.addSlotToContainer(new SlotApiary(apiaryInventory, 7, 124, 43, 2));
 		this.addSlotToContainer(new SlotApiary(apiaryInventory, 8, 101, 54, 2));
 
-		// the player
+		// the player inventory
 		for (int i = 0; i < 3; ++i)
 		{
 			for (int j = 0; j < 9; ++j)
@@ -77,37 +74,6 @@ public class ContainerApiary extends Container {
 		}
 
 		return itemstack;
-/*		ItemStack itemstack = null;
-		final Slot slot = (Slot)this.inventorySlots.get(index);
-
-		if (slot != null && slot.getHasStack())
-		{
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
-
-			if (index < 9 && index >= 0)
-			{
-				if (!this.mergeItemStack(itemstack1, 9, this.inventorySlots.size(), true))
-				{
-					return null;
-				}
-			}
-			else if (!this.mergeItemStack(itemstack1, 0, 9, false))
-			{
-				return null;
-			}
-
-			if (itemstack1.getCount() == 0)
-			{
-				slot.putStack((ItemStack)null);
-			}
-			else
-			{
-				slot.onSlotChanged();
-			}
-		}
-
-		return itemstack;*/
 	}
 
 	@Override

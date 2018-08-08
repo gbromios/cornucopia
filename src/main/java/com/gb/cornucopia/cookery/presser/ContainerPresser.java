@@ -1,10 +1,8 @@
 package com.gb.cornucopia.cookery.presser;
 
-import com.gb.cornucopia.bees.apiary.TileEntityApiary;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -19,7 +17,7 @@ public class ContainerPresser extends Container{
 		this.addSlotToContainer(new SlotPresser(presserInventory, 0, 80, 20, true));
 		this.addSlotToContainer(new SlotPresser(presserInventory, 1, 80, 45, false)); 
 
-		// the player
+		// the player inventory
 		for (int i = 0; i < 3; ++i)
 		{
 			for (int j = 0; j < 9; ++j)

@@ -17,7 +17,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -49,8 +48,10 @@ public class BlockStove extends Block implements ITileEntityProvider {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ON, false).withProperty(FACING, EnumFacing.NORTH));
 		GameRegistry.registerTileEntity(TileEntityStove.class, "cookery_stove_entity");
 		InvModel.add(this);
+
 	}
 
+	//TODO Fix stove to emit light when burning
 	public int getLightValue(IBlockAccess world, BlockPos pos) {
 		final IBlockState state = world.getBlockState(pos);
 		final Block block = state.getBlock();
@@ -73,37 +74,23 @@ public class BlockStove extends Block implements ITileEntityProvider {
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-/*		if (world.isRemote || world.getBlockState(pos.up()).getBlock() != Cookery.stovetop) {
-			return true; }*/
-		if (!world.isRemote) {
-			playerIn.openGui(CornuCopia.instance, GuiHandler.STOVE, world, pos.getX(), pos.getY(), pos.getZ());
-			//world.setBlockState(pos, state.withProperty(PROGRESS, ((int)state.getValue(PROGRESS) + 1) % 16 ));
-		}
-		return true;
+		if (world.isRemote || world.getBlockState(pos.up()).getBlock() != Cookery.stovetop) {
+			return true; }
 
-/*		//TODO Fix all this mess
-		//final IBlockState top = world.getBlockState(pos.up());
-			// TODO  need to make this hand-aware #62
-			if (BlockStove.getVessel(world, pos) == Vessel.NONE) {
-	final Vessel v = (player.getHeldItem() == null) ? Vessel.NONE : Vessel.fromItem(player.getHeldItem().getItem());
-	// if the held item is associated with any vessel, place that vessel
-			if (v != Vessel.NONE) {
-		world.setBlockState(pos.up(), world.getBlockState(pos.up()).withProperty(BlockStoveTop.VESSEL, v));
-		// this should be okay, since all cookware stacks to one
-		player.destroyCurrentEquippedItem();
+		if (BlockStove.getVessel(world, pos) == Vessel.NONE) {
+			final Vessel insertable_vessel = (playerIn.getHeldItem(hand) == ItemStack.EMPTY) ? Vessel.NONE : Vessel.fromItem(playerIn.getHeldItem(hand).getItem());
+			// if the held item is associated with any vessel, place that vessel
+			if (insertable_vessel != Vessel.NONE) {
+				world.setBlockState(pos.up(), world.getBlockState(pos.up()).withProperty(BlockStoveTop.VESSEL, insertable_vessel));
+				// this should be okay, since all cookware stacks to one
+				playerIn.setHeldItem(hand, ItemStack.EMPTY);
+				return true;
+			}
+		}
+		// if there's a vessel already in place, open the GUI
+		playerIn.openGui(CornuCopia.instance, GuiHandler.STOVE, world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
-}
-		// if there's a vessel already in place, open the crafting table
-		// ( also hue hue we doin this... none type gui)
-		player.openGui(CornuCopia.instance, (BlockStove.getVessel(world, pos)).meta, world, pos.getX(), pos.getY(), pos.getZ());
-		if (!world.isRemote) {
-		player.openGui(CornuCopia.instance, GuiHandler.STOVE, world, pos.getX(), pos.getY(), pos.getZ());
-		}
-		return true;*/
-		}
-
-
 
 	@Override
 	public boolean canPlaceBlockAt(final World world, final BlockPos pos) {
@@ -174,7 +161,6 @@ public class BlockStove extends Block implements ITileEntityProvider {
 				| (((boolean) state.getValue(ON)) ? 4 : 0
 		);
 	}
-
 
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, new IProperty[]{ON, FACING});

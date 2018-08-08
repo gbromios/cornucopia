@@ -25,7 +25,6 @@ import java.util.List;
 public class BlockMillTop extends Block {
 	private static final AxisAlignedBB MILL_AABB = new AxisAlignedBB(0.125F, -0.5F, 0.125F, 0.875F, 0.125F, 0.875F);
 	public static final PropertyInteger PROGRESS = PropertyInteger.create("progress", 0, 3);
-	//private static final String TileEntityMill = null;
 	public final String name = "cookery_milltop";
 
 	public BlockMillTop() {
@@ -58,9 +57,7 @@ public class BlockMillTop extends Block {
 				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).withProperty(PROGRESS, progress));
 				worldIn.notifyBlockUpdate(pos.down(), state, getDefaultState(), 3);
 			}
-
 		}
-
 		return true;
 	}
 
@@ -71,7 +68,6 @@ public class BlockMillTop extends Block {
 
 	public IBlockState getStateFromMeta(final int meta) {
 		return this.getDefaultState().withProperty(PROGRESS, meta & 15);
-
 	}
 
 	protected BlockStateContainer createBlockState() {

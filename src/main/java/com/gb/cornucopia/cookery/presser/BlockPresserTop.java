@@ -23,7 +23,6 @@ import java.util.List;
 public class BlockPresserTop extends Block {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL); // TODO get this from the meta above
 	public static final PropertyInteger PROGRESS = PropertyInteger.create("progress", 0, 7);
-	//private static final String TileEntityPresser = null;
 	public final String name = "cookery_pressertop";
 
 	public BlockPresserTop() {

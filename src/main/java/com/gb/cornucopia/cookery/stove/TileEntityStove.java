@@ -8,29 +8,18 @@ import com.gb.cornucopia.network.PacketRequestUpdateStove;
 import com.gb.cornucopia.network.PacketUpdateStove;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import org.lwjgl.Sys;
 
 import javax.annotation.Nullable;
 
@@ -65,7 +54,6 @@ public class TileEntityStove extends TileEntity implements ITickable {
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
 		return (oldState.getBlock() != newState.getBlock());
-
 	}
 
 	@Override
@@ -87,7 +75,6 @@ public class TileEntityStove extends TileEntity implements ITickable {
 		compound.setInteger("CookTimeGoal", (short)this.cook_time_goal);
 		compound.setBoolean("IsCooking", this.is_cooking);
 		return super.writeToNBT(compound);
-
 	}
 
 	@Override
@@ -112,7 +99,7 @@ public class TileEntityStove extends TileEntity implements ITickable {
 
 	public boolean hasBowl() {
 
-		//TODO return to full method once bowls fixed
+		//TODO return to full method if we want to implement bowls again
 		//return !inventory.getStackInSlot(8).isEmpty() && inventory.getStackInSlot(8).getCount() > 0 && inventory.getStackInSlot(8).getItem() == Items.BOWL;
 		return false;
 	}
@@ -137,7 +124,6 @@ public class TileEntityStove extends TileEntity implements ITickable {
 			inventory.getStackInSlot(i).shrink(1);
 		}
 		if (this.whats_cooking.requiresBowl()) {
-			// i hope i can get away with this >__>
 			inventory.getStackInSlot(8).shrink(1);
 		}
 	}
@@ -231,8 +217,8 @@ public class TileEntityStove extends TileEntity implements ITickable {
 				this.is_cooking = true;
 			}
 
-			//if we have just loaded we need to check if something was cooking when the server turned off and continue
-			// from where it left off. Cook times are already saved, so we just need to check what dish should be made
+			//if server has just loaded we need to check if something was cooking when the server turned off and continue
+			// from where it left off. Cook times are already saved, so we just need to check what dish was being made
 			if (this.isBurning() && this.is_cooking){
 				this.whats_cooking = this._whatsCooking();
 			}
@@ -289,25 +275,13 @@ public class TileEntityStove extends TileEntity implements ITickable {
 		}
 	}
 
-	/**
-	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-	 */
-
-
-	// i think this is obsolete~?
-	//public DishRegistry getDishes(){
-	//return DishRegistry.byID(((Vessel)this.worldObj.getBlockState(this.pos).getValue(BlockStoveTop.VESSEL)).meta);	
-	//}
-
 
 	// TODO: this should actually make sure the player is close enough.
-
 	public boolean isUsableByPlayer(final EntityPlayer player) {
 		return true;
 	}
 
-
-	// used by gui and network updating to sync server and client version of te
+	// get and set fields used by gui and network updating to sync server and client version of te
 	public int getField(final int id) {
 		switch (id) {
 			case 0:
