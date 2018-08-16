@@ -48,17 +48,12 @@ public class BlockStove extends Block implements ITileEntityProvider {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ON, false).withProperty(FACING, EnumFacing.NORTH));
 		GameRegistry.registerTileEntity(TileEntityStove.class, "cookery_stove_entity");
 		InvModel.add(this);
-
 	}
 
-	//TODO Fix stove to emit light when burning
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
-		final IBlockState state = world.getBlockState(pos);
-		final Block block = state.getBlock();
-		if (block != this) {
-			return block.getLightValue(state, world, pos);
-		}
-		return (boolean) world.getBlockState(pos).getValue(ON) ? 2 : 0;
+	@Override
+	@Deprecated
+	public int getLightValue(IBlockState state){
+		return state.getValue(ON) ? 8 : 0;
 	}
 
 	private static final PropertyEnum VESSEL = PropertyEnum.create("vessel", Vessel.class);

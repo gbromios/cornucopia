@@ -49,7 +49,7 @@ public class TileEntityMill extends TileEntity implements ITickable {
 	}
 
 	//TODO maybe condense these methods based on recipe type ie Flour & Cornflour could be condensed and Spices & Herbs
-	// must have grain is all three slots to craft
+	// must have grain in all three slots to craft
 	private boolean _canMakeFlour() {
 		return this.hasInputItem(Items.WHEAT) + this.hasInputItem(Veggie.barley.raw) == 3;
 	}
@@ -210,7 +210,7 @@ public class TileEntityMill extends TileEntity implements ITickable {
 			return this._makeSpices();
 		}
 
-		return false; // these input items don't make anything >:(
+		return false;
 	}
 
 	@Override
@@ -243,7 +243,6 @@ public class TileEntityMill extends TileEntity implements ITickable {
 	}
 
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-		//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
 		return (oldState.getBlock() != newState.getBlock());
 
 	}

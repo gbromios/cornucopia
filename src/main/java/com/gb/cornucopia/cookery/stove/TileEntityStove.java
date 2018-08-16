@@ -52,7 +52,6 @@ public class TileEntityStove extends TileEntity implements ITickable {
 	} ;
 
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-		//return !isVanilla || (oldState.getBlock() != newSate.getBlock()); << this makes me want to fucking puke. for shame.
 		return (oldState.getBlock() != newState.getBlock());
 	}
 

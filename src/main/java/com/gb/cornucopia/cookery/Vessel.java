@@ -69,7 +69,6 @@ public enum Vessel implements IStringSerializable {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return this.name;
 	}
 
