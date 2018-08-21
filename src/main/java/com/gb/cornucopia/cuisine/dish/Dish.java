@@ -40,7 +40,7 @@ public class Dish {
 			.add(new Dish(Items.COOKED_MUTTON, false, false, false, Items.MUTTON, 200))
 			.add(new Dish(Items.COOKED_FISH, false, false, false, Items.FISH, 200))
 			.add(new Dish(Items.COOKED_RABBIT, false, false, false, Items.RABBIT, 200))
-			.add(new Dish(Cuisine.kebab, false, false, true, Items.STICK, Ingredient.red_meat, Ingredient.red_meat, Ingredient.seasoning, Ingredient.kebab_veggie, Ingredient.kebab_veggie, 240))
+			.add(new Dish(Cuisine.kebab, false, false, false, Items.STICK, Ingredient.red_meat, Ingredient.red_meat, Ingredient.seasoning, Ingredient.kebab_veggie, Ingredient.kebab_veggie, 240))
 			//.add(new Dish(Cuisine.mirepoix, Ingredient.mirepoix_part, Ingredient.mirepoix_part, Ingredient.mirepoix_part))
 			;
 		
@@ -78,7 +78,7 @@ public class Dish {
 			//.add(new Dish(Cuisine.garden_salad, true, false, true, Veggie.lettuce.raw, Veggie.lettuce.raw, Ingredient.dressing, Ingredient.savory_salad, Ingredient.savory_salad))
 			//.add(new Dish(Cuisine.caesar_salad, true, false, true, Veggie.lettuce.raw, Veggie.lettuce.raw, Cuisine.olive_oil, Cuisine.lemon_juice, Cuisine.salt, Cuisine.black_pepper, Cuisine.anchovy, Items.egg, Cuisine.toast))
 			//.add(new Dish(Cuisine.chicken_caesar_salad, false, false, false, Cuisine.caesar_salad, Items.cooked_chicken))
-			.add(new Dish(Cuisine.bloody_mary, false, false, false, Veggie.tomato.raw/*, Veggie.tomato.raw, Veggie.celery.raw, Cuisine.black_pepper, Cuisine.spirits*/))
+			.add(new Dish(Cuisine.bloody_mary, false, false, false, Veggie.tomato.raw, Veggie.celery.raw, Cuisine.black_pepper, Cuisine.spirits))
 			//.add(new Dish(Cuisine.bruscetta, false, false, false, Veggie.tomato.raw, Cuisine.olive_oil, Cuisine.basil, Cuisine.toast))
 			.add(new Dish(Cuisine.smoothie, false, false, true, Ingredient.smoothie_base, Ingredient.smoothie_base, Ingredient.sweet_salad, Ingredient.sweet_salad, Ingredient.sweet_salad, Items.SNOWBALL))
 			;
