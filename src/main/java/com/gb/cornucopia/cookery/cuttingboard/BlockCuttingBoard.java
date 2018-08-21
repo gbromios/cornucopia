@@ -1,27 +1,33 @@
 package com.gb.cornucopia.cookery.cuttingboard;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.GuiHandler;
 import com.gb.cornucopia.InvModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class BlockCuttingBoard extends Block {
+public class BlockCuttingBoard extends Block implements ITileEntityProvider {
 	protected static final AxisAlignedBB[] BOARD_AABB = new AxisAlignedBB[]{
 			new AxisAlignedBB(0.0625F, 0.0F, 0.125F, 0.9375F, 0.0625F, 0.875F),
 			new AxisAlignedBB(0.125F, 0.0F, 0.0625F, 0.875F, 0.0625F, 0.9375F)
@@ -36,6 +42,7 @@ public class BlockCuttingBoard extends Block {
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setUnlocalizedName(this.name);
 		this.setRegistryName(this.name);
+		GameRegistry.registerTileEntity(TileEntityCuttingBoard.class, String.format("%s_entity", name));
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(0.4F);
 		InvModel.add(this);
@@ -44,7 +51,7 @@ public class BlockCuttingBoard extends Block {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
-			playerIn.openGui(CornuCopia.instance, 420, worldIn, pos.getX(), pos.getY(), pos.getZ());
+			playerIn.openGui(CornuCopia.instance, GuiHandler.CUTTINGBOARD, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 
@@ -103,6 +110,24 @@ public class BlockCuttingBoard extends Block {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, new IProperty[]{FACING});
+	}
+
+	public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {
+		TileEntity board = world.getTileEntity(pos);
+		IItemHandler itemHandler= board.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
+
+		for (int i = 0; i < 10; i++) {
+			if(!itemHandler.getStackInSlot(i).isEmpty()){
+				EntityItem droppedItem = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
+				world.spawnEntity(droppedItem);
+			}
+		}
+		super.breakBlock(world, pos, state);
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TileEntityCuttingBoard();
 	}
 
 }

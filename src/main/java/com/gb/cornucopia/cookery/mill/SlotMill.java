@@ -3,17 +3,21 @@ package com.gb.cornucopia.cookery.mill;
 import com.gb.cornucopia.veggie.Veggie;
 
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
-public class SlotMill extends Slot {
+public class SlotMill extends SlotItemHandler {
 	private final boolean is_input;
+	private final IItemHandler itemHandler;
+	private final int index;
 
-	public SlotMill(final IInventory inv, final int slotIndex, final int xPosition, final int yPosition, boolean is_input)
+	public SlotMill(final IItemHandler itemHandler, final int index, final int xPosition, final int yPosition, boolean is_input)
 	{
-		super(inv, slotIndex, xPosition, yPosition);
+		super(itemHandler, index, xPosition, yPosition);
+		this.itemHandler = itemHandler;
+		this.index = index;
 		this.is_input = is_input;
 	}
 
@@ -27,6 +31,7 @@ public class SlotMill extends Slot {
 		return i == Items.WHEAT
 				|| i == Veggie.barley.raw
 				|| i == Veggie.peanut.raw
+				|| i == Veggie.corn.raw
 				|| i == Veggie.spice.raw
 				|| i == Veggie.herb.raw
 				;

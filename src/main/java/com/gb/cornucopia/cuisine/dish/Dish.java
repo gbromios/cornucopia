@@ -12,6 +12,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
 
 /*
  * copied a lot from ShapelessOreRecipe here. it does what I want but not close enough to extend.
@@ -32,13 +33,14 @@ public class Dish {
 		// REMEMBER BOWL, WATER, DUPES, ITEM1, ITEM2, ... ITEMN, COOK_TIME
 		grill = new DishRegistry()
 			//.add(new Dish(Cuisine.toast, false, false, false, Items.BREAD, 100))
+			.add(new Dish(Items.BREAD, false, false, false, Cuisine.bread_dough, 200))
 			.add(new Dish(Items.COOKED_BEEF, false, false, false, Items.BEEF, 200))
 			.add(new Dish(Items.COOKED_PORKCHOP, false, false, false, Items.PORKCHOP, 200))
 			.add(new Dish(Items.COOKED_CHICKEN, false, false, false, Items.CHICKEN, 200))
 			.add(new Dish(Items.COOKED_MUTTON, false, false, false, Items.MUTTON, 200))
 			.add(new Dish(Items.COOKED_FISH, false, false, false, Items.FISH, 200))
 			.add(new Dish(Items.COOKED_RABBIT, false, false, false, Items.RABBIT, 200))
-			.add(new Dish(Cuisine.kebab, false, false, true, Items.STICK, Ingredient.red_meat, Ingredient.red_meat, Ingredient.seasoning, Ingredient.kebab_veggie, Ingredient.kebab_veggie, 240))
+			.add(new Dish(Cuisine.kebab, false, false, false, Items.STICK, Ingredient.red_meat, Ingredient.red_meat, Ingredient.seasoning, Ingredient.kebab_veggie, Ingredient.kebab_veggie, 240))
 			//.add(new Dish(Cuisine.mirepoix, Ingredient.mirepoix_part, Ingredient.mirepoix_part, Ingredient.mirepoix_part))
 			;
 		
@@ -50,7 +52,7 @@ public class Dish {
 			//.add(new Dish(Cuisine.popcorn, true, false, false, Veggie.corn.seed, Veggie.corn.seed, Veggie.corn.seed, Ingredient.fat))
 			//.add(new Dish(Cuisine.spaghetti_bolognese, false, false, false, Ingredient.red_meat, Cuisine.fresh_pasta, Cuisine.aged_cheese, Cuisine.red_sauce, Cuisine.wine, 360))
 			//.add(new Dish(Cuisine.cheesy_noodles, false, true, false, Cuisine.fresh_pasta, Cuisine.cheese_sauce, Ingredient.casserole_veggie, 300))
-			.add(new Dish(Cuisine.red_sauce, true, false, false, Veggie.tomato.raw, Veggie.tomato.raw, Ingredient.fat, Ingredient.seasoning, Ingredient.mirepoix_part, Ingredient.mirepoix_part, Ingredient.kebab_veggie, 240))
+			.add(new Dish(Cuisine.red_sauce, false, false, false, Veggie.tomato.raw, Veggie.tomato.raw, Ingredient.fat, Ingredient.seasoning, Ingredient.kebab_veggie, 240))
 			//.add(new Dish(Cuisine.fish_and_chips, true, false, false, Items.fish, Items.potato, Cuisine.canola_oil, Cuisine.canola_oil, Ingredient.seasoning, Ingredient.dressing ))
 			;
 		
@@ -76,10 +78,9 @@ public class Dish {
 			//.add(new Dish(Cuisine.garden_salad, true, false, true, Veggie.lettuce.raw, Veggie.lettuce.raw, Ingredient.dressing, Ingredient.savory_salad, Ingredient.savory_salad))
 			//.add(new Dish(Cuisine.caesar_salad, true, false, true, Veggie.lettuce.raw, Veggie.lettuce.raw, Cuisine.olive_oil, Cuisine.lemon_juice, Cuisine.salt, Cuisine.black_pepper, Cuisine.anchovy, Items.egg, Cuisine.toast))
 			//.add(new Dish(Cuisine.chicken_caesar_salad, false, false, false, Cuisine.caesar_salad, Items.cooked_chicken))
-			.add(new Dish(Cuisine.bloody_mary, false, false, false, Veggie.tomato.raw, Veggie.tomato.raw, Veggie.celery.raw, Cuisine.black_pepper, Cuisine.spirits))
+			.add(new Dish(Cuisine.bloody_mary, false, false, false, Veggie.tomato.raw, Veggie.celery.raw, Cuisine.black_pepper, Cuisine.spirits))
 			//.add(new Dish(Cuisine.bruscetta, false, false, false, Veggie.tomato.raw, Cuisine.olive_oil, Cuisine.basil, Cuisine.toast))
-			.add(new Dish(Cuisine.smoothie, false, false, true, Ingredient.smoothie_base, Ingredient.smoothie_base, Ingredient.sweet_salad, Ingredient.sweet_salad, Ingredient.sweet_salad, Items.SNOWBALL));
-		
+			.add(new Dish(Cuisine.smoothie, false, false, true, Ingredient.smoothie_base, Ingredient.smoothie_base, Ingredient.sweet_salad, Ingredient.sweet_salad, Ingredient.sweet_salad, Items.SNOWBALL))
 			;
 
 	}
@@ -148,13 +149,13 @@ public class Dish {
 
 	public ItemStack getItem(){ return result.copy(); }
 	
-	public boolean matches(final IInventory crafting, int bowlcount, final boolean has_bowl, final boolean has_water)
+	public boolean matches(final IItemHandler crafting, int bowlcount, final boolean has_bowl, final boolean has_water)
 	{
-		return this.matches(crafting, 0, crafting.getSizeInventory(), has_bowl, has_water);
+		return this.matches(crafting, 1, 7, has_bowl, has_water);
 	}
 	
 
-	public boolean matches(final IInventory crafting, final int min, final int max, final boolean has_bowl, final boolean has_water){
+	public boolean matches(final IItemHandler crafting, final int min_slot, final int max_slot, final boolean has_bowl, final boolean has_water){
 		// container will tell you if you're next to water
 		if (this.requires_water && !has_water) {
 			return false;
@@ -169,11 +170,11 @@ public class Dish {
 		// bit chufty this one...
 		final HashMap<Item, ArrayList<Ingredient>> counted_as = new HashMap<Item, ArrayList<Ingredient>>();
 		
-		for (int x = min; x <= max; x++)
+		for (int x = min_slot; x <= max_slot; x++)
 		{
 			final ItemStack stack = crafting.getStackInSlot(x);
 
-			if (stack != null)
+			if (!stack.isEmpty())
 			{
 				
 				
@@ -216,6 +217,7 @@ public class Dish {
 		}
 		return items_required.isEmpty() && ingredients_required.isEmpty();
 	}
+
 	public boolean requiresBowl() {
 		return this.requires_bowl;
 	}
@@ -228,11 +230,6 @@ public class Dish {
 		// if this does ever happen, i know how i can make it usable. i'm just gonna need 
 		// a damn good reason to implement something better than "return new ArrayList<Object>();"
 		throw new RuntimeException("just curious wtf asshole method could be calling this shit. WTF are interfaces even for??????");
-	}*/
-
-	/*public ItemStack[] getRemainingItems(final InventoryCrafting inv)
-	{
-		//return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}*/
 
 

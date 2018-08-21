@@ -1,6 +1,7 @@
 package com.gb.cornucopia.cookery.presser;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.GuiHandler;
 import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.cookery.Cookery;
 import net.minecraft.block.Block;
@@ -12,8 +13,8 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -22,6 +23,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+
 
 public class BlockPresser extends Block implements ITileEntityProvider {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
@@ -49,12 +53,6 @@ public class BlockPresser extends Block implements ITileEntityProvider {
 	}
 
 	public void onBlockPlacedBy(final World world, final BlockPos pos, final IBlockState state, final EntityLivingBase placer, final ItemStack stack) {
-		//world.setBlockState(pos, state, 2);
-		//super.onBlockPlacedBy(world, pos, state, placer, stack);
-		//if (this.canPlaceBlockAt(world, pos)) {
-		//	 world.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, state.getValue(FACING)));
-		//}
-
 		if (world.isAirBlock(pos.up())) {
 			world.setBlockState(pos.up(), Cookery.pressertop.getDefaultState().withProperty(FACING, state.getValue(FACING)));
 		}
@@ -62,11 +60,14 @@ public class BlockPresser extends Block implements ITileEntityProvider {
 	}
 
 	public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {
-
 		TileEntity presser = world.getTileEntity(pos);
+		IItemHandler itemHandler= presser.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
 
-		if (presser instanceof TileEntityPresser) {
-			InventoryHelper.dropInventoryItems(world, pos, (TileEntityPresser) presser);
+		for (int i = 0; i < 2; i++) {
+			if(!itemHandler.getStackInSlot(i).isEmpty()){
+				EntityItem droppedItem = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
+				world.spawnEntity(droppedItem);
+			}
 		}
 
 		if (world.getBlockState(pos.up()).getBlock() == Cookery.pressertop) {
@@ -84,7 +85,7 @@ public class BlockPresser extends Block implements ITileEntityProvider {
 			worldIn.notifyBlockUpdate(pos.up(), state, getDefaultState(), 3);
 		}
 		if (!worldIn.isRemote) {
-			playerIn.openGui(CornuCopia.instance, 420, worldIn, pos.getX(), pos.getY(), pos.getZ());
+			playerIn.openGui(CornuCopia.instance, GuiHandler.PRESSER, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}

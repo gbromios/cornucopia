@@ -1,6 +1,7 @@
 package com.gb.cornucopia.cookery.stove;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.GuiHandler;
 import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.cookery.Cookery;
 import com.gb.cornucopia.cookery.Vessel;
@@ -16,10 +17,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -27,6 +28,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import java.util.Random;
 
@@ -47,13 +50,10 @@ public class BlockStove extends Block implements ITileEntityProvider {
 		InvModel.add(this);
 	}
 
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
-		final IBlockState state = world.getBlockState(pos);
-		final Block block = state.getBlock();
-		if (block != this) {
-			return block.getLightValue(state, world, pos);
-		}
-		return (boolean) world.getBlockState(pos).getValue(ON) ? 2 : 0;
+	@Override
+	@Deprecated
+	public int getLightValue(IBlockState state){
+		return state.getValue(ON) ? 8 : 0;
 	}
 
 	private static final PropertyEnum VESSEL = PropertyEnum.create("vessel", Vessel.class);
@@ -67,28 +67,23 @@ public class BlockStove extends Block implements ITileEntityProvider {
 		}
 	}
 
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state, final EntityPlayer player, final EnumFacing side, final float hitX, final float hitY, final float hitZ) {
-		//final IBlockState top = world.getBlockState(pos.up());
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (world.isRemote || world.getBlockState(pos.up()).getBlock() != Cookery.stovetop) {
-			return true;
-		}
-		//System.out.format("ok go \n" );
-		// TODO  need to make this hand-aware #62
-		/*if (BlockStove.getVessel(world, pos) == Vessel.NONE) {			
-			final Vessel v = (player.getHeldItem() == null) ? Vessel.NONE : Vessel.fromItem(player.getHeldItem().getItem());
+			return true; }
+
+		if (BlockStove.getVessel(world, pos) == Vessel.NONE) {
+			final Vessel insertable_vessel = (playerIn.getHeldItem(hand) == ItemStack.EMPTY) ? Vessel.NONE : Vessel.fromItem(playerIn.getHeldItem(hand).getItem());
 			// if the held item is associated with any vessel, place that vessel
-			if (v != Vessel.NONE) {
-				world.setBlockState(pos.up(), world.getBlockState(pos.up()).withProperty(BlockStoveTop.VESSEL, v));
+			if (insertable_vessel != Vessel.NONE) {
+				world.setBlockState(pos.up(), world.getBlockState(pos.up()).withProperty(BlockStoveTop.VESSEL, insertable_vessel));
 				// this should be okay, since all cookware stacks to one
-				player.destroyCurrentEquippedItem();
+				playerIn.setHeldItem(hand, ItemStack.EMPTY);
 				return true;
 			}
-		}*/
-
-		// if there's a vessel already in place, open the crafting table 
-		// ( also hue hue we doin this... none type gui)
-		player.openGui(CornuCopia.instance, (BlockStove.getVessel(world, pos)).meta, world, pos.getX(), pos.getY(), pos.getZ());
-
+		}
+		// if there's a vessel already in place, open the GUI
+		playerIn.openGui(CornuCopia.instance, GuiHandler.STOVE, world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
 
@@ -110,6 +105,7 @@ public class BlockStove extends Block implements ITileEntityProvider {
 	public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {
 
 		TileEntity stove = world.getTileEntity(pos);
+		IItemHandler itemHandler= stove.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
 
 		if (stove instanceof TileEntityStove) {
 			Vessel v = BlockStove.getVessel(world, pos);
@@ -117,7 +113,15 @@ public class BlockStove extends Block implements ITileEntityProvider {
 				world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(v.getItem())));
 				world.setBlockToAir(pos.up());
 			}
-			InventoryHelper.dropInventoryItems(world, pos, (TileEntityStove) stove);
+			for (int i = 0; i < 8; i++) {
+				if(!itemHandler.getStackInSlot(i).isEmpty()){
+					EntityItem droppedItem = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
+					world.spawnEntity(droppedItem);
+				}
+			}
+		}
+		if (world.getBlockState(pos.up()).getBlock() == Cookery.stovetop) {
+			world.setBlockToAir(pos.up());
 		}
 
 		super.breakBlock(world, pos, state);
@@ -152,7 +156,6 @@ public class BlockStove extends Block implements ITileEntityProvider {
 				| (((boolean) state.getValue(ON)) ? 4 : 0
 		);
 	}
-
 
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, new IProperty[]{ON, FACING});

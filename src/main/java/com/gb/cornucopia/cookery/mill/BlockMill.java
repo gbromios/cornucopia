@@ -1,6 +1,7 @@
 package com.gb.cornucopia.cookery.mill;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.GuiHandler;
 import com.gb.cornucopia.InvModel;
 import com.gb.cornucopia.cookery.Cookery;
 import net.minecraft.block.Block;
@@ -11,8 +12,8 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -22,6 +23,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class BlockMill extends Block implements ITileEntityProvider {
 	protected static final AxisAlignedBB MILL_AABB = new AxisAlignedBB(0F, 0F, 0F, 1F, 0.75F, 1F);
@@ -42,8 +45,7 @@ public class BlockMill extends Block implements ITileEntityProvider {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
-			playerIn.openGui(CornuCopia.instance, 420, worldIn, pos.getX(), pos.getY(), pos.getZ());
-			//world.setBlockState(pos, state.withProperty(PROGRESS, ((int)state.getValue(PROGRESS) + 1) % 16 ));
+			playerIn.openGui(CornuCopia.instance, GuiHandler.MILL, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}
@@ -98,13 +100,20 @@ public class BlockMill extends Block implements ITileEntityProvider {
 	}
 
 	public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {
-		//System.out.println("break presser");
-
 		TileEntity mill = world.getTileEntity(pos);
+		IItemHandler itemHandler= mill.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
 
-		if (mill instanceof TileEntityMill) {
-			InventoryHelper.dropInventoryItems(world, pos, (TileEntityMill) mill);
+		for (int i = 0; i < 9; i++) {
+			if(!itemHandler.getStackInSlot(i).isEmpty()){
+				EntityItem droppedItem = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
+				world.spawnEntity(droppedItem);
+			}
 		}
+
+		if (world.getBlockState(pos.up()).getBlock() == Cookery.milltop) {
+			world.setBlockToAir(pos.up());
+		}
+
 		super.breakBlock(world, pos, state);
 	}
 

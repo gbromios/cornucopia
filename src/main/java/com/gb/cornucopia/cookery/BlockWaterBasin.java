@@ -28,7 +28,6 @@ public class BlockWaterBasin extends Block {
 		//this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(0.5F);
 		InvModel.add(this);
-
 	}
 
 	public boolean isOpaqueCube() {
@@ -41,11 +40,11 @@ public class BlockWaterBasin extends Block {
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (worldIn.isRemote || playerIn.inventory.getCurrentItem() == null) {
+		if (worldIn.isRemote || playerIn.getHeldItem(hand).isEmpty()) {
 			return true;
 		}
 
-		final Item held_item = playerIn.inventory.getCurrentItem().getItem();
+		final Item held_item = playerIn.getHeldItem(hand).getItem();
 		ItemStack filled_container = null;
 
 		if (held_item == Items.GLASS_BOTTLE) {
@@ -66,7 +65,7 @@ public class BlockWaterBasin extends Block {
 		// ....wat
 		playerIn.inventory.getCurrentItem().shrink(1);
 		if (playerIn.inventory.getCurrentItem().getCount() <= 0) {
-			playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, (ItemStack) null);
+			playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, ItemStack.EMPTY);
 		}
 
 		return true;

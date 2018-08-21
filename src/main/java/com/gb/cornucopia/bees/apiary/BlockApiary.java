@@ -1,21 +1,23 @@
 package com.gb.cornucopia.bees.apiary;
 
 import com.gb.cornucopia.CornuCopia;
+import com.gb.cornucopia.GuiHandler;
 import com.gb.cornucopia.InvModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+
 
 public class BlockApiary extends Block implements ITileEntityProvider {
 	public final String name = "bee_apiary";
@@ -41,9 +43,9 @@ public class BlockApiary extends Block implements ITileEntityProvider {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!worldIn.isRemote) {
-			playerIn.openGui(CornuCopia.instance, 420, worldIn, pos.getX(), pos.getY(), pos.getZ());
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (!world.isRemote) {
+			player.openGui(CornuCopia.instance, GuiHandler.APIARY, world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 
@@ -51,9 +53,12 @@ public class BlockApiary extends Block implements ITileEntityProvider {
 
 	public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {
 		TileEntity apiary = world.getTileEntity(pos);
-
-		if (apiary instanceof TileEntityApiary) {
-			InventoryHelper.dropInventoryItems(world, pos, (IInventory) apiary);
+		IItemHandler itemHandler = apiary.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
+		for (int i = 0; i < 9; i++) {
+			if(!itemHandler.getStackInSlot(i).isEmpty()){
+				EntityItem droppedItem = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), itemHandler.getStackInSlot(i));
+				world.spawnEntity(droppedItem);
+			}
 		}
 		super.breakBlock(world, pos, state);
 	}

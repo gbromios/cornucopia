@@ -4,25 +4,18 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+/*@SideOnly(Side.CLIENT)*/
 public class GuiApiary extends GuiContainer {
-	// copies GuiCrafting -- change later.... again. especially because the slots will not line up in any way, lol
 	private ResourceLocation textures = new ResourceLocation("cornucopia:textures/gui/container/bee_apiary.png");
-	public GuiApiary(World world, InventoryPlayer player_inventory, BlockPos pos) {
-		// will this crash if the wrong kind of tile entity is there? probably lol
-		super(new ContainerApiary(player_inventory, (IInventory)world.getTileEntity(pos), world, pos));
-		// find out for sure!!
-		if (!(world.getTileEntity(pos) instanceof TileEntityApiary)){
-			throw new RuntimeException(String.format("somehow GuiApiary is getting a %s at %s ???", world.getTileEntity(pos), pos));
-		}
 
+	private InventoryPlayer playerInv;
+
+	public GuiApiary(Container container, InventoryPlayer playerInv) {
+		super(container);
+		this.playerInv = playerInv;
 	}
 
 	@Override

@@ -25,7 +25,6 @@ import java.util.List;
 public class BlockMillTop extends Block {
 	private static final AxisAlignedBB MILL_AABB = new AxisAlignedBB(0.125F, -0.5F, 0.125F, 0.875F, 0.125F, 0.875F);
 	public static final PropertyInteger PROGRESS = PropertyInteger.create("progress", 0, 3);
-	//private static final String TileEntityMill = null;
 	public final String name = "cookery_milltop";
 
 	public BlockMillTop() {
@@ -51,16 +50,14 @@ public class BlockMillTop extends Block {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
 			TileEntity mill = worldIn.getTileEntity(pos.down());
-			if (mill instanceof TileEntityMill && ((TileEntityMill) mill).mill()) {
-				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_GRAVEL_BREAK, SoundCategory.BLOCKS, 0.3f, 0.9f);
+			if (mill instanceof TileEntityMill && ((TileEntityMill) mill).can_mill()) {
+				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_CLOTH_BREAK, SoundCategory.BLOCKS, 0.3f, 0.9f);
 				final Integer progress = ((Integer) state.getValue(PROGRESS) + 1) % 4;
 				worldIn.setBlockState(pos, state.withProperty(PROGRESS, progress));
 				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).withProperty(PROGRESS, progress));
 				worldIn.notifyBlockUpdate(pos.down(), state, getDefaultState(), 3);
 			}
-
 		}
-
 		return true;
 	}
 
@@ -71,7 +68,6 @@ public class BlockMillTop extends Block {
 
 	public IBlockState getStateFromMeta(final int meta) {
 		return this.getDefaultState().withProperty(PROGRESS, meta & 15);
-
 	}
 
 	protected BlockStateContainer createBlockState() {

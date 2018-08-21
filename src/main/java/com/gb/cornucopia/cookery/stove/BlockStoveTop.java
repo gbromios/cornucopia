@@ -10,6 +10,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -20,8 +21,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.List;
-
-// inventory 
 
 public class BlockStoveTop extends Block {
 	public final String name;
@@ -63,13 +62,8 @@ public class BlockStoveTop extends Block {
 				return new AxisAlignedBB(0.25F, 0F, 0.25F, 0.75F, 0.5F, 0.75F);
 			case NONE:
 			default:
-				switch ((EnumFacing) source.getBlockState(pos.down()).getValue(FACING)) {
-					case NORTH:
-					case SOUTH:
-						return new AxisAlignedBB(0.25F, 0F, 0.1875F, 0.75F, 0.0625F, 0.8125F);
-					default:
-						return new AxisAlignedBB(0.1875F, 0F, 0.25F, 0.8125F, 0.0625F, 0.75F);
-				}
+				return new AxisAlignedBB(0.1875F, 0F, 0.25F, 0.8125F, 0.0625F, 0.75F);
+
 		}
 	}
 
@@ -96,6 +90,10 @@ public class BlockStoveTop extends Block {
 			this.dropBlockAsItem(world, pos, state, 0);
 			world.setBlockToAir(pos);
 		} else {
+			Vessel v = BlockStove.getVessel(world, pos.down());
+			if (v != Vessel.NONE) {
+				world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(v.getItem())));
+			}
 			world.setBlockState(pos, state.withProperty(VESSEL, Vessel.NONE));
 		}
 	}
@@ -108,7 +106,6 @@ public class BlockStoveTop extends Block {
 			drop_stacks.add(new ItemStack(v.getItem()));
 		}
 		return drop_stacks;
-
 	}
 
 	// destroy/hit effects: don't show the particles please
