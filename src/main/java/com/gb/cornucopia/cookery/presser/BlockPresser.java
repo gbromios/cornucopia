@@ -26,6 +26,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
+import static com.gb.cornucopia.CornuCopia.MODID;
+
 
 public class BlockPresser extends Block implements ITileEntityProvider {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
@@ -39,7 +41,7 @@ public class BlockPresser extends Block implements ITileEntityProvider {
 		this.setHardness(1.5F);
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(PROGRESS, 0));
-		GameRegistry.registerTileEntity(TileEntityPresser.class, String.format("%s_entity", name));
+		GameRegistry.registerTileEntity(TileEntityPresser.class, MODID + this.getUnlocalizedName());
 		InvModel.add(this);
 	}
 
