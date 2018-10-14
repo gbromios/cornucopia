@@ -33,6 +33,8 @@ import net.minecraftforge.items.IItemHandler;
 
 import java.util.Random;
 
+import static com.gb.cornucopia.CornuCopia.MODID;
+
 public class BlockStove extends Block implements ITileEntityProvider {
 	public final String name;
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
@@ -46,7 +48,7 @@ public class BlockStove extends Block implements ITileEntityProvider {
 		this.setHardness(1.5F);
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ON, false).withProperty(FACING, EnumFacing.NORTH));
-		GameRegistry.registerTileEntity(TileEntityStove.class, "cookery_stove_entity");
+		GameRegistry.registerTileEntity(TileEntityStove.class, MODID + this.getUnlocalizedName());
 		InvModel.add(this);
 	}
 

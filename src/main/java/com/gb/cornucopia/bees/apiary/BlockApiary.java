@@ -18,6 +18,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
+import static com.gb.cornucopia.CornuCopia.MODID;
+
 
 public class BlockApiary extends Block implements ITileEntityProvider {
 	public final String name = "bee_apiary";
@@ -28,7 +30,7 @@ public class BlockApiary extends Block implements ITileEntityProvider {
 		this.setHardness(0.6F);
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
-		GameRegistry.registerTileEntity(TileEntityApiary.class, String.format("%s_entity", name));
+		GameRegistry.registerTileEntity(TileEntityApiary.class, MODID + this.getUnlocalizedName());
 		InvModel.add(this);
 	}
 

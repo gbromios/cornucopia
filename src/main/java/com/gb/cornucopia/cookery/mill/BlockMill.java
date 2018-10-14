@@ -26,6 +26,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
+import static com.gb.cornucopia.CornuCopia.MODID;
+
 public class BlockMill extends Block implements ITileEntityProvider {
 	protected static final AxisAlignedBB MILL_AABB = new AxisAlignedBB(0F, 0F, 0F, 1F, 0.75F, 1F);
 	public static final PropertyInteger PROGRESS = PropertyInteger.create("progress", 0, 3);
@@ -38,7 +40,7 @@ public class BlockMill extends Block implements ITileEntityProvider {
 		this.setHardness(1.5F);
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(PROGRESS, 0));
-		GameRegistry.registerTileEntity(TileEntityMill.class, "cookery_mill_entity");
+		GameRegistry.registerTileEntity(TileEntityMill.class, MODID + this.getUnlocalizedName());
 		InvModel.add(this);
 	}
 

@@ -27,6 +27,8 @@ import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 
+import static com.gb.cornucopia.CornuCopia.MODID;
+
 public class BlockCuttingBoard extends Block implements ITileEntityProvider {
 	protected static final AxisAlignedBB[] BOARD_AABB = new AxisAlignedBB[]{
 			new AxisAlignedBB(0.0625F, 0.0F, 0.125F, 0.9375F, 0.0625F, 0.875F),
@@ -42,7 +44,7 @@ public class BlockCuttingBoard extends Block implements ITileEntityProvider {
 		this.setCreativeTab(CornuCopia.tabCookery);
 		this.setUnlocalizedName(this.name);
 		this.setRegistryName(this.name);
-		GameRegistry.registerTileEntity(TileEntityCuttingBoard.class, String.format("%s_entity", name));
+		GameRegistry.registerTileEntity(TileEntityCuttingBoard.class, MODID + this.getUnlocalizedName());
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setHardness(0.4F);
 		InvModel.add(this);

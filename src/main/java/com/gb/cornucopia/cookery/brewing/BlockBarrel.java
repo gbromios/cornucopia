@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.gb.cornucopia.CornuCopia.MODID;
+
 // barrel is built with wood + iron + cooking product
 // e.g wood + grape juice = wine barrel
 // barrel can be placed + takes time to ferment
@@ -60,7 +62,7 @@ public class BlockBarrel extends BlockBarrelEmpty implements ITileEntityProvider
 		this.last_age = Math.min(3, Math.max(1, last_stage)); // must be 1, 2, or 3 
 		this.fermentation_time = f_time;
 		this.setDefaultState(super.getDefaultState().withProperty(AGE, 0));
-		GameRegistry.registerTileEntity(TileEntityBarrel.class, String.format("brew_%s_entity", name));
+		GameRegistry.registerTileEntity(TileEntityBarrel.class, MODID + this.getUnlocalizedName());
 
 //		if (juice_flag) { TODO fix these recipes
 //			// TODO: this is bad sorry
