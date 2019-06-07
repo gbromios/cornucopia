@@ -24,6 +24,9 @@ gradlew.bat
 *~
 *.swp
 
+# vscode
+.vscode/
+
 # other
 eclipse
 run
